@@ -1,22 +1,45 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+interface Props {
+  title: string;
+}
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+const { title } = Astro.props;
+
+// Import global styles
+---
+
+<!doctype html>
+<html lang="en" class="no-transition">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Mayuresh Mule - UX Engineer & Product Builder" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    
+    <!-- Plus Jakarta Sans Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Prevent flash of unstyled content (FOUC) -->
+    <script is:inline>
+      // Check theme before page loads
+      const theme = localStorage.getItem('theme')
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      
+      if (theme === 'dark' || (!theme && prefersDark)) {
+        document.documentElement.classList.add('dark')
+      }
+
+      // Enable transitions after page loads (prevents flash on load)
+      window.addEventListener('load', () => {
+        document.documentElement.classList.remove('no-transition')
+      })
+    </script>
+  </head>
+<body class="bg-light dark:bg-dark text-light dark:text-dark font-jakarta transition-colors duration-300">
+  <slot />
+</body>
+
+</html>

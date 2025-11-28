@@ -1,0 +1,35 @@
+---
+import { getCaseStudies, getCaseStudyBySlug } from '../../lib/strapi.js'
+import Layout from '../../layouts/Layout.astro'
+import Header from '../../components/Header.vue'
+import SocialSidebar from '../../components/SocialSidebar.vue'
+import EmailSidebar from '../../components/EmailSidebar.vue'
+import LetsConnect from '../../components/LetsConnect.vue'
+import ContentLayout from '../../components/ContentLayout.vue'
+
+// Fetch all case studies at build time
+export async function getStaticPaths() {
+  const caseStudies = await getCaseStudies()
+  
+  return caseStudies.map(study => ({
+    params: { slug: study.slug },
+    props: { content: study }
+  }))
+}
+
+const { content } = Astro.props
+---
+
+<Layout title={`${content.title} - Mayuresh Mule`}>
+  <Header client:load />
+  <SocialSidebar client:load />
+  <EmailSidebar client:load />
+  
+  <main class="px-16 md:px-24 py-20 pt-32">
+    <ContentLayout content={content} client:visible />
+
+    <div class="max-w-7xl mx-auto">
+      <LetsConnect client:visible />
+    </div>
+  </main>
+</Layout>

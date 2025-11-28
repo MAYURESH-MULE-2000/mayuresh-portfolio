@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.vue';
+import SocialSidebar from '../components/SocialSidebar.vue';
+import EmailSidebar from '../components/EmailSidebar.vue';
+import LetsConnect from '../components/LetsConnect.vue';
+import ResourcesGrid from '../components/ResourcesGrid.vue';
+---
+
+<Layout title="Resources - Mayuresh Mule">
+  <Header client:load />
+  <SocialSidebar client:load />
+  <EmailSidebar client:load />
+  
+  <main class="px-16 md:px-32 py-20 pt-32">
+    <div class="max-w-7xl mx-auto">
+      <!-- Resources Section -->
+      <ResourcesGrid client:visible />
+
+      <!-- Let's Connect -->
+      <LetsConnect client:visible />
+    </div>
+  </main>
+</Layout>

@@ -1,11 +1,98 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.vue';
+import SocialSidebar from '../components/SocialSidebar.vue';
+import EmailSidebar from '../components/EmailSidebar.vue';
+import AnimatedPattern from '../components/AnimatedPattern.vue';
+import ImpactStories from '../components/ImpactStories.vue';
+import HowIWork from '../components/HowIWork.vue';
+import WhereImWorking from '../components/WhereImWorking.vue';
+import LetsConnect from '../components/LetsConnect.vue';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Import your fetcher
+import { getJsonTableRows } from '../lib/strapi.ts'
+console.log('Did import run?');
+
+// Top-level await to fetch table data
+const tableRows = await getJsonTableRows()
 ---
 
-<Layout>
-	<Welcome />
+
+<Layout title="Mayuresh Mule - UX Engineer & Product Builder">
+  <Header client:load />
+  <SocialSidebar client:load />
+  <EmailSidebar client:load />
+  
+  <main class="px-16 md:px-32 py-20 pt-32">
+    <div class="max-w-7xl mx-auto">
+      <!-- Hero Section -->
+      <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+        <!-- Video Placeholder -->
+        <div class="aspect-video bg-gray-200 dark:bg-gray-800 rounded-3xl overflow-hidden transition-colors duration-300">
+          <div class="w-full h-full flex items-center justify-center text-gray-400 transition-colors duration-300">
+            Video Placeholder
+          </div>
+        </div>
+
+        <!-- Intro Text -->
+        <div class="text-center md:text-left">
+          <p class="text-xl mb-2">
+            I'm a <strong class="font-bold underline cursor-pointer">UX Engineer</strong> and <strong class="font-bold underline cursor-pointer">Product Builder</strong> focused on creating 
+            user-centric experiences through design-driven development.
+          </p>
+
+          <p class="text-gray-600 dark:text-gray-400 text-lg transition-colors duration-300">
+            2+ years of experience | Mumbai, India
+          </p>
+        </div>
+      </div>
+
+      <!-- Animated Pattern Component -->
+      <AnimatedPattern client:load />
+
+      <!-- Impact Stories Section -->
+      <ImpactStories client:visible />
+
+      <!-- How I Work -->
+      <HowIWork client:visible />
+
+       <!-- Where I'm Working -->
+      <WhereImWorking client:visible />
+
+          <!-- Let's Connect -->
+      <LetsConnect client:visible />
+
+
+      <!-- My Test Table Section -->
+<div class="my-12">
+  <h2 class="text-2xl font-bold mb-6">Voucher Table (from Strapi JSON)</h2>
+  <table class="w-full border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+    <thead class="bg-gray-50 dark:bg-gray-800">
+      <tr>
+        <th class="border px-3 py-2 text-left">Name</th>
+        <th class="border px-3 py-2 text-left">Discount</th>
+        <th class="border px-3 py-2 text-left">Link</th>
+      </tr>
+    </thead>
+    <tbody>
+      {tableRows.map(row => (
+        <tr>
+          <td class="border px-3 py-2">{row.name}</td>
+          <td class="border px-3 py-2">{row.discount}</td>
+          <td class="border px-3 py-2">
+            <a href={row.url} target="_blank" class="underline text-blue-600 hover:text-blue-900">{row.url}</a>
+          </td>
+        </tr>
+      ))}
+      {tableRows.length === 0 && (
+        <tr>
+          <td class="border px-3 py-2 text-gray-400" colspan="3">No data found in Strapi</td>
+        </tr>
+      )}
+    </tbody>
+  </table>
+</div>
+
+    </div>
+  </main>
 </Layout>
