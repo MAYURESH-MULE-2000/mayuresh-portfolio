@@ -6,12 +6,12 @@ import { Instagram, FileText, Linkedin , Globe } from 'lucide-vue-next'
 <template>
     <aside class="fixed left-0 bottom-0 z-40 hidden md:block px-8">
         <div class="flex flex-col items-center gap-4">
-            <!-- Instagram -->
-            <a href="https://www.instagram.com/mayuresh.mule/?igsh=MTJsdWptdzF3dWlvbg%3D%3D#" target="_blank"
-                rel="noopener noreferrer"
+
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/mayuresh-mule/" target="_blank" rel="noopener noreferrer"
                 class="w-12 h-12 rounded-full border-2 border-primary-black dark:border-primary-white flex items-center justify-center hover:bg-primary-black hover:dark:bg-primary-white transition-all duration-300 group"
-                aria-label="Instagram">
-                <Instagram :size="20"
+                aria-label="LinkedIn">
+                <Linkedin :size="20"
                     class="text-primary-black dark:text-primary-white group-hover:text-primary-white group-hover:dark:text-primary-black transition-colors" />
             </a>
 
@@ -31,11 +31,12 @@ import { Instagram, FileText, Linkedin , Globe } from 'lucide-vue-next'
                     class="text-primary-black dark:text-primary-white group-hover:text-primary-white group-hover:dark:text-primary-black transition-colors" />
             </a>
 
-            <!-- LinkedIn -->
-            <a href="https://www.linkedin.com/in/mayuresh-mule/" target="_blank" rel="noopener noreferrer"
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/mayuresh.mule/?igsh=MTJsdWptdzF3dWlvbg%3D%3D#" target="_blank"
+                rel="noopener noreferrer"
                 class="w-12 h-12 rounded-full border-2 border-primary-black dark:border-primary-white flex items-center justify-center hover:bg-primary-black hover:dark:bg-primary-white transition-all duration-300 group"
-                aria-label="LinkedIn">
-                <Linkedin :size="20"
+                aria-label="Instagram">
+                <Instagram :size="20"
                     class="text-primary-black dark:text-primary-white group-hover:text-primary-white group-hover:dark:text-primary-black transition-colors" />
             </a>
 
