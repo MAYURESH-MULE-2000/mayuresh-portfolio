@@ -1,31 +1,37 @@
 ---
-import { getCaseStudies, getCaseStudyBySlug } from '../../lib/strapi.js'
 import Layout from '../../layouts/Layout.astro'
 import Header from '../../components/Header.vue'
 import SocialSidebar from '../../components/SocialSidebar.vue'
 import EmailSidebar from '../../components/EmailSidebar.vue'
 import LetsConnect from '../../components/LetsConnect.vue'
 import ContentLayout from '../../components/ContentLayout.vue'
+import { getCaseStudies, getCaseStudyBySlug } from '../../lib/content'
 
-// Fetch all case studies at build time
 export async function getStaticPaths() {
-  const caseStudies = await getCaseStudies()
-  
-  return caseStudies.map(study => ({
-    params: { slug: study.slug },
-    props: { content: study }
+  const items = await getCaseStudies()
+  return items.map((item: any) => ({
+    params: { slug: item.slug },
   }))
 }
 
-const { content } = Astro.props
+const { slug } = Astro.params
+const content = await getCaseStudyBySlug(slug)
+
+if (!content) {
+  throw new Error(`Case study not found: ${slug}`)
+}
+
+const pageTitle = content.metaTitle || `${content.title} - Mayuresh Mule`
+const pageDescription =
+  content.metaDescription || 'Case study from the portfolio of Mayuresh Mule.'
 ---
 
-<Layout title={`${content.title} - Mayuresh Mule`}>
+<Layout title={pageTitle}  description={pageDescription}>
   <Header client:load />
   <SocialSidebar client:load />
   <EmailSidebar client:load />
-  
-  <main class="px-16 md:px-24 py-20 pt-32">
+
+  <main class="px-16 md:px-32 py-20 pt-32">
     <ContentLayout content={content} client:visible />
 
     <div class="max-w-7xl mx-auto">

@@ -1,23 +1,53 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.vue';
-import SocialSidebar from '../components/SocialSidebar.vue';
-import EmailSidebar from '../components/EmailSidebar.vue';
-import LetsConnect from '../components/LetsConnect.vue';
-import ResourcesGrid from '../components/ResourcesGrid.vue';
+import Layout from '../layouts/Layout.astro'
+import Header from '../components/Header.vue'
+import SocialSidebar from '../components/SocialSidebar.vue'
+import EmailSidebar from '../components/EmailSidebar.vue'
+import LetsConnect from '../components/LetsConnect.vue'
+import ResourcesGrid from '../components/ResourcesGrid.vue'
+import { getCaseStudies, getProjects, getBlogs } from '../lib/content'
+
+const caseStudies = await getCaseStudies()
+const projects = await getProjects()
+const blogs = await getBlogs()
+
+const resources = [
+  ...caseStudies.map((item:any) => ({
+    id: item.slug,
+    type: 'case-study',
+    title: item.title,
+    label: item.category,
+    slug: item.slug,
+    thumbnail: item.heroImage || '',
+  })),
+  ...projects.map((item:any) => ({
+    id: item.slug,
+    type: 'project',
+    title: item.title,
+    label: item.category,
+    slug: item.slug,
+    thumbnail: item.heroImage || '',
+  })),
+  ...blogs.map((item:any) => ({
+    id: item.slug,
+    type: 'blog',
+    title: item.title,
+    label: item.category,
+    slug: item.slug,
+    thumbnail: item.heroImage || '',
+  })),
+]
 ---
 
-<Layout title="Resources - Mayuresh Mule">
+<Layout title="Resources - Mayuresh Mule" description="All case studies, projects, and blogs.">
   <Header client:load />
   <SocialSidebar client:load />
   <EmailSidebar client:load />
-  
+
   <main class="px-16 md:px-32 py-20 pt-32">
     <div class="max-w-7xl mx-auto">
-      <!-- Resources Section -->
-      <ResourcesGrid client:visible />
+      <ResourcesGrid items={resources} client:visible />
 
-      <!-- Let's Connect -->
       <LetsConnect client:visible />
     </div>
   </main>
