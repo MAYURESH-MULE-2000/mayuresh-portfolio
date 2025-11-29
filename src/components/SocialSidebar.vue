@@ -16,7 +16,7 @@ import { Instagram, FileText, Linkedin , Globe } from 'lucide-vue-next'
             </a>
 
             <!-- Resume/CV -->
-            <a href="/public/ProductMayureshMule.pdf" target="_blank" rel="noopener noreferrer"
+            <a href="/ProductMayureshMule.pdf" target="_blank" rel="noopener noreferrer"
                 class="w-12 h-12 rounded-full border-2 border-primary-black dark:border-primary-white flex items-center justify-center hover:bg-primary-black hover:dark:bg-primary-white transition-all duration-300 group"
                 aria-label="Resume">
                 <FileText :size="20"
