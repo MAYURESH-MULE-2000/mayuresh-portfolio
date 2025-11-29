@@ -125,7 +125,7 @@ const iconComponents = {
                     Want the full story?
                 </p>
 
-                <a href="/resume.pdf" target="_blank"
+                <a href="/public/ProductMayureshMule.pdf" target="_blank"
                     class="inline-block px-8 py-3 bg-primary-black dark:bg-primary-white text-primary-white dark:text-primary-black rounded-md font-medium hover:opacity-80 transition-all duration-300">
                     Resume
                 </a>
