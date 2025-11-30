@@ -8,6 +8,7 @@ import ImpactStories from '../components/ImpactStories.vue'
 import HowIWork from '../components/HowIWork.vue'
 import WhereImWorking from '../components/WhereImWorking.vue'
 import LetsConnect from '../components/LetsConnect.vue'
+import MagnifyText from '../components/MagnifyText.vue'
 
 import { getCaseStudies, getProjects, getBlogs } from '../lib/content'
 
@@ -66,14 +67,22 @@ const resources = [
 
         <div class="text-center md:text-left">
           <p class="text-xl mb-2">
+            <MagnifyText size={100} :zoom={1.4} client:visible>
             I'm a <strong class="font-bold underline cursor-pointer">UX Engineer</strong> and
             <strong class="font-bold underline cursor-pointer">Product Builder</strong> focused on
             creating user-centric experiences through design-driven development.
+          </MagnifyText>
+
           </p>
 
           <p class="text-gray-600 dark:text-gray-400 text-lg transition-colors duration-300">
+          <MagnifyText size={100} :zoom={1.8} client:visible>
             2+ years of experience | Mumbai, India
+          </MagnifyText>
+
           </p>
+
+
         </div>
       </div>
 

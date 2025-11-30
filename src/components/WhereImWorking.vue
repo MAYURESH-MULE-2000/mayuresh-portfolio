@@ -1,4 +1,5 @@
 <script setup>
+import MagnifyText from './MagnifyText.vue';
 const currentRole = {
     company: 'PMaps',
     position: 'UX Engineer',
@@ -23,7 +24,9 @@ const currentRole = {
             <div class="relative mb-12 md:mb-16">
                 <div class="flex items-center justify-between">
                     <!-- Left: Title -->
-                    <h2 class="text-3xl md:text-4xl font-bold">Where I'm Working.</h2>
+                    <MagnifyText size=100 zoom=1.8 client:visible>
+                        <h2 class="text-3xl md:text-4xl font-bold">Where I'm Working.</h2>
+                    </MagnifyText>
                 </div>
             </div>
 
@@ -31,20 +34,24 @@ const currentRole = {
             <div class="bg-blue-50 dark:bg-blue-900/20 rounded-3xl p-8 md:p-12 max-w-5xl shadow-xl hover:shadow-2xl">
                 <!-- Company + Role + Period -->
                 <h3 class="text-xl md:text-2xl font-bold mb-6">
-                    {{ currentRole.company }} – {{ currentRole.position }} | {{ currentRole.period }}
+                    <MagnifyText size=100 zoom=1.8 client:visible>
+                        {{ currentRole.company }} – {{ currentRole.position }} | {{ currentRole.period }}
+                    </MagnifyText>
                 </h3>
 
                 <!-- Description with Bold Highlights -->
                 <p class="text-base md:text-lg leading-relaxed text-gray-800 dark:text-gray-200">
-                    {{ currentRole.description.intro }}
-                    <strong class="font-bold">{{ currentRole.description.highlight1 }}</strong>
-                    {{ currentRole.description.middle }}
-                    <strong class="font-bold">{{ currentRole.description.highlight2 }}</strong>{{
-                    currentRole.description.outro }}
-                    <strong class="font-bold">{{ currentRole.description.role }}</strong>{{
-                    currentRole.description.details }}
-                    <strong class="font-bold">{{ currentRole.description.highlight3 }}</strong>.
-                </p>
+                    <MagnifyText size=100 zoom=1.8 client:visible>
+                        {{ currentRole.description.intro }}
+                        <strong class="font-bold">{{ currentRole.description.highlight1 }}</strong>
+                        {{ currentRole.description.middle }}
+                        <strong class="font-bold">{{ currentRole.description.highlight2 }}</strong>{{
+                        currentRole.description.outro }}
+                        <strong class="font-bold">{{ currentRole.description.role }}</strong>{{
+                        currentRole.description.details }}
+                        <strong class="font-bold">{{ currentRole.description.highlight3 }}</strong>.
+                    </MagnifyText>
+                    </p>
             </div>
         </div>
     </section>

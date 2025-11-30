@@ -1,6 +1,6 @@
 <script setup>
 import { Wrench, Sparkles, Code } from 'lucide-vue-next'
-
+import MagnifyText from '../components/MagnifyText.vue'
 const workData = [
     {
         id: 1,
@@ -85,14 +85,18 @@ const iconComponents = {
             <!-- Section Header -->
             <div class="relative mb-4">
                 <div class="flex items-center justify-between">
-                    <h2 class="text-3xl md:text-4xl font-bold">This is how I work</h2>
+                    <MagnifyText size=100 zoom=1.8 client:visible>
+                        <h2 class="text-3xl md:text-4xl font-bold">This is how I work</h2>
+                    </MagnifyText>
                 </div>
             </div>
 
             <!-- Description -->
             <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-12 md:mb-16 max-w-4xl">
-                I blend data, user understanding, and product intuition to shape products that solve real problems
-                and scale with impact. Here's how I do it —
+                <MagnifyText size=100 zoom=1.8 client:visible>
+                    I blend data, user understanding, and product intuition to shape products that solve real problems
+                    and scale with impact. Here's how I do it —
+                </MagnifyText>
             </p>
 
             <!-- 3 Column Cards -->
@@ -102,20 +106,24 @@ const iconComponents = {
                     class="rounded-3xl p-6 md:p-8 transition-all duration-300 shadow-xl hover:shadow-2xl"
                     :class="section.color">
                     <!-- Icon + Title -->
-                    <div class="flex items-center gap-3 mb-6">
-                        <!-- Dynamic Lucide Icon -->
-                        <component :is="iconComponents[section.icon]" :size="16"
-                            class="text-gray-700 dark:text-gray-300" />
-                        <h3 class="text-xl md:text-2xl font-bold">{{ section.title }}</h3>
-                    </div>
+                    <MagnifyText size=100 zoom=1.8 client:visible>
 
-                    <!-- Items List -->
-                    <ul class="space-y-2">
-                        <li v-for="(item, index) in section.items" :key="index"
-                            class="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-                            {{ item }}
-                        </li>
-                    </ul>
+                        <div class="flex items-center gap-3 mb-6">
+                            <!-- Dynamic Lucide Icon -->
+                            <component :is="iconComponents[section.icon]" :size="16"
+                                class="text-gray-700 dark:text-gray-300" />
+                            <h3 class="text-xl md:text-2xl font-bold">{{ section.title }}</h3>
+                        </div>
+
+                        <!-- Items List -->
+                        <ul class="space-y-2">
+                            <li v-for="(item, index) in section.items" :key="index"
+                                class="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+                                {{ item }}
+                            </li>
+                        </ul>
+                    </MagnifyText>
+
                 </div>
             </div>
 
