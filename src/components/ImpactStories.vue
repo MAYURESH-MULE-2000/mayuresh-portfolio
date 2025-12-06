@@ -36,9 +36,9 @@ const featuredContent = computed(() => {
                         </div>
                     </div>
 
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">
+                    <span class="inline-block px-3 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 rounded-full mb-3">
                         {{ item.label }}
-                    </p>
+                    </span>
 
                     <h3 class="text-xl font-semibold group-hover:underline transition-all">
                         {{ item.title }}

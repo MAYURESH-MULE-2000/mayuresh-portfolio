@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { Copy, Check } from 'lucide-vue-next'
 
-const email = 'uxmayuresh.com'
+const email = 'uxmayuresh@gmail.com'
 const copied = ref(false)
 
 const copyEmail = async () => {

@@ -1,4 +1,5 @@
 <script setup>
+import { LucideArrowLeft } from 'lucide-vue-next'
 defineProps({
     backLink: {
         type: String,
@@ -26,9 +27,10 @@ defineProps({
 <template>
     <div class="mb-12">
         <!-- Breadcrumb -->
-        <a :href="backLink" class="text-sm text-gray-600 dark:text-gray-400 hover:underline mb-6 inline-block">
-            {{ backText }} / <strong>{{ title }}</strong>
+        <a :href="backLink" class="text-sm text-gray-600 dark:text-gray-400 hover:underline mb-2 flex items-center gap-2">
+            <LucideArrowLeft /> {{ backText }} 
         </a>
+        <h1 class="text-2xl font-bold mb-6">{{ title }}</h1>
 
         <!-- Hero Image -->
         <div class="aspect-video bg-gray-200 dark:bg-gray-800 rounded-3xl overflow-hidden mb-4">

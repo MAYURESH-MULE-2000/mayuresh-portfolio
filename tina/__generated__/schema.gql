@@ -54,9 +54,19 @@ type Query {
   collections: [Collection!]!
   node(id: String): Node!
   document(collection: String, relativePath: String): DocumentNode!
+  case_studies(relativePath: String): Case_studies!
+  case_studiesConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: Case_studiesFilter): Case_studiesConnection!
+  projects(relativePath: String): Projects!
+  projectsConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: ProjectsFilter): ProjectsConnection!
+  blogs(relativePath: String): Blogs!
+  blogsConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: BlogsFilter): BlogsConnection!
 }
 
-input DocumentFilter
+input DocumentFilter {
+  case_studies: Case_studiesFilter
+  projects: ProjectsFilter
+  blogs: BlogsFilter
+}
 
 type DocumentConnectionEdges {
   cursor: String!
@@ -81,7 +91,610 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Folder
+union DocumentNode = Case_studies | Projects | Blogs | Folder
+
+type Case_studiesOverviewSections {
+  title: String
+  content: String
+}
+
+type Case_studiesOverviewSidebar {
+  role: [String]
+  team: [String]
+  duration: String
+}
+
+type Case_studiesOverview {
+  sections: [Case_studiesOverviewSections]
+  sidebar: Case_studiesOverviewSidebar
+}
+
+type Case_studiesNavigationPrev {
+  title: String
+  link: String
+}
+
+type Case_studiesNavigationNext {
+  title: String
+  link: String
+}
+
+type Case_studiesNavigation {
+  prev: Case_studiesNavigationPrev
+  next: Case_studiesNavigationNext
+}
+
+type Case_studiesBlocksText {
+  title: String
+  content: String
+}
+
+type Case_studiesBlocksImage {
+  image: String
+  alt: String
+  caption: String
+}
+
+type Case_studiesBlocksLeft_text_image {
+  title: String
+  content: String
+  image: String
+}
+
+type Case_studiesBlocksRight_text_image {
+  title: String
+  content: String
+  image: String
+}
+
+type Case_studiesBlocksImage_gridImages {
+  src: String
+  alt: String
+}
+
+type Case_studiesBlocksImage_grid {
+  columns: Float
+  images: [Case_studiesBlocksImage_gridImages]
+}
+
+type Case_studiesBlocksStatsStats {
+  value: String
+  label: String
+}
+
+type Case_studiesBlocksStats {
+  stats: [Case_studiesBlocksStatsStats]
+}
+
+union Case_studiesBlocks = Case_studiesBlocksText | Case_studiesBlocksImage | Case_studiesBlocksLeft_text_image | Case_studiesBlocksRight_text_image | Case_studiesBlocksImage_grid | Case_studiesBlocksStats
+
+type Case_studies implements Node & Document {
+  title: String!
+  category: String
+  heroImage: String
+  metaTitle: String
+  metaDescription: String
+  overview: Case_studiesOverview
+  navigation: Case_studiesNavigation
+  blocks: [Case_studiesBlocks]
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input StringFilter {
+  startsWith: String
+  eq: String
+  exists: Boolean
+  in: [String]
+}
+
+input ImageFilter {
+  startsWith: String
+  eq: String
+  exists: Boolean
+  in: [String]
+}
+
+input Case_studiesOverviewSectionsFilter {
+  title: StringFilter
+  content: StringFilter
+}
+
+input Case_studiesOverviewSidebarFilter {
+  role: StringFilter
+  team: StringFilter
+  duration: StringFilter
+}
+
+input Case_studiesOverviewFilter {
+  sections: Case_studiesOverviewSectionsFilter
+  sidebar: Case_studiesOverviewSidebarFilter
+}
+
+input Case_studiesNavigationPrevFilter {
+  title: StringFilter
+  link: StringFilter
+}
+
+input Case_studiesNavigationNextFilter {
+  title: StringFilter
+  link: StringFilter
+}
+
+input Case_studiesNavigationFilter {
+  prev: Case_studiesNavigationPrevFilter
+  next: Case_studiesNavigationNextFilter
+}
+
+input Case_studiesBlocksTextFilter {
+  title: StringFilter
+  content: StringFilter
+}
+
+input Case_studiesBlocksImageFilter {
+  image: ImageFilter
+  alt: StringFilter
+  caption: StringFilter
+}
+
+input Case_studiesBlocksLeft_text_imageFilter {
+  title: StringFilter
+  content: StringFilter
+  image: ImageFilter
+}
+
+input Case_studiesBlocksRight_text_imageFilter {
+  title: StringFilter
+  content: StringFilter
+  image: ImageFilter
+}
+
+input NumberFilter {
+  lt: Float
+  lte: Float
+  gte: Float
+  gt: Float
+  eq: Float
+  exists: Boolean
+  in: [Float]
+}
+
+input Case_studiesBlocksImage_gridImagesFilter {
+  src: ImageFilter
+  alt: StringFilter
+}
+
+input Case_studiesBlocksImage_gridFilter {
+  columns: NumberFilter
+  images: Case_studiesBlocksImage_gridImagesFilter
+}
+
+input Case_studiesBlocksStatsStatsFilter {
+  value: StringFilter
+  label: StringFilter
+}
+
+input Case_studiesBlocksStatsFilter {
+  stats: Case_studiesBlocksStatsStatsFilter
+}
+
+input Case_studiesBlocksFilter {
+  text: Case_studiesBlocksTextFilter
+  image: Case_studiesBlocksImageFilter
+  left_text_image: Case_studiesBlocksLeft_text_imageFilter
+  right_text_image: Case_studiesBlocksRight_text_imageFilter
+  image_grid: Case_studiesBlocksImage_gridFilter
+  stats: Case_studiesBlocksStatsFilter
+}
+
+input Case_studiesFilter {
+  title: StringFilter
+  category: StringFilter
+  heroImage: ImageFilter
+  metaTitle: StringFilter
+  metaDescription: StringFilter
+  overview: Case_studiesOverviewFilter
+  navigation: Case_studiesNavigationFilter
+  blocks: Case_studiesBlocksFilter
+}
+
+type Case_studiesConnectionEdges {
+  cursor: String!
+  node: Case_studies
+}
+
+type Case_studiesConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [Case_studiesConnectionEdges]
+}
+
+type ProjectsOverviewSections {
+  title: String
+  content: String
+}
+
+type ProjectsOverviewSidebar {
+  role: [String]
+  team: [String]
+  duration: String
+}
+
+type ProjectsOverview {
+  sections: [ProjectsOverviewSections]
+  sidebar: ProjectsOverviewSidebar
+}
+
+type ProjectsNavigationPrev {
+  title: String
+  link: String
+}
+
+type ProjectsNavigationNext {
+  title: String
+  link: String
+}
+
+type ProjectsNavigation {
+  prev: ProjectsNavigationPrev
+  next: ProjectsNavigationNext
+}
+
+type ProjectsBlocksText {
+  title: String
+  content: String
+}
+
+type ProjectsBlocksImage {
+  image: String
+  alt: String
+  caption: String
+}
+
+type ProjectsBlocksLeft_text_image {
+  title: String
+  content: String
+  image: String
+}
+
+type ProjectsBlocksRight_text_image {
+  title: String
+  content: String
+  image: String
+}
+
+type ProjectsBlocksImage_gridImages {
+  src: String
+  alt: String
+}
+
+type ProjectsBlocksImage_grid {
+  columns: Float
+  images: [ProjectsBlocksImage_gridImages]
+}
+
+type ProjectsBlocksStatsStats {
+  value: String
+  label: String
+}
+
+type ProjectsBlocksStats {
+  stats: [ProjectsBlocksStatsStats]
+}
+
+union ProjectsBlocks = ProjectsBlocksText | ProjectsBlocksImage | ProjectsBlocksLeft_text_image | ProjectsBlocksRight_text_image | ProjectsBlocksImage_grid | ProjectsBlocksStats
+
+type Projects implements Node & Document {
+  title: String!
+  category: String
+  heroImage: String
+  metaTitle: String
+  metaDescription: String
+  overview: ProjectsOverview
+  navigation: ProjectsNavigation
+  blocks: [ProjectsBlocks]
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input ProjectsOverviewSectionsFilter {
+  title: StringFilter
+  content: StringFilter
+}
+
+input ProjectsOverviewSidebarFilter {
+  role: StringFilter
+  team: StringFilter
+  duration: StringFilter
+}
+
+input ProjectsOverviewFilter {
+  sections: ProjectsOverviewSectionsFilter
+  sidebar: ProjectsOverviewSidebarFilter
+}
+
+input ProjectsNavigationPrevFilter {
+  title: StringFilter
+  link: StringFilter
+}
+
+input ProjectsNavigationNextFilter {
+  title: StringFilter
+  link: StringFilter
+}
+
+input ProjectsNavigationFilter {
+  prev: ProjectsNavigationPrevFilter
+  next: ProjectsNavigationNextFilter
+}
+
+input ProjectsBlocksTextFilter {
+  title: StringFilter
+  content: StringFilter
+}
+
+input ProjectsBlocksImageFilter {
+  image: ImageFilter
+  alt: StringFilter
+  caption: StringFilter
+}
+
+input ProjectsBlocksLeft_text_imageFilter {
+  title: StringFilter
+  content: StringFilter
+  image: ImageFilter
+}
+
+input ProjectsBlocksRight_text_imageFilter {
+  title: StringFilter
+  content: StringFilter
+  image: ImageFilter
+}
+
+input ProjectsBlocksImage_gridImagesFilter {
+  src: ImageFilter
+  alt: StringFilter
+}
+
+input ProjectsBlocksImage_gridFilter {
+  columns: NumberFilter
+  images: ProjectsBlocksImage_gridImagesFilter
+}
+
+input ProjectsBlocksStatsStatsFilter {
+  value: StringFilter
+  label: StringFilter
+}
+
+input ProjectsBlocksStatsFilter {
+  stats: ProjectsBlocksStatsStatsFilter
+}
+
+input ProjectsBlocksFilter {
+  text: ProjectsBlocksTextFilter
+  image: ProjectsBlocksImageFilter
+  left_text_image: ProjectsBlocksLeft_text_imageFilter
+  right_text_image: ProjectsBlocksRight_text_imageFilter
+  image_grid: ProjectsBlocksImage_gridFilter
+  stats: ProjectsBlocksStatsFilter
+}
+
+input ProjectsFilter {
+  title: StringFilter
+  category: StringFilter
+  heroImage: ImageFilter
+  metaTitle: StringFilter
+  metaDescription: StringFilter
+  overview: ProjectsOverviewFilter
+  navigation: ProjectsNavigationFilter
+  blocks: ProjectsBlocksFilter
+}
+
+type ProjectsConnectionEdges {
+  cursor: String!
+  node: Projects
+}
+
+type ProjectsConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [ProjectsConnectionEdges]
+}
+
+type BlogsOverviewSections {
+  title: String
+  content: String
+}
+
+type BlogsOverviewSidebar {
+  role: [String]
+  team: [String]
+  duration: String
+}
+
+type BlogsOverview {
+  sections: [BlogsOverviewSections]
+  sidebar: BlogsOverviewSidebar
+}
+
+type BlogsNavigationPrev {
+  title: String
+  link: String
+}
+
+type BlogsNavigationNext {
+  title: String
+  link: String
+}
+
+type BlogsNavigation {
+  prev: BlogsNavigationPrev
+  next: BlogsNavigationNext
+}
+
+type BlogsBlocksText {
+  title: String
+  content: String
+}
+
+type BlogsBlocksImage {
+  image: String
+  alt: String
+  caption: String
+}
+
+type BlogsBlocksLeft_text_image {
+  title: String
+  content: String
+  image: String
+}
+
+type BlogsBlocksRight_text_image {
+  title: String
+  content: String
+  image: String
+}
+
+type BlogsBlocksImage_gridImages {
+  src: String
+  alt: String
+}
+
+type BlogsBlocksImage_grid {
+  columns: Float
+  images: [BlogsBlocksImage_gridImages]
+}
+
+type BlogsBlocksStatsStats {
+  value: String
+  label: String
+}
+
+type BlogsBlocksStats {
+  stats: [BlogsBlocksStatsStats]
+}
+
+union BlogsBlocks = BlogsBlocksText | BlogsBlocksImage | BlogsBlocksLeft_text_image | BlogsBlocksRight_text_image | BlogsBlocksImage_grid | BlogsBlocksStats
+
+type Blogs implements Node & Document {
+  title: String!
+  category: String
+  heroImage: String
+  metaTitle: String
+  metaDescription: String
+  overview: BlogsOverview
+  navigation: BlogsNavigation
+  blocks: [BlogsBlocks]
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input BlogsOverviewSectionsFilter {
+  title: StringFilter
+  content: StringFilter
+}
+
+input BlogsOverviewSidebarFilter {
+  role: StringFilter
+  team: StringFilter
+  duration: StringFilter
+}
+
+input BlogsOverviewFilter {
+  sections: BlogsOverviewSectionsFilter
+  sidebar: BlogsOverviewSidebarFilter
+}
+
+input BlogsNavigationPrevFilter {
+  title: StringFilter
+  link: StringFilter
+}
+
+input BlogsNavigationNextFilter {
+  title: StringFilter
+  link: StringFilter
+}
+
+input BlogsNavigationFilter {
+  prev: BlogsNavigationPrevFilter
+  next: BlogsNavigationNextFilter
+}
+
+input BlogsBlocksTextFilter {
+  title: StringFilter
+  content: StringFilter
+}
+
+input BlogsBlocksImageFilter {
+  image: ImageFilter
+  alt: StringFilter
+  caption: StringFilter
+}
+
+input BlogsBlocksLeft_text_imageFilter {
+  title: StringFilter
+  content: StringFilter
+  image: ImageFilter
+}
+
+input BlogsBlocksRight_text_imageFilter {
+  title: StringFilter
+  content: StringFilter
+  image: ImageFilter
+}
+
+input BlogsBlocksImage_gridImagesFilter {
+  src: ImageFilter
+  alt: StringFilter
+}
+
+input BlogsBlocksImage_gridFilter {
+  columns: NumberFilter
+  images: BlogsBlocksImage_gridImagesFilter
+}
+
+input BlogsBlocksStatsStatsFilter {
+  value: StringFilter
+  label: StringFilter
+}
+
+input BlogsBlocksStatsFilter {
+  stats: BlogsBlocksStatsStatsFilter
+}
+
+input BlogsBlocksFilter {
+  text: BlogsBlocksTextFilter
+  image: BlogsBlocksImageFilter
+  left_text_image: BlogsBlocksLeft_text_imageFilter
+  right_text_image: BlogsBlocksRight_text_imageFilter
+  image_grid: BlogsBlocksImage_gridFilter
+  stats: BlogsBlocksStatsFilter
+}
+
+input BlogsFilter {
+  title: StringFilter
+  category: StringFilter
+  heroImage: ImageFilter
+  metaTitle: StringFilter
+  metaDescription: StringFilter
+  overview: BlogsOverviewFilter
+  navigation: BlogsNavigationFilter
+  blocks: BlogsBlocksFilter
+}
+
+type BlogsConnectionEdges {
+  cursor: String!
+  node: Blogs
+}
+
+type BlogsConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [BlogsConnectionEdges]
+}
 
 type Mutation {
   addPendingDocument(collection: String!, relativePath: String!, template: String): DocumentNode!
@@ -89,13 +702,305 @@ type Mutation {
   deleteDocument(collection: String, relativePath: String!): DocumentNode!
   createDocument(collection: String, relativePath: String!, params: DocumentMutation!): DocumentNode!
   createFolder(collection: String, relativePath: String!): DocumentNode!
+  updateCase_studies(relativePath: String!, params: Case_studiesMutation!): Case_studies!
+  createCase_studies(relativePath: String!, params: Case_studiesMutation!): Case_studies!
+  updateProjects(relativePath: String!, params: ProjectsMutation!): Projects!
+  createProjects(relativePath: String!, params: ProjectsMutation!): Projects!
+  updateBlogs(relativePath: String!, params: BlogsMutation!): Blogs!
+  createBlogs(relativePath: String!, params: BlogsMutation!): Blogs!
 }
 
 input DocumentUpdateMutation {
+  case_studies: Case_studiesMutation
+  projects: ProjectsMutation
+  blogs: BlogsMutation
   relativePath: String
 }
 
-input DocumentMutation
+input DocumentMutation {
+  case_studies: Case_studiesMutation
+  projects: ProjectsMutation
+  blogs: BlogsMutation
+}
+
+input Case_studiesOverviewSectionsMutation {
+  title: String
+  content: String
+}
+
+input Case_studiesOverviewSidebarMutation {
+  role: [String]
+  team: [String]
+  duration: String
+}
+
+input Case_studiesOverviewMutation {
+  sections: [Case_studiesOverviewSectionsMutation]
+  sidebar: Case_studiesOverviewSidebarMutation
+}
+
+input Case_studiesNavigationPrevMutation {
+  title: String
+  link: String
+}
+
+input Case_studiesNavigationNextMutation {
+  title: String
+  link: String
+}
+
+input Case_studiesNavigationMutation {
+  prev: Case_studiesNavigationPrevMutation
+  next: Case_studiesNavigationNextMutation
+}
+
+input Case_studiesBlocksTextMutation {
+  title: String
+  content: String
+}
+
+input Case_studiesBlocksImageMutation {
+  image: String
+  alt: String
+  caption: String
+}
+
+input Case_studiesBlocksLeft_text_imageMutation {
+  title: String
+  content: String
+  image: String
+}
+
+input Case_studiesBlocksRight_text_imageMutation {
+  title: String
+  content: String
+  image: String
+}
+
+input Case_studiesBlocksImage_gridImagesMutation {
+  src: String
+  alt: String
+}
+
+input Case_studiesBlocksImage_gridMutation {
+  columns: Float
+  images: [Case_studiesBlocksImage_gridImagesMutation]
+}
+
+input Case_studiesBlocksStatsStatsMutation {
+  value: String
+  label: String
+}
+
+input Case_studiesBlocksStatsMutation {
+  stats: [Case_studiesBlocksStatsStatsMutation]
+}
+
+input Case_studiesBlocksMutation {
+  text: Case_studiesBlocksTextMutation
+  image: Case_studiesBlocksImageMutation
+  left_text_image: Case_studiesBlocksLeft_text_imageMutation
+  right_text_image: Case_studiesBlocksRight_text_imageMutation
+  image_grid: Case_studiesBlocksImage_gridMutation
+  stats: Case_studiesBlocksStatsMutation
+}
+
+input Case_studiesMutation {
+  title: String
+  category: String
+  heroImage: String
+  metaTitle: String
+  metaDescription: String
+  overview: Case_studiesOverviewMutation
+  navigation: Case_studiesNavigationMutation
+  blocks: [Case_studiesBlocksMutation]
+}
+
+input ProjectsOverviewSectionsMutation {
+  title: String
+  content: String
+}
+
+input ProjectsOverviewSidebarMutation {
+  role: [String]
+  team: [String]
+  duration: String
+}
+
+input ProjectsOverviewMutation {
+  sections: [ProjectsOverviewSectionsMutation]
+  sidebar: ProjectsOverviewSidebarMutation
+}
+
+input ProjectsNavigationPrevMutation {
+  title: String
+  link: String
+}
+
+input ProjectsNavigationNextMutation {
+  title: String
+  link: String
+}
+
+input ProjectsNavigationMutation {
+  prev: ProjectsNavigationPrevMutation
+  next: ProjectsNavigationNextMutation
+}
+
+input ProjectsBlocksTextMutation {
+  title: String
+  content: String
+}
+
+input ProjectsBlocksImageMutation {
+  image: String
+  alt: String
+  caption: String
+}
+
+input ProjectsBlocksLeft_text_imageMutation {
+  title: String
+  content: String
+  image: String
+}
+
+input ProjectsBlocksRight_text_imageMutation {
+  title: String
+  content: String
+  image: String
+}
+
+input ProjectsBlocksImage_gridImagesMutation {
+  src: String
+  alt: String
+}
+
+input ProjectsBlocksImage_gridMutation {
+  columns: Float
+  images: [ProjectsBlocksImage_gridImagesMutation]
+}
+
+input ProjectsBlocksStatsStatsMutation {
+  value: String
+  label: String
+}
+
+input ProjectsBlocksStatsMutation {
+  stats: [ProjectsBlocksStatsStatsMutation]
+}
+
+input ProjectsBlocksMutation {
+  text: ProjectsBlocksTextMutation
+  image: ProjectsBlocksImageMutation
+  left_text_image: ProjectsBlocksLeft_text_imageMutation
+  right_text_image: ProjectsBlocksRight_text_imageMutation
+  image_grid: ProjectsBlocksImage_gridMutation
+  stats: ProjectsBlocksStatsMutation
+}
+
+input ProjectsMutation {
+  title: String
+  category: String
+  heroImage: String
+  metaTitle: String
+  metaDescription: String
+  overview: ProjectsOverviewMutation
+  navigation: ProjectsNavigationMutation
+  blocks: [ProjectsBlocksMutation]
+}
+
+input BlogsOverviewSectionsMutation {
+  title: String
+  content: String
+}
+
+input BlogsOverviewSidebarMutation {
+  role: [String]
+  team: [String]
+  duration: String
+}
+
+input BlogsOverviewMutation {
+  sections: [BlogsOverviewSectionsMutation]
+  sidebar: BlogsOverviewSidebarMutation
+}
+
+input BlogsNavigationPrevMutation {
+  title: String
+  link: String
+}
+
+input BlogsNavigationNextMutation {
+  title: String
+  link: String
+}
+
+input BlogsNavigationMutation {
+  prev: BlogsNavigationPrevMutation
+  next: BlogsNavigationNextMutation
+}
+
+input BlogsBlocksTextMutation {
+  title: String
+  content: String
+}
+
+input BlogsBlocksImageMutation {
+  image: String
+  alt: String
+  caption: String
+}
+
+input BlogsBlocksLeft_text_imageMutation {
+  title: String
+  content: String
+  image: String
+}
+
+input BlogsBlocksRight_text_imageMutation {
+  title: String
+  content: String
+  image: String
+}
+
+input BlogsBlocksImage_gridImagesMutation {
+  src: String
+  alt: String
+}
+
+input BlogsBlocksImage_gridMutation {
+  columns: Float
+  images: [BlogsBlocksImage_gridImagesMutation]
+}
+
+input BlogsBlocksStatsStatsMutation {
+  value: String
+  label: String
+}
+
+input BlogsBlocksStatsMutation {
+  stats: [BlogsBlocksStatsStatsMutation]
+}
+
+input BlogsBlocksMutation {
+  text: BlogsBlocksTextMutation
+  image: BlogsBlocksImageMutation
+  left_text_image: BlogsBlocksLeft_text_imageMutation
+  right_text_image: BlogsBlocksRight_text_imageMutation
+  image_grid: BlogsBlocksImage_gridMutation
+  stats: BlogsBlocksStatsMutation
+}
+
+input BlogsMutation {
+  title: String
+  category: String
+  heroImage: String
+  metaTitle: String
+  metaDescription: String
+  overview: BlogsOverviewMutation
+  navigation: BlogsNavigationMutation
+  blocks: [BlogsBlocksMutation]
+}
 
 schema {
   query: Query

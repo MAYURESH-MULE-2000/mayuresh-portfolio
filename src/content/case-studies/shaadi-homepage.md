@@ -1,7 +1,7 @@
 ---
 title: "Reimagining Matchmaking for the Modern Indian User"
 category: "Case Study"
-heroImage: "/images/shaadi-hero.jpg"
+heroImage: "../images/caseStudy/shaadiCoverPage.png"
 metaTitle: "Reimagining Matchmaking for the Modern Indian User"
 metaDescription: "A modern, emotionally-driven homepage redesign for an Indian matchmaking platform to reduce friction, build trust, and improve engagement."
 overview:

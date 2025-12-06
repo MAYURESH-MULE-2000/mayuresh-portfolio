@@ -1,1 +1,218 @@
+fragment Case_studiesParts on Case_studies {
+  __typename
+  title
+  category
+  heroImage
+  metaTitle
+  metaDescription
+  overview {
+    __typename
+    sections {
+      __typename
+      title
+      content
+    }
+    sidebar {
+      __typename
+      role
+      team
+      duration
+    }
+  }
+  navigation {
+    __typename
+    prev {
+      __typename
+      title
+      link
+    }
+    next {
+      __typename
+      title
+      link
+    }
+  }
+  blocks {
+    __typename
+    ... on Case_studiesBlocksText {
+      title
+      content
+    }
+    ... on Case_studiesBlocksImage {
+      image
+      alt
+      caption
+    }
+    ... on Case_studiesBlocksLeft_text_image {
+      title
+      content
+      image
+    }
+    ... on Case_studiesBlocksRight_text_image {
+      title
+      content
+      image
+    }
+    ... on Case_studiesBlocksImage_grid {
+      columns
+      images {
+        __typename
+        src
+        alt
+      }
+    }
+    ... on Case_studiesBlocksStats {
+      stats {
+        __typename
+        value
+        label
+      }
+    }
+  }
+}
 
+fragment ProjectsParts on Projects {
+  __typename
+  title
+  category
+  heroImage
+  metaTitle
+  metaDescription
+  overview {
+    __typename
+    sections {
+      __typename
+      title
+      content
+    }
+    sidebar {
+      __typename
+      role
+      team
+      duration
+    }
+  }
+  navigation {
+    __typename
+    prev {
+      __typename
+      title
+      link
+    }
+    next {
+      __typename
+      title
+      link
+    }
+  }
+  blocks {
+    __typename
+    ... on ProjectsBlocksText {
+      title
+      content
+    }
+    ... on ProjectsBlocksImage {
+      image
+      alt
+      caption
+    }
+    ... on ProjectsBlocksLeft_text_image {
+      title
+      content
+      image
+    }
+    ... on ProjectsBlocksRight_text_image {
+      title
+      content
+      image
+    }
+    ... on ProjectsBlocksImage_grid {
+      columns
+      images {
+        __typename
+        src
+        alt
+      }
+    }
+    ... on ProjectsBlocksStats {
+      stats {
+        __typename
+        value
+        label
+      }
+    }
+  }
+}
+
+fragment BlogsParts on Blogs {
+  __typename
+  title
+  category
+  heroImage
+  metaTitle
+  metaDescription
+  overview {
+    __typename
+    sections {
+      __typename
+      title
+      content
+    }
+    sidebar {
+      __typename
+      role
+      team
+      duration
+    }
+  }
+  navigation {
+    __typename
+    prev {
+      __typename
+      title
+      link
+    }
+    next {
+      __typename
+      title
+      link
+    }
+  }
+  blocks {
+    __typename
+    ... on BlogsBlocksText {
+      title
+      content
+    }
+    ... on BlogsBlocksImage {
+      image
+      alt
+      caption
+    }
+    ... on BlogsBlocksLeft_text_image {
+      title
+      content
+      image
+    }
+    ... on BlogsBlocksRight_text_image {
+      title
+      content
+      image
+    }
+    ... on BlogsBlocksImage_grid {
+      columns
+      images {
+        __typename
+        src
+        alt
+      }
+    }
+    ... on BlogsBlocksStats {
+      stats {
+        __typename
+        value
+        label
+      }
+    }
+  }
+}

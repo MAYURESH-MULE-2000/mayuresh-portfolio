@@ -1,50 +1,53 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import Header from '../components/Header.vue'
-import SocialSidebar from '../components/SocialSidebar.vue'
-import EmailSidebar from '../components/EmailSidebar.vue'
-import LetsConnect from '../components/LetsConnect.vue'
-import ResourcesGrid from '../components/ResourcesGrid.vue'
-import { getCaseStudies, getProjects, getBlogs } from '../lib/content'
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.vue";
+import SocialSidebar from "../components/SocialSidebar.vue";
+import EmailSidebar from "../components/EmailSidebar.vue";
+import LetsConnect from "../components/LetsConnect.vue";
+import ResourcesGrid from "../components/ResourcesGrid.vue";
+import { getCaseStudies, getProjects, getBlogs } from "../lib/content";
 
-const caseStudies = await getCaseStudies()
-const projects = await getProjects()
-const blogs = await getBlogs()
+const caseStudies = await getCaseStudies();
+const projects = await getProjects();
+const blogs = await getBlogs();
 
 const resources = [
-  ...caseStudies.map((item:any) => ({
+  ...caseStudies.map((item: any) => ({
     id: item.slug,
-    type: 'case-study',
+    type: "case-study",
     title: item.title,
     label: item.category,
     slug: item.slug,
-    thumbnail: item.heroImage || '',
+    thumbnail: item.heroImage || "",
   })),
-  ...projects.map((item:any) => ({
+  ...projects.map((item: any) => ({
     id: item.slug,
-    type: 'project',
+    type: "project",
     title: item.title,
     label: item.category,
     slug: item.slug,
-    thumbnail: item.heroImage || '',
+    thumbnail: item.heroImage || "",
   })),
-  ...blogs.map((item:any) => ({
+  ...blogs.map((item: any) => ({
     id: item.slug,
-    type: 'blog',
+    type: "blog",
     title: item.title,
     label: item.category,
     slug: item.slug,
-    thumbnail: item.heroImage || '',
+    thumbnail: item.heroImage || "",
   })),
-]
+];
 ---
 
-<Layout title="Resources - Mayuresh Mule" description="All case studies, projects, and blogs.">
+<Layout
+  title="Resources - Mayuresh Mule"
+  description="All case studies, projects, and blogs."
+>
   <Header client:load />
   <SocialSidebar client:load />
   <EmailSidebar client:load />
 
-  <main class="px-16 md:px-32 py-20 pt-32">
+  <main class="px-16 md:px-32 py-20 pt-16">
     <div class="max-w-7xl mx-auto">
       <ResourcesGrid items={resources} client:visible />
 
