@@ -6,6 +6,7 @@ const props = defineProps({
   audioFile: {
     type: String,
     default: null,
+    required: false,
   },
 })
 </script>

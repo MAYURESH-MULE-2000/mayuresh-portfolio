@@ -19,7 +19,14 @@ const hoveredCard = ref(null)
 const cardTransforms = ref({})
 
 // Vibrant gradient colors for different resource types
-const getCardGradient = (type, index) => {
+// Get gradient based on type and index, or use custom gradient if provided
+const getCardGradient = (type, index, customGradient) => {
+    // If custom gradient is provided, use it
+    if (customGradient) {
+        return `bg-gradient-to-br ${customGradient}`
+    }
+    
+    // Otherwise use default gradients based on type
     const gradients = {
         'case-study': [
             'from-teal-500 to-emerald-600',
@@ -42,7 +49,7 @@ const getCardGradient = (type, index) => {
     }
     
     const typeGradients = gradients[type] || gradients['case-study']
-    return typeGradients[index % typeGradients.length]
+    return `bg-gradient-to-br ${typeGradients[index % typeGradients.length]}`
 }
 
 // Get icon based on resource type
@@ -115,7 +122,7 @@ const getCardTransform = (cardId) => {
                         <div
                             :class="['relative aspect-[5/2] rounded-2xl overflow-visible transition-all duration-500 ease-out', hoveredCard === item.id ? 'opacity-0' : 'opacity-100']"
                             :style="{ transform: hoveredCard === item.id ? 'scale(0.95)' : 'scale(1)' }">
-                            <div :class="['absolute inset-0 rounded-2xl bg-gradient-to-br flex flex-col items-center justify-center p-4 text-white', getCardGradient(item.type, index)]">
+                            <div :class="['absolute inset-0 rounded-2xl flex flex-col items-center justify-center p-4 text-white', getCardGradient(item.type, index, item.cardGradient)]">
                                 <!-- Icon (smaller) -->
                                 <div class="mb-2 opacity-90 [&>svg]:w-8 [&>svg]:h-8" v-html="getIcon(item.type)"></div>
                                 
@@ -130,7 +137,7 @@ const getCardTransform = (cardId) => {
                         <div
                             :class="['absolute top-0 left-0 w-full aspect-[4/3] rounded-2xl overflow-hidden transition-all duration-500 ease-out pointer-events-none', hoveredCard === item.id ? 'opacity-100' : 'opacity-0']"
                             :style="{ transform: getCardTransform(item.id) }">
-                            <div :class="['absolute inset-0 rounded-2xl bg-gradient-to-br flex flex-col items-center justify-center p-6 text-white', getCardGradient(item.type, index)]">
+                            <div :class="['absolute inset-0 rounded-2xl flex flex-col items-center justify-center p-6 text-white', getCardGradient(item.type, index, item.cardGradient)]">
                                 <!-- Background overlay for better text readability -->
                                 <div class="absolute inset-0 bg-black/30"></div>
                                 
