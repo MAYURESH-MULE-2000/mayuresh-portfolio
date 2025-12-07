@@ -105,6 +105,7 @@ const caseStudies = defineCollection({
     title: z.string(),
     // slug: z.string(),
     category: z.string().default('Case Study'),
+    order: z.number().optional(), // For controlling display order
     heroImage: z.string().optional(), // ContentLayout passes string to HeroBlock
     metaTitle: z.string().optional(),
     metaDescription: z.string().optional(),
@@ -121,6 +122,7 @@ const projects = defineCollection({
     title: z.string(),
     // slug: z.string(),
     category: z.string().default('Project'),
+    order: z.number().optional(), // For controlling display order
     heroImage: z.string().optional(),
     metaTitle: z.string().optional(),
     metaDescription: z.string().optional(),
@@ -137,6 +139,7 @@ const blogs = defineCollection({
     title: z.string(),
     // slug: z.string(),
     category: z.string().default('Blog'),
+    order: z.number().optional(), // For controlling display order
     heroImage: z.string().optional(),
     metaTitle: z.string().optional(),
     metaDescription: z.string().optional(),

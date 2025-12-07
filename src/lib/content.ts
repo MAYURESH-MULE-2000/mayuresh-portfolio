@@ -11,13 +11,29 @@ function mapEntry(entry: any) {
     overview: entry.data.overview,
     blocks: entry.data.blocks,
     navigation: entry.data.navigation,
+    order: entry.data.order ?? 999, // Default to 999 if no order specified
   }
 }
 
 // CASE STUDIES
 export async function getCaseStudies() {
   const entries = await getCollection('case-studies')
-  return entries.map(mapEntry)
+  const mapped = entries.map(mapEntry)
+
+  // Debug: Log the order values
+  console.log('Case Studies Order Debug:')
+  mapped.forEach(item => {
+    console.log(`  ${item.title}: order=${item.order}`)
+  })
+
+  const sorted = mapped.sort((a, b) => a.order - b.order)
+
+  console.log('After sorting:')
+  sorted.forEach((item, index) => {
+    console.log(`  ${index + 1}. ${item.title} (order: ${item.order})`)
+  })
+
+  return sorted
 }
 
 export async function getCaseStudyBySlug(slug: string) {
@@ -29,7 +45,9 @@ export async function getCaseStudyBySlug(slug: string) {
 // PROJECTS
 export async function getProjects() {
   const entries = await getCollection('projects')
-  return entries.map(mapEntry)
+  return entries
+    .map(mapEntry)
+    .sort((a, b) => a.order - b.order) // Sort by order ascending
 }
 
 export async function getProjectBySlug(slug: string) {
@@ -41,7 +59,9 @@ export async function getProjectBySlug(slug: string) {
 // BLOGS
 export async function getBlogs() {
   const entries = await getCollection('blogs')
-  return entries.map(mapEntry)
+  return entries
+    .map(mapEntry)
+    .sort((a, b) => a.order - b.order) // Sort by order ascending
 }
 
 export async function getBlogBySlug(slug: string) {

@@ -1,10 +1,11 @@
 ---
-title: "Cisco Case Study"
+title: "Demo Case Study"
 slug: "ciscso"
 category: "Case Study"
+order: 3
 heroImage: "/images/cisco-hero.jpg"
-metaTitle: "Cisco Case Study – Enterprise Training Redesign"
-metaDescription: "How Cisco improved completion rates and reduced training costs with a redesigned learning experience."
+metaTitle: "Demo Case Study – Enterprise Training Redesign"
+metaDescription: "Demo case study description."
 overview:
   sections:
     - title: "Overview"

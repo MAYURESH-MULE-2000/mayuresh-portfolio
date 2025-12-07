@@ -1,47 +1,62 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import Header from '../components/Header.vue'
-import SocialSidebar from '../components/SocialSidebar.vue'
-import EmailSidebar from '../components/EmailSidebar.vue'
-import AnimatedPattern from '../components/AnimatedPattern.vue'
-import ImpactStories from '../components/ImpactStories.vue'
-import HowIWork from '../components/HowIWork.vue'
-import WhereImWorking from '../components/WhereImWorking.vue'
-import LetsConnect from '../components/LetsConnect.vue'
-import MagnifyText from '../components/MagnifyText.vue'
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.vue";
+import SocialSidebar from "../components/SocialSidebar.vue";
+import EmailSidebar from "../components/EmailSidebar.vue";
+import AnimatedPattern from "../components/AnimatedPattern.vue";
+import ImpactStories from "../components/ImpactStories.vue";
+import HowIWork from "../components/HowIWork.vue";
+import WhereImWorking from "../components/WhereImWorking.vue";
+import LetsConnect from "../components/LetsConnect.vue";
+import MagnifyText from "../components/MagnifyText.vue";
 
-import { getCaseStudies, getProjects, getBlogs } from '../lib/content'
+import { getCaseStudies, getProjects, getBlogs } from "../lib/content";
 
-const caseStudies = await getCaseStudies()
-const projects = await getProjects()
-const blogs = await getBlogs()
+const caseStudies = await getCaseStudies();
+const projects = await getProjects();
+const blogs = await getBlogs();
 
 const resources = [
   ...caseStudies.map((item: any) => ({
     id: item.slug,
-    type: 'case-study',
+    type: "case-study",
     title: item.title,
     label: item.category,
     slug: item.slug,
-    thumbnail: item.heroImage || '',
+    thumbnail: item.heroImage || "",
+    order: item.order, // Preserve order field
   })),
   ...projects.map((item: any) => ({
     id: item.slug,
-    type: 'project',
+    type: "project",
     title: item.title,
     label: item.category,
     slug: item.slug,
-    thumbnail: item.heroImage || '',
+    thumbnail: item.heroImage || "",
+    order: item.order, // Preserve order field
   })),
   ...blogs.map((item: any) => ({
     id: item.slug,
-    type: 'blog',
+    type: "blog",
     title: item.title,
     label: item.category,
     slug: item.slug,
-    thumbnail: item.heroImage || '',
+    thumbnail: item.heroImage || "",
+    order: item.order, // Preserve order field
   })),
-]
+];
+
+console.log("BEFORE SORT:");
+resources.forEach((r, i) =>
+  console.log(`${i + 1}. ${r.title} (order: ${r.order})`),
+);
+
+const sortedResources = resources.sort((a, b) => a.order - b.order);
+
+console.log("AFTER SORT:");
+sortedResources.forEach((r, i) =>
+  console.log(`${i + 1}. ${r.title} (order: ${r.order})`),
+);
 ---
 
 <Layout
@@ -68,27 +83,29 @@ const resources = [
         <div class="text-center md:text-left">
           <p class="text-xl mb-2">
             <MagnifyText size={100} :zoom={1.4} client:visible>
-            I'm a <strong class="font-bold underline cursor-pointer">UX Engineer</strong> and
-            <strong class="font-bold underline cursor-pointer">Product Builder</strong> focused on
-            creating user-centric experiences through design-driven development.
-          </MagnifyText>
-
+              I'm a <strong class="font-bold underline cursor-pointer"
+                >UX Engineer</strong
+              > and
+              <strong class="font-bold underline cursor-pointer"
+                >Product Builder</strong
+              > focused on creating user-centric experiences through design-driven
+              development.
+            </MagnifyText>
           </p>
 
-          <p class="text-gray-600 dark:text-gray-400 text-lg transition-colors duration-300">
-          <MagnifyText size={100} :zoom={1.8} client:visible>
-            2+ years of experience | Mumbai, India
-          </MagnifyText>
-
+          <p
+            class="text-gray-600 dark:text-gray-400 text-lg transition-colors duration-300"
+          >
+            <MagnifyText size={100} :zoom={1.8} client:visible>
+              2+ years of experience | Mumbai, India
+            </MagnifyText>
           </p>
-
-
         </div>
       </div>
 
       <AnimatedPattern client:load />
 
-      <ImpactStories items={resources} client:visible />
+      <ImpactStories items={sortedResources} client:visible />
 
       <HowIWork client:visible />
       <WhereImWorking client:visible />

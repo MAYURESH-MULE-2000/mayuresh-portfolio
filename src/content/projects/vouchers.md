@@ -2,6 +2,7 @@
 title: "Voucher Table Project"
 slug: "vouchers"
 category: "Project"
+order: 1
 heroImage: "/images/vouchers-hero.jpg"
 metaTitle: "Voucher Discounts – Project"
 metaDescription: "Voucher discounts project showing available exam vouchers."
