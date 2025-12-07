@@ -24,7 +24,8 @@ const resources = [
     label: item.category,
     slug: item.slug,
     thumbnail: item.heroImage || "",
-    order: item.order, // Preserve order field
+    order: item.order,
+    cardGradient: item.cardGradient, // Custom gradient
   })),
   ...projects.map((item: any) => ({
     id: item.slug,
@@ -33,7 +34,8 @@ const resources = [
     label: item.category,
     slug: item.slug,
     thumbnail: item.heroImage || "",
-    order: item.order, // Preserve order field
+    order: item.order,
+    cardGradient: item.cardGradient, // Custom gradient
   })),
   ...blogs.map((item: any) => ({
     id: item.slug,
@@ -42,21 +44,10 @@ const resources = [
     label: item.category,
     slug: item.slug,
     thumbnail: item.heroImage || "",
-    order: item.order, // Preserve order field
+    order: item.order,
+    cardGradient: item.cardGradient, // Custom gradient
   })),
-];
-
-console.log("BEFORE SORT:");
-resources.forEach((r, i) =>
-  console.log(`${i + 1}. ${r.title} (order: ${r.order})`),
-);
-
-const sortedResources = resources.sort((a, b) => a.order - b.order);
-
-console.log("AFTER SORT:");
-sortedResources.forEach((r, i) =>
-  console.log(`${i + 1}. ${r.title} (order: ${r.order})`),
-);
+].sort((a, b) => a.order - b.order);
 ---
 
 <Layout
@@ -105,7 +96,7 @@ sortedResources.forEach((r, i) =>
 
       <AnimatedPattern client:load />
 
-      <ImpactStories items={sortedResources} client:visible />
+      <ImpactStories items={resources} client:visible />
 
       <HowIWork client:visible />
       <WhereImWorking client:visible />

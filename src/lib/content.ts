@@ -12,6 +12,8 @@ function mapEntry(entry: any) {
     blocks: entry.data.blocks,
     navigation: entry.data.navigation,
     order: entry.data.order ?? 999, // Default to 999 if no order specified
+    audioFile: entry.data.audioFile, // Audio overview file
+    cardGradient: entry.data.cardGradient, // Custom card gradient
   }
 }
 

@@ -3,6 +3,7 @@ title: "Cisco Case Study"
 slug: "cisco"
 category: "Case Study"
 order: 2
+audioFile: "/audio/cisco-overview.mp3"
 heroImage: "/images/cisco-hero.jpg"
 metaTitle: "Cisco Case Study – Enterprise Training Redesign"
 metaDescription: "How Cisco improved completion rates and reduced training costs with a redesigned learning experience."
