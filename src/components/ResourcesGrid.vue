@@ -31,7 +31,13 @@ const hoveredCard = ref(null)
 const cardTransforms = ref({})
 
 // Vibrant gradient colors for different resource types
-const getCardGradient = (type, index) => {
+const getCardGradient = (type, index, customGradient) => {
+    // If custom gradient is provided, use it
+    if (customGradient) {
+        return `bg-gradient-to-br ${customGradient}`
+    }
+    
+    // Otherwise use default gradients
     const gradients = {
         'case-study': [
             'from-teal-500 to-emerald-600',
@@ -54,7 +60,7 @@ const getCardGradient = (type, index) => {
     }
     
     const typeGradients = gradients[type] || gradients['case-study']
-    return typeGradients[index % typeGradients.length]
+    return `bg-gradient-to-br ${typeGradients[index % typeGradients.length]}`
 }
 
 // Get icon based on resource type
@@ -166,9 +172,17 @@ const getCardTransform = (cardId) => {
                         <div
                             :class="['relative aspect-[5/2] rounded-2xl overflow-visible transition-all duration-500 ease-out', hoveredCard === resource.id ? 'opacity-0' : 'opacity-100']"
                             :style="{ transform: hoveredCard === resource.id ? 'scale(0.95)' : 'scale(1)' }">
-                            <div :class="['absolute inset-0 rounded-2xl bg-gradient-to-br flex flex-col items-center justify-center p-4 text-white', getCardGradient(resource.type, index)]">
-                                <!-- Icon (smaller) -->
-                                <div class="mb-2 opacity-90 [&>svg]:w-8 [&>svg]:h-8" v-html="getIcon(resource.type)"></div>
+                            <div :class="['absolute inset-0 rounded-2xl flex flex-col items-center justify-center p-6 text-white', getCardGradient(resource.type, index, resource.cardGradient)]">
+                                <!-- Icon and Logo Row -->
+                                <div class="flex items-center gap-3">
+                                    <!-- Icon -->
+                                    <div class="opacity-90 [&>svg]:w-6 [&>svg]:h-6" v-html="getIcon(resource.type)"></div>
+                                    
+                                    <!-- Logo (if available) -->
+                                    <div v-if="resource.logo" class="w-14 h-14 flex items-center justify-center">
+                                        <img :src="resource.logo" :alt="`${resource.title} logo`" class="w-full h-full object-contain" />
+                                    </div>
+                                </div>
                                 
                                 <!-- Title (smaller text) -->
                                 <h3 class="text-sm md:text-base font-bold text-center leading-tight">
@@ -181,19 +195,16 @@ const getCardTransform = (cardId) => {
                         <div
                             :class="['absolute top-0 left-0 w-full aspect-[4/3] rounded-2xl overflow-hidden transition-all duration-500 ease-out pointer-events-none', hoveredCard === resource.id ? 'opacity-100' : 'opacity-0']"
                             :style="{ transform: getCardTransform(resource.id) }">
-                            <div :class="['absolute inset-0 rounded-2xl bg-gradient-to-br flex flex-col items-center justify-center p-6 text-white', getCardGradient(resource.type, index)]">
-                                <!-- Background overlay for better text readability -->
+                            <div :class="['absolute inset-0 rounded-2xl flex flex-col items-center justify-center p-6 text-white', getCardGradient(resource.type, index, resource.cardGradient)]">                                <!-- Background overlay for better text readability -->
                                 <div class="absolute inset-0 bg-black/30"></div>
                                 
                                 <!-- Content -->
                                 <div class="relative z-10 flex flex-col items-center justify-center h-full">
-                                    <!-- Animated Icon (smaller on hover) -->
-                                    <div class="mb-3 opacity-90 transform scale-75 transition-transform duration-300" v-html="getIcon(resource.type)"></div>
-                                    
-                                    <!-- Illustration/Image (if available) -->
-                                    <div v-if="resource.thumbnail" class="mb-3 w-24 h-24 rounded-lg overflow-hidden">
-                                        <img :src="resource.thumbnail" :alt="resource.title" class="w-full h-full object-cover" />
+                                    <!-- Logo or Icon -->
+                                    <div v-if="resource.logo" class="mb-3 w-20 h-20 flex items-center justify-center">
+                                        <img :src="resource.logo" :alt="`${resource.title} logo`" class="w-full h-full object-contain" />
                                     </div>
+                                    <div v-else class="mb-3 opacity-90 transform scale-75 transition-transform duration-300" v-html="getIcon(resource.type)"></div>
                                     
                                     <!-- Category Tag -->
                                     <span class="inline-block px-3 py-1 text-xs font-medium bg-white/20 backdrop-blur-sm rounded-full mb-2 uppercase tracking-wide">
@@ -204,11 +215,6 @@ const getCardTransform = (cardId) => {
                                     <h3 class="text-sm md:text-base font-bold text-center mb-2">
                                         {{ resource.title }}
                                     </h3>
-                                    
-                                    <!-- Description/Type -->
-                                    <p class="text-xs text-white/80 text-center">
-                                        {{ resource.type.replace('-', ' ').toUpperCase() }}
-                                    </p>
                                 </div>
                             </div>
                         </div>

@@ -6,6 +6,7 @@ function mapEntry(entry: any) {
     slug: entry.slug,
     category: entry.data.category,
     heroImage: entry.data.heroImage,
+    logo: entry.data.logo, // Company/project logo
     metaTitle: entry.data.metaTitle,
     metaDescription: entry.data.metaDescription,
     overview: entry.data.overview,

@@ -122,9 +122,17 @@ const getCardTransform = (cardId) => {
                         <div
                             :class="['relative aspect-[5/2] rounded-2xl overflow-visible transition-all duration-500 ease-out', hoveredCard === item.id ? 'opacity-0' : 'opacity-100']"
                             :style="{ transform: hoveredCard === item.id ? 'scale(0.95)' : 'scale(1)' }">
-                            <div :class="['absolute inset-0 rounded-2xl flex flex-col items-center justify-center p-4 text-white', getCardGradient(item.type, index, item.cardGradient)]">
-                                <!-- Icon (smaller) -->
-                                <div class="mb-2 opacity-90 [&>svg]:w-8 [&>svg]:h-8" v-html="getIcon(item.type)"></div>
+                            <div :class="['absolute inset-0 rounded-2xl flex flex-col items-center justify-center p-6  text-white', getCardGradient(item.type, index, item.cardGradient)]">
+                                <!-- Icon and Logo Row -->
+                                <div class="flex items-center gap-3">
+                                    <!-- Icon -->
+                                    <div class="opacity-90 [&>svg]:w-6 [&>svg]:h-6" v-html="getIcon(item.type)"></div>
+                                    
+                                    <!-- Logo (if available) -->
+                                    <div v-if="item.logo" class="w-14 h-14 flex items-center justify-center">
+                                        <img :src="item.logo" :alt="`${item.title} logo`" class="w-full h-full object-contain" />
+                                    </div>
+                                </div>
                                 
                                 <!-- Title (smaller text) -->
                                 <h3 class="text-sm md:text-base font-bold text-center leading-tight">
@@ -143,13 +151,11 @@ const getCardTransform = (cardId) => {
                                 
                                 <!-- Content -->
                                 <div class="relative z-10 flex flex-col items-center justify-center h-full">
-                                    <!-- Animated Icon (smaller on hover) -->
-                                    <div class="mb-3 opacity-90 transform scale-75 transition-transform duration-300" v-html="getIcon(item.type)"></div>
-                                    
-                                    <!-- Illustration/Image (if available) -->
-                                    <div v-if="item.thumbnail" class="mb-3 w-24 h-24 rounded-lg overflow-hidden">
-                                        <img :src="item.thumbnail" :alt="item.title" class="w-full h-full object-cover" />
+                                    <!-- Logo or Icon -->
+                                    <div v-if="item.logo" class="mb-3 w-20 h-20 flex items-center justify-center">
+                                        <img :src="item.logo" :alt="`${item.title} logo`" class="w-full h-full object-contain" />
                                     </div>
+                                    <div v-else class="mb-3 opacity-90 transform scale-75 transition-transform duration-300" v-html="getIcon(item.type)"></div>
                                     
                                     <!-- Category Tag -->
                                     <span class="inline-block px-3 py-1 text-xs font-medium bg-white/20 backdrop-blur-sm rounded-full mb-2 uppercase tracking-wide">
@@ -160,11 +166,6 @@ const getCardTransform = (cardId) => {
                                     <h3 class="text-sm md:text-base font-bold text-center mb-2">
                                         {{ item.title }}
                                     </h3>
-                                    
-                                    <!-- Description/Type -->
-                                    <p class="text-xs text-white/80 text-center">
-                                        {{ item.type.replace('-', ' ').toUpperCase() }}
-                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -183,7 +184,6 @@ const getCardTransform = (cardId) => {
 </template>
 
 <style scoped>
-/* Smooth 3D transform transitions */
 a {
     transform-style: preserve-3d;
 }

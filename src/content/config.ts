@@ -108,6 +108,7 @@ const caseStudies = defineCollection({
     order: z.number().optional(), // For controlling display order
     audioFile: z.string().optional(), // Path to audio overview file
     cardGradient: z.string().optional(), // Custom gradient for card (e.g., 'from-blue-500 to-purple-600')
+    logo: z.string().optional(), // Company/project logo for card display
     heroImage: z.string().optional(), // ContentLayout passes string to HeroBlock
     metaTitle: z.string().optional(),
     metaDescription: z.string().optional(),
@@ -127,6 +128,7 @@ const projects = defineCollection({
     order: z.number().optional(), // For controlling display order
     audioFile: z.string().optional(), // Path to audio overview file
     cardGradient: z.string().optional(), // Custom gradient for card
+    logo: z.string().optional(), // Company/project logo for card display
     heroImage: z.string().optional(),
     metaTitle: z.string().optional(),
     metaDescription: z.string().optional(),
@@ -146,6 +148,7 @@ const blogs = defineCollection({
     order: z.number().optional(), // For controlling display order
     audioFile: z.string().optional(), // Path to audio overview file
     cardGradient: z.string().optional(), // Custom gradient for card
+    logo: z.string().optional(), // Company/project logo for card display
     heroImage: z.string().optional(),
     metaTitle: z.string().optional(),
     metaDescription: z.string().optional(),
