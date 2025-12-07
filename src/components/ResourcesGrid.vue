@@ -18,8 +18,15 @@ const getRoutePath = (type, slug) => {
 
 const filteredResources = computed(() => {
     if (!props.items || props.items.length === 0) return []
-    if (activeFilter.value === 'all') return props.items
-    return props.items.filter((r) => r.type === activeFilter.value)
+    
+    // Add original index to each item to preserve gradient colors
+    const itemsWithIndex = props.items.map((item, index) => ({
+        ...item,
+        originalIndex: index
+    }))
+    
+    if (activeFilter.value === 'all') return itemsWithIndex
+    return itemsWithIndex.filter((r) => r.type === activeFilter.value)
 })
 
 const setFilter = (filter) => {
@@ -195,7 +202,7 @@ const getCardTransform = (cardId) => {
                         <div
                             :class="['absolute top-0 left-0 w-full aspect-[4/3] rounded-2xl overflow-hidden transition-all duration-500 ease-out pointer-events-none', hoveredCard === resource.id ? 'opacity-100' : 'opacity-0']"
                             :style="{ transform: getCardTransform(resource.id) }">
-                            <div :class="['absolute inset-0 rounded-2xl flex flex-col items-center justify-center p-6 text-white', getCardGradient(resource.type, index, resource.cardGradient)]">                                <!-- Background overlay for better text readability -->
+                            <div :class="['absolute inset-0 rounded-2xl flex flex-col items-center justify-center p-6 text-white', getCardGradient(resource.type, resource.originalIndex, resource.cardGradient)]">                                <!-- Background overlay for better text readability -->
                                 <div class="absolute inset-0 bg-black/30"></div>
                                 
                                 <!-- Content -->

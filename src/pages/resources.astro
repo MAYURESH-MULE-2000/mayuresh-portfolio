@@ -19,6 +19,9 @@ const resources = [
     label: item.category,
     slug: item.slug,
     thumbnail: item.heroImage || "",
+    logo: item.logo || "", // Company/project logo
+    order: item.order,
+    cardGradient: item.cardGradient, // Custom gradient
   })),
   ...projects.map((item: any) => ({
     id: item.slug,
@@ -27,6 +30,9 @@ const resources = [
     label: item.category,
     slug: item.slug,
     thumbnail: item.heroImage || "",
+    logo: item.logo || "", // Company/project logo
+    order: item.order,
+    cardGradient: item.cardGradient, // Custom gradient
   })),
   ...blogs.map((item: any) => ({
     id: item.slug,
@@ -35,8 +41,11 @@ const resources = [
     label: item.category,
     slug: item.slug,
     thumbnail: item.heroImage || "",
+    logo: item.logo || "", // Company/project logo
+    order: item.order,
+    cardGradient: item.cardGradient, // Custom gradient
   })),
-];
+].sort((a, b) => a.order - b.order);
 ---
 
 <Layout
