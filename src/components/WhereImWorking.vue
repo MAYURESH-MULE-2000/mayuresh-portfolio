@@ -31,7 +31,7 @@ const currentRole = {
             </div>
 
             <!-- Job Card -->
-            <div class="bg-blue-50 dark:bg-blue-900/20 rounded-3xl p-8 md:p-12 max-w-5xl shadow-xl hover:shadow-2xl">
+            <div class="bg-blue-50 dark:bg-blue-900/20 rounded-3xl p-8 md:p-12 max-w-full shadow-xl hover:shadow-2xl">
                 <!-- Company + Role + Period -->
                 <h3 class="text-xl md:text-2xl font-bold mb-6">
                     <MagnifyText size=100 zoom=1.8 client:visible>
