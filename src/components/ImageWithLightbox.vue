@@ -1,18 +1,90 @@
 <script setup>
-import { inject } from 'vue'
-
 const props = defineProps({
     src: { type: String, required: true },
     alt: { type: String, default: 'Image' },
     className: { type: String, default: '' }
 })
 
-const lightbox = inject('lightbox')
+const openLightbox = () => {
+    // Basic DOM manipulation to avoid any Vue/Teleport insertion errors
+    if (typeof document === 'undefined') return
 
-function openLightbox() {
-    lightbox.currentSrc = props.src
-    lightbox.currentAlt = props.alt
-    lightbox.isOpen = true
+    // Create container
+    const div = document.createElement('div')
+    div.id = 'lightbox-overlay'
+    div.style.cssText = `
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        background-color: rgba(0,0,0,0.95);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        cursor: zoom-out;
+    `
+
+    // Create close button
+    const btn = document.createElement('button')
+    btn.innerHTML = '×'
+    btn.style.cssText = `
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        color: white;
+        font-size: 2.5rem;
+        font-weight: 300;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        width: 3rem;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    `
+    // Hover effect for button
+    btn.onmouseenter = () => { btn.style.background = 'rgba(255,255,255,0.1)' }
+    btn.onmouseleave = () => { btn.style.background = 'transparent' }
+
+    // Create image
+    const img = document.createElement('img')
+    img.src = props.src
+    img.alt = props.alt
+    img.style.cssText = `
+        max-width: 100%;
+        max-height: 90vh;
+        object-fit: contain;
+        user-select: none;
+        cursor: zoom-out;
+    `
+
+    // Append elements
+    div.appendChild(btn)
+    div.appendChild(img)
+    document.body.appendChild(div)
+    document.body.style.overflow = 'hidden'
+
+    // Cleanup function
+    const close = () => {
+        if (div.parentNode) {
+            div.parentNode.removeChild(div)
+            document.body.style.overflow = ''
+            document.removeEventListener('keydown', handleKeydown)
+        }
+    }
+
+    // Event listeners
+    const handleKeydown = (e) => {
+        if (e.key === 'Escape') close()
+    }
+    document.addEventListener('keydown', handleKeydown)
+    div.onclick = close
+    btn.onclick = (e) => {
+        e.stopPropagation()
+        close()
+    }
 }
 </script>
 
