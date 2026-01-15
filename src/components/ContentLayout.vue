@@ -41,7 +41,7 @@ const getComponent = (type) => {
             :sidebar="content.overview.sidebar" />
 
         <!-- Dynamic Content Blocks -->
-        <component v-for="(block, index) in content.blocks" :key="index" :is="getComponent(block.type)"
+        <component v-for="(block, index) in content.blocks" :key="index++" :is="getComponent(block.type)"
             v-bind="block.data" />
 
         <!-- Navigation -->
