@@ -1,4 +1,5 @@
 <script setup>
+import LightboxProvider from './LightboxProvider.vue'
 import HeroBlock from './content-blocks/HeroBlock.vue'
 import OverviewBlock from './content-blocks/OverviewBlock.vue'
 import TextBlock from './content-blocks/TextBlock.vue'
@@ -31,22 +32,24 @@ const getComponent = (type) => {
 </script>
 
 <template>
-    <div class="max-w-6xl mx-auto">
-        <!-- Hero -->
-        <HeroBlock backLink="/resources" backText="Back to all resources" :title="content.title"
-            :category="content.category" :image="content.heroImage" :video="content.heroVideo" />
+    <LightboxProvider>
+        <div class="max-w-6xl mx-auto">
+            <!-- Hero -->
+            <HeroBlock backLink="/resources" backText="Back to all resources" :title="content.title"
+                :category="content.category" :image="content.heroImage" :video="content.heroVideo" />
 
-        <!-- Overview -->
-        <OverviewBlock v-if="content.overview" :sections="content.overview.sections"
-            :sidebar="content.overview.sidebar" />
+            <!-- Overview -->
+            <OverviewBlock v-if="content.overview" :sections="content.overview.sections"
+                :sidebar="content.overview.sidebar" />
 
-        <!-- Dynamic Content Blocks -->
-        <component v-for="(block, index) in content.blocks" :key="index" :is="getComponent(block.type)"
-            v-bind="block.data" />
+            <!-- Dynamic Content Blocks -->
+            <component v-for="(block, index) in content.blocks" :key="index" :is="getComponent(block.type)"
+                v-bind="block.data" />
 
-        <!-- Navigation -->
-        <NavigationBlock v-if="content.navigation" :prevLink="content.navigation.prev?.link"
-            :prevTitle="content.navigation.prev?.title" :nextLink="content.navigation.next?.link"
-            :nextTitle="content.navigation.next?.title" />
-    </div>
+            <!-- Navigation -->
+            <NavigationBlock v-if="content.navigation" :prevLink="content.navigation.prev?.link"
+                :prevTitle="content.navigation.prev?.title" :nextLink="content.navigation.next?.link"
+                :nextTitle="content.navigation.next?.title" />
+        </div>
+    </LightboxProvider>
 </template>

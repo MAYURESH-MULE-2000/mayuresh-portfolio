@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { inject } from 'vue'
 
 const props = defineProps({
     src: { type: String, required: true },
@@ -7,23 +7,17 @@ const props = defineProps({
     className: { type: String, default: '' }
 })
 
-// Lightbox component - simplified for reliability
-const showLightbox = ref(false)
+const lightbox = inject('lightbox')
 
-function open() {
-    showLightbox.value = true
-    document.body.style.overflow = 'hidden'
-}
-
-function close() {
-    showLightbox.value = false
-    document.body.style.overflow = ''
+function openLightbox() {
+    lightbox.currentSrc = props.src
+    lightbox.currentAlt = props.alt
+    lightbox.isOpen = true
 }
 </script>
 
 <template>
-    <!-- Thumbnail -->
-    <div class="relative group cursor-zoom-in overflow-hidden rounded-3xl border border-gray-100 dark:border-gray-800" @click="open">
+    <div class="relative group cursor-zoom-in overflow-hidden rounded-3xl border border-gray-100 dark:border-gray-800" @click="openLightbox">
         <img 
             :src="src" 
             :alt="alt" 
@@ -37,29 +31,5 @@ function close() {
                 Click to expand
             </div>
         </div>
-    </div>
-
-    <!-- Lightbox Modal (inline, no teleport) -->
-    <div 
-        v-if="showLightbox"
-        class="fixed inset-0 z-[99999] bg-black/95 flex items-center justify-center p-4"
-        @click="close"
-        @keydown.esc="close"
-        tabindex="0"
-    >
-        <button 
-            @click.stop="close"
-            class="absolute top-4 right-4 text-white text-4xl font-light hover:bg-white/10 w-12 h-12 rounded-full flex items-center justify-center"
-            aria-label="Close"
-        >
-            ×
-        </button>
-
-        <img 
-            :src="src" 
-            :alt="alt" 
-            class="max-w-full max-h-[90vh] object-contain"
-            @click.stop="close"
-        />
     </div>
 </template>
