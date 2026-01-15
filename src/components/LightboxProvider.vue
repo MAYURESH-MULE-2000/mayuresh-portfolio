@@ -28,9 +28,9 @@ provide('lightbox', lightbox)
     <slot />
     
     <!-- Teleport to body to avoid insertBefore errors in island fragments -->
-    <Teleport to="body" v-if="isMounted">
+    <Teleport to="body">
         <div 
-            v-if="lightbox.isOpen"
+            v-if="isMounted && lightbox.isOpen"
             class="fixed inset-0 z-[99999] bg-black/95 flex items-center justify-center p-4 transition-opacity duration-200"
             @click="lightbox.isOpen = false"
         >
