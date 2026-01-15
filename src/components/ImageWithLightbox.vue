@@ -5,6 +5,8 @@ const props = defineProps({
     className: { type: String, default: '' }
 })
 
+console.log('ImageWithLightbox v3 loaded')
+
 const openLightbox = () => {
     // Basic DOM manipulation to avoid any Vue/Teleport insertion errors
     if (typeof document === 'undefined') return
