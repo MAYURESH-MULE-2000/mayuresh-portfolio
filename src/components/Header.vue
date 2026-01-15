@@ -2,13 +2,7 @@
 import ThemeToggle from './ThemeToggle.vue'
 import AudioPlayer from './AudioPlayer.vue'
 
-const props = defineProps({
-  audioFile: {
-    type: String,
-    default: null,
-    required: false,
-  },
-})
+const props = defineProps(['audioFile'])
 </script>
 
 <template>
