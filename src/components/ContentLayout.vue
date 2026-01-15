@@ -34,7 +34,7 @@ const getComponent = (type) => {
     <div class="max-w-6xl mx-auto">
         <!-- Hero -->
         <HeroBlock backLink="/resources" backText="Back to all resources" :title="content.title"
-            :category="content.category" :image="content.heroImage" />
+            :category="content.category" :image="content.heroImage" :video="content.heroVideo" />
 
         <!-- Overview -->
         <OverviewBlock v-if="content.overview" :sections="content.overview.sections"

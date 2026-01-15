@@ -22,7 +22,7 @@ defineProps({
             <div class="lg:col-span-2 space-y-8">
                 <div v-for="(section, index) in sections" :key="index">
                     <h3 class="text-xl font-bold mb-3">{{ section.title }}</h3>
-                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line">
                         {{ section.content }}
                     </p>
                 </div>

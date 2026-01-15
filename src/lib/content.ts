@@ -6,15 +6,18 @@ function mapEntry(entry: any) {
     slug: entry.slug,
     category: entry.data.category,
     heroImage: entry.data.heroImage,
+    heroVideo: entry.data.heroVideo, // Loop video for hero
     logo: entry.data.logo, // Company/project logo
     metaTitle: entry.data.metaTitle,
     metaDescription: entry.data.metaDescription,
     overview: entry.data.overview,
+    insights: entry.data.insights, // Insights for cards
     blocks: entry.data.blocks,
     navigation: entry.data.navigation,
     order: entry.data.order ?? 999, // Default to 999 if no order specified
     audioFile: entry.data.audioFile, // Audio overview file
     cardGradient: entry.data.cardGradient, // Custom card gradient
+    cardHoverGradient: entry.data.cardHoverGradient, // Custom card hover gradient
   }
 }
 

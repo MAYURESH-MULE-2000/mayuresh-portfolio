@@ -8,7 +8,6 @@ import HowIWork from "../components/HowIWork.vue";
 import WhereImWorking from "../components/WhereImWorking.vue";
 import LetsConnect from "../components/LetsConnect.vue";
 import MagnifyText from "../components/MagnifyText.vue";
-import Particles from "../components/Particles.vue";
 
 import { getCaseStudies, getProjects, getBlogs } from "../lib/content";
 
@@ -27,6 +26,8 @@ const resources = [
     logo: item.logo || "", // Company/project logo
     order: item.order,
     cardGradient: item.cardGradient, // Custom gradient
+    cardHoverGradient: item.cardHoverGradient,
+    insights: item.insights,
   })),
   ...projects.map((item: any) => ({
     id: item.slug,
@@ -38,6 +39,8 @@ const resources = [
     logo: item.logo || "", // Company/project logo
     order: item.order,
     cardGradient: item.cardGradient, // Custom gradient
+    cardHoverGradient: item.cardHoverGradient,
+    insights: item.insights,
   })),
   ...blogs.map((item: any) => ({
     id: item.slug,
@@ -49,6 +52,8 @@ const resources = [
     logo: item.logo || "", // Company/project logo
     order: item.order,
     cardGradient: item.cardGradient, // Custom gradient
+    cardHoverGradient: item.cardHoverGradient,
+    insights: item.insights,
   })),
 ].sort((a, b) => a.order - b.order);
 ---
@@ -96,49 +101,6 @@ const resources = [
           </p>
         </div>
       </div>
-
-      <Particles
-        id="particles-background"
-        class="fixed inset-0 -z-10"
-        :quantity="100"
-        :ease="80"
-        :refresh="false"
-        client:load
-      />
-
-      <script>
-        // Theme-aware particle color switching
-        function updateParticleColor() {
-          const isDark = document.documentElement.classList.contains("dark");
-          const particlesElement = document.getElementById(
-            "particles-background",
-          );
-          if (particlesElement) {
-            // Black particles on white theme, white particles on dark theme
-            particlesElement.setAttribute(
-              "color",
-              isDark ? "#ffffff" : "#000000",
-            );
-          }
-        }
-
-        // Update on page load
-        updateParticleColor();
-
-        // Watch for theme changes
-        const observer = new MutationObserver((mutations) => {
-          mutations.forEach((mutation) => {
-            if (mutation.attributeName === "class") {
-              updateParticleColor();
-            }
-          });
-        });
-
-        observer.observe(document.documentElement, {
-          attributes: true,
-          attributeFilter: ["class"],
-        });
-      </script>
 
       <ImpactStories items={resources} client:visible />
 

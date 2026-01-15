@@ -1,0 +1,116 @@
+---
+interface Props {
+    title?: string;
+    description?: string;
+}
+
+const {
+    title = "LinguaVault - Learn Languages Offline",
+    description = "A free, offline-first language learning platform. Learn at your own pace with structured curricula, no accounts required.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="no-transition">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content={description} />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+        <!-- SEO -->
+        <title>{title}</title>
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="Mayuresh Mule" />
+
+        <!-- Open Graph -->
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="website" />
+
+        <!-- Plus Jakarta Sans Font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- LinguaVault Styles -->
+        <style>
+            @import "../styles/linguavault.css";
+        </style>
+
+        <!-- Theme Script (prevent FOUC) -->
+        <script is:inline>
+            const theme = localStorage.getItem("theme");
+            const prefersDark = window.matchMedia(
+                "(prefers-color-scheme: dark)",
+            ).matches;
+
+            if (theme === "dark" || (!theme && prefersDark)) {
+                document.documentElement.classList.add("dark");
+            }
+
+            window.addEventListener("load", () => {
+                document.documentElement.classList.remove("no-transition");
+            });
+        </script>
+    </head>
+    <body class="lv-page">
+        <!-- Main Content -->
+        <main>
+            <slot />
+        </main>
+
+        <!-- Offline Indicator (injected via JS) -->
+        <div
+            id="offline-indicator"
+            class="lv-offline-banner"
+            style="display: none;"
+        >
+            <span
+                >📴 You're offline - Don't worry, LinguaVault works offline!</span
+            >
+        </div>
+
+        <style>
+            .lv-offline-banner {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                padding: var(--lv-space-3) var(--lv-space-4);
+                background: linear-gradient(
+                    135deg,
+                    var(--lv-warning-500),
+                    var(--lv-warning-600)
+                );
+                color: white;
+                text-align: center;
+                font-size: var(--lv-font-size-sm);
+                font-weight: var(--lv-font-weight-medium);
+                z-index: var(--lv-z-toast);
+                animation: lv-slide-up 0.3s ease-out;
+            }
+        </style>
+
+        <!-- Offline Detection Script -->
+        <script is:inline>
+            const offlineIndicator =
+                document.getElementById("offline-indicator");
+
+            function updateOnlineStatus() {
+                if (offlineIndicator) {
+                    offlineIndicator.style.display = navigator.onLine
+                        ? "none"
+                        : "block";
+                }
+            }
+
+            window.addEventListener("online", updateOnlineStatus);
+            window.addEventListener("offline", updateOnlineStatus);
+            updateOnlineStatus();
+        </script>
+    </body>
+</html>

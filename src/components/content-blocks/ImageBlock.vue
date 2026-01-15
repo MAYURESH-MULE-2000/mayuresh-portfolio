@@ -1,4 +1,6 @@
 <script setup>
+import ImageWithLightbox from '../ImageWithLightbox.vue'
+
 defineProps({
     image: {
         type: String,
@@ -17,11 +19,9 @@ defineProps({
 
 <template>
     <section class="mb-16">
-        <div class="aspect-video bg-gray-200 dark:bg-gray-800 rounded-3xl overflow-hidden">
-            <img :src="image" :alt="alt" class="w-full h-full object-cover" />
-        </div>
-        <p v-if="caption" class="text-sm text-gray-500 dark:text-gray-400 mt-4 text-center">
-            {{ caption }}
+        <ImageWithLightbox :src="image" :alt="alt" />
+        <p v-if="caption" class="text-xs font-medium text-gray-400 dark:text-gray-500 mt-4 text-center italic">
+            // {{ caption }}
         </p>
     </section>
 </template>

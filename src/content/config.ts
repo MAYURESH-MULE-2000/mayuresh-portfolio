@@ -55,6 +55,8 @@ const blocksSchema = z.discriminatedUnion('type', [
         z.object({
           value: z.string(),
           label: z.string(),
+          description: z.string().optional(),
+          icon: z.string().optional(),
         })
       ),
     }),
@@ -108,11 +110,14 @@ const caseStudies = defineCollection({
     order: z.number().optional(), // For controlling display order
     audioFile: z.string().optional(), // Path to audio overview file
     cardGradient: z.string().optional(), // Custom gradient for card (e.g., 'from-blue-500 to-purple-600')
+    cardHoverGradient: z.string().optional(),
     logo: z.string().optional(), // Company/project logo for card display
     heroImage: z.string().optional(), // ContentLayout passes string to HeroBlock
+    heroVideo: z.string().optional(), // Loop video for hero
     metaTitle: z.string().optional(),
     metaDescription: z.string().optional(),
     overview: overviewSchema,
+    insights: z.array(z.string()).optional(),
     blocks: z.array(blocksSchema).default([]),
     navigation: navigationSchema,
   }),
@@ -128,11 +133,14 @@ const projects = defineCollection({
     order: z.number().optional(), // For controlling display order
     audioFile: z.string().optional(), // Path to audio overview file
     cardGradient: z.string().optional(), // Custom gradient for card
+    cardHoverGradient: z.string().optional(),
     logo: z.string().optional(), // Company/project logo for card display
     heroImage: z.string().optional(),
+    heroVideo: z.string().optional(),
     metaTitle: z.string().optional(),
     metaDescription: z.string().optional(),
     overview: overviewSchema,
+    insights: z.array(z.string()).optional(),
     blocks: z.array(blocksSchema).default([]),
     navigation: navigationSchema,
   }),
@@ -148,11 +156,14 @@ const blogs = defineCollection({
     order: z.number().optional(), // For controlling display order
     audioFile: z.string().optional(), // Path to audio overview file
     cardGradient: z.string().optional(), // Custom gradient for card
+    cardHoverGradient: z.string().optional(),
     logo: z.string().optional(), // Company/project logo for card display
     heroImage: z.string().optional(),
+    heroVideo: z.string().optional(),
     metaTitle: z.string().optional(),
     metaDescription: z.string().optional(),
     overview: overviewSchema.optional(), // blogs can be simpler
+    insights: z.array(z.string()).optional(),
     blocks: z.array(blocksSchema).default([]),
     navigation: navigationSchema,
   }),

@@ -1,5 +1,10 @@
 <script setup>
 import { computed, ref } from 'vue'
+import { 
+    Presentation as LucidePresentation, 
+    Rocket as LucideRocket, 
+    PenTool as LucidePenTool 
+} from 'lucide-vue-next'
 
 const props = defineProps({
     items: {
@@ -20,12 +25,18 @@ const cardTransforms = ref({})
 
 // Vibrant gradient colors for different resource types
 // Get gradient based on type and index, or use custom gradient if provided
-const getCardGradient = (type, index, customGradient) => {
+const getCardGradient = (item, index, isHover) => {
+    // If hover gradient is provided and we are hovering, use it
+    if (isHover && item.cardHoverGradient) {
+        return `bg-gradient-to-br ${item.cardHoverGradient}`
+    }
+
     // If custom gradient is provided, use it
-    if (customGradient) {
-        return `bg-gradient-to-br ${customGradient}`
+    if (item.cardGradient) {
+        return `bg-gradient-to-br ${item.cardGradient}`
     }
     
+    const type = item.type
     // Otherwise use default gradients based on type
     const gradients = {
         'case-study': [
@@ -55,17 +66,11 @@ const getCardGradient = (type, index, customGradient) => {
 // Get icon based on resource type
 const getIcon = (type) => {
     const icons = {
-        'case-study': `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
-        </svg>`,
-        'project': `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
-        </svg>`,
-        'blog': `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-        </svg>`,
+        'case-study': LucidePresentation,
+        'project': LucideRocket,
+        'blog': LucidePenTool,
     }
-    return icons[type] || icons['case-study']
+    return icons[type] || LucidePresentation
 }
 
 // Handle mouse move for 3D tilt effect
@@ -118,26 +123,38 @@ const getCardTransform = (cardId) => {
                         @mouseleave="handleMouseLeave(item.id)"
                         @mousemove="(e) => handleMouseMove(e, item.id)">
                         
-                        <!-- Default State Container (5:2 - compact but readable) -->
+                        <!-- Default State Container (2:1 - slightly taller for better mobile/tag support) -->
                         <div
-                            :class="['relative aspect-[5/2] rounded-2xl overflow-visible transition-all duration-500 ease-out', hoveredCard === item.id ? 'opacity-0' : 'opacity-100']"
+                            :class="['relative aspect-[2/1] rounded-2xl overflow-hidden transition-all duration-500 ease-out', hoveredCard === item.id ? 'opacity-0' : 'opacity-100']"
                             :style="{ transform: hoveredCard === item.id ? 'scale(0.95)' : 'scale(1)' }">
-                            <div :class="['absolute inset-0 rounded-2xl flex flex-col items-center justify-center p-6  text-white', getCardGradient(item.type, index, item.cardGradient)]">
+                            <div :class="['relative h-full w-full rounded-2xl flex flex-col items-center justify-center p-4 text-white', getCardGradient(item, index, false)]">
                                 <!-- Icon and Logo Row -->
-                                <div class="flex items-center gap-3">
+                                <div class="flex items-center gap-3 mb-2">
                                     <!-- Icon -->
-                                    <div class="opacity-90 [&>svg]:w-6 [&>svg]:h-6" v-html="getIcon(item.type)"></div>
+                                    <div class="opacity-90">
+                                        <component :is="getIcon(item.type)" :size="20" />
+                                    </div>
                                     
                                     <!-- Logo (if available) -->
-                                    <div v-if="item.logo" class="w-14 h-14 flex items-center justify-center">
+                                    <div v-if="item.logo" class="w-10 h-10 flex items-center justify-center">
                                         <img :src="item.logo" :alt="`${item.title} logo`" class="w-full h-full object-contain" />
                                     </div>
                                 </div>
                                 
-                                <!-- Title (smaller text) -->
-                                <h3 class="text-sm md:text-base font-bold text-center leading-tight">
-                                    {{ item.title }}
-                                </h3>
+                                <!-- Title and Insights -->
+                                <div class="flex flex-col items-center gap-2">
+                                    <h3 class="text-[10px] md:text-sm font-bold text-center leading-tight line-clamp-2 max-w-[90%]">
+                                        {{ item.title }}
+                                    </h3>
+                                    
+                                    <!-- Insights Tags -->
+                                    <div v-if="item.insights && item.insights.length" class="flex flex-wrap justify-center gap-1 mt-1">
+                                        <span v-for="insight in item.insights" :key="insight" 
+                                            class="px-1.5 py-0.5 text-[8px] font-bold bg-white/30 backdrop-blur-md rounded uppercase tracking-wider">
+                                            {{ insight }}
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -145,27 +162,45 @@ const getCardTransform = (cardId) => {
                         <div
                             :class="['absolute top-0 left-0 w-full aspect-[4/3] rounded-2xl overflow-hidden transition-all duration-500 ease-out pointer-events-none', hoveredCard === item.id ? 'opacity-100' : 'opacity-0']"
                             :style="{ transform: getCardTransform(item.id) }">
-                            <div :class="['absolute inset-0 rounded-2xl flex flex-col items-center justify-center p-6 text-white', getCardGradient(item.type, index, item.cardGradient)]">
+                            <div :class="['absolute inset-0 rounded-2xl flex flex-col items-center justify-center p-6 text-white', getCardGradient(item, index, true)]">
                                 <!-- Background overlay for better text readability -->
-                                <div class="absolute inset-0 bg-black/30"></div>
+                                <div class="absolute inset-0 bg-black/40"></div>
                                 
                                 <!-- Content -->
-                                <div class="relative z-10 flex flex-col items-center justify-center h-full">
+                                <div class="relative z-10 flex flex-col items-center justify-center h-full w-full">
                                     <!-- Logo or Icon -->
-                                    <div v-if="item.logo" class="mb-3 w-20 h-20 flex items-center justify-center">
+                                    <div v-if="item.logo" class="mb-3 w-16 h-16 flex items-center justify-center">
                                         <img :src="item.logo" :alt="`${item.title} logo`" class="w-full h-full object-contain" />
                                     </div>
-                                    <div v-else class="mb-3 opacity-90 transform scale-75 transition-transform duration-300" v-html="getIcon(item.type)"></div>
+                                    <div v-else class="mb-3 opacity-90 transform scale-75">
+                                        <component :is="getIcon(item.type)" :size="24" />
+                                    </div>
                                     
                                     <!-- Category Tag -->
-                                    <span class="inline-block px-3 py-1 text-xs font-medium bg-white/20 backdrop-blur-sm rounded-full mb-2 uppercase tracking-wide">
+                                    <span class="inline-block px-3 py-1 text-[10px] font-bold bg-white/20 backdrop-blur-sm rounded-full mb-3 uppercase tracking-widest text-white/90">
                                         {{ item.label }}
                                     </span>
                                     
                                     <!-- Title -->
-                                    <h3 class="text-sm md:text-base font-bold text-center mb-2">
+                                    <h3 class="text-base md:text-lg font-bold text-center mb-3 leading-tight">
                                         {{ item.title }}
                                     </h3>
+
+                                    <!-- Insights Tags (Hover) -->
+                                    <div v-if="item.insights && item.insights.length" class="flex flex-wrap justify-center gap-2 mb-4">
+                                        <span v-for="insight in item.insights" :key="insight" 
+                                            class="px-2.5 py-1 text-[10px] font-bold bg-white text-black rounded-lg uppercase tracking-wider shadow-lg">
+                                            {{ insight }}
+                                        </span>
+                                    </div>
+
+                                    <!-- Action Hint -->
+                                    <div class="mt-auto pt-2 flex items-center gap-2 text-xs font-semibold opacity-80 uppercase tracking-widest">
+                                        <span>View Case Study</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                        </svg>
+                                    </div>
                                 </div>
                             </div>
                         </div>

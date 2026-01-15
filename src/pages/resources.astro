@@ -22,6 +22,8 @@ const resources = [
     logo: item.logo || "", // Company/project logo
     order: item.order,
     cardGradient: item.cardGradient, // Custom gradient
+    cardHoverGradient: item.cardHoverGradient,
+    insights: item.insights,
   })),
   ...projects.map((item: any) => ({
     id: item.slug,
@@ -33,6 +35,8 @@ const resources = [
     logo: item.logo || "", // Company/project logo
     order: item.order,
     cardGradient: item.cardGradient, // Custom gradient
+    cardHoverGradient: item.cardHoverGradient,
+    insights: item.insights,
   })),
   ...blogs.map((item: any) => ({
     id: item.slug,
@@ -44,6 +48,8 @@ const resources = [
     logo: item.logo || "", // Company/project logo
     order: item.order,
     cardGradient: item.cardGradient, // Custom gradient
+    cardHoverGradient: item.cardHoverGradient,
+    insights: item.insights,
   })),
 ].sort((a, b) => a.order - b.order);
 ---

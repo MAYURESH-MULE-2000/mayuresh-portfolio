@@ -1,11 +1,12 @@
 ---
+import Particles from "../components/Particles.vue";
+
 interface Props {
   title: string;
   description: string;
-
 }
 
-const { title , description } = Astro.props;
+const { title, description } = Astro.props;
 
 // Import global styles
 ---
@@ -14,35 +15,86 @@ const { title , description } = Astro.props;
 <html lang="en" class="no-transition">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Mayuresh Mule - UX Engineer & Product Builder" />
+    <meta
+      name="description"
+      content="Mayuresh Mule - UX Engineer & Product Builder"
+    />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <meta name="description" content={description} />
 
     <!-- Plus Jakarta Sans Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- Prevent flash of unstyled content (FOUC) -->
     <script is:inline>
       // Check theme before page loads
-      const theme = localStorage.getItem('theme')
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-      
-      if (theme === 'dark' || (!theme && prefersDark)) {
-        document.documentElement.classList.add('dark')
+      const theme = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
+
+      if (theme === "dark" || (!theme && prefersDark)) {
+        document.documentElement.classList.add("dark");
       }
 
       // Enable transitions after page loads (prevents flash on load)
-      window.addEventListener('load', () => {
-        document.documentElement.classList.remove('no-transition')
-      })
+      window.addEventListener("load", () => {
+        document.documentElement.classList.remove("no-transition");
+      });
     </script>
   </head>
-<body class="bg-light select-none dark:bg-dark text-light dark:text-dark font-jakarta transition-colors duration-300">
-  <slot />
-</body>
+  <body
+    class="selection:bg-teal-500 bg-light select-none dark:bg-dark text-light dark:text-dark font-jakarta transition-colors duration-300 overflow-x-hidden"
+  >
+    <Particles
+      id="particles-background"
+      class="fixed inset-0 -z-10"
+      :quantity="100"
+      :ease="80"
+      :refresh="false"
+      client:load
+    />
 
+    <script>
+      // Theme-aware particle color switching
+      function updateParticleColor() {
+        const isDark = document.documentElement.classList.contains("dark");
+        const particlesElement = document.getElementById(
+          "particles-background",
+        );
+        if (particlesElement) {
+          // Black particles on white theme, white particles on dark theme
+          particlesElement.setAttribute(
+            "color",
+            isDark ? "#ffffff" : "#000000",
+          );
+        }
+      }
+
+      // Update on page load
+      updateParticleColor();
+
+      // Watch for theme changes
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.attributeName === "class") {
+            updateParticleColor();
+          }
+        });
+      });
+
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
+    </script>
+    <slot />
+  </body>
 </html>
