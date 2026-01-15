@@ -1,5 +1,6 @@
 ---
 import Particles from "../components/Particles.vue";
+import "../styles/global.css";
 
 interface Props {
   title: string;
@@ -7,8 +8,6 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
-
-// Import global styles
 ---
 
 <!doctype html>
@@ -56,9 +55,9 @@ const { title, description } = Astro.props;
     <Particles
       id="particles-background"
       class="fixed inset-0 -z-10"
-      :quantity="100"
-      :ease="80"
-      :refresh="false"
+      quantity={100}
+      ease={80}
+      refresh={false}
       client:load
     />
 
