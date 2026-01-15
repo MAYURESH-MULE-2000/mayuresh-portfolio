@@ -7,6 +7,7 @@ const props = defineProps({
     className: { type: String, default: '' }
 })
 
+
 const showLightbox = ref(false)
 
 function open() {
