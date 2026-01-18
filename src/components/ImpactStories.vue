@@ -108,9 +108,18 @@ const getCardTransform = (cardId) => {
     <section class="py-16 md:py-24">
         <div class="max-w-7xl mx-auto">
             <div class="relative mb-12 md:mb-16">
-                <div class="flex items-center justify-between">
+                <div class="mb-4">
                     <h2 class="text-3xl md:text-4xl font-bold">Impact Stories</h2>
+                    <p class="text-gray-600 mt-2 mb-10 dark:text-gray-400 text-lg transition-colors duration-300">
+                       Real product problems solved through research, strategy, and execution.
+                    </p>
                 </div>
+                <!-- <div class="flex items-center justify-between">
+                    <h2 class="text-3xl md:text-4xl font-bold">Impact Stories</h2>
+                    <p class="text-gray-600 dark:text-gray-400 text-lg transition-colors duration-300">
+                            Real product problems solved through research, strategy, and execution.
+                    </p>
+                </div> -->
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-12">
@@ -125,7 +134,7 @@ const getCardTransform = (cardId) => {
                         
                         <!-- Default State Container (2:1 - slightly taller for better mobile/tag support) -->
                         <div
-                            :class="['relative aspect-[2/1] rounded-2xl overflow-hidden transition-all duration-500 ease-out', hoveredCard === item.id ? 'opacity-0' : 'opacity-100']"
+                            :class="['relative aspect-[3/2] rounded-2xl overflow-hidden transition-all duration-500 ease-out', hoveredCard === item.id ? 'opacity-0' : 'opacity-100']"
                             :style="{ transform: hoveredCard === item.id ? 'scale(0.95)' : 'scale(1)' }">
                             <div :class="['relative h-full w-full rounded-2xl flex flex-col items-center justify-center p-4 text-white', getCardGradient(item, index, false)]">
                                 <!-- Icon and Logo Row -->
@@ -160,7 +169,7 @@ const getCardTransform = (cardId) => {
 
                         <!-- Hover State Container (4:3) - Absolutely positioned -->
                         <div
-                            :class="['absolute top-0 left-0 w-full aspect-[4/3] rounded-2xl overflow-hidden transition-all duration-500 ease-out pointer-events-none', hoveredCard === item.id ? 'opacity-100' : 'opacity-0']"
+                            :class="['absolute top-0 left-0 w-full aspect-[1/1] rounded-2xl overflow-hidden transition-all duration-500 ease-out pointer-events-none', hoveredCard === item.id ? 'opacity-100' : 'opacity-0']"
                             :style="{ transform: getCardTransform(item.id) }">
                             <div :class="['absolute inset-0 rounded-2xl flex flex-col items-center justify-center p-6 text-white', getCardGradient(item, index, true)]">
                                 <!-- Background overlay for better text readability -->

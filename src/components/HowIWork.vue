@@ -94,8 +94,8 @@ const iconComponents = {
             <!-- Description -->
             <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-12 md:mb-16 max-w-4xl">
                 <MagnifyText size=100 zoom=1.8 client:visible>
-                    I blend data, user understanding, and product intuition to shape products that solve real problems
-                    and scale with impact. Here's how I do it —
+                    I work at the intersection of user research, data, and product strategy to design systems that solve
+                    real operational and user trust problems at scale.
                 </MagnifyText>
             </p>
 
@@ -130,7 +130,7 @@ const iconComponents = {
             <!-- CTA Section -->
             <div class="text-center">
                 <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-6">
-                    Want the full story?
+                    Want a detailed view of my experience and responsibilities?
                 </p>
 
                 <a href="/ProductMayureshMule.pdf" target="_blank"

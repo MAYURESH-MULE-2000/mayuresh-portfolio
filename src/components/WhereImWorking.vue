@@ -6,13 +6,13 @@ const currentRole = {
     period: 'Jul 2023 – Present',
     description: {
         intro: 'PMaps builds',
-        highlight1: 'AI-driven psychometric tools',
-        middle: 'to help recruiters make',
-        highlight2: 'smarter hiring decisions',
-        outro: '. I work here as a',
+        highlight1: 'AI-driven psychometric',
+        middle: 'and',
+        highlight2: 'assessment tools',
+        outro: 'that help recruiters make more accurate hiring decisions. As a',
         role: 'UX Engineer',
-        details: ', combining frontend engineering with design thinking to build powerful,',
-        highlight3: 'user-focused tools across web platforms',
+        details: ', I design and build user-focused web interfaces, combining frontend engineering with design thinking to improve clarity, usability, and decision-making across',
+        highlight3: 'hiring workflows.',
     }
 }
 </script>

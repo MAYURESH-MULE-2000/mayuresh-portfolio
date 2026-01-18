@@ -119,7 +119,7 @@ const getCardTransform = (cardId) => cardTransforms.value[cardId] || 'perspectiv
                         
                         <!-- Default State Container (2:1 - slightly taller for better mobile/tag support) -->
                         <div
-                            :class="['relative aspect-[2/1] rounded-2xl overflow-hidden transition-all duration-500 ease-out', hoveredCard === resource.id ? 'opacity-0' : 'opacity-100']"
+                            :class="['relative aspect-[3/2] rounded-2xl overflow-hidden transition-all duration-500 ease-out', hoveredCard === resource.id ? 'opacity-0' : 'opacity-100']"
                             :style="{ transform: hoveredCard === resource.id ? 'scale(0.95)' : 'scale(1)' }">
                             <div :class="['relative h-full w-full rounded-2xl flex flex-col items-center justify-center p-4 text-white', getCardGradient(resource, index, false)]">
                                 <!-- Icon and Logo Row -->
@@ -154,7 +154,7 @@ const getCardTransform = (cardId) => cardTransforms.value[cardId] || 'perspectiv
 
                         <!-- Hover State Container (4:3) - Absolutely positioned -->
                         <div
-                            :class="['absolute top-0 left-0 w-full aspect-[4/3] rounded-2xl overflow-hidden transition-all duration-500 ease-out pointer-events-none', hoveredCard === resource.id ? 'opacity-100' : 'opacity-0']"
+                            :class="['absolute top-0 left-0 w-full aspect-[1/1] rounded-2xl overflow-hidden transition-all duration-500 ease-out pointer-events-none', hoveredCard === resource.id ? 'opacity-100' : 'opacity-0']"
                             :style="{ transform: getCardTransform(resource.id) }">
                             <div :class="['absolute inset-0 rounded-2xl flex flex-col items-center justify-center p-6 text-white', getCardGradient(resource, resource.originalIndex, true)]">
                                 <!-- Background overlay -->

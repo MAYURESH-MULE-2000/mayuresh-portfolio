@@ -58,6 +58,9 @@ const avatars = [
             <!-- Section Header -->
             <div class="mb-4">
                 <h2 class="text-3xl md:text-4xl font-bold">Let's Connect</h2>
+                <p class="text-gray-600 mt-2 mb-10 dark:text-gray-400 text-lg transition-colors duration-300">
+                   Open to discussions around product design, UX engineering, trust systems, and meaningful problem-solving.                
+                </p>
             </div>
 
             <!-- Contact Form + Avatars Grid -->

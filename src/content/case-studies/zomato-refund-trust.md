@@ -1,5 +1,5 @@
 ---
-title: "Strengthening Refund Trust in Food Delivery"
+title: "Designing a Fraud-Resistant Refund Verification System for Food Delivery"
 slug: "zomato-refund-trust"
 category: "Refund & Complaint Flow"
 order: 1
