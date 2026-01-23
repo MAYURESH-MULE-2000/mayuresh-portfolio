@@ -11,6 +11,7 @@ import MagnifyText from "../components/MagnifyText.vue";
 import  SpeedInsights  from "@vercel/speed-insights/astro"
 import { getCaseStudies, getProjects, getBlogs } from "../lib/content";
 
+
 const caseStudies = await getCaseStudies();
 const projects = await getProjects();
 const blogs = await getBlogs();
