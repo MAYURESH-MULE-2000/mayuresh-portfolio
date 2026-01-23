@@ -8,7 +8,7 @@ import HowIWork from "../components/HowIWork.vue";
 import WhereImWorking from "../components/WhereImWorking.vue";
 import LetsConnect from "../components/LetsConnect.vue";
 import MagnifyText from "../components/MagnifyText.vue";
-
+import  SpeedInsights  from "@vercel/speed-insights/astro"
 import { getCaseStudies, getProjects, getBlogs } from "../lib/content";
 
 const caseStudies = await getCaseStudies();
@@ -115,6 +115,7 @@ const resources = [
       <HowIWork client:visible />
       <WhereImWorking client:visible />
       <LetsConnect client:visible />
+       <SpeedInsights/>
     </div>
   </main>
 </Layout>
