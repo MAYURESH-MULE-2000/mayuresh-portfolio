@@ -8,7 +8,7 @@ const currentRole = {
         intro: 'PMaps builds',
         highlight1: 'AI-driven psychometric',
         middle: 'and',
-        highlight2: 'assessment tools',
+        highlight2: 'assessment tools ',
         outro: 'that help recruiters make more accurate hiring decisions. As a',
         role: 'UX Engineer',
         details: ', I design and build user-focused web interfaces, combining frontend engineering with design thinking to improve clarity, usability, and decision-making across',
@@ -49,7 +49,7 @@ const currentRole = {
                         currentRole.description.outro }}
                         <strong class="font-bold">{{ currentRole.description.role }}</strong>{{
                         currentRole.description.details }}
-                        <strong class="font-bold">{{ currentRole.description.highlight3 }}</strong>.
+                        <strong class="font-bold">{{ currentRole.description.highlight3 }}</strong>
                     </MagnifyText>
                     </p>
             </div>
