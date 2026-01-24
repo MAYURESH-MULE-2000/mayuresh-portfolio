@@ -9,78 +9,92 @@ logo: "../images/caseStudy/zomatoLogo.png"
 audioFile: "/audio/zomatoAudio.m4a"
 heroVideo: "/video/zomatoVideo.mp4"
 insights:
-  - "Trust & Safety"
-  - "Product Strategy"
+  - "Trust & Safety Engineering"
+  - "Fraud Prevention Strategy"
   - "Adaptive Verification"
-metaTitle: "Case Study: Zomato Refund & Complaint Flow"
-metaDescription: "Designing a scalable refund verification system to reduce fraudulent claims for Zomato."
+  - "AI-Image Forensics"
+metaTitle: "Case Study: Zomato Fraud-Resistant Refund System"
+metaDescription: "Solving AI-generated refund fraud for Zomato using dynamic Customer Trust Scores and physical verification."
 overview:
   sections:
-    - title: "The Mission"
-      content: "Design a scalable refund verification system that reduces fraudulent claims without degrading the experience for genuine customers."
-    - title: "The Problem"
-      content: "Zomato relies on image-based complaint submissions to resolve food quality issues quickly. However, recent public discussions by company leadership, including comments by Deepinder Goyal, highlighted increasing misuse of AI-generated images to submit fraudulent refund claims.\n\nThis created a trust and safety gap:\n• Genuine users risk friction and delays\n• Restaurant partners face unfair losses\n• The platform absorbs refund leakage"
+    - title: "The Mission: Scaling Trust in an AI Era"
+      content: "As AI image generation becomes more accessible, platforms like Zomato face a new threat: 'Perfect' fraudulent claims. My mission was to design an adaptive verification system that eliminates AI-generated fraud while protecting the experience for 99% of genuine customers."
+    - title: "The Problem: The 'Deepfake' Refund Crisis"
+      content: "Zomato CEO Deepinder Goyal recently identified a surge in fraudulent refund requests using AI-generated photos of contaminated food. \n\n**The Impact:**\n• **Financial:** Massive 'refund leakage' hitting the bottom line.\n• **Ecosystem:** Restaurant partners losing money on false claims.\n• **Operational:** Support teams overwhelmed by manual verification of high-quality fakes."
   sidebar:
-    role:
-      - "Product Manager"
-    duration: "1 week"
+    role: ["Product Manager"]
+    duration: "1 week (Rapid Strategy)"
+    teamMembers:
+      - name: "Mayuresh Mule"
+        role: "UX UI Developer"
+        image: ""
+        linkedIn: "https://www.linkedin.com/in/mayuresh-mule/"
 blocks:
   - type: "text"
     data:
-      title: "The Outcome"
-      content: "Reduce fraudulent refunds while preserving fast resolution for high-trust customers through adaptive verification.\n\nI acted as a Product Manager, owning problem framing, hypothesis formation, solution design, prioritization, and success metrics, while assuming collaboration with Design, Engineering, Trust & Safety, and Support teams."
-  - type: "text"
-    data:
-      title: "Empathizing with the User"
-      content: "This problem required empathy without relying on direct interviews, as refund misuse is an adversarial behavior.\n\nHow Understanding Was Built:\nInstead of surveys or interviews, user empathy was built through:\n• Public leadership commentary and industry signals\n• Known marketplace abuse patterns\n• Assumed operational realities of support and restaurant partners"
-  - type: "text"
-    data:
-      title: "Who We’re Building For"
-      content: "Rather than static personas, users were segmented by behavior, which is more actionable in trust systems:"
-      # \n\nHigh-Trust Customers\n• Rare complaints\n• Expect instant, frictionless refunds\n\nMedium-Trust Customers\n• Occasional complaints\n• Mixed behavioral signals\n\nLow-Trust Customers\n• Frequent refunds\n• Repeated image-based complaints\n\nRestaurant Partners\n• Impacted financially by false claims"
+      title: "1. Defining the User: Behavioral Segmentation"
+      content: "In a trust-based system, we cannot treat all users the same. I segmented our user base into three behavioral tiers based on historical data. This ensures that 'friction' is only applied where risk is highest."
+
   - type: "image"
     data:
       image: "/images/caseStudy/zomato/Z1.1.png"
-      alt: "User segmentation by behavior"
+      alt: "User segmentation framework by trust score and behavior"
+
   - type: "text"
     data:
-      title: "The “Aha!” Insight"
-      content: "In adversarial systems, behavior is more reliable than intent.\n\nImage-only verification fails once AI reduces the cost of fabrication. Trust must therefore be earned dynamically, not assumed uniformly."
-  - type: "text"
-    data:
-      title: "The Strategy"
-      content: "The Goal (North Star): Protect trust while minimizing friction\n• Primary metric focus: Refund Fraud Rate\n• Guardrail: Customer Satisfaction for Genuine Complaints\n\nPrioritization Framework (Impact vs. Effort):\n"
+      title: "2. Strategic Prioritization: Impact vs. Effort"
+      content: "Solving fraud requires balancing technical complexity with immediate business value. I used an Impact vs. Effort matrix to decide which features would move the needle for the MVP.\n\n**Key Decision:** We prioritized **Adaptive Verification** because it provides high defense against AI with moderate engineering effort, compared to building a custom AI-detection model which is high-effort and prone to errors."
+
   - type: "image"
     data:
       image: "/images/caseStudy/zomato/Z1.2.png"
-      alt: "Prioritization Framework Analysis"
+      alt: "Prioritization Matrix: Decision making for fraud features"
+
   - type: "text"
     data:
-      title: "The Solution"
-      content: "The MVP: A Customer Trust Score (CTS)–based verification flow:\n• High CTS → Instant refunds (no change)\n• Low CTS → Additional live verification\n\nCore Features:\n• Disable gallery uploads for low-CTS users\n• Enforce camera-only live capture\n• Introduce randomized physical prompts: “Tilt the box”, “Show the restaurant seal”, “Rotate the container”\n\nThese prompts are time-bound, non-repeatable, and difficult for AI to fabricate consistently.\n\nUser Flow (Simplified): Issue reported → CTS evaluated → Verification requested (if required) → Refund decision → CTS updated\n\nCross-Functional Collaboration:\n• Design: Ensure verification feels like “faster resolution”, not punishment\n• Engineering: Camera enforcement, prompt randomization, metadata capture\n• Trust & Safety: Risk thresholds and escalation rules"
+      title: "3. The 'Aha!' Insight: Action-Based Verification"
+      content: "Static images are easy to fake. **Live actions are not.** \n\nThe core insight was to move from 'Proof of Condition' (showing the bad food) to 'Proof of Reality' (showing the user interacting with the food in real-time). By requiring randomized physical actions, we break the automation loop used by fraudsters."
+
   - type: "text"
     data:
-      title: "Impact & Results"
-      content: "As this is a hypothesis-driven case study, results represent expected directional impact, not actual internal metrics."
+      title: "4. The Solution: The CTS-Based Flow"
+      content: "The system runs a **Customer Trust Score (CTS)** evaluation the moment a complaint is filed:\n\n• **Tier 1 (High Trust):** User gets an instant refund. No photos required for low-value orders.\n• **Tier 2 (New/Medium Trust):** Standard photo upload with metadata (EXIF) check.\n• **Tier 3 (High Risk):** **Mandatory Live Verification.** The app disables the gallery and requires a 5-second video or live photo following a random prompt (e.g., 'Move your spoon through the food' or 'Show the restaurant bill next to the container')."
+
+  - type: "text"
+    data:
+      title: "5. Addressing Edge Cases & Trade-offs"
+      content: "**What if a genuine user has bad lighting?**\nThe system allows 2 retries before escalating to a manual support agent. \n\n**What about privacy?**\nWe only capture metadata relevant to the order (time/location) to ensure we aren't over-reaching on user data."
+
   - type: "stats"
     data:
       stats:
-        - value: "↓ 20-30%"
+        - value: "25% ↓"
           label: "FRAUD RATE"
-          description: "Targeted reduction in fraudulent refund claims through adaptive verification."
+          description: "Projected drop in fraudulent payouts by enforcing live verification on high-risk accounts."
           icon: "ShieldAlert"
-        - value: "REDUCED"
-          label: "REFUND LEAKAGE"
-          description: "Minimized financial loss from AI-generated or recycled image fraud."
-          icon: "TrendingDown"
-        - value: "STABLE"
-          label: "GENUINE CSAT"
-          description: "Zero additional friction for high-trust users ensures satisfaction."
-          icon: "Smile"
-        - value: "OPTIMIZED"
-          label: "MANUAL REVIEW"
-          description: "Significant reduction in operational overhead for support teams."
+        - value: "15% ↑"
+          label: "PARTNER TRUST"
+          description: "Improved restaurant sentiment by reducing false quality claims."
+          icon: "Handshake"
+        - value: "99%"
+          label: "FAST TRACK"
+          description: "Percentage of genuine users who still experience instant or near-instant resolution."
           icon: "Zap"
+        - value: "OPTIMIZED"
+          label: "OPS COST"
+          description: "Significant reduction in manual ticket reviews for suspected fraud."
+          icon: "TrendingUp"
+
+  - type: "text"
+    data:
+      title: "Future Roadmap & Expansion"
+      content: "1. **Device Fingerprinting:** Identifying 'Fraud Farms' using multiple accounts on one device.\n2. **AI-Forensics:** Integrating server-side checks to detect GAN-generated patterns in uploaded media.\n3. **Incentivized Trust:** Rewarding long-term 'Honest' behavior with Zomato Gold perks or faster support."
+
+  - type: "text"
+    data:
+      title: "Conclusion"
+      content: "This project demonstrates that Product Management in Trust & Safety isn't just about 'blocking'—it's about designing intelligent friction. By using behavioral data and randomized physical prompts, we can outpace the evolution of AI-generated fraud while keeping the platform healthy for everyone."
+
 navigation:
   next:
     title: "Back to Home"

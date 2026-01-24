@@ -78,6 +78,16 @@ const overviewSchema = z
         role: z.array(z.string()).optional(),
         team: z.array(z.string()).optional(),
         duration: z.string().optional(),
+        teamMembers: z
+          .array(
+            z.object({
+              name: z.string(),
+              role: z.string(),
+              image: z.string().optional(),
+              linkedIn: z.string(),
+            })
+          )
+          .optional(),
       })
       .optional(),
   })
