@@ -1,0 +1,48 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import GymRoutine from "../../components/gym/GymRoutine.vue";
+---
+
+<Layout
+    title="Today's Workout | Mayuresh Mule"
+    description="My daily gym workout routine"
+>
+    <main class="min-h-screen bg-gray-50 dark:bg-gray-900">
+        <!-- Back Button -->
+        <a
+            href="/gym-list"
+            class="fixed top-4 left-4 z-50 p-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-shadow"
+        >
+            <svg
+                class="w-5 h-5 text-gray-900 dark:text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 19l-7-7 7-7"></path>
+            </svg>
+        </a>
+
+        <GymRoutine client:load />
+    </main>
+</Layout>
+
+<script>
+    // Handle category override from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoryParam = urlParams.get("category");
+
+    if (categoryParam) {
+        // Pass category to Vue component via custom event
+        window.addEventListener("load", () => {
+            const routineEl = document.querySelector("[data-category]");
+            if (routineEl) {
+                routineEl.setAttribute("data-category", categoryParam);
+            }
+        });
+    }
+</script>
