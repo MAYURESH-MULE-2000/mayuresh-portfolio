@@ -195,6 +195,22 @@
               :autoRun="true"
             />
           </ConceptCard>
+
+          <ConceptCard
+            id="loops"
+            icon="🔁"
+            title="Loops: for, for...of, for...in, while"
+            subtitle="Every loop type and when to use which"
+            definition="for: classic counter loop. for...of: iterates over values (arrays, strings, Maps, Sets). for...in: iterates over keys (object properties — includes inherited!). while: condition-based loop. forEach: array method, cannot break out. for...of is the modern standard for iteration."
+            analogy="for = counting steps on a staircase. for...of = reading each page of a book. for...in = opening each drawer in a cabinet (including inherited drawers from grandma). forEach = a guided tour — you can't leave early."
+            seniorTip="Use for...of for arrays (it works with break/continue). Use Object.keys/values/entries for objects instead of for...in (avoids prototype issues). forEach can't be broken — use for...of if you need early exit. Never use for...in on arrays!"
+          >
+            <CodePlayground
+              title="loops.js"
+              :initialCode="codes.loops"
+              :autoRun="true"
+            />
+          </ConceptCard>
         </template>
 
         <!-- ==================== ARRAY METHODS ==================== -->
@@ -690,7 +706,7 @@ import CodePlayground from './CodePlayground.vue'
 
 // ==================== Section Navigation ====================
 const sections = [
-  { id: 'fundamentals', label: 'Fundamentals', icon: '📦', badge: '6' },
+  { id: 'fundamentals', label: 'Fundamentals', icon: '📦', badge: '7' },
   { id: 'arrays', label: 'Array Methods', icon: '🔗', badge: '4' },
   { id: 'async', label: 'Async JS', icon: '⏳', badge: '4' },
   { id: 'dom', label: 'DOM & Browser', icon: '🌐', badge: '3' },
@@ -1304,6 +1320,66 @@ console.log("Port:", port); // 3000
 const count = 0;
 console.log("|| :", count || 10);  // 10 (0 is falsy!)
 console.log("?? :", count ?? 10);  // 0  (only null/undefined)`,
+
+  // ==================== Loops ====================
+  loops: `// Every Loop Type in JavaScript
+
+const fruits = ['🍎 Apple', '🍌 Banana', '🍇 Grape'];
+
+// 1. Classic for loop (use when you need index)
+console.log("1️⃣ for loop:");
+for (let i = 0; i < fruits.length; i++) {
+  console.log("  " + i + ": " + fruits[i]);
+}
+
+// 2. for...of (modern, iterates VALUES — use this!)
+console.log("\n2️⃣ for...of (values):");
+for (const fruit of fruits) {
+  console.log("  " + fruit);
+}
+
+// 3. for...in (iterates KEYS — use on objects, NOT arrays!)
+console.log("\n3️⃣ for...in (keys):");
+const user = { name: "Mayuresh", age: 28, city: "Mumbai" };
+for (const key in user) {
+  console.log("  " + key + ": " + user[key]);
+}
+
+// 4. while loop
+console.log("\n4️⃣ while loop:");
+let count = 3;
+while (count > 0) {
+  console.log("  Countdown: " + count);
+  count--;
+}
+
+// 5. forEach (can't break or continue!)
+console.log("\n5️⃣ forEach:");
+fruits.forEach((fruit, i) => {
+  console.log("  [" + i + "] " + fruit);
+});
+
+// 6. for...of with break (forEach can't do this!)
+console.log("\n6️⃣ Break with for...of:");
+for (const fruit of fruits) {
+  if (fruit.includes('Banana')) {
+    console.log("  Found Banana! Stopping.");
+    break;
+  }
+  console.log("  Checking: " + fruit);
+}
+
+// 7. Object iteration (modern way)
+console.log("\n7️⃣ Object.entries() (preferred over for...in):");
+for (const [key, val] of Object.entries(user)) {
+  console.log("  " + key + " → " + val);
+}
+
+// ⚠️ NEVER use for...in on arrays!
+console.log("\n⚠️ for...in on array (BAD):");
+for (const i in fruits) {
+  console.log("  Type of index:", typeof i); // string, not number!
+}`,
 
   // ==================== Advanced Concepts ====================
   currying: `// Currying: f(a, b, c) → f(a)(b)(c)
