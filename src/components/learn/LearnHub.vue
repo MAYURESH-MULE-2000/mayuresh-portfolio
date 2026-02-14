@@ -173,7 +173,16 @@ const topics = [
     icon: '🛠️',
     description: 'Webpack vs Vite, tree shaking, testing pyramid, CI/CD, ESLint, TypeScript, and performance budgets.',
     gradient: 'linear-gradient(135deg, #14b8a6 0%, #0d9488 50%, #0f766e 100%)',
-    tags: ['Build Tools', 'Testing', 'DevOps', 'TypeScript'],
+    tags: ['Build Tools', 'Testing', 'CI/CD'],
+    ready: true,
+  },
+  {
+    title: 'LAMP Stack & Backend',
+    slug: '/learn/lamp',
+    icon: '🐧',
+    description: 'Linux basics, Apache config (.htaccess), MySQL optimization, and PHP integration for frontend devs.',
+    gradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%)',
+    tags: ['Linux', 'Apache', 'MySQL', 'PHP'],
     ready: true,
   },
 ]

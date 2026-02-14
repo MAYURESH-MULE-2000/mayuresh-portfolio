@@ -1,0 +1,13 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import LearnLAMP from "../../../components/learn/LearnLAMP.vue";
+---
+
+<Layout
+    title="LAMP Stack & Backend | Interactive Learning Lab"
+    description="Learn Linux, Apache, MySQL, and PHP basics tailored for senior frontend developers. Interactive shell, config, and SQL playgrounds."
+>
+    <main class="min-h-screen">
+        <LearnLAMP client:load />
+    </main>
+</Layout>
