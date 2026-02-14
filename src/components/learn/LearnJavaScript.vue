@@ -509,6 +509,174 @@
             />
           </ConceptCard>
         </template>
+
+        <!-- ==================== ADVANCED CONCEPTS ==================== -->
+        <template v-if="activeSection === 'advanced'">
+          <ConceptCard
+            id="currying"
+            icon="🍛"
+            title="Currying & Partial Application"
+            subtitle="Transform functions one argument at a time"
+            definition="Currying transforms a function that takes multiple arguments into a chain of single-argument functions: f(a, b, c) → f(a)(b)(c). Partial application fixes some arguments upfront and returns a function for the rest."
+            analogy="Currying is like a production line — each worker (function) handles one part (argument) before passing it to the next. Partial application is like pre-setting the oven temperature — you fix one setting, then just add the food."
+            seniorTip="Use currying for utility functions: const log = level => msg => console.log(level, msg); const warn = log('WARN'). Lodash has _.curry(). In interviews, show you can implement curry() yourself."
+            defaultOpen
+          >
+            <CodePlayground
+              title="currying.js"
+              :initialCode="codes.currying"
+              :autoRun="true"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="memoization"
+            icon="🧠"
+            title="Memoization"
+            subtitle="Cache expensive function results"
+            definition="Memoization caches the result of a function call based on its arguments. If the same arguments are passed again, the cached result is returned instead of re-computing. Uses a Map or object as cache."
+            analogy="Memoization is like a student writing answers on their hand — if the teacher asks the same question twice, they just read their hand instead of solving it again."
+            seniorTip="React.memo, useMemo, and Vue's computed properties are all forms of memoization. In production, be careful with cache size — use WeakMap for object keys or implement LRU cache."
+          >
+            <CodePlayground
+              title="memoization.js"
+              :initialCode="codes.memoization"
+              :autoRun="true"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="map-set"
+            icon="🗺️"
+            title="Map, Set, WeakMap, WeakSet"
+            subtitle="Modern data structures beyond objects & arrays"
+            definition="Map: key-value pairs with ANY key type (not just strings). Set: unique values only. WeakMap/WeakSet: keys are weakly held — garbage collected when no other references exist. Great for caching and preventing memory leaks."
+            analogy="Map is a dictionary where the keys can be anything (not just words). Set is a VIP guest list — no duplicates allowed. WeakMap is a sticky note on an object — when the object is thrown away, the note goes too."
+            seniorTip="Use Map over objects when keys aren't strings. Use Set for deduplication: [...new Set(array)]. Use WeakMap for private data in classes or DOM element metadata. Maps maintain insertion order."
+          >
+            <CodePlayground
+              title="map-set.js"
+              :initialCode="codes.mapSet"
+              :autoRun="true"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="generators"
+            icon="⚙️"
+            title="Generators & Iterators"
+            subtitle="Lazy evaluation and custom iteration"
+            definition="Generators (function*) can pause and resume execution via yield. They return an iterator with a .next() method. Great for lazy evaluation, infinite sequences, and implementing async flows."
+            analogy="A generator is like a book with a bookmark — you read (execute) up to the bookmark (yield), then close the book. Next time you open it, you continue from exactly where you left off."
+            seniorTip="Redux-Saga uses generators for side effects. Generators power async/await under the hood. Use for pagination, infinite scroll data loading, or any lazy sequence."
+          >
+            <CodePlayground
+              title="generators.js"
+              :initialCode="codes.generators"
+              :autoRun="true"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="type-coercion"
+            icon="🔄"
+            title="Type Coercion & Equality"
+            subtitle="== vs === and the weird parts of JS"
+            definition="Type coercion: JS automatically converts types in comparisons and operations. == uses coercion (loose equality), === does not (strict equality). Always use === unless you have a specific reason not to."
+            analogy="== is like a lenient teacher who accepts 'yes' as 'YES' (converts types). === is a strict teacher who only accepts the exact answer in the exact format."
+            seniorTip="Always use ===. Know the classic gotchas: [] == false is true, '0' == false is true, null == undefined is true. In interviews, explain WHY: == triggers ToNumber/ToPrimitive conversions."
+          >
+            <CodePlayground
+              title="type-coercion.js"
+              :initialCode="codes.typeCoercion"
+              :autoRun="true"
+            />
+          </ConceptCard>
+        </template>
+
+        <!-- ==================== EXERCISES ==================== -->
+        <template v-if="activeSection === 'exercises'">
+          <div class="p-4 rounded-xl bg-amber-500/5 border border-amber-500/20 mb-2">
+            <p class="text-sm text-amber-400 font-medium">💪 Practice Mode</p>
+            <p class="text-xs text-gray-400 mt-1">Each challenge starts with a problem description. Write your solution, then click Run to test it. Try solving WITHOUT looking at hints first!</p>
+          </div>
+
+          <ConceptCard
+            id="ex-debounce"
+            icon="💪"
+            title="Exercise 1: Implement debounce()"
+            subtitle="Control function execution rate"
+            definition="Write a debounce function that delays invoking the callback until after 'delay' ms have elapsed since the last call. If called again before the delay, reset the timer."
+            seniorTip="Think about: What do you need to track? (timer ID). What happens on each call? (clear old timer, set new one). What does it return? (a new function)."
+            defaultOpen
+          >
+            <CodePlayground
+              title="exercise-debounce.js"
+              :initialCode="codes.exDebounce"
+              :autoRun="false"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="ex-flatten"
+            icon="💪"
+            title="Exercise 2: Flatten a nested array"
+            subtitle="Recursive problem solving"
+            definition="Write a function flatten(arr) that takes a deeply nested array and returns a flat array. Do NOT use Array.prototype.flat(). Example: flatten([1, [2, [3, [4]]]]) → [1, 2, 3, 4]"
+            seniorTip="Two approaches: recursive (check if element is array, recurse) or iterative (use a stack). The recursive solution is cleaner. Think about base case vs recursive case."
+          >
+            <CodePlayground
+              title="exercise-flatten.js"
+              :initialCode="codes.exFlatten"
+              :autoRun="false"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="ex-deepclone"
+            icon="💪"
+            title="Exercise 3: Deep Clone an object"
+            subtitle="Handle nested objects, arrays, dates"
+            definition="Write a function deepClone(obj) that creates a complete copy. Mutating the clone should NOT affect the original. Handle: objects, arrays, Date, null. JSON.parse(JSON.stringify()) loses functions and Dates."
+            seniorTip="Recursive approach: check type, create new container, recurse for nested values. Handle edge cases: null, Date, Array. Don't forget to handle circular references in production (WeakMap)."
+          >
+            <CodePlayground
+              title="exercise-deepclone.js"
+              :initialCode="codes.exDeepClone"
+              :autoRun="false"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="ex-promise-all"
+            icon="💪"
+            title="Exercise 4: Implement Promise.all()"
+            subtitle="Understand Promise internals"
+            definition="Write your own myPromiseAll(promises) that: takes an array of promises, resolves with an array of results (in order), rejects immediately if any promise rejects."
+            seniorTip="Key insights: return a new Promise. Track results in an array. Use a counter to know when ALL have resolved. Preserve order (don't push — assign by index)."
+          >
+            <CodePlayground
+              title="exercise-promise-all.js"
+              :initialCode="codes.exPromiseAll"
+              :autoRun="false"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="ex-event-emitter"
+            icon="💪"
+            title="Exercise 5: Build an Event Emitter"
+            subtitle="The pub/sub pattern from scratch"
+            definition="Build a class EventEmitter with: on(event, callback) — subscribe, emit(event, ...args) — trigger all callbacks, off(event, callback) — unsubscribe. This is the foundation of Node.js EventEmitter and many UI frameworks."
+            seniorTip="Store listeners in a Map of event → callback arrays. on() pushes to the array. emit() calls all callbacks for that event. off() filters out the specific callback."
+          >
+            <CodePlayground
+              title="exercise-emitter.js"
+              :initialCode="codes.exEventEmitter"
+              :autoRun="false"
+            />
+          </ConceptCard>
+        </template>
       </div>
     </div>
   </div>
@@ -527,6 +695,8 @@ const sections = [
   { id: 'async', label: 'Async JS', icon: '⏳', badge: '4' },
   { id: 'dom', label: 'DOM & Browser', icon: '🌐', badge: '3' },
   { id: 'es6', label: 'ES6+ Features', icon: '✨', badge: '3' },
+  { id: 'advanced', label: 'Advanced', icon: '🧠', badge: '5' },
+  { id: 'exercises', label: 'Exercises', icon: '💪', badge: '5' },
 ]
 
 const activeSection = ref('fundamentals')
@@ -1134,5 +1304,421 @@ console.log("Port:", port); // 3000
 const count = 0;
 console.log("|| :", count || 10);  // 10 (0 is falsy!)
 console.log("?? :", count ?? 10);  // 0  (only null/undefined)`,
+
+  // ==================== Advanced Concepts ====================
+  currying: `// Currying: f(a, b, c) → f(a)(b)(c)
+
+// Simple curry
+const multiply = a => b => a * b;
+const double = multiply(2);
+const triple = multiply(3);
+
+console.log(double(5));  // 10
+console.log(triple(5));  // 15
+console.log(multiply(4)(6)); // 24
+
+// Generic curry function (interview classic)
+function curry(fn) {
+  return function curried(...args) {
+    if (args.length >= fn.length) {
+      return fn.apply(this, args);
+    }
+    return function(...moreArgs) {
+      return curried.apply(this, args.concat(moreArgs));
+    };
+  };
+}
+
+const add3 = (a, b, c) => a + b + c;
+const curriedAdd = curry(add3);
+
+console.log(curriedAdd(1)(2)(3));   // 6
+console.log(curriedAdd(1, 2)(3));   // 6
+console.log(curriedAdd(1)(2, 3));   // 6
+console.log(curriedAdd(1, 2, 3));   // 6
+
+// Practical: logger factory
+const log = level => timestamp => msg =>
+  console.log("[" + level + "] " + timestamp + ": " + msg);
+
+const warn = log("WARN")(new Date().toISOString());
+warn("disk space low");`,
+
+  memoization: `// Memoization: cache function results
+
+function memoize(fn) {
+  const cache = new Map();
+  return function(...args) {
+    const key = JSON.stringify(args);
+    if (cache.has(key)) {
+      console.log("  📦 Cache HIT for:", key);
+      return cache.get(key);
+    }
+    console.log("  🔨 Computing for:", key);
+    const result = fn.apply(this, args);
+    cache.set(key, result);
+    return result;
+  };
+}
+
+// Expensive function (simulated)
+const factorial = memoize(function f(n) {
+  if (n <= 1) return 1;
+  return n * f(n - 1);
+});
+
+console.log("factorial(5):", factorial(5));
+console.log("factorial(5):", factorial(5)); // cached!
+console.log("factorial(3):", factorial(3)); // also cached (sub-call)
+
+// Fibonacci with memoization
+const fib = memoize(function f(n) {
+  if (n <= 1) return n;
+  return f(n - 1) + f(n - 2);
+});
+
+console.log("\\nfib(10):", fib(10));
+console.log("fib(10) again:", fib(10)); // instant!`,
+
+  mapSet: `// Map: any key type, maintains insertion order
+const userRoles = new Map();
+const adminKey = { id: 1 };  // Object as key!
+
+userRoles.set(adminKey, "admin");
+userRoles.set("guest", "viewer");
+
+console.log("Map size:", userRoles.size);        // 2
+console.log("Admin:", userRoles.get(adminKey));   // "admin"
+console.log("Has guest:", userRoles.has("guest")); // true
+
+// Iterate Maps
+for (const [key, value] of userRoles) {
+  console.log(" ", typeof key, "→", value);
+}
+
+// Set: unique values only
+const unique = new Set([1, 2, 2, 3, 3, 3]);
+console.log("\\nSet:", [...unique]);        // [1, 2, 3]
+console.log("Set size:", unique.size);      // 3
+
+// Deduplicate an array (one-liner!)
+const nums = [1, 1, 2, 3, 3, 4];
+const deduped = [...new Set(nums)];
+console.log("Deduped:", deduped); // [1, 2, 3, 4]
+
+// Set operations
+const a = new Set([1, 2, 3, 4]);
+const b = new Set([3, 4, 5, 6]);
+
+const union = new Set([...a, ...b]);
+const intersection = new Set([...a].filter(x => b.has(x)));
+const difference = new Set([...a].filter(x => !b.has(x)));
+
+console.log("\\nUnion:", [...union]);
+console.log("Intersection:", [...intersection]);
+console.log("Difference:", [...difference]);`,
+
+  generators: `// Generator: function that can pause (yield) and resume
+
+function* countUp(start) {
+  let i = start;
+  while (true) {
+    yield i++;  // pause here, return i
+  }
+}
+
+const counter = countUp(1);
+console.log(counter.next()); // { value: 1, done: false }
+console.log(counter.next()); // { value: 2, done: false }
+console.log(counter.next()); // { value: 3, done: false }
+
+// Finite generator
+function* fibonacci() {
+  let a = 0, b = 1;
+  while (true) {
+    yield a;
+    [a, b] = [b, a + b];
+  }
+}
+
+// Take first 10 fibonacci numbers
+const fib = fibonacci();
+const first10 = Array.from({ length: 10 }, () => fib.next().value);
+console.log("\\nFirst 10 fib:", first10);
+
+// Generator for iteration
+function* range(start, end, step = 1) {
+  for (let i = start; i < end; i += step) {
+    yield i;
+  }
+}
+
+console.log("\\nRange 0-10 by 2:", [...range(0, 10, 2)]);
+
+// Two-way communication
+function* conversation() {
+  const name = yield "What is your name?";
+  const age = yield "Hello " + name + "! How old are you?";
+  return name + " is " + age + " years old.";
+}
+
+const chat = conversation();
+console.log("\\n" + chat.next().value);
+console.log(chat.next("Mayuresh").value);
+console.log(chat.next(28).value);`,
+
+  typeCoercion: `// == vs === (The Weird Parts)
+
+console.log("=== STRICT (no coercion) ===");
+console.log("1 === 1:", 1 === 1);         // true
+console.log("1 === '1':", 1 === '1');     // false (different types)
+console.log("null === undefined:", null === undefined); // false
+
+console.log("\\n== LOOSE (with coercion) ==");
+console.log("1 == '1':", 1 == '1');       // true ('1' → 1)
+console.log("0 == false:", 0 == false);   // true (false → 0)
+console.log("'' == false:", '' == false); // true (both → 0)
+console.log("null == undefined:", null == undefined); // true (special rule)
+
+console.log("\\n🤯 The Gotchas:");
+console.log("[] == false:", [] == false);     // true
+console.log("[] == ![]:", [] == ![]);         // true (mind-blown!)
+console.log("'' == 0:", '' == 0);             // true
+console.log("' ' == 0:", ' ' == 0);           // true
+console.log("'0' == false:", '0' == false);   // true
+
+console.log("\\n✅ Truthy/Falsy values:");
+const falsyValues = [false, 0, -0, 0n, '', null, undefined, NaN];
+console.log("Falsy:", falsyValues.map(v => String(v)));
+console.log("Everything else is truthy, including:");
+console.log("  [] (empty array):", Boolean([]));
+console.log("  {} (empty object):", Boolean({}));
+console.log("  '0' (string zero):", Boolean('0'));
+console.log("  'false' (string):", Boolean('false'));
+
+console.log("\\n💡 Rule: ALWAYS use ===");`,
+
+  // ==================== Exercises ====================
+  exDebounce: `// 💪 EXERCISE: Implement debounce()
+// 
+// Requirements:
+// 1. debounce(fn, delay) returns a new function
+// 2. The new function delays calling fn by 'delay' ms
+// 3. If called again before delay expires, reset the timer
+// 4. The function should pass through all arguments
+//
+// Write your solution below, then click Run!
+
+function debounce(fn, delay) {
+  // YOUR CODE HERE
+  // Hint: you need a variable to store the timer ID
+  // Hint: use clearTimeout and setTimeout
+
+
+}
+
+// ===== TEST (don't modify below) =====
+let callCount = 0;
+const debouncedFn = debounce((msg) => {
+  callCount++;
+  console.log("Called with:", msg, "| Total calls:", callCount);
+}, 100);
+
+// Simulate rapid calls
+debouncedFn("first");
+debouncedFn("second");
+debouncedFn("third");  // Only this should fire
+
+setTimeout(() => {
+  console.log("\\n✅ Expected: Called with 'third', Total calls: 1");
+  console.log("   Your result: Total calls:", callCount);
+  if (callCount === 1) console.log("   🎉 PASSED!");
+  else console.log("   ❌ FAILED — debounce should fire only once");
+}, 200);`,
+
+  exFlatten: `// 💪 EXERCISE: Flatten a nested array
+//
+// Requirements:
+// 1. flatten([1, [2, [3, [4]]]]) → [1, 2, 3, 4]
+// 2. Do NOT use Array.prototype.flat()
+// 3. Handle any depth of nesting
+// 4. Non-array elements stay as-is
+//
+// Write your solution below, then click Run!
+
+function flatten(arr) {
+  // YOUR CODE HERE
+  // Hint: use Array.isArray() to check if element is an array
+  // Hint: use recursion or reduce
+
+
+}
+
+// ===== TEST (don't modify below) =====
+const tests = [
+  { input: [1, [2, [3, [4]]]], expected: [1, 2, 3, 4] },
+  { input: [1, 2, 3], expected: [1, 2, 3] },
+  { input: [[1], [[2]], [[[3]]]], expected: [1, 2, 3] },
+  { input: [], expected: [] },
+];
+
+let passed = 0;
+tests.forEach((t, i) => {
+  const result = flatten(t.input);
+  const ok = JSON.stringify(result) === JSON.stringify(t.expected);
+  console.log(ok ? "✅" : "❌", "Test " + (i+1) + ":",
+    JSON.stringify(t.input), "→", JSON.stringify(result));
+  if (ok) passed++;
+});
+console.log("\\n" + passed + "/" + tests.length + " tests passed");`,
+
+  exDeepClone: `// 💪 EXERCISE: Deep Clone an object
+//
+// Requirements:
+// 1. deepClone(obj) returns a complete copy
+// 2. Changing the clone does NOT affect the original
+// 3. Handle: objects, arrays, Date, null, primitives
+// 4. Do NOT use JSON.parse/JSON.stringify
+//
+// Write your solution below, then click Run!
+
+function deepClone(obj) {
+  // YOUR CODE HERE
+  // Hint: check for null first
+  // Hint: check for Date, Array, Object
+  // Hint: recurse for nested values
+
+
+}
+
+// ===== TEST (don't modify below) =====
+const original = {
+  name: "Mayuresh",
+  skills: ["JS", "CSS", "Vue"],
+  address: { city: "Mumbai", zip: 400001 },
+  joined: new Date("2024-01-01"),
+};
+
+const clone = deepClone(original);
+
+// Mutate the clone
+clone.name = "Changed";
+clone.skills.push("React");
+clone.address.city = "Delhi";
+
+console.log("Original name:", original.name);
+console.log("  Expected: Mayuresh", original.name === "Mayuresh" ? "✅" : "❌");
+
+console.log("Original skills:", original.skills);
+console.log("  Expected: 3 items", original.skills.length === 3 ? "✅" : "❌");
+
+console.log("Original city:", original.address.city);
+console.log("  Expected: Mumbai", original.address.city === "Mumbai" ? "✅" : "❌");
+
+console.log("Date preserved:", clone.joined instanceof Date ? "✅" : "❌");`,
+
+  exPromiseAll: `// 💪 EXERCISE: Implement Promise.all()
+//
+// Requirements:
+// 1. myPromiseAll(promises) returns a Promise
+// 2. Resolves with array of results IN ORDER
+// 3. Rejects immediately if ANY promise rejects
+// 4. Handle empty array (resolve with [])
+//
+// Write your solution below, then click Run!
+
+function myPromiseAll(promises) {
+  // YOUR CODE HERE
+  // Hint: return new Promise(...)
+  // Hint: use a counter & results array
+  // Hint: assign results[i] = value (not push!)
+
+
+}
+
+// ===== TEST (don't modify below) =====
+const p1 = new Promise(r => setTimeout(() => r("first"), 100));
+const p2 = new Promise(r => setTimeout(() => r("second"), 50));
+const p3 = Promise.resolve("third");
+
+myPromiseAll([p1, p2, p3]).then(results => {
+  console.log("Results:", results);
+  const expected = ["first", "second", "third"];
+  const ok = JSON.stringify(results) === JSON.stringify(expected);
+  console.log(ok ? "✅ Order preserved!" : "❌ Wrong order");
+});
+
+// Test rejection
+const p4 = Promise.reject("error!");
+myPromiseAll([p1, p4, p3]).catch(err => {
+  console.log("\\nRejection caught:", err);
+  console.log(err === "error!" ? "✅ Rejects correctly!" : "❌ Wrong error");
+});
+
+// Test empty
+myPromiseAll([]).then(r => {
+  console.log("\\nEmpty:", JSON.stringify(r));
+  console.log(r.length === 0 ? "✅ Empty array!" : "❌ Should be []");
+});`,
+
+  exEventEmitter: `// 💪 EXERCISE: Build an Event Emitter
+//
+// Requirements:
+// 1. on(event, callback) — subscribe to an event
+// 2. emit(event, ...args) — trigger all callbacks for event
+// 3. off(event, callback) — unsubscribe specific callback
+// 4. once(event, callback) — subscribe, but auto-remove after first call
+//
+// Write your solution below, then click Run!
+
+class EventEmitter {
+  constructor() {
+    // YOUR CODE HERE — initialize storage
+  }
+
+  on(event, callback) {
+    // YOUR CODE HERE
+  }
+
+  emit(event, ...args) {
+    // YOUR CODE HERE
+  }
+
+  off(event, callback) {
+    // YOUR CODE HERE
+  }
+
+  once(event, callback) {
+    // YOUR CODE HERE
+    // Hint: create a wrapper that calls off() after executing
+  }
+}
+
+// ===== TEST (don't modify below) =====
+const emitter = new EventEmitter();
+let results = [];
+
+const handler1 = (msg) => results.push("h1:" + msg);
+const handler2 = (msg) => results.push("h2:" + msg);
+
+emitter.on("greet", handler1);
+emitter.on("greet", handler2);
+emitter.emit("greet", "hello");
+console.log("Test 1 (two handlers):", results);
+console.log(results.length === 2 ? "✅" : "❌");
+
+emitter.off("greet", handler1);
+results = [];
+emitter.emit("greet", "world");
+console.log("\\nTest 2 (after off):", results);
+console.log(results.length === 1 ? "✅" : "❌");
+
+results = [];
+emitter.once("click", (x) => results.push("once:" + x));
+emitter.emit("click", "first");
+emitter.emit("click", "second");
+console.log("\\nTest 3 (once):", results);
+console.log(results.length === 1 ? "✅" : "❌");`,
 }
 </script>
+

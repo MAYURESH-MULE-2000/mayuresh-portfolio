@@ -25,6 +25,284 @@
       />
 
       <div class="flex-1 min-w-0 space-y-5">
+        <!-- ==================== AD ECOSYSTEM ==================== -->
+        <template v-if="activeSection === 'ecosystem'">
+          <ConceptCard
+            id="ecosystem-overview"
+            icon="🌐"
+            title="The Ad-Tech Ecosystem — Who's Who"
+            subtitle="SSP, DSP, DMP, Ad Exchange, Ad Server"
+            definition="The ad-tech ecosystem connects advertisers to publishers through automated platforms. Publishers (website owners) use SSPs (Supply-Side Platforms) to sell ad space. Advertisers use DSPs (Demand-Side Platforms) to buy impressions. Ad Exchanges are the marketplace. DMPs (Data Management Platforms) provide audience data. Ad Servers store and deliver the creative assets."
+            analogy="Think of a farmers market: Publishers are farmers (supply), Advertisers are restaurants (demand), the SSP is the farmer's market stall, the DSP is the restaurant's purchasing agent, the Ad Exchange is the market floor where trades happen, and the DMP is the market researcher who knows what each restaurant wants to buy."
+            seniorTip="At Media.net (contextual advertising), the key differentiator is CONTEXTUAL targeting — analyzing page content to match relevant ads, rather than tracking users. Understand where Media.net sits: they are the SSP + Ad Exchange layer, connecting publishers to demand."
+            defaultOpen
+          >
+            <!-- Ecosystem Flow Visual -->
+            <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🗺️ Click each player to learn their role</p>
+              <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                <div v-for="(player, i) in ecosystemPlayers" :key="i"
+                  @click="activePlayer = activePlayer === i ? -1 : i"
+                  class="p-3 rounded-lg cursor-pointer transition-all"
+                  :class="activePlayer === i ? 'bg-pink-500/10 border border-pink-500/30 ring-1 ring-pink-500/20' : 'bg-white/5 border border-white/5 hover:border-white/10'">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="text-lg">{{ player.icon }}</span>
+                    <span class="text-xs font-bold" :class="activePlayer === i ? 'text-pink-400' : 'text-gray-300'">{{ player.name }}</span>
+                  </div>
+                  <p class="text-[10px] text-gray-500">{{ player.short }}</p>
+                  <div v-if="activePlayer === i" class="mt-2 pt-2 border-t border-white/10">
+                    <p class="text-xs text-gray-400">{{ player.detail }}</p>
+                    <p class="text-[10px] text-pink-400/70 mt-1">Examples: {{ player.examples }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <CodePlayground
+              title="ecosystem.js"
+              :initialCode="codes.ecosystem"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="rtb-flow"
+            icon="⚡"
+            title="Real-Time Bidding (RTB) — Complete Journey"
+            subtitle="From page load to ad render in ~200ms"
+            definition="RTB is an auction that happens for every ad impression. When a user loads a page: 1) Ad slot detected, 2) Bid request sent to SSP, 3) SSP broadcasts to multiple DSPs, 4) DSPs evaluate and bid, 5) Auction runs (highest bid wins), 6) Winning creative is served, 7) Impression & viewability tracked. This entire process takes 100-200ms."
+            analogy="RTB is like a lightning-fast stock exchange — every ad impression is a 'share' being auctioned off in real-time. Thousands of buyers (DSPs) evaluate and bid within milliseconds, the highest bidder wins, and the 'stock' (ad space) is immediately 'delivered' (rendered)."
+            seniorTip="Know the difference between first-price and second-price auctions. First-price: you pay what you bid. Second-price: you pay $0.01 more than the second-highest bid. Google moved to first-price in 2019. Header bidding added client-side auctions BEFORE the ad server."
+          >
+            <!-- RTB Step-by-Step -->
+            <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">⚡ RTB Flow — click through each step (entire flow takes ~200ms)</p>
+              <div class="space-y-2">
+                <div v-for="(step, i) in rtbSteps" :key="i"
+                  @click="activeRtbStep = i"
+                  class="flex items-start gap-3 p-2.5 rounded-lg cursor-pointer transition-all"
+                  :class="activeRtbStep === i ? 'bg-pink-500/10 border border-pink-500/20' : 'hover:bg-white/5'">
+                  <span class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
+                    :class="activeRtbStep === i ? 'bg-pink-500 text-white' : i < activeRtbStep ? 'bg-emerald-500/20 text-emerald-400' : 'bg-white/10 text-gray-500'">
+                    {{ i < activeRtbStep ? '✓' : i + 1 }}
+                  </span>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <p class="text-sm font-medium" :class="activeRtbStep === i ? 'text-pink-400' : 'text-gray-300'">{{ step.title }}</p>
+                      <span v-if="step.time" class="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400">{{ step.time }}</span>
+                    </div>
+                    <p v-if="activeRtbStep === i" class="text-xs text-gray-400 mt-1">{{ step.detail }}</p>
+                    <p v-if="activeRtbStep === i && step.who" class="text-[10px] text-pink-400/70 mt-0.5">🏢 {{ step.who }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ConceptCard>
+
+          <ConceptCard
+            id="ad-serving"
+            icon="🗃️"
+            title="Ad Serving & Creative Storage"
+            subtitle="Where ads live and how they're delivered"
+            definition="Ad creatives (images, HTML5, video) are stored on Ad Servers (Google Ad Manager, proprietary servers) and CDNs. When an auction is won, the ad server returns a creative URL or HTML snippet. Creatives are rendered inside sandboxed iframes. VAST/VPAID standards handle video ad serving."
+            analogy="An ad server is like a giant vending machine — it stores thousands of different products (creatives), and when someone puts in a coin (wins an auction), it delivers the exact right product to the exact right slot."
+            seniorTip="Creatives should be served from CDNs close to the user for speed. HTML5 ads have strict size limits (150KB typically). VAST = XML for video ad metadata. VPAID = interactive video ads. Know that ad creatives run in isolation (iframe) — they can't access the publisher's DOM."
+          >
+            <CodePlayground
+              title="ad-serving.js"
+              :initialCode="codes.adServing"
+            />
+          </ConceptCard>
+        </template>
+
+        <!-- ==================== AD TYPES ==================== -->
+        <template v-if="activeSection === 'adtypes'">
+          <ConceptCard
+            id="ad-formats"
+            icon="🎨"
+            title="Types of Digital Ads"
+            subtitle="Display, Native, Video, Rich Media, Programmatic"
+            definition="Display ads: banner images/HTML5 in standard IAB sizes (300x250, 728x90, 160x600). Native ads: blend into page content (in-feed, recommendation widgets). Video ads: pre-roll, mid-roll, outstream. Rich media: interactive HTML5 ads with animations. Programmatic: automated buying/selling via RTB."
+            analogy="Ad types are like types of advertising in a newspaper — Display = traditional rectangular ad boxes. Native = sponsored articles that look like editorial content. Video = TV commercial-style. Rich media = interactive pull-out inserts with games or samples."
+            seniorTip="At Media.net, you'll work primarily with display and native ads. Know IAB standard sizes. Native ads need careful styling to match publisher content while maintaining FTC disclosure ('Sponsored' label). Contextual ads match page CONTENT, not user data."
+            defaultOpen
+          >
+            <!-- Ad Format Gallery -->
+            <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">📐 Common IAB Ad Sizes & Types</p>
+              <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                <div v-for="(fmt, i) in adFormats" :key="i"
+                  class="p-3 rounded-lg bg-white/5 border border-white/5">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="text-sm">{{ fmt.icon }}</span>
+                    <span class="text-xs font-bold text-gray-300">{{ fmt.name }}</span>
+                  </div>
+                  <p class="text-[10px] text-gray-500 mb-1">{{ fmt.size }}</p>
+                  <p class="text-[10px] text-gray-400">{{ fmt.desc }}</p>
+                </div>
+              </div>
+            </div>
+
+            <CodePlayground
+              title="ad-types.js"
+              :initialCode="codes.adTypes"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="contextual-vs-behavioral"
+            icon="🆚"
+            title="Contextual vs Behavioral Advertising"
+            subtitle="Media.net's core differentiator"
+            definition="Contextual: analyze PAGE CONTENT to serve relevant ads (article about cooking → kitchen ads). Behavioral: track USER HISTORY across sites via cookies (user visited shoe sites → shoe ads everywhere). Contextual is privacy-friendly and doesn't need third-party cookies."
+            analogy="Contextual is like a bookstore employee who recommends books based on the section you're browsing in (cooking section → cookbook). Behavioral is like a store that follows you around the mall and recommends based on every store you've visited."
+            seniorTip="Media.net is a CONTEXTUAL advertising company — this is their biggest selling point. With third-party cookies dying, contextual is making a comeback. Understand NLP/keyword extraction from page content, semantic analysis, and how to classify content for ad matching."
+          >
+            <!-- Contextual vs Behavioral Comparison -->
+            <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🆚 Side-by-Side Comparison</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class="p-3 rounded-lg border border-emerald-500/20 bg-emerald-500/5">
+                  <p class="text-xs font-bold text-emerald-400 mb-2">✅ Contextual (Media.net)</p>
+                  <div class="space-y-1 text-xs text-gray-400">
+                    <p>• Analyzes <span class="text-emerald-400">page content</span></p>
+                    <p>• No cookies needed ✅</p>
+                    <p>• Privacy-compliant (GDPR/CCPA)</p>
+                    <p>• Works on first visit</p>
+                    <p>• Can't retarget users</p>
+                    <p>• Relies on NLP & keyword extraction</p>
+                  </div>
+                </div>
+                <div class="p-3 rounded-lg border border-amber-500/20 bg-amber-500/5">
+                  <p class="text-xs font-bold text-amber-400 mb-2">⚠️ Behavioral (Traditional)</p>
+                  <div class="space-y-1 text-xs text-gray-400">
+                    <p>• Tracks <span class="text-amber-400">user history</span> across sites</p>
+                    <p>• Needs third-party cookies ❌</p>
+                    <p>• Privacy concerns (GDPR issues)</p>
+                    <p>• Requires user profile building</p>
+                    <p>• Powerful retargeting</p>
+                    <p>• Being phased out by browsers</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ConceptCard>
+        </template>
+
+        <!-- ==================== TARGETING ==================== -->
+        <template v-if="activeSection === 'targeting'">
+          <ConceptCard
+            id="targeting-types"
+            icon="🎯"
+            title="Ad Targeting Methods — Complete Guide"
+            subtitle="How ads find the right audience"
+            definition="Targeting strategies: 1) Contextual — match ads to page content. 2) Behavioral — track user activity. 3) Demographic — age, gender, location. 4) Geo-targeting — location-based. 5) Retargeting — users who already visited. 6) Lookalike — find similar users. 7) Device/Browser — target by device type."
+            analogy="Targeting methods are like fishing techniques — Contextual is fishing where the fish ARE (right content). Behavioral is tracking a specific fish's pattern. Retargeting is going back to where you saw a fish earlier. Geo is fishing in a specific lake."
+            seniorTip="As a frontend dev, you implement targeting by: passing contextual signals (page title, keywords, URL) in bid requests, reading cookies/localStorage for user segments, detecting device/viewport for responsive ad sizes, and managing consent with CMP (Consent Management Platform)."
+            defaultOpen
+          >
+            <!-- Targeting Types Interactive -->
+            <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎯 Click each targeting method to see frontend implementation</p>
+              <div class="space-y-2">
+                <div v-for="(target, i) in targetingMethods" :key="i"
+                  @click="activeTargeting = activeTargeting === i ? -1 : i"
+                  class="rounded-lg border transition-all cursor-pointer"
+                  :class="activeTargeting === i ? 'border-pink-500/30 bg-pink-500/5' : 'border-white/5 hover:border-white/10'">
+                  <div class="flex items-center gap-3 p-3">
+                    <span class="text-lg">{{ target.icon }}</span>
+                    <div class="flex-1">
+                      <p class="text-sm font-medium" :class="activeTargeting === i ? 'text-pink-400' : 'text-gray-300'">{{ target.name }}</p>
+                      <p class="text-[10px] text-gray-500 mt-0.5">{{ target.short }}</p>
+                    </div>
+                    <span class="text-xs text-gray-500">{{ activeTargeting === i ? '▲' : '▼' }}</span>
+                  </div>
+                  <div v-if="activeTargeting === i" class="px-3 pb-3 border-t border-white/5 pt-2">
+                    <p class="text-xs text-gray-400 mb-1">{{ target.detail }}</p>
+                    <p class="text-[10px] font-mono text-pink-400/80">{{ target.code }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ConceptCard>
+
+          <ConceptCard
+            id="privacy-cookieless"
+            icon="🔒"
+            title="Privacy & the Cookie-less Future"
+            subtitle="Topics API, Protected Audiences, Attribution Reporting"
+            definition="Third-party cookies are being deprecated. Google's Privacy Sandbox replaces them with: Topics API (interest-based targeting without tracking), Protected Audiences (formerly FLEDGE, on-device ad auctions), Attribution Reporting (conversion measurement without cross-site tracking). Apple's ATT already blocks tracking on iOS."
+            analogy="The cookie-less future is like moving from spy cameras (third-party cookies) to a suggestion box (Topics API) — users still get relevant ads, but nobody's following them around taking notes."
+            seniorTip="Contextual advertising (Media.net's strength) becomes MORE valuable as cookies disappear. Frontend devs need to implement: consent management (CMP), Privacy Sandbox APIs, first-party data collection, and contextual signal extraction from page content."
+          >
+            <CodePlayground
+              title="privacy.js"
+              :initialCode="codes.privacy"
+            />
+          </ConceptCard>
+        </template>
+
+        <!-- ==================== FRONTEND INTEGRATION ==================== -->
+        <template v-if="activeSection === 'frontend'">
+          <ConceptCard
+            id="ad-tags"
+            icon="🏷️"
+            title="Ad Tags & Google Publisher Tags (GPT)"
+            subtitle="How ads get onto the page"
+            definition="Ad tags are code snippets that tell the browser where to fetch and render ads. Google Publisher Tags (GPT) is the most common library. It defines ad slots with sizes, loads the GPT library async, and calls googletag.display() to render. Each slot has a div with a unique ID and can have key-value targeting."
+            analogy="GPT ad tags are like reserved parking spots — you define the spot (div), specify the car size allowed (ad dimensions), put up a sign (targeting), and then the parking attendant (GPT) brings the right car (ad creative) to the right spot."
+            seniorTip="Key GPT concepts: defineSlot() creates slots, addService() connects to the ad exchange, enableServices() starts the library, display() renders ads. Use enableSingleRequest() for SRA (Single Request Architecture) — one HTTP call for all ad slots. Lazy-load below-fold ads."
+            defaultOpen
+          >
+            <CodePlayground
+              title="gpt.js"
+              :initialCode="codes.gpt"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="header-bidding"
+            icon="🔨"
+            title="Header Bidding (Prebid.js)"
+            subtitle="Client-side auction before the ad server"
+            definition="Header bidding lets multiple demand sources bid simultaneously BEFORE calling the ad server (Google Ad Manager). Prebid.js: open-source header bidding wrapper. Flow: 1) Prebid calls all demand partners simultaneously, 2) collects bids within timeout (~1s), 3) sends highest bid to ad server, 4) ad server decides final winner (prebid bid vs direct deals)."
+            analogy="Header bidding is like getting quotes from multiple contractors BEFORE going to your preferred builder. If a contractor offers a better price, you can present that offer to your builder and say 'can you beat this?' — resulting in higher revenue."
+            seniorTip="Header bidding increased publisher revenue by 20-50%. Know the flow: Prebid.js calls bidders → waits for timeout → sets targeting on GPT → GPT calls ad server → ad renders. Key configs: bidder adapters, price granularity, timeout settings, and bid caching."
+          >
+            <CodePlayground
+              title="header-bidding.js"
+              :initialCode="codes.headerBidding"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="ad-perf"
+            icon="📈"
+            title="Ad Performance & Frontend Impact"
+            subtitle="Metrics, optimization, and keeping your site fast"
+            definition="Key ad metrics: CPM (cost per 1000 impressions), CPC (cost per click), CTR (click-through rate), Fill Rate (% of requests that return an ad), Viewability (% of ads actually seen), Revenue = Impressions × CPM / 1000. Frontend impact: ads add network requests, main thread blocking, layout shifts."
+            analogy="Ad performance optimization is like a restaurant balancing customer satisfaction (user experience) with revenue (ad revenue). Too many waiters pushing desserts (ads) drives customers away, but too few means missed revenue."
+            seniorTip="Minimize ad impact: use async loading, define ad slot sizes upfront (prevents CLS), lazy-load below-fold ads with IntersectionObserver, use requestIdleCallback for non-critical ad code. Monitor: ad load time, time-to-interactive impact, CLS from ads."
+          >
+            <!-- Ad Metrics Reference -->
+            <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">📊 Key Ad Metrics Cheat Sheet</p>
+              <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                <div v-for="metric in adMetrics" :key="metric.name"
+                  class="p-2.5 rounded-lg bg-white/5 border border-white/5">
+                  <p class="text-xs font-bold text-pink-400">{{ metric.name }}</p>
+                  <p class="text-[10px] text-gray-500 mb-1">{{ metric.full }}</p>
+                  <p class="text-[10px] text-gray-400">{{ metric.desc }}</p>
+                </div>
+              </div>
+            </div>
+
+            <CodePlayground
+              title="ad-perf.js"
+              :initialCode="codes.adPerformance"
+            />
+          </ConceptCard>
+        </template>
+
         <!-- ==================== IFRAMES & EMBEDDING ==================== -->
         <template v-if="activeSection === 'iframes'">
           <ConceptCard
@@ -312,13 +590,17 @@ import ConceptCard from './ConceptCard.vue'
 import CodePlayground from './CodePlayground.vue'
 
 const sections = [
+  { id: 'ecosystem', label: 'Ad Ecosystem', icon: '🌐', badge: '3' },
+  { id: 'adtypes', label: 'Ad Types', icon: '🎯', badge: '2' },
+  { id: 'targeting', label: 'Targeting', icon: '👤', badge: '2' },
+  { id: 'frontend', label: 'Frontend Integration', icon: '💻', badge: '3' },
   { id: 'iframes', label: 'Iframes', icon: '🖼️', badge: '2' },
   { id: 'cors', label: 'CORS & Security', icon: '🌐', badge: '2' },
   { id: 'storage', label: 'Storage', icon: '💾', badge: '2' },
-  { id: 'adtech', label: 'Ad-Tech', icon: '📺', badge: '3' },
+  { id: 'adtech', label: 'Metrics & Revenue', icon: '📺', badge: '3' },
 ]
 
-const activeSection = ref('iframes')
+const activeSection = ref('ecosystem')
 
 function setSection(id) {
   activeSection.value = id
@@ -399,6 +681,62 @@ const cookieString = computed(() => {
     .map(a => '; ' + a.name)
     .join('')
 })
+
+// ==================== Ad Ecosystem ====================
+const activePlayer = ref(-1)
+const ecosystemPlayers = [
+  { icon: '📰', name: 'Publisher', short: 'Website owner (supply side)', detail: 'Owns the website/app with ad slots. Wants to maximize revenue from their traffic. Partners with SSPs to sell inventory.', examples: 'Forbes, CNN, Reddit, any website with ads' },
+  { icon: '🏪', name: 'SSP', short: 'Supply-Side Platform', detail: 'Helps publishers sell their ad inventory programmatically. Connects to multiple ad exchanges and DSPs to find the highest bidder. Manages floor prices, ad quality, and yield optimization.', examples: 'Media.net, Google Ad Manager, Amazon Publisher Services' },
+  { icon: '🛒', name: 'DSP', short: 'Demand-Side Platform', detail: 'Helps advertisers buy ad impressions across many publishers. Uses targeting data to bid on the right impressions for their campaigns. Controls budgets, bidding strategies, and frequency capping.', examples: 'Google DV360, The Trade Desk, Amazon DSP' },
+  { icon: '🏛️', name: 'Ad Exchange', short: 'The marketplace', detail: 'A digital marketplace where SSPs and DSPs trade ad impressions in real-time. Runs the auction (RTB). Connects supply (publishers) with demand (advertisers). Some SSPs also act as exchanges.', examples: 'Google AdX, OpenX, Index Exchange' },
+  { icon: '📊', name: 'DMP', short: 'Data Management Platform', detail: 'Collects, organizes, and provides audience data for targeting. Segments users by demographics, interests, behavior. Feeds data to DSPs for better targeting decisions.', examples: 'BlueKai (Oracle), Lotame, Adobe Audience Manager' },
+  { icon: '🖥️', name: 'Ad Server', short: 'Stores & delivers creatives', detail: 'Hosts the actual ad creative files (images, HTML5, video). Decides which creative to show based on targeting rules. Tracks impressions, clicks, and conversions. Both publishers and advertisers have ad servers.', examples: 'Google Ad Manager (publisher), Google Campaign Manager (advertiser)' },
+]
+
+// ==================== RTB Flow ====================
+const activeRtbStep = ref(0)
+const rtbSteps = [
+  { title: 'User loads the page', time: '0ms', detail: 'User navigates to a webpage. The browser starts rendering HTML and loading assets.', who: 'Publisher\'s website' },
+  { title: 'Ad tag script initializes', time: '~10ms', detail: 'GPT (Google Publisher Tags) or custom ad library detects ad slot divs on the page and prepares bid requests.', who: 'Frontend JS (GPT/Prebid.js)' },
+  { title: 'Header bidding starts (optional)', time: '~20ms', detail: 'Prebid.js calls multiple demand partners (DSPs) simultaneously. Each adapter sends a bid request with slot info, sizes, and targeting.', who: 'Prebid.js → Multiple SSPs/DSPs' },
+  { title: 'Bid request sent to SSP/Exchange', time: '~30ms', detail: 'SSP receives: ad slot sizes, page URL, user signals (if consented), device info, geo data. SSP sends bid request to connected DSPs.', who: 'Media.net SSP → DSPs' },
+  { title: 'DSPs evaluate and bid', time: '50-100ms', detail: 'Each DSP checks: Does this impression match our campaign targeting? What\'s it worth? They calculate bid price based on advertiser budgets, campaign goals, and user value.', who: 'DSPs (DV360, Trade Desk, etc.)' },
+  { title: 'Auction runs — winner selected', time: '~110ms', detail: 'SSP/Exchange runs the auction. First-price: highest bid wins, pays what they bid. Second-price: highest bid wins, pays $0.01 more than the second bid. Winning creative URL returned.', who: 'Ad Exchange' },
+  { title: 'Creative rendered in iframe', time: '~150ms', detail: 'The winning ad creative (image/HTML5/video) is loaded from the ad server CDN and injected into a sandboxed iframe inside the ad slot div.', who: 'Browser rendering engine' },
+  { title: 'Tracking pixels fire', time: '150ms-1200ms+', detail: 'Impression pixel fires on render. Viewability tracking starts via IntersectionObserver (50% visible for 1s). Click tracking attached. Revenue recorded.', who: 'Ad server tracking + third-party verification' },
+]
+
+// ==================== Ad Formats ====================
+const adFormats = [
+  { icon: '🖼️', name: 'Medium Rectangle', size: '300×250', desc: 'Most popular size. Fits in-content and sidebars.' },
+  { icon: '📏', name: 'Leaderboard', size: '728×90', desc: 'Top of page banner. High visibility.' },
+  { icon: '📐', name: 'Skyscraper', size: '160×600', desc: 'Tall sidebar ad. Good for content pages.' },
+  { icon: '📱', name: 'Mobile Banner', size: '320×50', desc: 'Standard mobile ad. Bottom of screen.' },
+  { icon: '📰', name: 'Native In-Feed', size: 'Fluid', desc: 'Matches page content style. Highest engagement.' },
+  { icon: '🎬', name: 'Video (VAST)', size: '640×480', desc: 'Pre/mid/post-roll or outstream autoplay.' },
+]
+
+// ==================== Targeting Methods ====================
+const activeTargeting = ref(-1)
+const targetingMethods = [
+  { icon: '📖', name: 'Contextual Targeting', short: 'Match ads to page content (Media.net specialty)', detail: 'Analyze page text, keywords, URL, title, and metadata. Use NLP to classify content. Match ads by topic category.', code: 'googletag.pubads().setTargeting("topic", extractKeywords(document.title))' },
+  { icon: '👣', name: 'Behavioral Targeting', short: 'Track user browsing history across sites', detail: 'Uses third-party cookies to track sites visited. Build user profile over time. Serve ads based on past browsing behavior.', code: 'const segments = getCookieSegments(); dsp.bid({ segments })' },
+  { icon: '🔄', name: 'Retargeting', short: 'Re-engage users who visited your site', detail: 'Drop a cookie when user visits advertiser site. When user is on publisher site, recognize cookie and bid higher. Classic "that product followed me" experience.', code: 'if (hasRetargetingCookie("brand_x")) bidMultiplier = 2.0' },
+  { icon: '📍', name: 'Geo-Targeting', short: 'Location-based ads (country, city, zip)', detail: 'Use IP geolocation or GPS (with consent). Region-specific ads. Local business advertising. Compliance with regional regulations (GDPR area → different consent rules).', code: 'navigator.geolocation.getCurrentPosition(pos => setGeo(pos))' },
+  { icon: '📱', name: 'Device Targeting', short: 'Serve different ads for mobile vs desktop', detail: 'Detect device type, screen size, OS, browser. Serve appropriate ad sizes. Mobile-first ad layouts. Separate mobile and desktop campaigns with different creatives.', code: 'const isMobile = window.innerWidth < 768; loadAdSizes(isMobile ? mobile : desktop)' },
+  { icon: '⏰', name: 'Dayparting', short: 'Show ads at specific times of day', detail: 'Bid higher during peak hours (lunchtime, evening). Reduce spend during off-hours. Time-zone aware targeting. Match ad content to time context.', code: 'const hour = new Date().getHours(); bidPrice *= peakHours.includes(hour) ? 1.5 : 1.0' },
+  { icon: '🔍', name: 'Search Intent', short: 'Ads based on search queries', detail: 'Sponsored search results (Google Ads). Display ads triggered by search history. Intent signals indicate purchase readiness. Higher conversion rate.', code: 'const query = new URL(document.referrer).searchParams.get("q")' },
+]
+
+// ==================== Ad Metrics ====================
+const adMetrics = [
+  { name: 'CPM', full: 'Cost Per Mille', desc: 'Price per 1000 impressions. Publisher revenue metric.' },
+  { name: 'CPC', full: 'Cost Per Click', desc: 'Price per click. Advertiser pays only for clicks.' },
+  { name: 'CTR', full: 'Click-Through Rate', desc: 'Clicks ÷ Impressions × 100. Avg: 0.1-0.5%' },
+  { name: 'Fill Rate', full: 'Fill Rate', desc: 'Ads served ÷ Requests × 100. Target: >80%' },
+  { name: 'vCPM', full: 'Viewable CPM', desc: 'CPM for viewable impressions only (IAB standard).' },
+  { name: 'eCPM', full: 'Effective CPM', desc: 'Total revenue ÷ impressions × 1000. True revenue metric.' },
+]
 
 // ==================== Ad Lifecycle ====================
 const activeAdStep = ref(0)
@@ -601,5 +939,246 @@ console.log("  • How much main thread time does it take?");
 console.log("  • Does it block rendering?");
 console.log("  • Is it still needed?");
 console.log("  • Can it be loaded later?");`,
+
+  ecosystem: `// The Ad-Tech Ecosystem — Complete Data Flow
+
+console.log("🌐 AD-TECH ECOSYSTEM — END TO END:\\n");
+
+console.log("THE PLAYERS:");
+console.log("  📰 Publisher → Owns the website (e.g., Forbes)");
+console.log("  🏪 SSP → Sells publisher's ad space (e.g., Media.net)");
+console.log("  🏛️ Ad Exchange → Marketplace for real-time auctions");
+console.log("  🛒 DSP → Buys impressions for advertisers (e.g., DV360)");
+console.log("  📊 DMP → Provides audience data for targeting");
+console.log("  🖥️ Ad Server → Stores & delivers creative assets");
+console.log("  💰 Advertiser → Pays for ad exposure (e.g., Nike)\\n");
+
+console.log("THE FLOW (every page load):");
+console.log("  1. User visits Forbes.com");
+console.log("  2. GPT script detects ad slots on the page");
+console.log("  3. Bid request → Media.net SSP");
+console.log("     { sizes: [[300,250]], url: 'forbes.com/tech',");
+console.log("       keywords: ['AI', 'startups'], geo: 'US' }");
+console.log("  4. SSP broadcasts to 50+ DSPs simultaneously");
+console.log("  5. DSPs check: 'Does Nike want to show ads");
+console.log("     on tech articles to US users?'");
+console.log("  6. DSPs bid: DV360=$3.50, TradeDesk=$4.20, Amazon=$3.80");
+console.log("  7. Auction: TradeDesk wins at $4.20 (first-price)");
+console.log("  8. Nike's creative loaded from CDN → rendered in iframe");
+console.log("  9. Impression tracked, viewability monitored\\n");
+
+console.log("💡 This happens for EVERY ad slot, EVERY page load");
+console.log("   Billions of auctions per day, each in ~200ms");`,
+
+  adServing: `// Ad Serving — Where Ads Are Stored & Delivered
+
+console.log("🗃️ AD SERVING ARCHITECTURE:\\n");
+
+console.log("1️⃣ Where Ads Are STORED:");
+console.log("  • Ad Server (Google Ad Manager, proprietary)");
+console.log("    → Stores creative assets: images, HTML5, video");
+console.log("    → Manages targeting rules & campaign flights");
+console.log("    → Handles frequency capping (don't show same ad 50x)\\n");
+
+console.log("  • CDN (Content Delivery Network)");
+console.log("    → Distributes creative files globally");
+console.log("    → Caches at edge servers near users");
+console.log("    → Reduces latency: 200ms → 20ms\\n");
+
+console.log("2️⃣ Creative FORMATS:");
+console.log("  • Image: JPEG/PNG/WebP — simplest, fastest");
+console.log("  • HTML5: Rich interactive ads (animations, forms)");
+console.log("    → Runs in sandboxed iframe, max 150KB");
+console.log("  • VAST (Video): XML that tells player what to show");
+console.log("    → Pre-roll, mid-roll, post-roll");
+console.log("  • VPAID: Interactive video (clickable overlays)");
+console.log("  • Native: JSON data → publisher styles it to match\\n");
+
+console.log("3️⃣ Delivery FLOW:");
+console.log("  Auction won → Ad server returns markup →");
+console.log("  Browser creates iframe → Loads creative from CDN →");
+console.log("  Renders inside sandbox → Fires impression pixel\\n");
+
+console.log("💡 Key insight for frontend devs:");
+console.log("  You build the SLOTS and CONTAINERS.");
+console.log("  You never touch the creative content directly.");
+console.log("  Everything is isolated in cross-origin iframes.");`,
+
+  adTypes: `// Types of Digital Advertising
+
+console.log("🎨 AD TYPES — COMPLETE GUIDE:\\n");
+
+console.log("1️⃣ DISPLAY ADS (Banner Ads):");
+console.log("  • Standard IAB sizes: 300x250, 728x90, 160x600");
+console.log("  • Image or HTML5 creative");
+console.log("  • Served in iframes on publisher sites");
+console.log("  • Low CTR (~0.1%) but massive scale");
+console.log("  • Revenue model: CPM (per 1000 impressions)\\n");
+
+console.log("2️⃣ NATIVE ADS (Media.net specialty):");
+console.log("  • Blend into the page's look and feel");
+console.log("  • In-feed ads (within article lists)");
+console.log("  • Recommendation widgets ('You might also like')");
+console.log("  • Content ads (styled like editorial)");
+console.log("  • Higher engagement: 20-60% more than display");
+console.log("  • MUST have 'Sponsored' disclosure (FTC)\\n");
+
+console.log("3️⃣ VIDEO ADS:");
+console.log("  • Pre-roll: before video content (forced)");
+console.log("  • Mid-roll: during video (like TV commercials)");
+console.log("  • Outstream: auto-play in article text");
+console.log("  • Standards: VAST (metadata) + VPAID (interactive)");
+console.log("  • Highest CPM: $15-50+ vs display $1-5\\n");
+
+console.log("4️⃣ PROGRAMMATIC vs DIRECT:");
+console.log("  Programmatic: automated RTB auction (80% of market)");
+console.log("  Direct/Guaranteed: publisher sells directly to brand");
+console.log("  Private Marketplace: invite-only auction (premium)");`,
+
+  privacy: `// Privacy & Cookie-less Future
+
+console.log("🔒 THE COOKIE-LESS FUTURE:\\n");
+
+console.log("WHY cookies are dying:");
+console.log("  • Safari: blocked 3P cookies since 2020 (ITP)");
+console.log("  • Firefox: blocked 3P cookies since 2019 (ETP)");
+console.log("  • Chrome: Privacy Sandbox replacing 3P cookies");
+console.log("  • GDPR/CCPA: fines for tracking without consent\\n");
+
+console.log("GOOGLE PRIVACY SANDBOX (Chrome):");
+console.log("  📌 Topics API:");
+console.log("    → Browser assigns interest topics locally (sports, tech)");
+console.log("    → Top 5 topics shared with ad-tech, not browsing history");
+console.log("    → No cross-site tracking\\n");
+
+console.log("  📌 Protected Audiences (FLEDGE):");
+console.log("    → On-device ad auctions, no server-side tracking");
+console.log("    → Interest groups stored locally in browser");
+console.log("    → Retargeting without cookies\\n");
+
+console.log("  📌 Attribution Reporting:");
+console.log("    → Measure ad conversions without cross-site tracking");
+console.log("    → Aggregated reports, not individual tracking\\n");
+
+console.log("WHY THIS MATTERS FOR MEDIA.NET:");
+console.log("  ✅ Contextual advertising GAINS value");
+console.log("  → No cookies needed — analyze page content instead");
+console.log("  → Privacy-compliant by design");
+console.log("  → Works everywhere (Safari, Firefox, Chrome)");
+console.log("  → Media.net's NLP reads the page, not the user");`,
+
+  gpt: `// Google Publisher Tags (GPT) — Frontend Integration
+
+console.log("🏷️ GPT — How Ads Get On The Page:\\n");
+
+console.log("STEP 1: Load GPT library (async, non-blocking):");
+console.log("  // In document head");
+console.log("  window.googletag = window.googletag || { cmd: [] }\\n");
+
+console.log("STEP 2: Define ad slots:");
+console.log("  googletag.cmd.push(function() {");
+console.log("    // Define a 300x250 ad slot");
+console.log("    googletag.defineSlot(");
+console.log("      '/12345/homepage_sidebar',  // Ad unit path");
+console.log("      [[300, 250], [300, 600]],    // Accepted sizes");
+console.log("      'div-ad-sidebar'              // Container div ID");
+console.log("    ).addService(googletag.pubads())\\n");
+console.log("    // Add key-value targeting");
+console.log("    googletag.pubads().setTargeting('topic', 'technology')");
+console.log("    googletag.pubads().setTargeting('geo', 'us')\\n");
+
+console.log("    // SRA: fetch all ads in one request (faster!)");
+console.log("    googletag.pubads().enableSingleRequest()");
+console.log("    googletag.enableServices()");
+console.log("  })\\n");
+
+console.log("STEP 3: Display ads (when slot visible):");
+console.log("  googletag.cmd.push(function() {");
+console.log("    googletag.display('div-ad-sidebar')");
+console.log("  })\\n");
+
+console.log("STEP 4: Lazy-load below-fold ads:");
+console.log("  const observer = new IntersectionObserver((entries) => {");
+console.log("    entries.forEach(e => {");
+console.log("      if (e.isIntersecting) {");
+console.log("        googletag.display(e.target.id)");
+console.log("        observer.unobserve(e.target)");
+console.log("      }");
+console.log("    })");
+console.log("  }, { rootMargin: '200px' }) // Load 200px before visible");`,
+
+  headerBidding: `// Header Bidding with Prebid.js
+
+console.log("🔨 HEADER BIDDING — Complete Flow:\\n");
+
+console.log("WHY Header Bidding exists:");
+console.log("  Before: Publisher relies only on Google AdX (one buyer)");
+console.log("  After: 10+ demand sources compete simultaneously");
+console.log("  Result: Publisher revenue increases 20-50%\\n");
+
+console.log("THE FLOW:");
+console.log("  1. Page loads → Prebid.js initializes");
+console.log("  2. Prebid calls ALL demand partners at once:");
+console.log("     → Media.net, AppNexus, Rubicon, OpenX, etc.");
+console.log("  3. Each partner returns a bid within 1-2s timeout");
+console.log("  4. Prebid selects the highest bid");
+console.log("  5. Sends ALL bids as key-values to GPT:");
+console.log("     → googletag.pubads().setTargeting('hb_pb', '4.20')");
+console.log("  6. GPT sends to ad server (Google Ad Manager)");
+console.log("  7. Ad server compares: prebid $4.20 vs direct deals");
+console.log("  8. Winner renders\\n");
+
+console.log("PREBID SETUP:");
+console.log("  var adUnits = [{");
+console.log("    code: 'div-ad-sidebar',");
+console.log("    mediaTypes: { banner: { sizes: [[300,250]] } },");
+console.log("    bids: [");
+console.log("      { bidder: 'medianet', params: { cid: '8CU...' } },");
+console.log("      { bidder: 'appnexus', params: { placementId: 123 } },");
+console.log("    ]");
+console.log("  }]\\n");
+
+console.log("  pbjs.requestBids({");
+console.log("    timeout: 1500, // ms to wait for bids");
+console.log("    adUnits: adUnits,");
+console.log("    bidsBackHandler: sendToAdServer");
+console.log("  })");`,
+
+  adPerformance: `// Ad Performance Impact on Frontend
+
+console.log("📈 AD REVENUE MATH:\\n");
+
+console.log("  Revenue = (Impressions × CPM) / 1000");
+console.log("  Example: 1,000,000 impressions × $5 CPM = $5,000\\n");
+
+console.log("OPTIMIZING AD REVENUE:");
+console.log("  Fill Rate: aim > 80% (ads served / requests)");
+console.log("  Viewability: aim > 70% (ads actually seen)");
+console.log("  CTR: track by format (native > display)");
+console.log("  eCPM: true revenue per 1000 impressions\\n");
+
+console.log("FRONTEND PERFORMANCE IMPACT:");
+console.log("  ❌ Bad: Ads blocking page render");
+console.log("  ❌ Bad: Ad causing layout shift (CLS)");
+console.log("  ❌ Bad: 20+ ad network scripts in head\\n");
+
+console.log("  ✅ Good: Async ad loading");
+console.log("  ✅ Good: Reserved ad slot dimensions");
+console.log("  ✅ Good: Lazy-load below-fold ads");
+console.log("  ✅ Good: Use requestIdleCallback for analytics\\n");
+
+console.log("PREVENTING CLS FROM ADS:");
+console.log("  // Reserve space with min-height");
+console.log("  .ad-slot { min-height: 250px; }\\n");
+
+console.log("  // Load below-fold ads on scroll");
+console.log("  const observer = new IntersectionObserver(cb,");
+console.log("    { rootMargin: '200px' })");
+console.log("  observer.observe(adSlot)\\n");
+
+console.log("💡 Senior frontend devs own the BALANCE:");
+console.log("  More ads = more revenue BUT worse UX & SEO");
+console.log("  Fewer ads = better UX BUT less revenue");`,
 }
 </script>
+
