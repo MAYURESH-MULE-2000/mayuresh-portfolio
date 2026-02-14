@@ -1,0 +1,16 @@
+---
+export const prerender = false;
+
+import LinguaVaultLayout from "../../../../../layouts/LinguaVaultLayout.astro";
+import LVLessonView from "../../../../../components/linguavault/learning/LVLessonView.vue";
+
+const { curriculumId, lessonId } = Astro.params;
+---
+
+<LinguaVaultLayout title="Lesson - LinguaVault" description="Language Lesson">
+    <LVLessonView
+        curriculumId={curriculumId ?? ""}
+        lessonId={lessonId ?? ""}
+        client:load
+    />
+</LinguaVaultLayout>

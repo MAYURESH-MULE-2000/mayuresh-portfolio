@@ -1,0 +1,13 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import LearnCSS from "../../../components/learn/LearnCSS.vue";
+---
+
+<Layout
+    title="CSS Mastery | Interactive Learning Lab"
+    description="Master CSS layout, specificity, responsive design, and architecture through interactive playgrounds and visual demos."
+>
+    <main class="min-h-screen">
+        <LearnCSS client:load />
+    </main>
+</Layout>
