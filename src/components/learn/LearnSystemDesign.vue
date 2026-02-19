@@ -39,7 +39,7 @@
              <div class="space-y-3">
                <div class="p-3 bg-gray-100 dark:bg-white/5 rounded-lg border border-gray-200 dark:border-white/10">
                  <h4 class="font-bold text-orange-600 mb-1">1. Requirements</h4>
-                 <p class="text-sm text-gray-600 dark:text-gray-400">Functional: User can post, scroll, like.<br>Non-functional: < 200ms TTI, 60fps scroll, offline mode.</p>
+                 <p class="text-sm text-gray-600 dark:text-gray-400">Functional: User can post, scroll, like.<br>Non-functional: &lt; 200ms TTI, 60fps scroll, offline mode.</p>
                </div>
                <div class="p-3 bg-gray-100 dark:bg-white/5 rounded-lg border border-gray-200 dark:border-white/10">
                  <h4 class="font-bold text-orange-600 mb-1">2. Architecture</h4>

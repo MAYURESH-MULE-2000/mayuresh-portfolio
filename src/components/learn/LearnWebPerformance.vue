@@ -32,9 +32,9 @@
             icon="📊"
             title="Core Web Vitals (CWV)"
             subtitle="The 3 metrics Google cares about"
-            definition="LCP (Largest Contentful Paint): Loading performance. Target < 2.5s.
-INP (Interaction to Next Paint): Responsiveness. Target < 200ms.
-CLS (Cumulative Layout Shift): Visual Stability. Target < 0.1."
+            definition="LCP (Largest Contentful Paint): Loading performance. Target &lt; 2.5s.
+INP (Interaction to Next Paint): Responsiveness. Target &lt; 200ms.
+CLS (Cumulative Layout Shift): Visual Stability. Target &lt; 0.1."
             analogy="LCP = How fast the main dish arrives. INP = How fast the waiter responds when you wave. CLS = Does the table stop moving while you eat?"
             seniorTip="Don't just measure locally. Use RUM (Real User Monitoring) data. A fast dev machine implies nothing about a low-end Android device on 3G. Optimize LCP by preloading the hero image."
             defaultOpen

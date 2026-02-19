@@ -424,7 +424,7 @@
             </div>
             <CodePlayground
               title="perf-tips.js"
-              :initialCode="codes.frameworkPerf" // Use frameworkPerf code
+              :initialCode="codes.frameworkPerf"
             />
           </ConceptCard>
         </template>

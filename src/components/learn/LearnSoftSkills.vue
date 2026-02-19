@@ -77,7 +77,7 @@
             icon="⏱️"
             title="Estimation & Breakdown"
             subtitle="Under-promise, Over-deliver"
-            definition="Break tasks down into < 1 day chunks. Add buffers for: Code Review, QA, Deployment, Context Switching. A '2 day task' is usually 4 days in reality."
+            definition="Break tasks down into &lt; 1 day chunks. Add buffers for: Code Review, QA, Deployment, Context Switching. A '2 day task' is usually 4 days in reality."
             analogy="Building a lego set: If you look at the box, it looks fast. If you count the 1000 pieces and the finding time, it takes all Sunday."
             seniorTip="Use T-Shirt sizing (S, M, L) initially. Only commit to precise hours when the task is fully specced. If you discover complexity mid-sprint, communicate IMMEDIATELY."
           >
