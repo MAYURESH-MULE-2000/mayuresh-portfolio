@@ -124,72 +124,6 @@
           </ConceptCard>
         </template>
 
-        <!-- ==================== STATE ==================== -->
-        <template v-if="activeSection === 'state'">
-          <ConceptCard
-            id="props-vs-state"
-            icon="📬"
-            title="Props vs State"
-            subtitle="Data flow in components"
-            definition="Props = data passed DOWN from parent (read-only). State = data managed WITHIN the component (mutable). One-way data flow: parent → child via props. Child communicates up via events/callbacks."
-            analogy="Props are like a letter from your boss — you read it but can't modify it. State is your own notebook — you control it entirely. To tell the boss something, you send a reply (emit event)."
-            seniorTip="Keep state as close to where it's needed as possible. Lift state up only when siblings need to share it. In production, I'd use a state management library (Pinia/Zustand) only for truly global state like auth/theme."
-            defaultOpen
-          >
-            <!-- Interactive Props vs State Demo -->
-            <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
-              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 See props flow down, events flow up</p>
-
-              <!-- Parent -->
-              <div class="p-3 rounded-lg border border-purple-500/20 bg-purple-500/5 mb-3">
-                <p class="text-xs font-medium text-purple-400 mb-2">📦 Parent Component</p>
-                <p class="text-xs text-gray-300 font-mono mb-2">state: message = "{{ stateDemo.parentMessage }}"</p>
-                <input v-model="stateDemo.parentMessage"
-                  class="bg-gray-200 dark:bg-white/10 text-gray-900 dark:text-white text-xs font-mono rounded px-2 py-1 w-full border-0 outline-none"
-                  placeholder="Type here — prop flows down ↓" />
-
-                <div class="mt-2 flex items-center gap-2 text-xs text-gray-400">
-                  <span class="text-purple-400">↓ prop</span>
-                  <span>message="{{ stateDemo.parentMessage }}"</span>
-                </div>
-              </div>
-
-              <!-- Child -->
-              <div class="p-3 rounded-lg border border-blue-500/20 bg-blue-500/5 ml-6">
-                <p class="text-xs font-medium text-blue-400 mb-2">📦 Child Component</p>
-                <p class="text-xs text-gray-300 font-mono">props.message = "{{ stateDemo.parentMessage }}" <span class="text-gray-500">(read-only)</span></p>
-                <p class="text-xs text-gray-300 font-mono mt-1">local state: clicks = <span class="text-blue-400 font-bold">{{ stateDemo.childClicks }}</span></p>
-
-                <div class="flex gap-2 mt-2">
-                  <button @click="stateDemo.childClicks++"
-                    class="px-3 py-1 text-xs rounded bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 transition-all">
-                    Click me (local state)
-                  </button>
-                  <button @click="stateDemo.parentMessage = 'Updated from child!'"
-                    class="px-3 py-1 text-xs rounded bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 transition-all">
-                    Emit to Parent ↑
-                  </button>
-                </div>
-              </div>
-            </div>
-          </ConceptCard>
-
-          <ConceptCard
-            id="state-management"
-            icon="🏪"
-            title="State Management Patterns"
-            subtitle="When to use local vs global state"
-            definition="Local state: useState/ref for component-specific data. Prop drilling: passing props through many layers. Context/Provide-Inject: skip intermediate components. Store (Pinia/Zustand/Redux): global state with devtools."
-            analogy="Local state = your wallet (personal). Prop drilling = passing a note through a chain of people (fragile). Provide/Inject = a loudspeaker (anyone can hear). Store = a shared bank account (everyone has access)."
-            seniorTip="Don't reach for a store by default. Start with local state → lift up → provide/inject → store (last resort). Over-using global state creates 'god objects' that are hard to test and debug."
-          >
-            <CodePlayground
-              title="state-management.js"
-              :initialCode="codes.stateManagement"
-            />
-          </ConceptCard>
-        </template>
-
         <!-- ==================== REACTIVITY ==================== -->
         <template v-if="activeSection === 'reactivity'">
           <ConceptCard
@@ -290,21 +224,190 @@
           </ConceptCard>
         </template>
 
-        <!-- ==================== PERFORMANCE ==================== -->
-        <template v-if="activeSection === 'perf'">
+        <!-- ==================== HOOKS DEEPLY ==================== -->
+        <template v-if="activeSection === 'hooks'">
+          <ConceptCard
+            id="custom-hooks"
+            icon="⚓"
+            title="Custom Hooks Architecture"
+            subtitle="Encapsulating logic for reuse"
+            definition="Custom hooks are functions starting with 'use' that call other hooks. They allow you to extract stateful logic from components. Examples: useFetch, useWindowSize, useAuth."
+            analogy="Custom hooks are like blueprints for gadgets. Instead of building the same motor (logic) in every car (component), you build a 'Motor' blueprint (hook) and just install it."
+            seniorTip="Keep components UI-focused. Move logic to hooks. If a component is >200 lines, extract logic into 'useSomeLogic()'. Composition over inheritance."
+            defaultOpen
+          >
+            <CodePlayground
+              title="custom-hooks.js"
+              :initialCode="codes.customHooks"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="context-perf"
+            icon="📉"
+            title="Context Performance Pitfalls"
+            subtitle="Preventing unnecessary re-renders"
+            definition="Context Providers trigger a re-render in ALL consumers whenever the value prop changes. Creating a new object { user, theme } inside the render function causes this every time."
+            analogy="Context is like a broadcast system. If the broadcaster stutters (sends a new signal object), every radio (consumer) resets/glitches. Memoizing the signal keeps it stable."
+            seniorTip="Split contexts! Don't put everything in one God-Context and wrap the app. Separate UserContext, ThemeContext, SettingsContext. Use useMemo for the provider value."
+          >
+            <CodePlayground
+              title="context-perf.js"
+              :initialCode="codes.contextPerf"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="usereducer"
+            icon="⚙️"
+            title="useReducer for Complex State"
+            subtitle="Finite state machines & complex logic"
+            definition="useReducer is for complex state logic where next state depends on previous, or has multiple sub-values. It centralizes updates via dispatch(action)."
+            seniorTip="Use useReducer when you have complex state objects or when one action updates multiple pieces of state. It also helps avoid stale closures in callbacks by providing a stable dispatch function."
+          >
+            <CodePlayground
+              title="useReducer.js"
+              :initialCode="codes.useReducer"
+            />
+          </ConceptCard>
+        </template>
+
+        <!-- ==================== REACT INTERNALS ==================== -->
+        <template v-if="activeSection === 'react-internals'">
+          <ConceptCard
+            id="virtual-dom"
+            icon="🌳"
+            title="Virtual DOM & Reconciliation"
+            subtitle="The diffing engine"
+            definition="React keeps a lightweight copy of the DOM (Virtual DOM). When state changes, it creates a new VDOM tree, compares it to the old one (Diffing), calculates the minimal changes, and applies them to the real DOM (Commit)."
+            analogy="Virtual DOM is like a blueprint. Architects (React) draw a new blueprint, compare it to the old one, and tell the builders (ReactDOM) to only move the specific wall that changed, instead of rebuilding the house."
+            seniorTip="Keys are critical for the diffing algorithm in lists. Without stable keys, React destroys and recreates DOM nodes unnecessarily, losing focus and state."
+            defaultOpen
+          >
+            <CodePlayground
+              title="virtual-dom.js"
+              :initialCode="codes.virtualDom"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="fiber"
+            icon="🧵"
+            title="React Fiber (Concurrent Rendering)"
+            subtitle="Review: How React pauses work"
+            definition="Fiber is React's reconciliation engine. It breaks rendering work into small units (fibers) so it can pause, abort, or prioritize work. This enables Concurrent features like Suspense and useTransition."
+            analogy="Fiber is like a smart project manager who knows how to multitask. Instead of doing one huge task for 5 hours (blocking), they do 10 mins of work, check for urgent emails (user input), then resume."
+            seniorTip="This architecture explains why 'render phase' can run multiple times safely (it has no side effects), while 'commit phase' runs once."
+          >
+            <CodePlayground
+              title="fiber.js"
+              :initialCode="codes.fiber"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="suspense"
+            icon="⏳"
+            title="Suspense & Transitions"
+            subtitle="Declarative async UI"
+            definition="Suspense lets components 'wait' for something (code split, data) before rendering. Transitions mark updates as non-urgent, keeping the UI responsive during heavy renders."
+            seniorTip="Use Suspense boundaries to orchestrate loading. Don't just wrap the whole app—wrap specific sections so the rest of the app remains usable while one part loads."
+          >
+            <CodePlayground
+              title="concurrent.js"
+              :initialCode="codes.concurrent"
+            />
+          </ConceptCard>
+        </template>
+
+        <!-- ==================== STATE MANAGEMENT ==================== -->
+        <template v-if="activeSection === 'state-management'">
+          <ConceptCard
+            id="server-state"
+            icon="🌐"
+            title="Server State (React Query)"
+            subtitle="The standard for API data"
+            definition="Server State is remotely persisted and asynchronous. Libraries like TanStack Query handle caching, background refetching, and deduping, which you'd otherwise have to write manually in Redux."
+            seniorTip="Stop putting API data in Redux/Zustand! Those are for client state (theme, modal open/close). Use React Query for anything that comes from a database."
+            defaultOpen
+          >
+            <CodePlayground
+              title="react-query.js"
+              :initialCode="codes.serverState"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="optimistic-ui"
+            icon="⚡"
+            title="Optimistic Updates"
+            subtitle="Instant feedback patterns"
+            definition="Optimistic UI updates the interface IMMEDIATELY as if the request succeeded. If the server request eventually fails, it rolls back the change. This makes apps feel zero-latency."
+            analogy="It's like clicking 'Send' on a message. The app shows it in the chat instantly (optimistic). If the internet fails 5 seconds later, it shows a 'Failed to send' error."
+            seniorTip="Always keep a snapshot of the previous state to rollback to. In React Query, this is handled via onMutate (snapshot) and onError (rollback)."
+          >
+            <CodePlayground
+              title="optimistic.js"
+              :initialCode="codes.optimistic"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="redux-zustand"
+            icon="🐻"
+            title="Global Stores (Zustand/Redux)"
+            subtitle="When local state isn't enough"
+            definition="Global stores live outside the component tree. They are useful for data shared across widely separated components (User Session, Shopping Cart). Zustand is a modern, minimal alternative to Redux."
+            seniorTip="Zustand's selector pattern `useStore(state => state.bears)` is crucial for performance. It ensures the component only re-renders when that specific slice changes."
+          >
+            <CodePlayground
+              title="zustand.js"
+              :initialCode="codes.reduxZustand"
+            />
+          </ConceptCard>
+        </template>
+
+        <!-- ==================== OPTIMIZATION ==================== -->
+        <template v-if="activeSection === 'optimization'">
+          <ConceptCard
+            id="memoization"
+            icon="🧠"
+            title="Memoization Strategy"
+            subtitle="useMemo, useCallback, React.memo"
+            definition="Memoization caches results. React.memo caches components (render results). useMemo caches values. useCallback caches functions. Use them to prevent expensive recalculations or reference changes."
+            seniorTip="Don't memoize everything! Memoization has a cost. Use it only when: 1) The calculation is heavy, or 2) The value/function is a dependency for useEffect or a React.memo component."
+            defaultOpen
+          >
+            <CodePlayground
+              title="memoization.js"
+              :initialCode="codes.memoization"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="lazy-loading"
+            icon="😴"
+            title="Lazy Loading & Bundle Splitting"
+            subtitle="Ship less JavaScript"
+            definition="Bundle splitting breaks your app into smaller chunks. React.lazy() allows you to load components dynamically (only when they are rendered). This dramatically reduces initial load time."
+            seniorTip="Route-based splitting is the easiest win: `const Home = lazy(() => import('./Home'))`. Also split heavy libraries (like charting or PDF rendering) so they don't block the main bundle."
+          >
+            <CodePlayground
+              title="lazy.js"
+              :initialCode="codes.lazy"
+            />
+          </ConceptCard>
+
           <ConceptCard
             id="framework-perf"
             icon="🏎️"
-            title="Framework Performance Optimization"
-            subtitle="Making components fast"
-            definition="Key techniques: lazy-load routes, memoize expensive components, use virtual scrolling for long lists, avoid anonymous functions in templates, use v-once/React.memo for static content, implement proper key props in lists."
-            analogy="Framework optimization is like tuning a race car — the engine (framework) is already good, but you need to reduce wind resistance (unnecessary re-renders), lighten the load (code splitting), and use better fuel (memoization)."
-            seniorTip="Profile before optimizing! Use Vue DevTools Performance tab or React Profiler. The biggest wins are usually: route-based code splitting, virtualizing long lists, and fixing waterfall data fetching."
-            defaultOpen
+            title="General Performance Principles"
+            subtitle="Checklist for speed"
+            definition="Identify bottlenecks first. React Profiler shows which components rendered and why (did hooks change? props?). Visualize the flamegraph."
           >
             <!-- Performance Checklist -->
             <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
-              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">✅ Performance Optimization Checklist</p>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">✅ Optimization Checklist</p>
               <div class="space-y-2">
                 <div v-for="item in perfChecklist" :key="item.label"
                   @click="item.checked = !item.checked"
@@ -319,25 +422,9 @@
                 </div>
               </div>
             </div>
-
             <CodePlayground
-              title="framework-perf.js"
-              :initialCode="codes.frameworkPerf"
-            />
-          </ConceptCard>
-
-          <ConceptCard
-            id="keys-in-lists"
-            icon="🔑"
-            title="Keys in Lists — Why They Matter"
-            subtitle="The most misunderstood prop"
-            definition="Keys help the framework identify which items changed/added/removed in a list. Without keys (or with index keys), the framework can't efficiently diff and may re-render incorrectly. Use unique, stable IDs."
-            analogy="Keys are like student IDs in a classroom. If you only use seat numbers (index), and a student leaves, everyone after them shifts — the teacher thinks they're all new students. With IDs, she knows exactly who left."
-            seniorTip="NEVER use array index as key if the list can reorder/filter. Use database IDs or stable identifiers. Bad keys cause: wrong re-renders, lost component state, input value mixups, and animation glitches."
-          >
-            <CodePlayground
-              title="keys.js"
-              :initialCode="codes.keysInLists"
+              title="perf-tips.js"
+              :initialCode="codes.frameworkPerf" // Use frameworkPerf code
             />
           </ConceptCard>
         </template>
@@ -355,9 +442,11 @@ import CodePlayground from './CodePlayground.vue'
 // Section Nav
 const sections = [
   { id: 'lifecycle', label: 'Lifecycle', icon: '🔄', badge: '2' },
-  { id: 'state', label: 'State', icon: '📬', badge: '2' },
+  { id: 'react-internals', label: 'React Internals', icon: '⚛️', badge: '5' },
+  { id: 'hooks', label: 'Hooks Deeply', icon: '⚓', badge: '3' },
+  { id: 'state-management', label: 'State Management', icon: '💾', badge: '4' },
+  { id: 'optimization', label: 'Optimization', icon: '🚀', badge: '5' },
   { id: 'reactivity', label: 'Reactivity', icon: '⚡', badge: '3' },
-  { id: 'perf', label: 'Performance', icon: '🏎️', badge: '2' },
 ]
 
 const activeSection = ref('lifecycle')
@@ -554,6 +643,102 @@ console.log("6️⃣ Profile First! Don't optimize blindly.");
 console.log("   Vue DevTools → Performance tab");
 console.log("   React DevTools → Profiler");`,
 
+  customHooks: `// Custom Hooks composition
+
+function useWindowSize() {
+  const [size, setSize] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => setSize(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  return size;
+}
+
+function useIsMobile() {
+  const width = useWindowSize(); // Composition!
+  return width < 768;
+}
+
+// Usage
+function App() {
+  const isMobile = useIsMobile();
+  return <div>{isMobile ? "Mobile" : "Desktop"}</div>
+}`,
+
+  useReducer: `// useReducer vs useState
+
+const [state, dispatch] = useReducer((state, action) => {
+  switch (action.type) {
+    case 'increment': return { count: state.count + 1 };
+    case 'decrement': return { count: state.count - 1 };
+    default: return state;
+  }
+}, { count: 0 });
+
+// Trigger
+dispatch({ type: 'increment' });
+
+// Why?
+// 1. Predictable state transitions
+// 2. logic is decoupled from UI
+// 3. Testing reducer is pure arithmetic`,
+
+  fiber: `// React Fiber Conceptual Model
+
+// Old React (Stack Reconciliation):
+// Render starts -> MUST finish entire tree -> Unresponsive UI
+
+// React Fiber (Concurrent):
+// Work is split into units of work ("fibers").
+// Browser: "I have 5ms spare time"
+// Fiber: "Ok, I'll render Component A and B"
+// Browser: "User clicked! Urgent!"
+// Fiber: "Pausing render... Handling click... Resuming render"`,
+
+  serverState: `// React Query (Server State)
+
+// ❌ The Old Way (Redux + Thunks)
+// 1. Dispatch FETCH_START -> loading = true
+// 2. Dispatch FETCH_SUCCESS -> data = res, loading = false
+// 3. Dispatch FETCH_ERROR -> error = err
+// + Manual caching, manual invalidation...
+
+// ✅ The New Way (React Query)
+const { data, isLoading, error } = useQuery({
+  queryKey: ['todos'],
+  queryFn: fetchTodos
+});
+
+// Automatic:
+// - Caching & background refetch
+// - Deduping requests
+// - Retries on failure
+// - Window focus refetching`,
+
+  concurrent: `// Concurrent Mode (useTransition)
+
+const [isPending, startTransition] = useTransition();
+const [filter, setFilter] = useState("");
+
+function handleChange(e) {
+  // Urgent: Update input immediately
+  const value = e.target.value;
+  setFilter(value);
+
+  // Non-urgent: Update the heavy list
+  startTransition(() => {
+    setHeavyListFilter(value); 
+  });
+}
+
+return (
+  <>
+    <input onChange={handleChange} />
+    {isPending ? <Spinner /> : <HeavyList />}
+  </>
+);`,
+
   keysInLists: `// Why Keys Matter in Lists
 
 console.log("🔑 Keys Identify Items Across Re-renders\\n");
@@ -580,5 +765,165 @@ console.log("  → C gets B's old state! 🐛\\n");
 
 console.log("💡 vue: :key='item.id'");
 console.log("   react: key={item.id}");`,
+
+  virtualDom: `// Virtual DOM & Reconciliation
+// React doesn't update DOM directly. It updates Virtual DOM (JS objects).
+
+// 1. Render Phase (Fast/Cheap)
+// React calls your component → gets new VDOM tree
+// const newTree = { type: 'div', props: { className: 'active' }, children: [...] }
+
+// 2. Diffing Phase (Comparision)
+// React compares newTree vs oldTree (Fiber)
+// "Oh, className changed from '' to 'active'. Everything else is same."
+
+// 3. Commit Phase (Expensive)
+// React touches the REAL DOM
+// document.querySelector('div').className = 'active'
+
+// 💡 Key Optimization:
+// React batches updates. 3 state changes = 1 re-render, 1 VDOM diff, 1 DOM write.
+// Concurrent features (Suspense/Transitions) allow React to PAUSE step 1 & 2 to keep UI responsive.`,
+
+  contextPerf: `// Context Performance Pitfall
+// ⚠️ Problem: Context updates trigger re-render in ALL consumers
+
+const UserContext = createContext();
+
+// 1. Provider
+function App() {
+  const [user, setUser] = useState({ name: 'Alice', role: 'admin' });
+  const [theme, setTheme] = useState('dark');
+
+  // ❌ BAD: New object reference created every render!
+  // const value = { user, theme };
+
+  // ✅ GOOD: Memoize the value object
+  const value = useMemo(() => ({ user, theme }), [user, theme]);
+
+  return (
+    <UserContext.Provider value={value}>
+      <Header /> 
+      <Sidebar />
+      <Main />
+    </UserContext.Provider>
+  );
+}
+
+// 2. Consumer
+function Header() {
+  const { user } = useContext(UserContext); // Re-renders if 'value' reference changes!
+  return <div>{user.name}</div>
+}
+
+// 💡 Tip: Split Contexts! 
+// UserContext and ThemeContext. Changing theme shouldn't re-render components that only need user info.`,
+
+  reduxZustand: `// Minimal Global Store Pattern (Zustand-style)
+
+// 1. Create a store (outside components)
+import { create } from 'zustand'
+
+const useStore = create((set) => ({
+  bears: 0,
+  increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
+  removeAllBears: () => set({ bears: 0 }),
+  updateBears: (newVal) => set({ bears: newVal }),
+}))
+
+// 2. Use in Component A (Selector Pattern)
+function BearCounter() {
+  // ✅ Only re-renders if 'bears' changes
+  const bears = useStore((state) => state.bears)
+  return <h1>{bears} around here ...</h1>
+}
+
+// 3. Use in Component B
+function Controls() {
+  // ✅ Actions are stable, component never re-renders from store updates
+  const increasePopulation = useStore((state) => state.increasePopulation)
+  return <button onClick={increasePopulation}>one up</button>
+}`,
+
+  optimistic: `// Optimistic UI Updates (React Query)
+
+const { mutate } = useMutation({
+  mutationFn: (newTodo) => axios.post('/todos', newTodo),
+  
+  // 1. Run immediately BEFORE request finishes
+  onMutate: async (newTodo) => {
+    // Stop background refetches
+    await queryClient.cancelQueries({ queryKey: ['todos'] })
+
+    // Snapshot previous value (for rollback)
+    const previousTodos = queryClient.getQueryData(['todos'])
+
+    // Optimistically update cache to show newTodo immediately
+    queryClient.setQueryData(['todos'], (old) => [...old, newTodo])
+
+    return { previousTodos }
+  },
+
+  // 2. If request fails
+  onError: (err, newTodo, context) => {
+    // Rollback to snapshot
+    queryClient.setQueryData(['todos'], context.previousTodos)
+  },
+
+  // 3. Always refetch after to ensure sync with server
+  onSettled: () => {
+    queryClient.invalidateQueries({ queryKey: ['todos'] })
+  },
+})`,
+
+  memoization: `// useMemo vs React.memo vs useCallback
+
+// 1. React.memo (Component Memoization)
+// Wraps component. Only re-renders if PROPS change.
+const Child = React.memo(function Child({ onClick }) {
+  console.log("Child render");
+  return <button onClick={onClick}>Click me</button>;
+});
+
+function Parent() {
+  const [count, setCount] = useState(0);
+
+  // ❌ Problem: This function is NEW every render
+  // const handleClick = () => console.log("click");
+
+  // ✅ Solution: stabilize function reference
+  const handleClick = useCallback(() => console.log("click"), []);
+
+  return (
+    <>
+      <button onClick={() => setCount(c => c+1)}>Count: {count}</button>
+      <Child onClick={handleClick} /> 
+    </>
+  );
+}
+// Without useCallback, 'handleClick' changes -> Child props change -> Child re-renders (wasting React.memo)`,
+
+  lazy: `// Code Splitting & Suspense
+
+// 1. Lazy Load (Don't load code until needed)
+const HeavyChart = React.lazy(() => import('./HeavyChart'));
+
+function Dashboard() {
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      
+      {/* 2. Suspense (Show fallback while loading) */}
+      <Suspense fallback={<Spinner />}>
+        <HeavyChart />
+      </Suspense>
+    </div>
+  );
+}
+
+// 💡 Error Boundary
+// Wrap Suspense in ErrorBoundary to handle network failures
+// <ErrorBoundary fallback={<p>Failed to load chart</p>}>
+//   <Suspense...>...`,
 }
 </script>

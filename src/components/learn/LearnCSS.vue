@@ -476,6 +476,94 @@
           </ConceptCard>
         </template>
 
+        <!-- ==================== ACCESSIBILITY ==================== -->
+        <template v-if="activeSection === 'a11y'">
+          <ConceptCard
+            id="semantic-html"
+            icon="🏷️"
+            title="Semantic HTML & Landmarks"
+            subtitle="The foundation of accessibility"
+            definition="Semantic HTML uses elements that convey meaning (nav, main, article, button) rather than generic divs. Screen readers use these to navigate. Landmarks (header, footer, aside) create a map of your page."
+            analogy="Semantic HTML is like a labeled map. A screen reader user can jump straight to 'Main Content' or 'Navigation' instead of wandering through a sea of 'divs' (unmarked buildings)."
+            seniorTip="Use <button> for actions, <a> for links. Never use <div onClick> without role='button' and tabindex='0'. Landmarks are free if you use correct tags (<main>, <nav>)."
+            defaultOpen
+          >
+            <CodePlayground
+              title="semantic.html"
+              :initialCode="codes.semanticHtml"
+              codeLanguage="html"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="aria"
+            icon="🔊"
+            title="ARIA (Accessible Rich Internet Applications)"
+            subtitle="Bridging the gap when HTML isn't enough"
+            definition="ARIA attributes (aria-label, aria-expanded, role) provide extra information to assistive technology. Use ONLY when native HTML elements can't do the job (e.g., a custom dropdown)."
+            analogy="ARIA is like a sticky note on a custom-made tool explaining what it does. If you use a standard hammer (button), you don't need a note. But if you build a weird contraption that hits nails (div), you need a note saying 'This is a hammer'."
+            seniorTip="First rule of ARIA: Don't use ARIA (use native HTML). If you must, ensure you handle keyboard interaction (Enter/Space) and focus states manually."
+          >
+            <CodePlayground
+              title="aria.html"
+              :initialCode="codes.aria"
+              codeLanguage="html"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="visually-hidden"
+            icon="👻"
+            title="Visually Hidden & Focus Management"
+            subtitle="Hiding things from eyes, but not ears"
+            definition="display:none removes element from accessibility tree (screen readers ignore it). To hide visually but keep accessible (e.g., 'Skip to content' link), use a .visually-hidden class (clip pattern)."
+            analogy="display:none is vanishing into thin air. .visually-hidden is wearing an invisibility cloak — you're still there and can be heard, just not seen."
+            seniorTip="Use the standard .sr-only / .visually-hidden utility class. Never use width:0/height:0 as some screen readers ignore it."
+          >
+            <CodePlayground
+              title="visually-hidden.css"
+              :initialCode="codes.visuallyHidden"
+              codeLanguage="css"
+            />
+          </ConceptCard>
+        </template>
+
+        <!-- ==================== ADVANCED CSS ==================== -->
+        <template v-if="activeSection === 'advanced'">
+          <ConceptCard
+            id="containment"
+            icon="📦"
+            title="CSS Containment & content-visibility"
+            subtitle="Browser performance hints"
+            definition="contain: content/paint/layout tells the browser 'this subtree is independent', allowing optimizations (skip rendering off-screen). content-visibility: auto skips rendering entirely for off-screen content (like virtualization)."
+            analogy="Containment is like closing the door to a room. If you paint the hallway, you don't need to worry about messing up the room inside. The browser knows it doesn't need to check inside unless the door opens."
+            seniorTip="Use content-visibility: auto on long lists or heavy sections for massive rendering performance wins. It's like lazy-loading for the rendering engine."
+            defaultOpen
+          >
+            <CodePlayground
+              title="containment.css"
+              :initialCode="codes.containment"
+              codeLanguage="css"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="logical-properties"
+            icon="🌍"
+            title="Logical Properties"
+            subtitle="Future-proof layout (RTL support)"
+            definition="Instead of left/right/top/bottom, use start/end/block/inline. margin-left becomes margin-inline-start. This automatically adapts to RTL languages (Arabic, Hebrew) and vertical writing modes."
+            analogy="Physical properties (left) are like saying 'Turn toward the window'. Logical properties (start) are like saying 'Turn toward the beginning of the line'. It works no matter how the room is oriented."
+            seniorTip="Start using logical properties now. margin-inline, padding-block, inset-inline. It makes internationalization (i18n) free later on."
+          >
+            <CodePlayground
+              title="logical.css"
+              :initialCode="codes.logical"
+              codeLanguage="css"
+            />
+          </ConceptCard>
+        </template>
+
         <!-- ==================== CSS EXERCISES ==================== -->
         <template v-if="activeSection === 'exercises'">
           <div class="p-4 rounded-xl bg-purple-500/5 border border-purple-500/20 mb-2">
@@ -577,6 +665,8 @@ const sections = [
   { id: 'responsive', label: 'Responsive', icon: '📱', badge: '3' },
   { id: 'animations', label: 'Animations', icon: '✨', badge: '3' },
   { id: 'boxmodel', label: 'Box Model', icon: '📦', badge: '3' },
+  { id: 'a11y', label: 'Accessibility', icon: '♿', badge: '3' },
+  { id: 'advanced', label: 'Advanced', icon: '🚀', badge: '2' },
   { id: 'exercises', label: 'Exercises', icon: '💪', badge: '5' },
 ]
 

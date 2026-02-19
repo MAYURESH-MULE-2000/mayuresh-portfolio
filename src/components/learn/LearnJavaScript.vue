@@ -610,6 +610,94 @@
           </ConceptCard>
         </template>
 
+        <!-- ==================== FUNCTIONAL PROGRAMMING ==================== -->
+        <template v-if="activeSection === 'functional'">
+          <ConceptCard
+            id="pure-functions"
+            icon="💎"
+            title="Pure Functions & Side Effects"
+            subtitle="The foundation of reliable code"
+            definition="A pure function: 1) Always returns the same output for same input. 2) Has no side effects (doesn't change external state, no API calls, no DOM manipulation). It is predictable and testable."
+            analogy="A pure function is like a calculator: 2+2 is always 4, and it doesn't secretly update your bank account. An impure function is like a slot machine: outcomes vary and it takes your money."
+            seniorTip="Isolate side effects. Keep core logic pure, and push side effects (API, DOM) to the edges of your application. This makes unit testing trivial."
+            defaultOpen
+          >
+            <CodePlayground
+              title="pure-functions.js"
+              :initialCode="codes.pureFunctions"
+              :autoRun="true"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="immutability"
+            icon="🔒"
+            title="Immutability"
+            subtitle="Don't change it, replace it"
+            definition="Immutability means data cannot be changed after creation. Instead of modifying objects/arrays, you create new copies with changes. This prevents unexpected bugs where data changes behind your back."
+            analogy="Immutability is like writing in pen. If you make a mistake, you don't erase (mutate) — you rewrite the page (new copy). History is preserved."
+            seniorTip="Use spread syntax (...) or libraries like Immer for immutable updates. Immutability is critical for React/Redux performance (allows fast reference equality checks)."
+          >
+            <CodePlayground
+              title="immutability.js"
+              :initialCode="codes.immutability"
+              :autoRun="true"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="composition"
+            icon="🚂"
+            title="Function Composition"
+            subtitle="Building complex logic from simple blocks"
+            definition="Composition is combining simple functions to build more complex ones: f(g(x)). The output of one function becomes the input of the next. Use pipe() or compose() utilities."
+            analogy="Composition is like an assembly line. Raw material (input) goes through machine A, then B, then C, resulting in a finished product. Each machine does one simple job perfectly."
+            seniorTip="Readability matters to composition. pipe(getName, toUpper, sayHello) flows left-to-right. It replaces deep nesting: sayHello(toUpper(getName(user)))."
+          >
+            <CodePlayground
+              title="composition.js"
+              :initialCode="codes.composition"
+              :autoRun="true"
+            />
+          </ConceptCard>
+        </template>
+
+        <!-- ==================== INTERNALS & MEMORY ==================== -->
+        <template v-if="activeSection === 'under-the-hood'">
+          <ConceptCard
+            id="memory-management"
+            icon="🧠"
+            title="Stack vs Heap"
+            subtitle="Where does your data live?"
+            definition="Stack: Stores primitives (number, string, boolean) and references. Static memory allocation, fast access. Heap: Stores objects and functions. Dynamic memory allocation, slower access."
+            analogy="Stack is like your pocket: quick access to small things (keys, wallet). Heap is like a warehouse: stores big boxes (furniture), acts deeper, and you just carry the address (reference) in your pocket."
+            seniorTip="Primitives are passed by value (copy). Objects are passed by reference (copy of the address). Modifying an object passed to a function changes the original!"
+            defaultOpen
+          >
+            <CodePlayground
+              title="stack-heap.js"
+              :initialCode="codes.stackHeap"
+              :autoRun="true"
+            />
+          </ConceptCard>
+
+          <ConceptCard
+            id="garbage-collection"
+            icon="🗑️"
+            title="Garbage Collection (Mark & Sweep)"
+            subtitle="How JS frees up memory"
+            definition="JS engine automatically frees memory. 'reachability' is the key. The GC starts from 'roots' (global window, current stack) and marks all reachable objects. Anything not marked is swept (deleted)."
+            analogy="GC is like a cleaning crew. They start at the front door (root) and put a sticker (mark) on everything they can reach/touch. Afterwards, anything without a sticker gets thrown out."
+            seniorTip="Circular references used to cause leaks (Reference Counting), but modern Mark & Sweep handles them fine. The only leaks now are when YOU hold references you don't need (e.g., attached to window or DOM)."
+          >
+            <CodePlayground
+              title="gc.js"
+              :initialCode="codes.gc"
+              :autoRun="false"
+            />
+          </ConceptCard>
+        </template>
+
         <!-- ==================== EXERCISES ==================== -->
         <template v-if="activeSection === 'exercises'">
           <div class="p-4 rounded-xl bg-amber-500/5 border border-amber-500/20 mb-2">
@@ -712,6 +800,8 @@ const sections = [
   { id: 'dom', label: 'DOM & Browser', icon: '🌐', badge: '3' },
   { id: 'es6', label: 'ES6+ Features', icon: '✨', badge: '3' },
   { id: 'advanced', label: 'Advanced', icon: '🧠', badge: '5' },
+  { id: 'functional', label: 'Functional', icon: 'λ', badge: '3' },
+  { id: 'under-the-hood', label: 'Internals', icon: '⚙️', badge: '2' },
   { id: 'exercises', label: 'Exercises', icon: '💪', badge: '5' },
 ]
 
@@ -801,14 +891,114 @@ function handleMouseMove() {
 
   // Throttle
   if (throttleReady) {
-    throttleReady = false
     mouseDemo.throttled++
+    throttleReady = false
     setTimeout(() => { throttleReady = true }, 300)
   }
 }
 
 // ==================== Code Examples ====================
 const codes = {
+  pureFunctions: `// Pure vs Impure Functions
+
+// ❌ Impure: Depends on outer state
+let total = 0;
+function addToTotal(amount) {
+  total += amount; // Side effect: modifies external variable
+  return total;
+}
+
+// ❌ Impure: Non-deterministic (different output each time)
+function getRandom() {
+  return Math.random();
+}
+
+// ✅ Pure: Same input -> Same output, no side effects
+function add(a, b) {
+  return a + b;
+}
+
+// Why it matters? Testability.
+console.log(add(2, 3)); // Always 5. Easy to test.`,
+
+  immutability: `// Immutability Pattern
+
+const user = { 
+  name: "Alice", 
+  address: { city: "Wonderland" } 
+};
+
+// ❌ Mutation (Bad for React/Redux)
+// user.name = "Bob"; 
+
+// ✅ Immutable Update (Good)
+const updatedUser = {
+  ...user,
+  name: "Bob",
+  // Nested update requires deep copy or spread
+  address: {
+    ...user.address,
+    city: "Real World"
+  }
+};
+
+console.log("Original:", user.name); // Alice (Untouched)
+console.log("Updated:", updatedUser.name); // Bob`,
+
+  composition: `// Function Composition
+
+const getName = user => user.name;
+const toUpper = str => str.toUpperCase();
+const sayHello = str => \`Hello, \${str}!\`;
+
+const user = { name: "Alice" };
+
+// ❌ Deep nesting (Hard to read)
+console.log(sayHello(toUpper(getName(user))));
+
+// ✅ Composition (using a pipe function)
+function pipe(...fns) {
+  return (initialValue) => fns.reduce((v, f) => f(v), initialValue);
+}
+
+const greetUser = pipe(getName, toUpper, sayHello);
+
+console.log(greetUser(user)); // "Hello, ALICE!"`,
+
+  stackHeap: `// Stack vs Heap
+
+// 1. Primitives -> Stack (Passed by Value)
+let a = 10;
+let b = a; // Copy value 10
+b = 20; 
+console.log(a, b); // 10, 20 (a is untouched)
+
+// 2. Objects -> Heap (Passed by Reference)
+let obj1 = { val: 10 };
+let obj2 = obj1; // Copy ADDRESS 0x123...
+obj2.val = 20;
+
+console.log(obj1.val); // 20! (obj1 changed because obj2 points to same spot)
+
+// To copy object properly:
+let obj3 = { ...obj1 }; // Shallow copy`,
+
+  gc: `// Garbage Collection Simulator
+
+let family = {
+  father: { name: "John" },
+  mother: { name: "Jane" }
+};
+// "John" and "Jane" objects are currently REACHABLE from 'family' root.
+
+// Break the link
+family.father = null;
+// The object { name: "John" } is now UNREACHABLE.
+// Mark-and-Sweep algorithm will find it has no incomings refs (except maybe cycles).
+// GC will free that memory.
+
+console.log("Link broken. GC will eventually sweep 'John'.");`,
+
   varLetConst: `// 🔹 var: function-scoped, hoisted as undefined
 console.log(a); // undefined (hoisted!)
 var a = 10;
