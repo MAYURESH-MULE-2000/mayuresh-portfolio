@@ -28,11 +28,10 @@
 
     <!-- Content (expandable) -->
     <div
-      ref="contentRef"
-      class="overflow-hidden transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]"
-      :style="{ maxHeight: isOpen ? contentHeight + 'px' : '0px' }"
+      v-show="isOpen"
+      class="border-t border-white/5 dark:border-white/5 transition-all duration-300"
     >
-      <div ref="innerRef" class="px-5 pb-5 space-y-4 overflow-hidden">
+      <div class="p-5 space-y-4">
         <!-- Definition -->
         <div v-if="definition" class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
           <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
@@ -79,28 +78,10 @@ const props = defineProps({
 })
 
 const isOpen = ref(props.defaultOpen)
-const contentHeight = ref(0)
-const innerRef = ref(null)
 
 function toggle() {
   isOpen.value = !isOpen.value
 }
-
-function recalcHeight() {
-  if (innerRef.value) {
-    contentHeight.value = innerRef.value.scrollHeight + 20
-  }
-}
-
-watch(isOpen, () => {
-  nextTick(recalcHeight)
-})
-
-onMounted(() => {
-  recalcHeight()
-  // Recalc on window resize
-  window.addEventListener('resize', recalcHeight)
-})
 
 // Expose toggle for parent access
 defineExpose({ toggle, isOpen })

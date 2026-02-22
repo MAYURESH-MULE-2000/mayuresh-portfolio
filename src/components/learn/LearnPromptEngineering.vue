@@ -332,28 +332,41 @@
             icon="🚀"
             title="Real-World System Design Domains"
             subtitle="Scaling prompts into production systems"
-            definition="In production applications, prompt engineering ceases being mere 'text input' and becomes a core module of application architecture. Modules like 'Agentic reasoning', 'RAG integration', 'Guardrails validation', and 'Structured Data extraction (JSON outputs)' are orchestrated."
+            definition="In production applications, prompt engineering ceases being mere 'text input' and becomes a core module of application architecture. You are defining the behavior of stateless servers. Instead of single prompts, enterprise pipelines orchestrate multiple LLM calls: 'Agentic reasoning' to plan, 'RAG integration' to search, and 'Structured Data extraction' to guarantee JSON schema outputs."
             analogy="A developer prompt is a chisel used to craft a single statue. An enterprise prompt pipeline is a factory assembly line producing a thousand identical statues an hour."
-            seniorTip="When bridging frontends and LLMs, use strict output schema guarantees. Instruct the LLM to 'RESPOND ONLY IN EXACT JSON SCHEMA MATCHING: {schema} AND DO NOT ADD MARKDOWN WRAPPERS OR PADDING TEXT.' This prevents parsing errors in production."
+            seniorTip="When bridging frontends and LLMs, use strict output schema guarantees. Instruct the LLM to 'RESPOND ONLY IN EXACT JSON SCHEMA MATCHING: {schema} AND DO NOT ADD MARKDOWN WRAPPERS OR PADDING TEXT.' This prevents parsing errors in production. Tools like OpenAI's structured outputs or LangChain output parsers strictly enforce this."
             defaultOpen
           >
+            <!-- Navigation Grid -->
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 mb-4 mt-4">
               <button v-for="(app, i) in appDomains" :key="i" @click="activeApp = activeApp === i ? null : i" class="p-3 rounded-xl text-center text-xs border transition-all" :class="activeApp === i ? 'bg-indigo-100 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 border-indigo-300 dark:border-indigo-700' : 'text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800/50 border-gray-200 dark:border-white/5'">
                 <div class="text-xl mb-1">{{ app.icon }}</div>
                 {{ app.name }}
               </button>
             </div>
-            <div v-if="activeApp !== null" class="p-6 rounded-2xl bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-white/5 animate-fade-in">
+
+            <!-- Detail View -->
+            <div v-if="activeApp !== null" class="p-6 rounded-2xl bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-white/5 animate-fade-in shadow-md">
               <div class="flex items-center gap-3 mb-4">
-                <span class="text-2xl">{{ appDomains[activeApp].icon }}</span>
-                <h4 class="font-bold text-gray-900 dark:text-white">{{ appDomains[activeApp].name }} — Enterprise Integrations</h4>
+                <span class="text-3xl">{{ appDomains[activeApp].icon }}</span>
+                <div>
+                  <h4 class="font-bold text-gray-900 dark:text-white text-lg">{{ appDomains[activeApp].name }}</h4>
+                  <p class="text-xs text-gray-500 uppercase tracking-widest mt-0.5 font-semibold">Key AI Modules</p>
+                </div>
               </div>
-              <div class="flex flex-wrap gap-1.5">
-                <span v-for="(mod, j) in appDomains[activeApp].modules" :key="j" class="px-3 py-1.5 rounded-lg text-xs bg-indigo-50 dark:bg-indigo-900/10 border border-indigo-100 dark:border-indigo-800/20 text-indigo-600 dark:text-indigo-400">
+              
+              <div class="flex flex-wrap gap-2">
+                <span v-for="(mod, j) in appDomains[activeApp].modules" :key="j" class="px-3 py-1.5 rounded-lg text-xs bg-indigo-50 dark:bg-indigo-900/10 border border-indigo-100 dark:border-indigo-800/20 text-indigo-600 dark:text-indigo-400 font-medium">
                   {{ mod }}
                 </span>
               </div>
-              <p class="text-xs text-gray-500 dark:text-gray-400 mt-4 leading-relaxed">Each pillar above requires distinct system prompts mapping deterministic backend signals to probabilistic LLM interpretation.</p>
+              
+              <div class="mt-5 p-4 bg-indigo-50 dark:bg-indigo-900/10 border border-indigo-100 dark:border-indigo-800/20 rounded-xl">
+                <p class="text-sm font-semibold text-gray-900 dark:text-white mb-1">Architecture Impact</p>
+                <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+                  Each module above represents a microservice where the core logic is driven by a system prompt. An LLM acts as the routing engine, parsing unstructured user inputs and translating them into deterministic API calls and structured JSON that standard frontend components can safely render.
+                </p>
+              </div>
             </div>
           </ConceptCard>
         </template>
@@ -528,14 +541,68 @@ function fillBuilderExample() { promptComponents.forEach(c => builderParts[c.key
 
 const activeApp = ref(null)
 const appDomains = [
-  { name: 'E-Commerce', icon: '🛒', modules: ['Recommendation prompt', 'Customer service bot', 'Catalog extractor'] },
-  { name: 'HealthTech', icon: '🏥', modules: ['Diagnosis parser', 'Bedside summary RAG', 'Compliance filtering'] },
-  { name: 'SaaS Platforms', icon: '📡', modules: ['JSON API extraction', 'NL-to-SQL translation', 'Sentiment analytics'] }
+  { name: 'E-Commerce', icon: '🛒', modules: ['Auth flow', 'Product browsing', 'Cart & checkout', 'Payments', 'Order tracking', 'Vendor dashboard', 'AI recommendations', 'Fraud detection'] },
+  { name: 'HealthTech', icon: '🏥', modules: ['Patient profiles', 'Medical history', 'Appointments', 'Video consultation', 'Digital prescriptions', 'AI symptom analysis', 'Privacy compliance'] },
+  { name: 'EdTech', icon: '📚', modules: ['Courses', 'Live classes', 'Assignments', 'AI quizzes', 'Learning paths', 'Gamification', 'Instructor analytics'] },
+  { name: 'FinTech', icon: '💰', modules: ['KYC workflows', 'Wallet management', 'P2P transfers', 'Fraud detection', 'AI financial insights', 'Budgeting', 'Regulatory reporting'] },
+  { name: 'Social Media', icon: '💬', modules: ['Content creation', 'Feed algorithms', 'AI moderation', 'Monetization', 'Community mgmt', 'Real-time notifications', 'Safety systems'] },
+  { name: 'Travel', icon: '✈️', modules: ['Search & filtering', 'Booking engine', 'Payments', 'AI recommendations', 'Price forecasting', 'Provider dashboards'] },
+  { name: 'Food Delivery', icon: '🍕', modules: ['Real-time tracking', 'AI route optimization', 'Demand forecasting', 'Vendor dashboards', 'Subscriptions', 'Fraud detection'] },
+  { name: 'Entertainment', icon: '🎬', modules: ['Streaming architecture', 'AI recommendations', 'Monetization', 'DRM', 'Content moderation', 'Adaptive bitrate'] },
+  { name: 'Productivity', icon: '📊', modules: ['Task management', 'Time tracking', 'AI assistant', 'Workflow automation', 'Predictive analytics', 'Enterprise admin'] },
+  { name: 'Real Estate', icon: '🏠', modules: ['Property listing', 'Map discovery', 'AI price prediction', 'Investment insights', 'Legal workflows'] },
+  { name: 'Logistics', icon: '🚚', modules: ['Inventory mgmt', 'Warehouse ops', 'Route optimization', 'Fleet tracking', 'AI demand forecasting', 'Anomaly detection'] },
 ]
 
 const quizData = [
-  { q: "Which framework is known as 'Attention Is All You Need'?", options: ['RNN', 'LSTM', 'CNN', 'Transformer'], correct: 3, explanation: "Transformers (2017) introduced parallel self-attention, the foundation of modern LLMs." },
-  { q: "What does an LLM actually predict?", options: ['Next sentence', 'Next character', 'Next token', 'Next logic step'], correct: 2, explanation: "An LLM is a probabilistic engine strictly trained to predict the most likely *next token* given a sequence of tokens." },
+  {
+    q: 'What type of AI requires strong prompt engineering?',
+    options: ['Discriminative AI', 'Generative AI', 'Reinforcement AI', 'Symbolic AI'],
+    correct: 1,
+    explanation: 'Generative AI creates new content (text, images, code) and relies heavily on well-structured prompts to produce quality outputs.',
+  },
+  {
+    q: 'What does AI actually process instead of words?',
+    options: ['Characters', 'Sentences', 'Tokens', 'Paragraphs'],
+    correct: 2,
+    explanation: "AI reads tokens — which can be full words, parts of words, characters, or prefixes/suffixes. 'playing' becomes 'play' + 'ing'.",
+  },
+  {
+    q: 'Which architecture is the foundation of modern LLMs like GPT & Claude?',
+    options: ['RNN', 'LSTM', 'CNN', 'Transformer'],
+    correct: 3,
+    explanation: 'Transformers (2017) introduced parallel processing and attention mechanisms, enabling models to understand entire sentences simultaneously.',
+  },
+  {
+    q: "What is the 'Context Window' in AI?",
+    options: ['The UI window of the chat', 'Maximum tokens a model can remember at once', 'The training dataset size', 'The number of users online'],
+    correct: 1,
+    explanation: "Context Window = maximum tokens a model can hold in memory. Like a blackboard — when it fills up, older content gets erased.",
+  },
+  {
+    q: "Which prompting technique asks the model to 'think step-by-step'?",
+    options: ['Zero-shot', 'Few-shot', 'Chain of Thought', 'RTF Framework'],
+    correct: 2,
+    explanation: 'Chain of Thought (CoT) prompting guides the model through step-by-step reasoning, dramatically improving accuracy on logic and math problems.',
+  },
+  {
+    q: "What does the 'R' in the RTF framework stand for?",
+    options: ['Result', 'Role', 'Request', 'Refine'],
+    correct: 1,
+    explanation: "RTF = Role, Task, Format. It's a simple, fast framework for structuring professional prompts.",
+  },
+  {
+    q: 'Why should you use delimiters in prompts?',
+    options: ['To make prompts longer', 'To separate instruction from data', 'To confuse the model', 'For aesthetic purposes'],
+    correct: 1,
+    explanation: 'Delimiters (triple quotes, XML tags, dashes) clearly separate your instructions from the data, preventing confusion and improving accuracy.',
+  },
+  {
+    q: 'What is the PRIMARY factor in output quality?',
+    options: ['Paid vs Free model version', 'Internet speed', 'Prompt structure and clarity', 'Time of day'],
+    correct: 2,
+    explanation: 'Output Quality = Prompt Quality. A well-structured prompt on a free model often outperforms a vague prompt on a paid model.',
+  },
 ]
 const currentQ = ref(0)
 const quizSelected = ref(null)
