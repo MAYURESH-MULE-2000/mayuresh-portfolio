@@ -1,5 +1,5 @@
-// ============================================================
-// LinguaVault - Type Definitions
+﻿// ============================================================
+// AstraLearn - Type Definitions
 // Offline-first language learning platform
 // ============================================================
 
@@ -43,6 +43,8 @@ export interface Module {
     title: string;
     description: string;
     order: number;
+    notes?: string[];
+    moduleExercises?: Exercise[];
     topics: Topic[];
     unlockCriteria: UnlockCriteria;
 }
@@ -232,7 +234,7 @@ export interface ExerciseResult {
 // USER PREFERENCES & SETTINGS
 // ============================================================
 
-export interface LinguaVaultSettings {
+export interface AstraLearnSettings {
     activeCurriculumId?: string;
     fontSize: 'small' | 'medium' | 'large';
     audioSpeed: number; // 0.5 - 2.0
@@ -243,7 +245,7 @@ export interface LinguaVaultSettings {
     preferredExerciseTypes?: ExerciseType[];
 }
 
-export const DEFAULT_SETTINGS: LinguaVaultSettings = {
+export const DEFAULT_SETTINGS: AstraLearnSettings = {
     fontSize: 'medium',
     audioSpeed: 1.0,
     autoPlayAudio: true,
@@ -256,12 +258,12 @@ export const DEFAULT_SETTINGS: LinguaVaultSettings = {
 // DATA EXPORT/IMPORT TYPES
 // ============================================================
 
-export interface LinguaVaultExport {
+export interface AstraLearnExport {
     version: string;
     exportedAt: string;
     curriculums: Curriculum[];
     progress: LearningProgress[];
-    settings: LinguaVaultSettings;
+    settings: AstraLearnSettings;
 }
 
 // ============================================================

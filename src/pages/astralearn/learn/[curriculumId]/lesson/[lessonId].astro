@@ -1,0 +1,16 @@
+﻿---
+export const prerender = false;
+
+import AstraLearnLayout from "../../../../../layouts/AstraLearnLayout.astro";
+import ALLessonView from "../../../../../components/astralearn/learning/ALLessonView.vue";
+
+const { curriculumId, lessonId } = Astro.params;
+---
+
+<AstraLearnLayout title="Lesson - AstraLearn" description="Language Lesson">
+    <ALLessonView
+        curriculumId={curriculumId ?? ""}
+        lessonId={lessonId ?? ""}
+        client:load
+    />
+</AstraLearnLayout>

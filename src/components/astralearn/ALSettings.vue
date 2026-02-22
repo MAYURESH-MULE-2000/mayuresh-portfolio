@@ -1,18 +1,18 @@
-<template>
-  <div class="lv-settings">
+﻿<template>
+  <div class="al-settings">
     <!-- Header -->
-    <header class="lv-header">
-      <div class="lv-header-content">
-        <a href="/linguavault" class="lv-back-link">
+    <header class="al-header">
+      <div class="al-header-content">
+        <a href="/astralearn" class="al-back-link">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M19 12H5M12 19l-7-7 7-7"/>
           </svg>
           <span>Dashboard</span>
         </a>
         
-        <h1 class="lv-heading-4">Settings</h1>
+        <h1 class="al-heading-4">Settings</h1>
 
-        <button @click="toggleTheme" class="lv-btn lv-btn-ghost lv-btn-icon" title="Toggle theme">
+        <button @click="toggleTheme" class="al-btn al-btn-ghost al-btn-icon" title="Toggle theme">
           <svg v-if="isDark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="5"/>
             <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
@@ -25,69 +25,94 @@
     </header>
 
     <!-- Main Content -->
-    <div class="lv-main">
+    <div class="al-main">
       <!-- Storage Info -->
-      <section class="lv-section">
-        <h2 class="lv-heading-3">Storage Information</h2>
-        <div class="lv-storage-card">
-          <div class="lv-storage-stats">
-            <div class="lv-stat-item">
-              <span class="lv-stat-label">Curriculums</span>
-              <span class="lv-stat-value">{{ curriculumCount }}</span>
+      <section class="al-section">
+        <h2 class="al-heading-3">Storage Information</h2>
+        <div class="al-storage-card">
+          <div class="al-storage-stats">
+            <div class="al-stat-item">
+              <span class="al-stat-label">Curriculums</span>
+              <span class="al-stat-value">{{ curriculumCount }}</span>
             </div>
-            <div class="lv-stat-item">
-              <span class="lv-stat-label">Storage Used</span>
-              <span class="lv-stat-value">{{ formatBytes(storageUsed) }}</span>
+            <div class="al-stat-item">
+              <span class="al-stat-label">Storage Used</span>
+              <span class="al-stat-value">{{ formatBytes(storageUsed) }}</span>
             </div>
-            <div class="lv-stat-item">
-              <span class="lv-stat-label">Available</span>
-              <span class="lv-stat-value">{{ formatBytes(storageAvailable) }}</span>
+            <div class="al-stat-item">
+              <span class="al-stat-label">Available</span>
+              <span class="al-stat-value">{{ formatBytes(storageAvailable) }}</span>
             </div>
           </div>
-          <div class="lv-storage-bar">
-            <div class="lv-storage-fill" :style="{ width: storagePercentage + '%' }"></div>
+          <div class="al-storage-bar">
+            <div class="al-storage-fill" :style="{ width: storagePercentage + '%' }"></div>
           </div>
-          <span class="lv-caption">{{ storagePercentage }}% used</span>
+          <span class="al-caption">{{ storagePercentage }}% used</span>
+        </div>
+      </section>
+
+      <!-- API Configuration -->
+      <section class="al-section">
+        <h2 class="al-heading-3">API Configuration</h2>
+        <div class="al-card">
+          <h3 class="al-heading-4" style="margin-bottom: var(--al-space-2);">Google Gemini API Key</h3>
+          <p class="al-body-sm" style="margin-bottom: var(--al-space-4); color: var(--al-text-secondary);">
+            AstraLearn uses Google's Gemini AI to generate personalized language curriculums. You can get a free API key from <a href="https://aistudio.google.com/app/apikey" target="_blank" class="al-link">Google AI Studio</a>.
+          </p>
+          <div class="al-form-group" style="margin-bottom: var(--al-space-4);">
+            <input 
+              v-model="geminiApiKey" 
+              type="password" 
+              class="al-input" 
+              placeholder="AIzaSy..." 
+            />
+          </div>
+          <div style="display: flex; align-items: center; gap: var(--al-space-3);">
+            <button @click="saveApiKey" class="al-btn al-btn-primary">
+              Save API Key
+            </button>
+            <span v-if="apiKeySaved" style="color: var(--al-success-600); font-weight: var(--al-font-weight-medium);">Saved!</span>
+          </div>
         </div>
       </section>
 
       <!-- Data Management -->
-      <section class="lv-section">
-        <h2 class="lv-heading-3">Data Management</h2>
+      <section class="al-section">
+        <h2 class="al-heading-3">Data Management</h2>
         
-        <div class="lv-data-actions">
+        <div class="al-data-actions">
           <!-- Export Data -->
-          <div class="lv-card lv-action-card">
-            <div class="lv-action-icon">💾</div>
-            <div class="lv-action-content">
-              <h3 class="lv-heading-4">Export All Data</h3>
-              <p class="lv-body-sm">Download a backup of all your curriculums and progress. Keep this file safe to restore your learning data later.</p>
-              <button @click="exportData" class="lv-btn lv-btn-primary" :disabled="isExporting">
+          <div class="al-card al-action-card">
+            <div class="al-action-icon">💾</div>
+            <div class="al-action-content">
+              <h3 class="al-heading-4">Export All Data</h3>
+              <p class="al-body-sm">Download a backup of all your curriculums and progress. Keep this file safe to restore your learning data later.</p>
+              <button @click="exportData" class="al-btn al-btn-primary" :disabled="isExporting">
                 <svg v-if="!isExporting" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                   <polyline points="7 10 12 15 17 10"/>
                   <line x1="12" y1="15" x2="12" y2="3"/>
                 </svg>
-                <span v-if="isExporting" class="lv-spinner-sm"></span>
+                <span v-if="isExporting" class="al-spinner-sm"></span>
                 {{ isExporting ? 'Exporting...' : 'Export Backup' }}
               </button>
             </div>
           </div>
 
           <!-- Import Data -->
-          <div class="lv-card lv-action-card">
-            <div class="lv-action-icon">📥</div>
-            <div class="lv-action-content">
-              <h3 class="lv-heading-4">Import Data</h3>
-              <p class="lv-body-sm">Restore your learning data from a backup file. This will merge with existing data by default.</p>
+          <div class="al-card al-action-card">
+            <div class="al-action-icon">📥</div>
+            <div class="al-action-content">
+              <h3 class="al-heading-4">Import Data</h3>
+              <p class="al-body-sm">Restore your learning data from a backup file. This will merge with existing data by default.</p>
               <input 
                 type="file" 
                 accept=".json" 
                 @change="handleImportFile"
                 id="import-file"
-                class="lv-file-input"
+                class="al-file-input"
               >
-              <label for="import-file" class="lv-btn lv-btn-primary">
+              <label for="import-file" class="al-btn al-btn-primary">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                   <polyline points="17 8 12 3 7 8"/>
@@ -99,12 +124,12 @@
           </div>
 
           <!-- Clear All Data -->
-          <div class="lv-card lv-action-card lv-danger-card">
-            <div class="lv-action-icon">🗑️</div>
-            <div class="lv-action-content">
-              <h3 class="lv-heading-4">Clear All Data</h3>
-              <p class="lv-body-sm">Permanently delete all curriculums, progress, and settings. This action cannot be undone!</p>
-              <button @click="showClearConfirm = true" class="lv-btn lv-btn-secondary">
+          <div class="al-card al-action-card al-danger-card">
+            <div class="al-action-icon">🗑️</div>
+            <div class="al-action-content">
+              <h3 class="al-heading-4">Clear All Data</h3>
+              <p class="al-body-sm">Permanently delete all curriculums, progress, and settings. This action cannot be undone!</p>
+              <button @click="showClearConfirm = true" class="al-btn al-btn-secondary">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="3 6 5 6 21 6"/>
                   <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
@@ -117,24 +142,24 @@
       </section>
 
       <!-- Curriculum Management -->
-      <section class="lv-section" v-if="curriculums.length > 0">
-        <h2 class="lv-heading-3">Manage Curriculums</h2>
-        <div class="lv-curriculum-list">
+      <section class="al-section" v-if="curriculums.length > 0">
+        <h2 class="al-heading-3">Manage Curriculums</h2>
+        <div class="al-curriculum-list">
           <div 
             v-for="curriculum in curriculums" 
             :key="curriculum.id"
-            class="lv-card lv-curriculum-item"
+            class="al-card al-curriculum-item"
           >
-            <div class="lv-curriculum-info">
-              <span class="lv-curriculum-flag">{{ getLanguageFlag(curriculum.meta.targetLanguageCode) }}</span>
+            <div class="al-curriculum-info">
+              <span class="al-curriculum-flag">{{ getLanguageFlag(curriculum.meta.targetLanguageCode) }}</span>
               <div>
-                <h4 class="lv-body">{{ curriculum.meta.title }}</h4>
-                <span class="lv-caption">{{ curriculum.modules.length }} modules</span>
+                <h4 class="al-body">{{ curriculum.meta.title }}</h4>
+                <span class="al-caption">{{ curriculum.modules.length }} modules</span>
               </div>
             </div>
             <button 
               @click="confirmDelete(curriculum.id, curriculum.meta.title)" 
-              class="lv-btn lv-btn-ghost lv-btn-sm lv-delete-btn"
+              class="al-btn al-btn-ghost al-btn-sm al-delete-btn"
               title="Delete curriculum"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -147,43 +172,43 @@
       </section>
 
       <!-- About -->
-      <section class="lv-section">
-        <h2 class="lv-heading-3">About LinguaVault</h2>
-        <div class="lv-card lv-about-card">
-          <p class="lv-body">
-            LinguaVault is a free, offline-first language learning platform. All your data is stored locally in your browser using IndexedDB. No server, no tracking, no accounts required.
+      <section class="al-section">
+        <h2 class="al-heading-3">About AstraLearn</h2>
+        <div class="al-card al-about-card">
+          <p class="al-body">
+            AstraLearn is a free, offline-first language learning platform. All your data is stored locally in your browser using IndexedDB. No server, no tracking, no accounts required.
           </p>
-          <div class="lv-about-features">
-            <div class="lv-about-feature">
-              <span class="lv-feature-icon">🔒</span>
+          <div class="al-about-features">
+            <div class="al-about-feature">
+              <span class="al-feature-icon">🔒</span>
               <span>Privacy First - Your data never leaves your device</span>
             </div>
-            <div class="lv-about-feature">
-              <span class="lv-feature-icon">📴</span>
+            <div class="al-about-feature">
+              <span class="al-feature-icon">📴</span>
               <span>Offline Support - Learn without internet</span>
             </div>
-            <div class="lv-about-feature">
-              <span class="lv-feature-icon">🎯</span>
+            <div class="al-about-feature">
+              <span class="al-feature-icon">🎯</span>
               <span>Self-Paced - Learn at your own speed</span>
             </div>
-            <div class="lv-about-feature">
-              <span class="lv-feature-icon">💾</span>
+            <div class="al-about-feature">
+              <span class="al-feature-icon">💾</span>
               <span>Portable - Export and import your data anytime</span>
             </div>
           </div>
-          <p class="lv-caption" style="margin-top: var(--lv-space-4);">
-            Version 1.0.0 | Built by <a href="/" class="lv-link">Mayuresh Mule</a>
+          <p class="al-caption" style="margin-top: var(--al-space-4);">
+            Version 1.0.0 | Built by <a href="/" class="al-link">Mayuresh Mule</a>
           </p>
         </div>
       </section>
     </div>
 
     <!-- Import Confirmation Modal -->
-    <div v-if="showImportConfirm" class="lv-modal-backdrop" @click.self="cancelImport">
-      <div class="lv-modal lv-animate-scale-in">
-        <div class="lv-modal-header">
-          <h2 class="lv-heading-3">Import Data</h2>
-          <button @click="cancelImport" class="lv-btn lv-btn-ghost lv-btn-icon">
+    <div v-if="showImportConfirm" class="al-modal-backdrop" @click.self="cancelImport">
+      <div class="al-modal al-animate-scale-in">
+        <div class="al-modal-header">
+          <h2 class="al-heading-3">Import Data</h2>
+          <button @click="cancelImport" class="al-btn al-btn-ghost al-btn-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="18" y1="6" x2="6" y2="18"/>
               <line x1="6" y1="6" x2="18" y2="18"/>
@@ -191,44 +216,44 @@
           </button>
         </div>
         
-        <div class="lv-modal-body">
-          <p class="lv-body">Found {{ importContent?.curriculums.length || 0 }} curriculum(s) in the backup file.</p>
+        <div class="al-modal-body">
+          <p class="al-body">Found {{ importContent?.curriculums.length || 0 }} curriculum(s) in the backup file.</p>
           
-          <div class="lv-import-options">
-            <label class="lv-radio-label">
+          <div class="al-import-options">
+            <label class="al-radio-label">
               <input type="radio" v-model="importMode" value="merge" name="import-mode">
               <span>
                 <strong>Merge</strong>
-                <span class="lv-caption">Keep existing data and add new items (recommended)</span>
+                <span class="al-caption">Keep existing data and add new items (recommended)</span>
               </span>
             </label>
-            <label class="lv-radio-label">
+            <label class="al-radio-label">
               <input type="radio" v-model="importMode" value="overwrite" name="import-mode">
               <span>
                 <strong>Overwrite</strong>
-                <span class="lv-caption">Replace conflicting items with imported data</span>
+                <span class="al-caption">Replace conflicting items with imported data</span>
               </span>
             </label>
           </div>
 
-          <div v-if="importResult" class="lv-import-result">
+          <div v-if="importResult" class="al-import-result">
             <p><strong>✓ Import Complete</strong></p>
-            <p class="lv-caption">Imported: {{ importResult.imported }} | Skipped: {{ importResult.skipped }}</p>
-            <div v-if="importResult.errors.length > 0" class="lv-import-errors">
-              <p class="lv-caption lv-text-error">Errors:</p>
-              <p v-for="(error, i) in importResult.errors" :key="i" class="lv-caption">{{ error }}</p>
+            <p class="al-caption">Imported: {{ importResult.imported }} | Skipped: {{ importResult.skipped }}</p>
+            <div v-if="importResult.errors.length > 0" class="al-import-errors">
+              <p class="al-caption al-text-error">Errors:</p>
+              <p v-for="(error, i) in importResult.errors" :key="i" class="al-caption">{{ error }}</p>
             </div>
           </div>
         </div>
 
-        <div class="lv-modal-footer">
-          <button @click="cancelImport" class="lv-btn lv-btn-secondary">Cancel</button>
+        <div class="al-modal-footer">
+          <button @click="cancelImport" class="al-btn al-btn-secondary">Cancel</button>
           <button 
             @click="confirmImport" 
-            class="lv-btn lv-btn-primary"
+            class="al-btn al-btn-primary"
             :disabled="isImporting || !!importResult"
           >
-            <span v-if="isImporting" class="lv-spinner-sm"></span>
+            <span v-if="isImporting" class="al-spinner-sm"></span>
             {{ isImporting ? 'Importing...' : importResult ? 'Done' : 'Import' }}
           </button>
         </div>
@@ -236,11 +261,11 @@
     </div>
 
     <!-- Delete Confirmation Modal -->
-    <div v-if="deleteTarget" class="lv-modal-backdrop" @click.self="deleteTarget = null">
-      <div class="lv-modal lv-animate-scale-in">
-        <div class="lv-modal-header">
-          <h2 class="lv-heading-3">Delete Curriculum</h2>
-          <button @click="deleteTarget = null" class="lv-btn lv-btn-ghost lv-btn-icon">
+    <div v-if="deleteTarget" class="al-modal-backdrop" @click.self="deleteTarget = null">
+      <div class="al-modal al-animate-scale-in">
+        <div class="al-modal-header">
+          <h2 class="al-heading-3">Delete Curriculum</h2>
+          <button @click="deleteTarget = null" class="al-btn al-btn-ghost al-btn-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="18" y1="6" x2="6" y2="18"/>
               <line x1="6" y1="6" x2="18" y2="18"/>
@@ -248,24 +273,24 @@
           </button>
         </div>
         
-        <div class="lv-modal-body">
-          <p class="lv-body">Are you sure you want to delete <strong>{{ deleteTarget.name }}</strong>?</p>
-          <p class="lv-body-sm lv-text-error">This will permanently delete the curriculum and all your progress. This action cannot be undone.</p>
+        <div class="al-modal-body">
+          <p class="al-body">Are you sure you want to delete <strong>{{ deleteTarget.name }}</strong>?</p>
+          <p class="al-body-sm al-text-error">This will permanently delete the curriculum and all your progress. This action cannot be undone.</p>
         </div>
 
-        <div class="lv-modal-footer">
-          <button @click="deleteTarget = null" class="lv-btn lv-btn-secondary">Cancel</button>
-          <button @click="confirmDeleteCurriculum" class="lv-btn lv-btn-primary">Delete</button>
+        <div class="al-modal-footer">
+          <button @click="deleteTarget = null" class="al-btn al-btn-secondary">Cancel</button>
+          <button @click="confirmDeleteCurriculum" class="al-btn al-btn-primary">Delete</button>
         </div>
       </div>
     </div>
 
     <!-- Clear All Confirmation Modal -->
-    <div v-if="showClearConfirm" class="lv-modal-backdrop" @click.self="showClearConfirm = false">
-      <div class="lv-modal lv-animate-scale-in">
-        <div class="lv-modal-header">
-          <h2 class="lv-heading-3">Clear All Data</h2>
-          <button @click="showClearConfirm = false" class="lv-btn lv-btn-ghost lv-btn-icon">
+    <div v-if="showClearConfirm" class="al-modal-backdrop" @click.self="showClearConfirm = false">
+      <div class="al-modal al-animate-scale-in">
+        <div class="al-modal-header">
+          <h2 class="al-heading-3">Clear All Data</h2>
+          <button @click="showClearConfirm = false" class="al-btn al-btn-ghost al-btn-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="18" y1="6" x2="6" y2="18"/>
               <line x1="6" y1="6" x2="18" y2="18"/>
@@ -273,26 +298,26 @@
           </button>
         </div>
         
-        <div class="lv-modal-body">
-          <div class="lv-warning-box">
-            <span class="lv-warning-icon">⚠️</span>
-            <p class="lv-body"><strong>Warning:</strong> This will permanently delete ALL curriculums, progress, and settings.</p>
+        <div class="al-modal-body">
+          <div class="al-warning-box">
+            <span class="al-warning-icon">⚠️</span>
+            <p class="al-body"><strong>Warning:</strong> This will permanently delete ALL curriculums, progress, and settings.</p>
           </div>
-          <p class="lv-body-sm">Type <strong>DELETE</strong> to confirm:</p>
+          <p class="al-body-sm">Type <strong>DELETE</strong> to confirm:</p>
           <input 
             v-model="clearConfirmText" 
             type="text" 
-            class="lv-input"
+            class="al-input"
             placeholder="Type DELETE"
             @keyup.enter="confirmClearAll"
           >
         </div>
 
-        <div class="lv-modal-footer">
-          <button @click="showClearConfirm = false" class="lv-btn lv-btn-secondary">Cancel</button>
+        <div class="al-modal-footer">
+          <button @click="showClearConfirm = false" class="al-btn al-btn-secondary">Cancel</button>
           <button 
             @click="confirmClearAll" 
-            class="lv-btn lv-btn-primary"
+            class="al-btn al-btn-primary"
             :disabled="clearConfirmText !== 'DELETE'"
           >
             Clear Everything
@@ -305,7 +330,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
-import type { Curriculum, LinguaVaultExport } from '../../types/linguavault';
+import type { Curriculum, AstraLearnExport } from '../../types/astralearn';
 import { 
   getAllCurriculums, 
   deleteCurriculum, 
@@ -313,8 +338,8 @@ import {
   importData,
   clearAllData,
   getStorageEstimate 
-} from '../../lib/linguavault/db';
-import { clearAllLocalStorage } from '../../lib/linguavault/storage';
+} from '../../lib/astralearn/db';
+import { clearAllLocalStorage } from '../../lib/astralearn/storage';
 
 // State
 const isDark = ref(false);
@@ -322,11 +347,15 @@ const curriculums = ref<Curriculum[]>([]);
 const storageUsed = ref(0);
 const storageAvailable = ref(0);
 
+// API Key State
+const geminiApiKey = ref('');
+const apiKeySaved = ref(false);
+
 // Export/Import state
 const isExporting = ref(false);
 const isImporting = ref(false);
 const showImportConfirm = ref(false);
-const importContent = ref<LinguaVaultExport | null>(null);
+const importContent = ref<AstraLearnExport | null>(null);
 const importMode = ref<'merge' | 'overwrite'>('merge');
 const importResult = ref<{ imported: number; skipped: number; errors: string[] } | null>(null);
 
@@ -371,6 +400,12 @@ function formatBytes(bytes: number): string {
   return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
 }
 
+function saveApiKey() {
+  localStorage.setItem('astralearn_gemini_key', geminiApiKey.value);
+  apiKeySaved.value = true;
+  setTimeout(() => apiKeySaved.value = false, 2000);
+}
+
 async function exportData() {
   isExporting.value = true;
   try {
@@ -379,7 +414,7 @@ async function exportData() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `linguavault-backup-${new Date().toISOString().split('T')[0]}.json`;
+    a.download = `astralearn-backup-${new Date().toISOString().split('T')[0]}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -474,7 +509,7 @@ async function confirmClearAll() {
   try {
     await clearAllData();
     clearAllLocalStorage();
-    window.location.href = '/linguavault';
+    window.location.href = '/astralearn';
   } catch (error) {
     console.error('Failed to clear data:', error);
     alert('Failed to clear data. Please try again.');
@@ -490,6 +525,7 @@ async function loadStorageInfo() {
 // Lifecycle
 onMounted(async () => {
   isDark.value = document.documentElement.classList.contains('dark');
+  geminiApiKey.value = localStorage.getItem('astralearn_gemini_key') || '';
 
   try {
     curriculums.value = await getAllCurriculums();
@@ -501,145 +537,145 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.lv-settings {
+.al-settings {
   min-height: 100vh;
 }
 
 /* Header */
-.lv-header {
+.al-header {
   position: sticky;
   top: 0;
-  z-index: var(--lv-z-sticky);
-  background: var(--lv-bg-primary);
-  border-bottom: 1px solid var(--lv-border-light);
+  z-index: var(--al-z-sticky);
+  background: var(--al-bg-primary);
+  border-bottom: 1px solid var(--al-border-light);
 }
 
-.lv-header-content {
+.al-header-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
   max-width: 900px;
   margin: 0 auto;
-  padding: var(--lv-space-4);
+  padding: var(--al-space-4);
 }
 
-.lv-back-link {
+.al-back-link {
   display: flex;
   align-items: center;
-  gap: var(--lv-space-2);
-  color: var(--lv-text-secondary);
+  gap: var(--al-space-2);
+  color: var(--al-text-secondary);
   text-decoration: none;
-  font-size: var(--lv-font-size-sm);
-  transition: color var(--lv-transition-fast);
+  font-size: var(--al-font-size-sm);
+  transition: color var(--al-transition-fast);
 }
 
-.lv-back-link:hover {
-  color: var(--lv-text-primary);
+.al-back-link:hover {
+  color: var(--al-text-primary);
 }
 
 /* Main */
-.lv-main {
+.al-main {
   max-width: 900px;
   margin: 0 auto;
-  padding: var(--lv-space-6) var(--lv-space-4);
+  padding: var(--al-space-6) var(--al-space-4);
 }
 
-.lv-section {
-  margin-bottom: var(--lv-space-8);
+.al-section {
+  margin-bottom: var(--al-space-8);
 }
 
 /* Storage Card */
-.lv-storage-card {
-  background: var(--lv-bg-card);
-  border: 1px solid var(--lv-border-light);
-  border-radius: var(--lv-radius-xl);
-  padding: var(--lv-space-6);
+.al-storage-card {
+  background: var(--al-bg-card);
+  border: 1px solid var(--al-border-light);
+  border-radius: var(--al-radius-xl);
+  padding: var(--al-space-6);
 }
 
-.lv-storage-stats {
+.al-storage-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: var(--lv-space-4);
-  margin-bottom: var(--lv-space-4);
+  gap: var(--al-space-4);
+  margin-bottom: var(--al-space-4);
 }
 
-.lv-stat-item {
+.al-stat-item {
   text-align: center;
 }
 
-.lv-stat-label {
+.al-stat-label {
   display: block;
-  font-size: var(--lv-font-size-sm);
-  color: var(--lv-text-tertiary);
-  margin-bottom: var(--lv-space-1);
+  font-size: var(--al-font-size-sm);
+  color: var(--al-text-tertiary);
+  margin-bottom: var(--al-space-1);
 }
 
-.lv-stat-value {
+.al-stat-value {
   display: block;
-  font-size: var(--lv-font-size-2xl);
-  font-weight: var(--lv-font-weight-bold);
-  color: var(--lv-text-primary);
+  font-size: var(--al-font-size-2xl);
+  font-weight: var(--al-font-weight-bold);
+  color: var(--al-text-primary);
 }
 
-.lv-storage-bar {
+.al-storage-bar {
   height: 8px;
-  background: var(--lv-bg-tertiary);
-  border-radius: var(--lv-radius-full);
+  background: var(--al-bg-tertiary);
+  border-radius: var(--al-radius-full);
   overflow: hidden;
-  margin-bottom: var(--lv-space-2);
+  margin-bottom: var(--al-space-2);
 }
 
-.lv-storage-fill {
+.al-storage-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--lv-primary-400), var(--lv-primary-500));
-  transition: width var(--lv-transition-slow);
+  background: linear-gradient(90deg, var(--al-primary-400), var(--al-primary-500));
+  transition: width var(--al-transition-slow);
 }
 
 /* Data Actions */
-.lv-data-actions {
+.al-data-actions {
   display: flex;
   flex-direction: column;
-  gap: var(--lv-space-4);
+  gap: var(--al-space-4);
 }
 
-.lv-action-card {
+.al-action-card {
   display: flex;
-  gap: var(--lv-space-4);
+  gap: var(--al-space-4);
   align-items: flex-start;
 }
 
-.lv-action-icon {
+.al-action-icon {
   font-size: 2rem;
   flex-shrink: 0;
 }
 
-.lv-action-content {
+.al-action-content {
   flex: 1;
 }
 
-.lv-action-content h3 {
-  margin-bottom: var(--lv-space-2);
+.al-action-content h3 {
+  margin-bottom: var(--al-space-2);
 }
 
-.lv-action-content p {
-  margin-bottom: var(--lv-space-3);
+.al-action-content p {
+  margin-bottom: var(--al-space-3);
 }
 
-.lv-danger-card {
-  border-color: var(--lv-error-200);
-  background: var(--lv-error-50);
+.al-danger-card {
+  border-color: var(--al-error-200);
+  background: var(--al-error-50);
 }
 
-.dark .lv-danger-card {
+.dark .al-danger-card {
   background: rgb(239 68 68 / 0.05);
   border-color: rgb(239 68 68 / 0.2);
 }
 
-.lv-file-input {
+.al-file-input {
   display: none;
 }
 
-.lv-spinner-sm {
+.al-spinner-sm {
   display: inline-block;
   width: 14px;
   height: 14px;
@@ -654,180 +690,180 @@ onMounted(async () => {
 }
 
 /* Curriculum List */
-.lv-curriculum-list {
+.al-curriculum-list {
   display: flex;
   flex-direction: column;
-  gap: var(--lv-space-3);
+  gap: var(--al-space-3);
 }
 
-.lv-curriculum-item {
+.al-curriculum-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--lv-space-4);
+  padding: var(--al-space-4);
 }
 
-.lv-curriculum-info {
+.al-curriculum-info {
   display: flex;
   align-items: center;
-  gap: var(--lv-space-3);
+  gap: var(--al-space-3);
 }
 
-.lv-curriculum-flag {
+.al-curriculum-flag {
   font-size: 1.5rem;
 }
 
-.lv-delete-btn {
-  color: var(--lv-error-500);
+.al-delete-btn {
+  color: var(--al-error-500);
 }
 
-.lv-delete-btn:hover {
-  background: var(--lv-error-50);
+.al-delete-btn:hover {
+  background: var(--al-error-50);
 }
 
 /* About Card */
-.lv-about-card {
-  background: linear-gradient(135deg, var(--lv-primary-50), var(--lv-bg-card));
-  border-color: var(--lv-primary-200);
+.al-about-card {
+  background: linear-gradient(135deg, var(--al-primary-50), var(--al-bg-card));
+  border-color: var(--al-primary-200);
 }
 
-.dark .lv-about-card {
-  background: linear-gradient(135deg, rgb(20 184 166 / 0.1), var(--lv-bg-card));
-  border-color: var(--lv-primary-800);
+.dark .al-about-card {
+  background: linear-gradient(135deg, rgb(20 184 166 / 0.1), var(--al-bg-card));
+  border-color: var(--al-primary-800);
 }
 
-.lv-about-features {
+.al-about-features {
   display: grid;
-  gap: var(--lv-space-3);
-  margin: var(--lv-space-4) 0;
+  gap: var(--al-space-3);
+  margin: var(--al-space-4) 0;
 }
 
-.lv-about-feature {
+.al-about-feature {
   display: flex;
   align-items: center;
-  gap: var(--lv-space-2);
-  font-size: var(--lv-font-size-sm);
+  gap: var(--al-space-2);
+  font-size: var(--al-font-size-sm);
 }
 
-.lv-link {
-  color: var(--lv-primary-600);
+.al-link {
+  color: var(--al-primary-600);
   text-decoration: none;
 }
 
-.lv-link:hover {
+.al-link:hover {
   text-decoration: underline;
 }
 
 /* Modal */
-.lv-modal-backdrop {
+.al-modal-backdrop {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: var(--lv-z-modal-backdrop);
-  padding: var(--lv-space-4);
+  z-index: var(--al-z-modal-backdrop);
+  padding: var(--al-space-4);
 }
 
-.lv-modal {
-  background: var(--lv-bg-primary);
-  border-radius: var(--lv-radius-xl);
+.al-modal {
+  background: var(--al-bg-primary);
+  border-radius: var(--al-radius-xl);
   width: 100%;
   max-width: 500px;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: var(--lv-shadow-xl);
+  box-shadow: var(--al-shadow-xl);
 }
 
-.lv-modal-header {
+.al-modal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--lv-space-6);
-  border-bottom: 1px solid var(--lv-border-light);
+  padding: var(--al-space-6);
+  border-bottom: 1px solid var(--al-border-light);
 }
 
-.lv-modal-body {
-  padding: var(--lv-space-6);
+.al-modal-body {
+  padding: var(--al-space-6);
 }
 
-.lv-modal-footer {
+.al-modal-footer {
   display: flex;
   justify-content: flex-end;
-  gap: var(--lv-space-3);
-  padding: var(--lv-space-6);
-  border-top: 1px solid var(--lv-border-light);
+  gap: var(--al-space-3);
+  padding: var(--al-space-6);
+  border-top: 1px solid var(--al-border-light);
 }
 
 /* Import Options */
-.lv-import-options {
+.al-import-options {
   display: flex;
   flex-direction: column;
-  gap: var(--lv-space-3);
-  margin: var(--lv-space-4) 0;
+  gap: var(--al-space-3);
+  margin: var(--al-space-4) 0;
 }
 
-.lv-radio-label {
+.al-radio-label {
   display: flex;
-  gap: var(--lv-space-3);
-  padding: var(--lv-space-3);
-  border: 1px solid var(--lv-border-light);
-  border-radius: var(--lv-radius-md);
+  gap: var(--al-space-3);
+  padding: var(--al-space-3);
+  border: 1px solid var(--al-border-light);
+  border-radius: var(--al-radius-md);
   cursor: pointer;
-  transition: all var(--lv-transition-fast);
+  transition: all var(--al-transition-fast);
 }
 
-.lv-radio-label:hover {
-  border-color: var(--lv-primary-300);
+.al-radio-label:hover {
+  border-color: var(--al-primary-300);
 }
 
-.lv-radio-label input[type="radio"] {
+.al-radio-label input[type="radio"] {
   margin-top: 2px;
 }
 
-.lv-radio-label span {
+.al-radio-label span {
   display: flex;
   flex-direction: column;
-  gap: var(--lv-space-1);
+  gap: var(--al-space-1);
 }
 
-.lv-import-result {
-  margin-top: var(--lv-space-4);
-  padding: var(--lv-space-4);
-  background: var(--lv-success-50);
-  border-radius: var(--lv-radius-md);
+.al-import-result {
+  margin-top: var(--al-space-4);
+  padding: var(--al-space-4);
+  background: var(--al-success-50);
+  border-radius: var(--al-radius-md);
 }
 
-.lv-import-errors {
-  margin-top: var(--lv-space-2);
-  padding: var(--lv-space-3);
-  background: var(--lv-error-50);
-  border-radius: var(--lv-radius-sm);
+.al-import-errors {
+  margin-top: var(--al-space-2);
+  padding: var(--al-space-3);
+  background: var(--al-error-50);
+  border-radius: var(--al-radius-sm);
 }
 
 /* Warning Box */
-.lv-warning-box {
+.al-warning-box {
   display: flex;
-  gap: var(--lv-space-3);
-  padding: var(--lv-space-4);
-  background: var(--lv-warning-50);
-  border: 1px solid var(--lv-warning-500);
-  border-radius: var(--lv-radius-md);
-  margin-bottom: var(--lv-space-4);
+  gap: var(--al-space-3);
+  padding: var(--al-space-4);
+  background: var(--al-warning-50);
+  border: 1px solid var(--al-warning-500);
+  border-radius: var(--al-radius-md);
+  margin-bottom: var(--al-space-4);
 }
 
-.lv-warning-icon {
+.al-warning-icon {
   font-size: 1.5rem;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .lv-storage-stats {
+  .al-storage-stats {
     grid-template-columns: 1fr;
   }
 
-  .lv-action-card {
+  .al-action-card {
     flex-direction: column;
     text-align: center;
   }

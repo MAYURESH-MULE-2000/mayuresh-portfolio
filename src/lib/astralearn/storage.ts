@@ -1,9 +1,9 @@
-// ============================================================
-// LinguaVault - LocalStorage Utilities
+﻿// ============================================================
+// AstraLearn - LocalStorage Utilities
 // Handles lightweight, quick-access data
 // ============================================================
 
-import type { LinguaVaultSettings, OnboardingState } from '../../types/linguavault';
+import type { AstraLearnSettings, OnboardingState } from '../../types/astralearn';
 
 const STORAGE_KEYS = {
     ACTIVE_CURRICULUM: 'lv_active_curriculum',
@@ -184,7 +184,7 @@ export function markVisited(): void {
 // ============================================================
 
 /**
- * Clear all LinguaVault localStorage data
+ * Clear all AstraLearn localStorage data
  */
 export function clearAllLocalStorage(): void {
     if (typeof window === 'undefined') return;

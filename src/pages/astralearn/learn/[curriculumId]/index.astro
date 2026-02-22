@@ -1,0 +1,16 @@
+﻿---
+export const prerender = false;
+
+import AstraLearnLayout from "../../../../layouts/AstraLearnLayout.astro";
+import ALCurriculumView from "../../../../components/astralearn/learning/ALCurriculumView.vue";
+
+const { curriculumId } = Astro.params;
+---
+
+<AstraLearnLayout
+    title="Learning - AstraLearn"
+    description="Continue your language learning journey"
+>
+    <!-- Use empty string as fallback to satisfy TS, though Astro router guarantees param presence for this route -->
+    <ALCurriculumView curriculumId={curriculumId ?? ""} client:load />
+</AstraLearnLayout>

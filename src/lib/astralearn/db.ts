@@ -1,17 +1,17 @@
-// ============================================================
-// LinguaVault - IndexedDB Service Layer
+﻿// ============================================================
+// AstraLearn - IndexedDB Service Layer
 // Handles all persistent storage operations
 // ============================================================
 
 import type {
     Curriculum,
     LearningProgress,
-    LinguaVaultExport,
-    LinguaVaultSettings,
+    AstraLearnExport,
+    AstraLearnSettings,
     DEFAULT_SETTINGS,
-} from '../../types/linguavault';
+} from '../../types/astralearn';
 
-const DB_NAME = 'LinguaVaultDB';
+const DB_NAME = 'AstraLearnDB';
 const DB_VERSION = 1;
 
 // Object store names
@@ -39,7 +39,7 @@ export async function initDB(): Promise<IDBDatabase> {
         const request = indexedDB.open(DB_NAME, DB_VERSION);
 
         request.onerror = () => {
-            console.error('Failed to open LinguaVault database:', request.error);
+            console.error('Failed to open AstraLearn database:', request.error);
             reject(request.error);
         };
 
@@ -276,6 +276,157 @@ export async function initializeProgress(curriculum: Curriculum): Promise<Learni
     return progress;
 }
 
+/**
+ * Mark a lesson as completed, calculate all downstream progress accurately, 
+ * and unlock succeeding items.
+ */
+export async function markLessonComplete(
+    curriculumId: string,
+    lessonId: string,
+    score: number,
+    exerciseResults: Record<string, any>,
+    timeSpentMinutes: number
+): Promise<LearningProgress | null> {
+    const curriculum = await getCurriculum(curriculumId);
+    let progress = await getProgress(curriculumId);
+
+    if (!curriculum || !progress) return null;
+
+    const now = new Date().toISOString();
+    const today = now.split('T')[0];
+
+    // Find module and topic context
+    let moduleId: string | null = null;
+    let topicId: string | null = null;
+    let nextLessonId: string | null = null;
+
+    for (let m = 0; m < curriculum.modules.length; m++) {
+        const mod = curriculum.modules[m];
+        for (let t = 0; t < mod.topics.length; t++) {
+            const topic = mod.topics[t];
+            const lessonIndex = topic.lessons.findIndex(l => l.id === lessonId);
+            if (lessonIndex >= 0) {
+                moduleId = mod.id;
+                topicId = topic.id;
+
+                if (lessonIndex < topic.lessons.length - 1) {
+                    nextLessonId = topic.lessons[lessonIndex + 1].id;
+                } else if (t < mod.topics.length - 1 && mod.topics[t + 1].lessons.length > 0) {
+                    nextLessonId = mod.topics[t + 1].lessons[0].id;
+                }
+                break;
+            }
+        }
+        if (moduleId) break;
+    }
+
+    if (!moduleId || !topicId) return progress;
+
+    // Update lesson
+    progress.lessonProgress[lessonId] = {
+        lessonId,
+        status: 'completed',
+        completedAt: now,
+        score,
+        attempts: (progress.lessonProgress[lessonId]?.attempts || 0) + 1,
+        bestScore: Math.max(score, progress.lessonProgress[lessonId]?.bestScore || 0),
+        exerciseResults,
+        timeSpentMinutes: (progress.lessonProgress[lessonId]?.timeSpentMinutes || 0) + timeSpentMinutes,
+    };
+
+    // Unlock next lesson
+    if (nextLessonId && progress.lessonProgress[nextLessonId]) {
+        if (progress.lessonProgress[nextLessonId].status === 'locked') {
+            progress.lessonProgress[nextLessonId].status = 'available';
+        }
+    }
+
+    // Update topic
+    const topicLessons = curriculum.modules
+        .find(m => m.id === moduleId)?.topics
+        .find(t => t.id === topicId)?.lessons || [];
+
+    const completedTopicLessons = topicLessons.filter(
+        l => progress!.lessonProgress[l.id]?.status === 'completed'
+    ).length;
+
+    progress.topicProgress[topicId].completedLessons = completedTopicLessons;
+    progress.topicProgress[topicId].completionPercentage =
+        Math.round((completedTopicLessons / topicLessons.length) * 100);
+
+    if (completedTopicLessons === topicLessons.length) {
+        progress.topicProgress[topicId].status = 'completed';
+    } else {
+        progress.topicProgress[topicId].status = 'in-progress';
+    }
+
+    // Update module
+    const moduleTopics = curriculum.modules
+        .find(m => m.id === moduleId)?.topics || [];
+
+    const completedTopics = moduleTopics.filter(
+        t => progress!.topicProgress[t.id]?.status === 'completed'
+    ).length;
+
+    progress.moduleProgress[moduleId].completedTopics = completedTopics;
+    progress.moduleProgress[moduleId].completionPercentage =
+        Math.round((completedTopics / moduleTopics.length) * 100);
+
+    if (completedTopics === moduleTopics.length) {
+        progress.moduleProgress[moduleId].status = 'completed';
+        // Unlock next module
+        const moduleIndex = curriculum.modules.findIndex(m => m.id === moduleId);
+        if (moduleIndex >= 0 && moduleIndex < curriculum.modules.length - 1) {
+            const nextModule = curriculum.modules[moduleIndex + 1];
+            if (progress.moduleProgress[nextModule.id]?.status === 'locked') {
+                progress.moduleProgress[nextModule.id].status = 'available';
+                const firstTopic = nextModule.topics[0];
+                if (firstTopic && progress.topicProgress[firstTopic.id]) {
+                    progress.topicProgress[firstTopic.id].status = 'available';
+                    const firstLesson = firstTopic.lessons[0];
+                    if (firstLesson && progress.lessonProgress[firstLesson.id]) {
+                        progress.lessonProgress[firstLesson.id].status = 'available';
+                    }
+                }
+            }
+        }
+    }
+
+    // Update overall
+    const allLessons = curriculum.modules.flatMap(m => m.topics.flatMap(t => t.lessons));
+    const totalCompletedLessons = allLessons.filter(
+        l => progress!.lessonProgress[l.id]?.status === 'completed'
+    ).length;
+    progress.overallProgress = Math.round((totalCompletedLessons / allLessons.length) * 100);
+
+    // Update streak tracking properly
+    if (progress.currentStreak.lastActiveDate !== today) {
+        const lastDate = new Date(progress.currentStreak.lastActiveDate);
+        const todayDate = new Date(today);
+
+        // Reset time component for accurate day comparison
+        lastDate.setHours(0, 0, 0, 0);
+        todayDate.setHours(0, 0, 0, 0);
+
+        const diffDays = Math.round((todayDate.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24));
+
+        if (diffDays === 1) {
+            progress.currentStreak.count++;
+        } else if (diffDays > 1) {
+            progress.currentStreak.count = 1;
+        }
+        progress.currentStreak.lastActiveDate = today;
+        progress.streakDays = Math.max(progress.streakDays, progress.currentStreak.count);
+    }
+
+    progress.lastAccessedAt = now;
+    progress.lastLessonId = lessonId;
+    progress.totalTimeSpentMinutes += timeSpentMinutes;
+
+    await saveProgress(progress);
+    return progress;
+}
+
 // ============================================================
 // SETTINGS OPERATIONS
 // ============================================================
@@ -285,7 +436,7 @@ const SETTINGS_KEY = 'user-settings';
 /**
  * Get user settings
  */
-export async function getSettings(): Promise<LinguaVaultSettings> {
+export async function getSettings(): Promise<AstraLearnSettings> {
     const db = await getDB();
 
     return new Promise((resolve, reject) => {
@@ -315,7 +466,7 @@ export async function getSettings(): Promise<LinguaVaultSettings> {
 /**
  * Save user settings
  */
-export async function saveSettings(settings: LinguaVaultSettings): Promise<void> {
+export async function saveSettings(settings: AstraLearnSettings): Promise<void> {
     const db = await getDB();
 
     return new Promise((resolve, reject) => {
@@ -333,9 +484,9 @@ export async function saveSettings(settings: LinguaVaultSettings): Promise<void>
 // ============================================================
 
 /**
- * Export all LinguaVault data as a JSON object
+ * Export all AstraLearn data as a JSON object
  */
-export async function exportAllData(): Promise<LinguaVaultExport> {
+export async function exportAllData(): Promise<AstraLearnExport> {
     const [curriculums, progress, settings] = await Promise.all([
         getAllCurriculums(),
         getAllProgress(),
@@ -355,7 +506,7 @@ export async function exportAllData(): Promise<LinguaVaultExport> {
  * Import data from a backup, optionally merging with existing data
  */
 export async function importData(
-    data: LinguaVaultExport,
+    data: AstraLearnExport,
     options: { merge?: boolean; overwrite?: boolean } = { merge: true }
 ): Promise<{ imported: number; skipped: number; errors: string[] }> {
     const result = { imported: 0, skipped: 0, errors: [] as string[] };
@@ -440,7 +591,7 @@ function mergeProgress(existing: LearningProgress, incoming: LearningProgress): 
 // ============================================================
 
 /**
- * Clear all LinguaVault data
+ * Clear all AstraLearn data
  */
 export async function clearAllData(): Promise<void> {
     const db = await getDB();

@@ -1,11 +1,11 @@
----
+﻿---
 interface Props {
     title?: string;
     description?: string;
 }
 
 const {
-    title = "LinguaVault - Learn Languages Offline",
+    title = "AstraLearn - Learn Languages Offline",
     description = "A free, offline-first language learning platform. Learn at your own pace with structured curricula, no accounts required.",
 } = Astro.props;
 ---
@@ -36,9 +36,9 @@ const {
             rel="stylesheet"
         />
 
-        <!-- LinguaVault Styles -->
+        <!-- AstraLearn Styles -->
         <style>
-            @import "../styles/linguavault.css";
+            @import "../styles/astralearn.css";
         </style>
 
         <!-- Theme Script (prevent FOUC) -->
@@ -57,7 +57,7 @@ const {
             });
         </script>
     </head>
-    <body class="lv-page">
+    <body class="al-page">
         <!-- Main Content -->
         <main>
             <slot />
@@ -66,32 +66,32 @@ const {
         <!-- Offline Indicator (injected via JS) -->
         <div
             id="offline-indicator"
-            class="lv-offline-banner"
+            class="al-offline-banner"
             style="display: none;"
         >
             <span
-                >📴 You're offline - Don't worry, LinguaVault works offline!</span
+                >📴 You're offline - Don't worry, AstraLearn works offline!</span
             >
         </div>
 
         <style>
-            .lv-offline-banner {
+            .al-offline-banner {
                 position: fixed;
                 bottom: 0;
                 left: 0;
                 right: 0;
-                padding: var(--lv-space-3) var(--lv-space-4);
+                padding: var(--al-space-3) var(--al-space-4);
                 background: linear-gradient(
                     135deg,
-                    var(--lv-warning-500),
-                    var(--lv-warning-600)
+                    var(--al-warning-500),
+                    var(--al-warning-600)
                 );
                 color: white;
                 text-align: center;
-                font-size: var(--lv-font-size-sm);
-                font-weight: var(--lv-font-weight-medium);
-                z-index: var(--lv-z-toast);
-                animation: lv-slide-up 0.3s ease-out;
+                font-size: var(--al-font-size-sm);
+                font-weight: var(--al-font-weight-medium);
+                z-index: var(--al-z-toast);
+                animation: al-slide-up 0.3s ease-out;
             }
         </style>
 

@@ -275,9 +275,18 @@ const topics = [
     tags: ['Strategy', 'Roadmap', 'Frameworks'],
     ready: true,
   },
+  {
+    title: 'Prompt Engineering',
+    slug: '/learn/prompt-engineering',
+    icon: '🤖',
+    description: 'Tokens, transformers, RTF/CREATE frameworks, prompt anatomy, and enterprise-scale system design — with interactive labs and quizzes.',
+    gradient: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%)',
+    tags: ['AI', 'Prompts', 'Frameworks'],
+    ready: true,
+  },
 ]
 
-const allTags = ['All', 'Fundamentals', 'Async', 'Rendering', 'Layout', 'Vue', 'React', 'Architecture', 'Monorepo', 'Systems', 'Vitals', 'Testing', 'E2E', 'Unit', 'Algorithms', 'HTML5', 'Cross-Browser', 'Build Tools', 'Backend', 'DevOps', 'A11y', 'Security', 'Leadership']
+const allTags = ['All', 'Fundamentals', 'Async', 'Rendering', 'Layout', 'Vue', 'React', 'Architecture', 'Monorepo', 'Systems', 'Vitals', 'Testing', 'E2E', 'Unit', 'Algorithms', 'HTML5', 'Cross-Browser', 'Build Tools', 'Backend', 'DevOps', 'A11y', 'Security', 'Leadership', 'AI', 'Prompts']
 const activeTag = ref('All')
 
 function toggleTag(tag) {

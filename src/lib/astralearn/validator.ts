@@ -1,5 +1,5 @@
-// ============================================================
-// LinguaVault - Curriculum JSON Validator
+﻿// ============================================================
+// AstraLearn - Curriculum JSON Validator
 // Validates uploaded curriculum files against expected schema
 // ============================================================
 
@@ -16,7 +16,7 @@ import type {
     ProficiencyLevel,
     LessonType,
     ExerciseType,
-} from '../../types/linguavault';
+} from '../../types/astralearn';
 
 // Valid enum values
 const VALID_PROFICIENCY_LEVELS: ProficiencyLevel[] = [
