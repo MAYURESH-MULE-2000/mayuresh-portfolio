@@ -284,6 +284,15 @@ const topics = [
     tags: ['AI', 'Prompts', 'Frameworks'],
     ready: true,
   },
+  {
+    title: 'Go-To-Market Strategy',
+    slug: '/learn/gtm',
+    icon: '🚀',
+    description: 'Master brand positioning, Minimum Viable Segment, inbound pipelines, AI agents, and value-based pricing.',
+    gradient: 'linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #4338ca 100%)',
+    tags: ['GTM', 'Sales', 'Strategy', 'Marketing', 'AI'],
+    ready: true,
+  },
 ]
 
 const allTags = ['All', 'Fundamentals', 'Async', 'Rendering', 'Layout', 'Vue', 'React', 'Architecture', 'Monorepo', 'Systems', 'Vitals', 'Testing', 'E2E', 'Unit', 'Algorithms', 'HTML5', 'Cross-Browser', 'Build Tools', 'Backend', 'DevOps', 'A11y', 'Security', 'Leadership', 'AI', 'Prompts']
