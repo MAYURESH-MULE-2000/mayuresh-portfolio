@@ -293,9 +293,18 @@ const topics = [
     tags: ['GTM', 'Sales', 'Strategy', 'Marketing', 'AI'],
     ready: true,
   },
+  {
+    title: 'PM 100 — Product Sense',
+    slug: '/pm-cases',
+    icon: '🎯',
+    description: '100 mini case studies covering real product problems — user segmentation, pain prioritisation, MVP scoping, and metric definition using an 8-section framework.',
+    gradient: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 50%, #4c1d95 100%)',
+    tags: ['Product', 'Strategy', 'Frameworks', 'PM'],
+    ready: true,
+  },
 ]
 
-const allTags = ['All', 'Fundamentals', 'Async', 'Rendering', 'Layout', 'Vue', 'React', 'Architecture', 'Monorepo', 'Systems', 'Vitals', 'Testing', 'E2E', 'Unit', 'Algorithms', 'HTML5', 'Cross-Browser', 'Build Tools', 'Backend', 'DevOps', 'A11y', 'Security', 'Leadership', 'AI', 'Prompts']
+const allTags = ['All', 'Fundamentals', 'Async', 'Rendering', 'Layout', 'Vue', 'React', 'Architecture', 'Monorepo', 'Systems', 'Vitals', 'Testing', 'E2E', 'Unit', 'Algorithms', 'HTML5', 'Cross-Browser', 'Build Tools', 'Backend', 'DevOps', 'A11y', 'Security', 'Leadership', 'AI', 'Prompts', 'Product', 'PM']
 const activeTag = ref('All')
 
 function toggleTag(tag) {

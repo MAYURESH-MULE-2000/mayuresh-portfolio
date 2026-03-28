@@ -1,10 +1,25 @@
 <script setup>
-import { Instagram, FileText, Linkedin , Globe } from 'lucide-vue-next'
-// import UnicornIcon from './icons/UnicornIcon.vue'
+import { ref, onMounted, onUnmounted } from 'vue'
+import { Instagram, FileText, Linkedin, Globe } from 'lucide-vue-next'
+
+const isReading = ref(false)
+let handler = null
+
+onMounted(() => {
+  handler = (e) => { isReading.value = e.detail.active }
+  window.addEventListener('pmcase-reading', handler)
+})
+
+onUnmounted(() => {
+  if (handler) window.removeEventListener('pmcase-reading', handler)
+})
 </script>
 
 <template>
-    <aside class="fixed left-0 bottom-0 z-40 hidden md:block px-8">
+    <aside
+      class="fixed left-0 bottom-0 z-40 hidden md:block px-8 transition-transform duration-500 ease-in-out"
+      :class="isReading ? '-translate-x-full' : 'translate-x-0'"
+    >
         <div class="flex flex-col items-center gap-4">
 
             <!-- LinkedIn -->

@@ -4,17 +4,19 @@ import Header from "../components/Header.vue";
 import SocialSidebar from "../components/SocialSidebar.vue";
 import EmailSidebar from "../components/EmailSidebar.vue";
 import ImpactStories from "../components/ImpactStories.vue";
+import PM100Section from "../components/pm/PM100Section.vue";
 import HowIWork from "../components/HowIWork.vue";
 import WhereImWorking from "../components/WhereImWorking.vue";
 import LetsConnect from "../components/LetsConnect.vue";
 import MagnifyText from "../components/MagnifyText.vue";
 import  SpeedInsights  from "@vercel/speed-insights/astro"
-import { getCaseStudies, getProjects, getBlogs } from "../lib/content";
+import { getCaseStudies, getProjects, getBlogs, getPMCases } from "../lib/content";
 
 
 const caseStudies = await getCaseStudies();
 const projects = await getProjects();
 const blogs = await getBlogs();
+const pmCases = await getPMCases();
 
 const resources = [
   ...caseStudies.map((item: any) => ({
@@ -112,6 +114,8 @@ const resources = [
       </div>
 
       <ImpactStories items={resources} client:visible />
+
+      <PM100Section cases={pmCases} client:visible />
 
       <HowIWork client:visible />
       <WhereImWorking client:visible />

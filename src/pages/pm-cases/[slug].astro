@@ -1,0 +1,38 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.vue";
+import SocialSidebar from "../../components/SocialSidebar.vue";
+import EmailSidebar from "../../components/EmailSidebar.vue";
+import LetsConnect from "../../components/LetsConnect.vue";
+import PMCaseDetail from "../../components/pm/PMCaseDetail.vue";
+import { getPMCases, getPMCaseBySlug } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const items = await getPMCases();
+  return items.map((item: any) => ({
+    params: { slug: item.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const pmCase = await getPMCaseBySlug(slug);
+if (!pmCase) {
+  throw new Error(`PM case not found: ${slug}`);
+}
+
+const pageTitle = `${pmCase.series} ${pmCase.questionNumber}: ${pmCase.title} — Mayuresh Mule`;
+const pageDescription = `Product sense case study: ${pmCase.title}. Company: ${pmCase.company}.`;
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <Header client:load />
+  <SocialSidebar client:load />
+  <EmailSidebar client:load />
+
+  <main class="px-4 md:px-16 lg:px-32 py-20 pt-32">
+    <PMCaseDetail case_={pmCase} client:load />
+    <div class="max-w-7xl mx-auto mt-24">
+      <LetsConnect client:visible />
+    </div>
+  </main>
+</Layout>

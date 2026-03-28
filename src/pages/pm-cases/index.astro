@@ -1,0 +1,27 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.vue";
+import SocialSidebar from "../../components/SocialSidebar.vue";
+import EmailSidebar from "../../components/EmailSidebar.vue";
+import LetsConnect from "../../components/LetsConnect.vue";
+import PM100Hub from "../../components/pm/PM100Hub.vue";
+import { getPMCases } from "../../lib/content";
+
+const pmCases = await getPMCases();
+---
+
+<Layout
+  title="PM 100 — Product Sense Case Studies | Mayuresh Mule"
+  description="100 product sense mini case studies covering real product problems, frameworks, and decisions."
+>
+  <Header client:load />
+  <SocialSidebar client:load />
+  <EmailSidebar client:load />
+
+  <main class="px-4 md:px-16 lg:px-32 py-20 pt-32">
+    <div class="max-w-7xl mx-auto">
+      <PM100Hub cases={pmCases} client:load />
+      <LetsConnect client:visible />
+    </div>
+  </main>
+</Layout>

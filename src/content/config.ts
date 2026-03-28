@@ -179,8 +179,96 @@ const blogs = defineCollection({
   }),
 })
 
+/** PM CASES - PM 100 Product Sense Series */
+const pmCases = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    company: z.string(),
+    questionNumber: z.string(), // e.g. "Q01"
+    series: z.string().default('PM 100'),
+    difficulty: z.enum(['easy', 'mid', 'hard']),
+    date: z.string().optional(),
+    order: z.number().optional(),
+    cardGradient: z.string().optional(),
+    cardHoverGradient: z.string().optional(),
+    insights: z.array(z.string()).optional(),
+
+    goal: z.object({
+      objective: z.string(),
+      measures: z.array(z.string()),
+      whyItMatters: z.string(),
+    }),
+
+    market: z.object({
+      context: z.string().optional(),
+      funnel: z.array(z.object({
+        label: z.string(),
+        value: z.string(),
+      })),
+      insight: z.string().optional(),
+    }),
+
+    users: z.object({
+      segments: z.array(z.object({
+        name: z.string(),
+        who: z.string(),
+        coreNeed: z.string(),
+        wtp: z.string(),
+      })),
+      focus: z.string(),
+    }),
+
+    pains: z.array(z.object({
+      title: z.string(),
+      frequency: z.string(),
+      severity: z.string(),
+      priority: z.enum(['P0', 'P1', 'P2']),
+    })),
+
+    features: z.object({
+      items: z.array(z.object({
+        name: z.string(),
+        reach: z.number(),
+        impact: z.number(),
+        confidence: z.number(),
+        effort: z.number(),
+        score: z.number(),
+      })),
+      mvpDecision: z.string(),
+    }),
+
+    solution: z.object({
+      name: z.string(),
+      features: z.array(z.object({
+        title: z.string(),
+        description: z.string(),
+      })),
+    }),
+
+    metrics: z.object({
+      northStar: z.string(),
+      targets: z.array(z.object({
+        type: z.string(),
+        metric: z.string(),
+        target: z.string(),
+      })),
+      guardrails: z.array(z.string()),
+    }),
+
+    risks: z.array(z.object({
+      risk: z.string(),
+      likelihood: z.string(),
+      mitigation: z.string(),
+    })),
+
+    summary: z.string().optional(),
+  }),
+})
+
 export const collections = {
   'case-studies': caseStudies,
+  'pm-cases': pmCases,
   projects,
   blogs,
 }

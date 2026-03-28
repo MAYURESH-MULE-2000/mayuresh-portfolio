@@ -1,27 +1,37 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { Copy, Check } from 'lucide-vue-next'
 
 const email = 'uxmayuresh@gmail.com'
 const copied = ref(false)
+const isReading = ref(false)
+let handler = null
 
 const copyEmail = async () => {
     try {
         await navigator.clipboard.writeText(email)
         copied.value = true
-
-        // Reset after 2 seconds
-        setTimeout(() => {
-            copied.value = false
-        }, 2000)
+        setTimeout(() => { copied.value = false }, 2000)
     } catch (err) {
         console.error('Failed to copy:', err)
     }
 }
+
+onMounted(() => {
+  handler = (e) => { isReading.value = e.detail.active }
+  window.addEventListener('pmcase-reading', handler)
+})
+
+onUnmounted(() => {
+  if (handler) window.removeEventListener('pmcase-reading', handler)
+})
 </script>
 
 <template>
-    <aside class="fixed right-0 bottom-0 z-40 hidden md:block px-8">
+    <aside
+      class="fixed right-0 bottom-0 z-40 hidden md:block px-8 transition-transform duration-500 ease-in-out"
+      :class="isReading ? 'translate-x-full' : 'translate-x-0'"
+    >
         <div class="flex flex-col items-center gap-4">
             <!-- Email text (vertical, clickable to copy) -->
             <button @click="copyEmail"

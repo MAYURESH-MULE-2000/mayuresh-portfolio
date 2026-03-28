@@ -75,3 +75,25 @@ export async function getBlogBySlug(slug: string) {
   const entry = entries.find((e: any) => e.slug === slug)
   return entry ? mapEntry(entry) : null
 }
+
+// PM CASES
+function mapPMEntry(entry: any) {
+  return {
+    slug: entry.slug,
+    ...entry.data,
+    order: entry.data.order ?? 999,
+  }
+}
+
+export async function getPMCases() {
+  const entries = await getCollection('pm-cases')
+  return entries
+    .map(mapPMEntry)
+    .sort((a: any, b: any) => a.order - b.order)
+}
+
+export async function getPMCaseBySlug(slug: string) {
+  const entries = await getCollection('pm-cases')
+  const entry = entries.find((e: any) => e.slug === slug)
+  return entry ? mapPMEntry(entry) : null
+}
