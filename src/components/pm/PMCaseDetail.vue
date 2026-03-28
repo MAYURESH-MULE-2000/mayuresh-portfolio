@@ -36,7 +36,7 @@
     </div>
 
     <!-- Body: sidebar + scrollable content -->
-    <div class="flex flex-col lg:flex-row gap-8">
+    <div ref="bodyRef" class="flex flex-col lg:flex-row gap-8">
 
       <!-- Mobile: horizontal scrolling tabs -->
       <div class="lg:hidden overflow-x-auto pb-2 mb-2 sticky top-20 z-20 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md -mx-4 px-4 pt-2">
@@ -395,22 +395,30 @@ function dispatchReading(active) {
 }
 
 const endSentinel = ref(null)
+const bodyRef = ref(null)
 let endSentinelVisible = false
-let scrollHandler = null
+let bodyVisible = false
 let endObserver = null
+let bodyObserver = null
 
 function updateReadingState() {
-  // Hide sidebars while scrolled past header AND before LetsConnect is in view
-  dispatchReading(window.scrollY > 80 && !endSentinelVisible)
+  // Hide sidebars only when the body content area is visible AND end sentinel not reached
+  dispatchReading(bodyVisible && !endSentinelVisible)
 }
 
 // ── IntersectionObserver — highlight sidebar as sections enter view ───────────
 let observer = null
 
 onMounted(() => {
-  // Scroll: show/hide sidebars based on scrollY + sentinel state
-  scrollHandler = () => updateReadingState()
-  window.addEventListener('scroll', scrollHandler, { passive: true })
+  // Body observer: hide sidebars when the PM case body content enters the viewport
+  bodyObserver = new IntersectionObserver(
+    (entries) => {
+      bodyVisible = entries[0].isIntersecting
+      updateReadingState()
+    },
+    { threshold: 0 }
+  )
+  if (bodyRef.value) bodyObserver.observe(bodyRef.value)
 
   // End sentinel: when it enters the viewport the PM case is over → restore sidebars
   endObserver = new IntersectionObserver(
@@ -449,7 +457,7 @@ onMounted(() => {
 onUnmounted(() => {
   observer?.disconnect()
   endObserver?.disconnect()
-  if (scrollHandler) window.removeEventListener('scroll', scrollHandler)
+  bodyObserver?.disconnect()
   dispatchReading(false) // always restore sidebars on unmount
 })
 
