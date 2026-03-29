@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { Instagram, FileText, Linkedin, Globe, Copy, Check } from 'lucide-vue-next'
+import { Instagram, FileText, Linkedin, Globe, Copy, Check, CheckCircle, XCircle, X } from 'lucide-vue-next'
 
 const formData = ref({
     name: '',
@@ -12,6 +12,16 @@ const formData = ref({
 const isSubmitting = ref(false)
 const copied = ref(false)
 const emailAddress = 'uxmayuresh@gmail.com'
+
+// Toast
+const toast = ref({ visible: false, type: 'success', title: '', body: '' })
+let toastTimer = null
+
+function showToast(type, title, body) {
+    clearTimeout(toastTimer)
+    toast.value = { visible: true, type, title, body }
+    toastTimer = setTimeout(() => { toast.value.visible = false }, 5000)
+}
 
 const handleSubmit = async (event) => {
     isSubmitting.value = true
@@ -28,14 +38,14 @@ const handleSubmit = async (event) => {
         const result = await response.json()
 
         if (response.ok) {
-            alert('Success! Your message has been sent.')
+            showToast('success', 'Message sent!', 'Thanks for reaching out — I\'ll get back to you soon.')
             formData.value = { name: '', email: '', contactNumber: '', message: '' }
             form.reset()
         } else {
-            alert('Error: ' + result.message)
+            showToast('error', 'Submission failed', result.message || 'Something went wrong.')
         }
     } catch (error) {
-        alert('Something went wrong. Please try again.')
+        showToast('error', 'Network error', 'Could not reach the server. Please try again.')
     } finally {
         isSubmitting.value = false
     }
@@ -64,6 +74,34 @@ const avatars = [
 </script>
 
 <template>
+    <!-- Toast notification -->
+    <Transition
+        enter-active-class="transition duration-300 ease-out"
+        enter-from-class="translate-y-4 opacity-0"
+        enter-to-class="translate-y-0 opacity-100"
+        leave-active-class="transition duration-200 ease-in"
+        leave-from-class="translate-y-0 opacity-100"
+        leave-to-class="translate-y-4 opacity-0"
+    >
+        <div
+            v-if="toast.visible"
+            class="fixed bottom-6 right-6 z-50 flex items-start gap-3 px-4 py-3.5 rounded-2xl shadow-xl border max-w-sm w-full"
+            :class="toast.type === 'success'
+                ? 'bg-white dark:bg-gray-900 border-emerald-200 dark:border-emerald-800/40'
+                : 'bg-white dark:bg-gray-900 border-red-200 dark:border-red-800/40'"
+        >
+            <CheckCircle v-if="toast.type === 'success'" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+            <XCircle v-else class="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+            <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ toast.title }}</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5 leading-relaxed">{{ toast.body }}</p>
+            </div>
+            <button @click="toast.visible = false" class="text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400 transition-colors shrink-0">
+                <X class="w-4 h-4" />
+            </button>
+        </div>
+    </Transition>
+
     <section >
         <div class="max-w-7xl mx-auto">
             <!-- Section Header -->
