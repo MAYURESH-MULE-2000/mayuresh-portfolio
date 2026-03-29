@@ -13,21 +13,33 @@ const isSubmitting = ref(false)
 const copied = ref(false)
 const emailAddress = 'uxmayuresh@gmail.com'
 
-const handleSubmit = async () => {
+const handleSubmit = async (event) => {
     isSubmitting.value = true
 
-    console.log('Form submitted:', formData.value)
+    const form = event.target
+    const data = new FormData(form)
+    data.append('access_key', '577b3979-b134-4af9-b0bf-158a5e2f6688')
+    data.append('page_url', window.location.href)
 
-    setTimeout(() => {
-        alert('Thanks for reaching out! I\'ll get back to you soon.')
-        formData.value = {
-            name: '',
-            email: '',
-            contactNumber: '',
-            message: '',
+    try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: data,
+        })
+        const result = await response.json()
+
+        if (response.ok) {
+            alert('Success! Your message has been sent.')
+            formData.value = { name: '', email: '', contactNumber: '', message: '' }
+            form.reset()
+        } else {
+            alert('Error: ' + result.message)
         }
+    } catch (error) {
+        alert('Something went wrong. Please try again.')
+    } finally {
         isSubmitting.value = false
-    }, 1000)
+    }
 }
 
 const copyEmail = async () => {
@@ -67,16 +79,17 @@ const avatars = [
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
                 <!-- Left: Contact Form -->
                 <form @submit.prevent="handleSubmit" class="space-y-4 max-w-lg">
-                    <input v-model="formData.name" type="text" placeholder="Name" required
+                    <input type="hidden" name="access_key" value="577b3979-b134-4af9-b0bf-158a5e2f6688" />
+                    <input v-model="formData.name" type="text" name="name" placeholder="Name" required
                         class="w-full px-5 py-3 border-2 border-gray-300 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-primary-black dark:focus:border-primary-white transition-colors text-base" />
 
-                    <input v-model="formData.email" type="email" placeholder="Email" required
+                    <input v-model="formData.email" type="email" name="email" placeholder="Email" required
                         class="w-full px-5 py-3 border-2 border-gray-300 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-primary-black dark:focus:border-primary-white transition-colors text-base" />
 
-                    <input v-model="formData.contactNumber" type="tel" placeholder="Contact Number"
+                    <input v-model="formData.contactNumber" type="tel" name="phone" placeholder="Contact Number"
                         class="w-full px-5 py-3 border-2 border-gray-300 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-primary-black dark:focus:border-primary-white transition-colors text-base" />
 
-                    <textarea v-model="formData.message" placeholder="Message" rows="4" required
+                    <textarea v-model="formData.message" name="message" placeholder="Message" rows="4" required
                         class="w-full px-5 py-3 border-2 border-gray-300 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-primary-black dark:focus:border-primary-white transition-colors resize-none text-base"></textarea>
 
                     <!-- Submit button - centered on mobile, left-aligned on desktop -->
