@@ -18,7 +18,6 @@ const handleSubmit = async (event) => {
 
     const form = event.target
     const data = new FormData(form)
-    data.append('access_key', '577b3979-b134-4af9-b0bf-158a5e2f6688')
     data.append('page_url', window.location.href)
 
     try {
