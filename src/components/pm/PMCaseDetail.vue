@@ -19,16 +19,6 @@
         >
           {{ case_.type }}
         </span>
-        <span v-if="case_.difficulty"
-          class="px-3 py-1 text-xs font-bold rounded-full uppercase tracking-widest"
-          :class="{
-            'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300': case_.difficulty === 'easy' || case_.difficulty === 'entry-level',
-            'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300': case_.difficulty === 'mid',
-            'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300': case_.difficulty === 'hard' || case_.difficulty === 'senior',
-          }"
-        >
-          {{ case_.difficulty }}
-        </span>
         <span class="text-xs text-gray-400 dark:text-gray-500">{{ case_.date }}</span>
       </div>
 
@@ -49,14 +39,13 @@
           <button
             v-for="s in sections"
             :key="s.id"
-            @click="scrollTo(s.id)"
-            class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200"
+            @click="jumpTo(s.id)"
+            class="px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200"
             :class="activeSection === s.id
               ? 'bg-violet-600 text-white'
               : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-gray-400'"
           >
-            <component :is="s.icon" class="w-3.5 h-3.5 shrink-0" />
-            <span>{{ s.label }}</span>
+            {{ s.label }}
           </button>
         </div>
       </div>
@@ -353,8 +342,7 @@ import {
 
 // ── Inline sub-component to avoid repetition ─────────────────────────────────
 const SectionHeading = (props) =>
-  h('div', { class: 'flex items-center gap-3 mb-6' }, [
-    h(props.icon, { class: 'w-5 h-5 text-violet-500 dark:text-violet-400 shrink-0' }),
+  h('div', { class: 'mb-6' }, [
     h('p', { class: 'text-[10px] font-bold uppercase tracking-widest text-violet-500 dark:text-violet-400' },
       `${props.number} · ${props.label}`)
   ])
@@ -396,6 +384,12 @@ function isPassed(index) {
 function scrollTo(id) {
   const el = document.getElementById(id)
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+
+// Mobile tab click: highlight immediately, then scroll
+function jumpTo(id) {
+  activeSection.value = id
+  scrollTo(id)
 }
 
 // ── Dispatch pmcase-reading event so sidebars can slide out/in ───────────────

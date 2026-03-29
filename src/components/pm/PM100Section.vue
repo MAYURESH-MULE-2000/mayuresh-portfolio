@@ -36,7 +36,7 @@
               :style="{ transform: hoveredCard === c.slug ? 'scale(0.95)' : 'scale(1)' }"
             >
               <div :class="['relative h-full w-full rounded-2xl flex flex-col items-center justify-center p-4 text-white bg-gradient-to-br', getGradient(c, index)]">
-                <div class="opacity-90 text-2xl mb-2">🎯</div>
+                <Target class="w-6 h-6 opacity-90 mb-2" />
                 <div class="flex flex-col items-center gap-2">
                   <div class="flex items-center gap-2 mb-1">
                     <span class="text-[9px] font-bold uppercase tracking-widest opacity-70">{{ c.series }}</span>
@@ -67,7 +67,7 @@
               <div :class="['absolute inset-0 rounded-2xl flex flex-col items-center justify-center p-6 text-white bg-gradient-to-br', getGradient(c, index)]">
                 <div class="absolute inset-0 bg-black/40"></div>
                 <div class="relative z-10 flex flex-col items-center justify-center h-full w-full">
-                  <div class="mb-3 text-3xl">🎯</div>
+                  <Target class="w-8 h-8 mb-3" />
                   <span class="inline-block px-3 py-1 text-[10px] font-bold bg-white/20 backdrop-blur-sm rounded-full mb-2 uppercase tracking-widest text-white/90">
                     {{ c.company }}
                   </span>
@@ -114,6 +114,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { Target } from 'lucide-vue-next'
 
 const props = defineProps({
   cases: {

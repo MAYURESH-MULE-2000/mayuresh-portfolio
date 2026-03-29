@@ -13,8 +13,9 @@
         <span class="text-xs text-gray-400">{{ cases.length }} / 100 published</span>
       </div>
 
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
-        🎯 Product Sense Case Studies
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-3">
+        <Target class="w-8 h-8 text-violet-500 shrink-0" />
+        Product Sense Case Studies
       </h1>
       <p class="text-gray-500 dark:text-gray-400 text-base md:text-lg max-w-2xl">
         100 mini case studies covering real product problems — from user segmentation and pain prioritisation
@@ -105,14 +106,14 @@
         :key="`placeholder-${n}`"
         class="rounded-2xl border border-dashed border-gray-200 dark:border-white/5 p-6 flex flex-col items-center justify-center text-center min-h-[180px] opacity-40"
       >
-        <p class="text-2xl mb-2">🔒</p>
+        <Lock class="w-6 h-6 text-gray-400 dark:text-gray-600 mb-2" />
         <p class="text-xs text-gray-400 dark:text-gray-600 font-medium">Coming Soon</p>
       </div>
     </div>
 
     <!-- Empty state -->
     <div v-else class="text-center py-20 text-gray-400">
-      <p class="text-4xl mb-3">🔍</p>
+      <Search class="w-8 h-8 mx-auto mb-3 opacity-50" />
       <p class="font-medium">No cases match this filter</p>
     </div>
   </div>
@@ -120,6 +121,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { Target, Lock, Search } from 'lucide-vue-next'
 
 const props = defineProps({
   cases: {

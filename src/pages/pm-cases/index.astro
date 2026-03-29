@@ -21,7 +21,9 @@ const pmCases = await getPMCases();
   <main class="px-4 md:px-16 lg:px-32 py-20 pt-32">
     <div class="max-w-7xl mx-auto">
       <PM100Hub cases={pmCases} client:load />
-      <LetsConnect client:visible />
+      <div class="mt-24">
+        <LetsConnect client:visible />
+      </div>
     </div>
   </main>
 </Layout>
