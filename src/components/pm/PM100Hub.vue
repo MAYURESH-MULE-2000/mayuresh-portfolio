@@ -64,15 +64,10 @@
                 {{ c.questionNumber }}
               </span>
             </div>
-            <span
-              class="px-2 py-0.5 text-[9px] font-bold rounded-full uppercase tracking-wider transition-colors"
-              :class="{
-                'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 group-hover:bg-white/20 group-hover:text-white': c.difficulty === 'easy',
-                'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 group-hover:bg-white/20 group-hover:text-white': c.difficulty === 'mid',
-                'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 group-hover:bg-white/20 group-hover:text-white': c.difficulty === 'hard',
-              }"
+            <span v-if="c.type"
+              class="px-2 py-0.5 text-[9px] font-bold rounded-full uppercase tracking-wider transition-colors bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 group-hover:bg-white/20 group-hover:text-white"
             >
-              {{ c.difficulty }}
+              {{ c.type }}
             </span>
           </div>
 
@@ -137,7 +132,7 @@ const props = defineProps({
 const filterTags = computed(() => {
   const tags = new Set(['All'])
   props.cases.forEach(c => {
-    if (c.difficulty) tags.add(c.difficulty)
+    if (c.type) tags.add(c.type)
     if (c.company) tags.add(c.company)
   })
   return Array.from(tags)
@@ -148,7 +143,7 @@ const activeFilter = ref('All')
 const filteredCases = computed(() => {
   if (activeFilter.value === 'All') return props.cases
   return props.cases.filter(c =>
-    c.difficulty === activeFilter.value || c.company === activeFilter.value
+    c.type === activeFilter.value || c.company === activeFilter.value
   )
 })
 

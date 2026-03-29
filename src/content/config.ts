@@ -187,7 +187,8 @@ const pmCases = defineCollection({
     company: z.string(),
     questionNumber: z.string(), // e.g. "Q01"
     series: z.string().default('PM 100'),
-    difficulty: z.enum(['easy', 'mid', 'hard']),
+    type: z.string().optional(),
+    difficulty: z.enum(['easy', 'mid', 'hard', 'entry-level', 'senior']).optional(),
     date: z.string().optional(),
     order: z.number().optional(),
     cardGradient: z.string().optional(),

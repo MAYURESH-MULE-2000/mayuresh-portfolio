@@ -14,12 +14,17 @@
         <span class="px-3 py-1 text-xs font-bold rounded-full border border-gray-200 dark:border-white/10 text-gray-500 dark:text-gray-400 uppercase tracking-widest">
           {{ case_.questionNumber }}
         </span>
-        <span
+        <span v-if="case_.type"
+          class="px-3 py-1 text-xs font-bold rounded-full uppercase tracking-widest bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+        >
+          {{ case_.type }}
+        </span>
+        <span v-if="case_.difficulty"
           class="px-3 py-1 text-xs font-bold rounded-full uppercase tracking-widest"
           :class="{
-            'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300': case_.difficulty === 'easy',
+            'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300': case_.difficulty === 'easy' || case_.difficulty === 'entry-level',
             'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300': case_.difficulty === 'mid',
-            'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300': case_.difficulty === 'hard',
+            'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300': case_.difficulty === 'hard' || case_.difficulty === 'senior',
           }"
         >
           {{ case_.difficulty }}
