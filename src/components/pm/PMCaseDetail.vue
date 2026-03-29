@@ -50,7 +50,7 @@
               ? 'bg-violet-600 text-white'
               : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-gray-400'"
           >
-            <span>{{ s.icon }}</span>
+            <component :is="s.icon" class="w-3.5 h-3.5 shrink-0" />
             <span>{{ s.label }}</span>
           </button>
         </div>
@@ -144,7 +144,7 @@
             </div>
           </div>
           <div v-if="case_.market.insight" class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800/30">
-            <p class="text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 mb-1">💡 Insight</p>
+            <p class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 mb-1"><Lightbulb class="w-3.5 h-3.5 shrink-0" /> Insight</p>
             <p class="text-sm text-gray-700 dark:text-gray-300">{{ case_.market.insight }}</p>
           </div>
         </section>
@@ -173,7 +173,7 @@
             </div>
           </div>
           <div class="p-4 rounded-2xl bg-violet-50 dark:bg-violet-900/20 border border-violet-100 dark:border-violet-800/30">
-            <p class="text-xs font-bold uppercase tracking-widest text-violet-500 dark:text-violet-400 mb-1">🎯 Focus Segment</p>
+            <p class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-violet-500 dark:text-violet-400 mb-1"><Target class="w-3.5 h-3.5 shrink-0" /> Focus Segment</p>
             <p class="text-sm text-gray-700 dark:text-gray-300">{{ case_.users.focus }}</p>
           </div>
         </section>
@@ -222,7 +222,7 @@
                   class="border-b border-gray-50 dark:border-white/[0.03] last:border-0 hover:bg-gray-50 dark:hover:bg-white/[0.02]"
                   :class="i === 0 ? 'bg-violet-50/50 dark:bg-violet-900/10' : ''">
                   <td class="px-4 py-3 font-medium text-gray-800 dark:text-gray-200">
-                    <span v-if="i === 0" class="mr-1.5 text-violet-500">★</span>{{ f.name }}
+                    <Star v-if="i === 0" class="inline w-3.5 h-3.5 text-violet-500 mr-1.5 -mt-0.5" />{{ f.name }}
                   </td>
                   <td class="px-3 py-3 text-center text-gray-500 dark:text-gray-400">{{ f.reach }}</td>
                   <td class="px-3 py-3 text-center text-gray-500 dark:text-gray-400">{{ f.impact }}x</td>
@@ -236,7 +236,7 @@
             </table>
           </div>
           <div class="p-4 rounded-2xl bg-violet-50 dark:bg-violet-900/20 border border-violet-100 dark:border-violet-800/30">
-            <p class="text-xs font-bold uppercase tracking-widest text-violet-500 dark:text-violet-400 mb-1">🚀 MVP Decision</p>
+            <p class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-violet-500 dark:text-violet-400 mb-1"><Rocket class="w-3.5 h-3.5 shrink-0" /> MVP Decision</p>
             <p class="text-sm text-gray-700 dark:text-gray-300">{{ case_.features.mvpDecision }}</p>
           </div>
         </section>
@@ -245,7 +245,7 @@
         <section :id="sections[5].id" class="scroll-mt-28">
           <SectionHeading icon="🛠️" number="06" label="Solution" />
           <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-violet-500 to-purple-600 text-white text-sm font-bold mb-6">
-            <span>✦</span><span>{{ case_.solution.name }}</span>
+<span>{{ case_.solution.name }}</span>
           </div>
           <div class="space-y-4">
             <div v-for="(feat, i) in case_.solution.features" :key="i"
@@ -267,7 +267,7 @@
         <section :id="sections[6].id" class="scroll-mt-28">
           <SectionHeading icon="📈" number="07" label="Metrics" />
           <div class="p-5 rounded-2xl bg-gradient-to-r from-violet-500 to-purple-600 text-white mb-6">
-            <p class="text-[10px] font-bold uppercase tracking-widest opacity-80 mb-2">⭐ North Star Metric</p>
+            <p class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest opacity-80 mb-2"><Star class="w-3 h-3 shrink-0" /> North Star Metric</p>
             <p class="font-semibold text-base leading-snug">{{ case_.metrics.northStar }}</p>
           </div>
           <div class="overflow-x-auto rounded-2xl border border-gray-100 dark:border-white/5 mb-6">
@@ -292,10 +292,10 @@
             </table>
           </div>
           <div class="p-5 rounded-2xl border border-red-100 dark:border-red-800/30 bg-red-50 dark:bg-red-900/10">
-            <p class="text-xs font-bold uppercase tracking-widest text-red-500 dark:text-red-400 mb-3">🛑 Guardrails — stop shipping if:</p>
+            <p class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-red-500 dark:text-red-400 mb-3"><OctagonX class="w-3.5 h-3.5 shrink-0" /> Guardrails — stop shipping if:</p>
             <ul class="space-y-2">
               <li v-for="(g, i) in case_.metrics.guardrails" :key="i" class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
-                <span class="text-red-400 shrink-0 mt-0.5">✕</span>{{ g }}
+                <X class="w-3.5 h-3.5 text-red-400 shrink-0 mt-0.5" />{{ g }}
               </li>
             </ul>
           </div>
@@ -317,7 +317,7 @@
                   }">{{ r.likelihood }}</span>
               </div>
               <p class="text-xs text-gray-500 dark:text-gray-400 flex items-start gap-1.5">
-                <span class="text-emerald-500 shrink-0">✓</span>{{ r.mitigation }}
+                <Check class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />{{ r.mitigation }}
               </p>
             </div>
           </div>
@@ -340,12 +340,16 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted, h, resolveComponent } from 'vue'
+import { ref, computed, onMounted, onUnmounted, h } from 'vue'
+import {
+  Target, BarChart2, Users, AlertCircle, Scale, Wrench, TrendingUp, AlertTriangle,
+  Lightbulb, Rocket, Star, OctagonX, X, Check
+} from 'lucide-vue-next'
 
 // ── Inline sub-component to avoid repetition ─────────────────────────────────
 const SectionHeading = (props) =>
   h('div', { class: 'flex items-center gap-3 mb-6' }, [
-    h('span', { class: 'text-2xl' }, props.icon),
+    h(props.icon, { class: 'w-5 h-5 text-violet-500 dark:text-violet-400 shrink-0' }),
     h('p', { class: 'text-[10px] font-bold uppercase tracking-widest text-violet-500 dark:text-violet-400' },
       `${props.number} · ${props.label}`)
   ])
@@ -357,14 +361,14 @@ const props = defineProps({
 
 // ── Section definitions ───────────────────────────────────────────────────────
 const sections = [
-  { id: 'goal',     icon: '🎯', label: 'Goal'        },
-  { id: 'market',   icon: '📊', label: 'Market'      },
-  { id: 'users',    icon: '👥', label: 'Users'       },
-  { id: 'pains',    icon: '😤', label: 'Pain Points' },
-  { id: 'priority', icon: '⚖️', label: 'Priority'    },
-  { id: 'solution', icon: '🛠️', label: 'Solution'    },
-  { id: 'metrics',  icon: '📈', label: 'Metrics'     },
-  { id: 'risks',    icon: '⚠️', label: 'Risks'       },
+  { id: 'goal',     icon: Target,        label: 'Goal'        },
+  { id: 'market',   icon: BarChart2,     label: 'Market'      },
+  { id: 'users',    icon: Users,         label: 'Users'       },
+  { id: 'pains',    icon: AlertCircle,   label: 'Pain Points' },
+  { id: 'priority', icon: Scale,         label: 'Priority'    },
+  { id: 'solution', icon: Wrench,        label: 'Solution'    },
+  { id: 'metrics',  icon: TrendingUp,    label: 'Metrics'     },
+  { id: 'risks',    icon: AlertTriangle, label: 'Risks'       },
 ]
 
 // ── Active section (driven by scroll) ────────────────────────────────────────
