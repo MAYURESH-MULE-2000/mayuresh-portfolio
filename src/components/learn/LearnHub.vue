@@ -96,6 +96,15 @@ import { ref, computed } from 'vue'
 
 const topics = [
   {
+    title: 'AI Engineering Roadmap',
+    slug: '/learn/ai-engineer',
+    icon: '🤖',
+    description: 'Complete beginner-to-advanced AI Engineering curriculum — Python, Math, ML, Deep Learning, LLMs, and Production MLOps across 24 interactive modules.',
+    gradient: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 30%, #a855f7 60%, #ec4899 100%)',
+    tags: ['AI', 'ML', 'Deep Learning', 'LLMs', 'Python'],
+    ready: true,
+  },
+  {
     title: 'JavaScript Core + Advanced',
     slug: '/learn/js',
     icon: '⚡',
@@ -304,7 +313,7 @@ const topics = [
   },
 ]
 
-const allTags = ['All', 'Fundamentals', 'Async', 'Rendering', 'Layout', 'Vue', 'React', 'Architecture', 'Monorepo', 'Systems', 'Vitals', 'Testing', 'E2E', 'Unit', 'Algorithms', 'HTML5', 'Cross-Browser', 'Build Tools', 'Backend', 'DevOps', 'A11y', 'Security', 'Leadership', 'AI', 'Prompts', 'Product', 'PM']
+const allTags = ['All', 'Fundamentals', 'Async', 'Rendering', 'Layout', 'Vue', 'React', 'Architecture', 'Monorepo', 'Systems', 'Vitals', 'Testing', 'E2E', 'Unit', 'Algorithms', 'HTML5', 'Cross-Browser', 'Build Tools', 'Backend', 'DevOps', 'A11y', 'Security', 'Leadership', 'AI', 'ML', 'Deep Learning', 'LLMs', 'Prompts', 'Product', 'PM']
 const activeTag = ref('All')
 
 function toggleTag(tag) {
