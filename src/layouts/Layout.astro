@@ -1,6 +1,7 @@
 ---
 import Particles from "../components/Particles.vue";
 import "../styles/global.css";
+import "../styles/newspaper.css";
 
 interface Props {
   title: string;
@@ -27,16 +28,23 @@ const { title, description } = Astro.props;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=UnifrakturMaguntia&family=Playfair+Display+SC:wght@400;700;900&family=Playfair+Display:wght@400;700;900&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Special+Elite&family=Cinzel:wght@400;700;900&family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap"
       rel="stylesheet"
     />
 
     <!-- Microsoft Clarity -->
     <script type="text/javascript" is:inline>
-      (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
       })(window, document, "clarity", "script", "w3f1ue8fka");
     </script>
 
@@ -104,5 +112,444 @@ const { title, description } = Astro.props;
       });
     </script>
     <slot />
+
+    <!-- Newspaper Mode Overlay Container -->
+    <div id="newspaper-mode"></div>
+
+    <!-- Newspaper Mode Toggle Button -->
+    <button id="newspaper-toggle-btn" aria-label="Toggle Newspaper Mode">
+      <span id="np-btn-icon">📰</span>
+      <span id="np-btn-label">Newspaper Mode</span>
+    </button>
+
+    <!-- Newspaper Mode Logic -->
+    <script is:inline>
+      (function () {
+        "use strict";
+
+        const STORAGE_KEY = "newspaperMode";
+        let newspaperBuilt = false;
+
+        // ---- DOM References ----
+        function getElements() {
+          return {
+            overlay: document.getElementById("newspaper-mode"),
+            btn: document.getElementById("newspaper-toggle-btn"),
+            btnIcon: document.getElementById("np-btn-icon"),
+            btnLabel: document.getElementById("np-btn-label"),
+            mainContent: document.querySelector("main"),
+            header: document.querySelector("header"),
+            particles: document.getElementById("particles-background"),
+            sidebars: document.querySelectorAll(
+              '[class*="Sidebar"], [class*="sidebar"]',
+            ),
+          };
+        }
+
+        // ---- Toggle Logic ----
+        function activateNewspaper() {
+          const els = getElements();
+          if (!els.overlay || !els.btn) return;
+
+          // Build DOM on first activation
+          if (!newspaperBuilt) {
+            els.overlay.innerHTML = buildNewspaperHTML();
+            newspaperBuilt = true;
+            // Attach scroll-to-top listener
+            const scrollBtn = els.overlay.querySelector(".np-scroll-top");
+            if (scrollBtn) {
+              scrollBtn.addEventListener("click", function () {
+                els.overlay.scrollTo({ top: 0, behavior: "smooth" });
+              });
+              els.overlay.addEventListener("scroll", function () {
+                scrollBtn.classList.toggle(
+                  "visible",
+                  els.overlay.scrollTop > 400,
+                );
+              });
+            }
+          }
+
+          els.overlay.classList.add("active");
+          els.btn.classList.add("np-active");
+          els.btnIcon.textContent = "✖";
+          els.btnLabel.textContent = "Exit Newspaper";
+
+          // Hide existing UI
+          if (els.mainContent) els.mainContent.style.display = "none";
+          if (els.header) els.header.style.display = "none";
+          if (els.particles) els.particles.style.display = "none";
+          els.sidebars.forEach(function (s) {
+            s.style.display = "none";
+          });
+
+          document.body.classList.add("newspaper-active");
+          document.body.style.overflow = "hidden";
+
+          localStorage.setItem(STORAGE_KEY, "true");
+        }
+
+        function deactivateNewspaper() {
+          const els = getElements();
+          if (!els.overlay || !els.btn) return;
+
+          els.overlay.classList.remove("active");
+          els.overlay.innerHTML = "";
+          newspaperBuilt = false;
+          els.btn.classList.remove("np-active");
+          els.btnIcon.textContent = "📰";
+          els.btnLabel.textContent = "Newspaper Mode";
+
+          // Restore existing UI
+          if (els.mainContent) els.mainContent.style.display = "";
+          if (els.header) els.header.style.display = "";
+          if (els.particles) els.particles.style.display = "";
+          els.sidebars.forEach(function (s) {
+            s.style.display = "";
+          });
+
+          document.body.classList.remove("newspaper-active");
+          document.body.style.overflow = "";
+
+          localStorage.setItem(STORAGE_KEY, "false");
+        }
+
+        function toggleNewspaper() {
+          const els = getElements();
+          if (els.overlay && els.overlay.classList.contains("active")) {
+            deactivateNewspaper();
+          } else {
+            activateNewspaper();
+          }
+        }
+
+        // ---- Build Newspaper HTML ----
+        function buildNewspaperHTML() {
+          var today = new Date();
+          var dateStr = today
+            .toLocaleDateString("en-US", {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })
+            .toUpperCase();
+
+          return (
+            '<div class="np-inner">' +
+            // ===== MASTHEAD (Readable Vintage) =====
+            '<div class="np-masthead">' +
+            '<div class="np-masthead-top">' +
+            '<div class="np-masthead-ad">UX &amp; UI Development<br>&amp; Product Design<br><strong>Portfolio</strong></div>' +
+            '<div style="text-align:center;flex:1">' +
+            '<h1 class="np-masthead-title">The Mule Chronicle</h1>' +
+            '<p class="np-masthead-subtitle">Largest Circulation in UX Engineering, Product Thinking &amp; Execution</p>' +
+            "</div>" +
+            '<div class="np-masthead-ad">Quality &amp;<br>Impact Since<br><strong>2021</strong></div>' +
+            "</div>" +
+            '<div class="np-masthead-dateline">' +
+            "<span>Mumbai Edition</span>" +
+            "<span>" +
+            dateStr +
+            "</span>" +
+            "<span>Vol. I · No. 1 · Price: Free</span>" +
+            "</div>" +
+            "</div>" +
+            // ===== ROW 1: LEAD HEADLINE =====
+            '<div class="np-grid">' +
+            '<div class="np-col-5" style="padding:12px;border-bottom:2px solid #1a1a1a">' +
+            '<h2 class="np-headline np-headline-banner">OUTCOME-DRIVEN UX/UI DEVELOPER : BUILDING USER-CENTRIC INTERFACES</h2>' +
+            "</div>" +
+            "</div>" +
+            // ===== ROW 2: Sub-headline strip (Byline removed) =====
+            '<div class="np-grid">' +
+            '<div class="np-col-5" style="border-bottom:1px solid #b8a88a;padding:8px 12px;text-align:center">' +
+            '<p class="np-subhead" style="margin:0;font-size:16px">TRANSITIONING INTO PRODUCT ROLES WITH STRONG FOUNDATIONS IN UX, DATA, AND FRONTEND EXECUTION</p>' +
+            "</div>" +
+            "</div>" +
+            // ===== ROW 3: MAIN EDITORIAL (About) + SIDEBAR (Tools & Skills) =====
+            '<div class="np-grid">' +
+            // Main editorial — 3 cols
+            '<div class="np-col-3">' +
+            '<div class="np-body np-dropcap">' +
+            "<p>Mayuresh Mule is an outcome-driven UX/UI Developer with 3 years of experience building user-centric interfaces, improving workflows, and partnering with cross-functional teams to enhance product value. Transitioning into Product roles, he leverages strong foundations in UX, data, and frontend execution.</p>" +
+            "<p>His approach connects technical execution with product strategy. Known for rapid prototyping and data-driven decision-making, Mayuresh tackles ambiguous problem spaces by applying structured frameworks and user research methodologies to deliver scalable, impactful solutions.</p>" +
+            "</div>" +
+            '<div class="np-img-wrap">' +
+            "<img src=\"/images/vintage/Banner.png\" alt=\"Portfolio hero banner\" style=\"width:100%; height:auto; border:2px solid #1a1a1a; margin-top:8px;\">" +
+            '<p class="np-caption">Mayuresh Mule — Specializing in AI-driven interfaces and product workflows</p>' +
+            "</div>" +
+            "</div>" +
+            // Right sidebar — 2 cols (Tools & Skills Vintage)
+            '<div class="np-col-2">' +
+            '<div style="border:4px double #1a1a1a; padding:16px; margin-bottom:16px; background:repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(200,190,168,0.2) 2px, rgba(200,190,168,0.2) 4px);">' +
+            '<h3 class="np-headline np-headline-lg" style="text-align:center;border-bottom:1px solid #1a1a1a;padding-bottom:8px;margin-top:0">THE ARTISAN’S TOOLKIT</h3>' +
+            '<p class="np-byline" style="text-align:center;margin-top:4px;margin-bottom:12px">INSTRUMENTS OF THE TRADE</p>' +
+            '<div style="margin-top:12px">' +
+            "<p style=\"font-family:'Playfair Display', serif; font-weight:700; font-size:14px; margin-bottom:4px; text-transform:uppercase;\">✧ Frontend Fabrication</p>" +
+            '<p class="np-classified-text" style="margin-bottom:12px; line-height:1.4">Vue.js, Quasar, JavaScript, HTML/CSS. Familiar with React.js machinery.</p>' +
+            "<p style=\"font-family:'Playfair Display', serif; font-weight:700; font-size:14px; margin-bottom:4px; text-transform:uppercase;\">✧ Drafting &amp; Design</p>" +
+            '<p class="np-classified-text" style="margin-bottom:12px; line-height:1.4">Figma for precise blueprints. Webflow for rapid construction.</p>' +
+            "<p style=\"font-family:'Playfair Display', serif; font-weight:700; font-size:14px; margin-bottom:4px; text-transform:uppercase;\">✧ Project Logistics</p>" +
+            '<p class="np-classified-text" style="margin-bottom:12px; line-height:1.4">Jira, Asana, Notion tracking mechanics.</p>' +
+            "<p style=\"font-family:'Playfair Display', serif; font-weight:700; font-size:14px; margin-bottom:4px; text-transform:uppercase;\">✧ Utility &amp; Systems</p>" +
+            '<p class="np-classified-text" style="margin-bottom:10px; line-height:1.4">Git, VS Code, Basic Java, API development.</p>' +
+            "</div>" +
+            '<div style="border-top:1px dashed #1a1a1a; margin:16px 0;"></div>' +
+            '<h3 class="np-headline np-headline-lg" style="text-align:center;border-bottom:1px solid #1a1a1a;padding-bottom:8px">CORE COMPETENCIES</h3>' +
+            '<ul class="np-bulletin" style="margin-top:12px; column-count:1;">' +
+            "<li>Product Thinking &amp; Strategy</li>" +
+            "<li>User Research &amp; UX Design</li>" +
+            "<li>Wireframing &amp; Rapid Prototyping</li>" +
+            "<li>A/B Testing &amp; Requirement Gathering</li>" +
+            "<li>Cross-functional Collaboration</li>" +
+            "<li>Problem Solving &amp; Logic</li>" +
+            "<li>Stakeholder Management</li>" +
+            "</ul>" +
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            // ===== SECTION: EXPERIENCE =====
+            '<div class="np-grid">' +
+            '<div class="np-section-bar">✦ Professional Experience — The Working Record ✦</div>' +
+            "</div>" +
+            '<div class="np-grid">' +
+            // Experience 1 - 3 cols
+            '<div class="np-col-3">' +
+            '<h3 class="np-headline np-headline-xl">UX/UI DEVELOPER AT PMAPS, THANE</h3>' +
+            '<p class="np-deck">PMaps is a product-based company specializing in AI-driven psychological assessment tools for recruitment.</p>' +
+            '<p class="np-byline">Jul 2023 – Present</p>' +
+            '<div class="np-body">' +
+            '<ul class="np-bulletin" style="margin-left:0;padding-left:14px;list-style-type:square">' +
+            '<li style="border-bottom:none">Developed &amp; optimized multiple internal Vue.js modules — improved workforce efficiency by 30%.</li>' +
+            '<li style="border-bottom:none">Built modules such as Test Library, Billing, Invite Candidate, User Journey streamlining recruiter workflows.</li>' +
+            '<li style="border-bottom:none">Converted problem statements into interactive UX flows and production-ready Vue interfaces using Figma.</li>' +
+            '<li style="border-bottom:none">Led redesign of company website using Webflow — improved UI &amp; boosted engagement by 25%.</li>' +
+            '<li style="border-bottom:none">Completed migration of Candidate UI to Quasar and currently improving performance &amp; maintainability to scale the product for a global audience.</li>' +
+            "</ul>" +
+            "</div>" +
+            "</div>" +
+            // Experience 2 - 2 cols
+            '<div class="np-col-2">' +
+            '<h3 class="np-headline np-headline-lg">WEB DEVELOPER INTERN</h3>' +
+            '<p class="np-deck">PMaps · Laying the foundations for operational integrity</p>' +
+            '<p class="np-byline">Dec 2022 – Jul 2023</p>' +
+            '<div class="np-body">' +
+            '<ul class="np-bulletin" style="margin-left:0;padding-left:14px;list-style-type:square">' +
+            '<li style="border-bottom:none">Built Test Duration APIs ensuring candidates access assessments within defined windows.</li>' +
+            '<li style="border-bottom:none">Developed cooling period logic, preventing early retakes — improved assessment integrity.</li>' +
+            '<li style="border-bottom:none">Delivered Figma-driven UI updates improving usability and reducing user friction.</li>' +
+            "</ul>" +
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            // ===== SECTION: AWARDS BENTO =====
+            '<div class="np-grid">' +
+            '<div class="np-section-bar">✦ Triumphs, Accolades &amp; Recognitions — A Record of Excellence ✦</div>' +
+            "</div>" +
+            '<div class="np-grid np-bento-grid">' +
+            // Bento Item 1 (Large - Span 2 cols, 2 rows)
+            '<div class="np-bento-item-large" style="padding:20px; border:2px solid #1a1a1a; background:transparent;">' +
+            '<h3 class="np-headline np-headline-xl" style="text-align:center;">EXCELLENCE IN OPENNESS</h3>' +
+            '<p class="np-byline" style="text-align:center; border-bottom:1px solid #1a1a1a; padding-bottom:16px; margin-bottom:16px;">PMaps Annual Awards 2025</p>' +
+            '<div class="np-img-wrap">' +
+            "<img src=\"/images/vintage/Excellence_In_Openess.png\" alt=\"Excellence in openness award\" style=\"width:100%; height:auto; border:1px solid #1a1a1a;\">" +
+            "</div>" +
+            '<div class="np-body" style="margin-top:16px; font-size:15px; line-height:1.6;">' +
+            "<p><strong>Honored and Grateful!</strong> This award reflects values I deeply care about— openness, transparency, and building meaningful connections. I’m so thankful to my amazing team and mentors for their constant support and trust. Here’s to growing, learning, and making a positive impact together!</p>" +
+            "</div>" +
+            "</div>" +
+            // Bento Item 2 (Medium - Span 2 cols, 1 row)
+            '<div class="np-bento-item-medium" style="padding:16px; border:1px solid #1a1a1a; box-sizing: border-box; background:transparent;">' +
+            '<h3 class="np-headline np-headline-lg">1ST PLACE: UXHACK RAZORPAY</h3>' +
+            '<p class="np-byline" style="margin-bottom:8px;">Elevating Invoice Downloads for Businesses</p>' +
+            '<div class="np-body" style="display:flex; gap:16px; align-items:flex-start;">' +
+            '<div style="flex:1;">' +
+            '<p style="font-size:13px; line-height:1.4; margin-bottom:8px">Secured 1st place focusing on simplifying the process for businesses to quickly access invoices.</p>' +
+            '<ul class="np-bulletin" style="margin-left:0; font-size:12px;">' +
+            '<li style="border-bottom:none;padding:2px 0;">✧ One-click period options</li>' +
+            '<li style="border-bottom:none;padding:2px 0;">✧ Flexible file formats</li>' +
+            '<li style="border-bottom:none;padding:2px 0;">✧ Improved history nav</li>' +
+            "</ul>" +
+            "</div>" +
+            '<div style="flex:1;" class="np-img-wrap">' +
+            "<img style=\"width:100%; height:auto; object-fit:cover; border:1px solid #1a1a1a;\" src=\"/images/vintage/Razorpay.png\" alt=\"Razorpay invoice UX design\">" +
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            // Bento Item 3 (Small - Span 1 col, 1 row)
+            '<div class="np-bento-item-small" style="padding:16px; border:1px dashed #1a1a1a; box-sizing: border-box; display:flex; flex-direction:column; background:transparent;">' +
+            '<h4 class="np-headline np-headline-md">1ST PLACE: PHONEPE</h4>' +
+            '<p class="np-byline" style="font-size:10px; margin-bottom:8px;">UX Hack #29</p>' +
+            '<div class="np-img-wrap" style="margin-bottom:12px;">' +
+            "<img src=\"/images/vintage/PhonePe.png\" alt=\"PhonePe bill reminder UX\" style=\"width:100%; height:auto; border:1px solid #1a1a1a;\">" +
+            "</div>" +
+            '<div class="np-body" style="font-size:12px; flex:1; line-height:1.4;">' +
+            "<p>Redesigned the electricity bill reminder. Focused on clear due dates, amounts, and modernizing the UI to encourage early payments.</p>" +
+            "</div>" +
+            "</div>" +
+            // Bento Item 4 (Small - Span 1 col, 1 row)
+            '<div class="np-bento-item-small" style="padding:16px; border:1px solid #1a1a1a; box-sizing: border-box; display:flex; flex-direction:column; background:transparent;">' +
+            '<h4 class="np-headline np-headline-md">RUNNER UP: AIRTEL</h4>' +
+            '<p class="np-byline" style="font-size:10px; margin-bottom:8px;">UX Hack #31</p>' +
+            '<div class="np-img-wrap" style="margin-bottom:12px;">' +
+            "<img src=\"/images/vintage/Airtel.png\" alt=\"Airtel mobile UI redesign\" style=\"width:100%; height:auto; border:1px solid #1a1a1a;\">" +
+            "</div>" +
+            '<div class="np-body" style="font-size:12px; flex:1; line-height:1.4;">' +
+            "<p>Optimized the mobile screen to improve visibility of plan benefits, amount owed, and friendly user nudges to promote early renewals.</p>" +
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            // ===== CERTIFICATIONS & EDUCATION =====
+            '<div class="np-grid" style="border-top:2px solid #1a1a1a; border-bottom:1px solid #1a1a1a; padding:16px 0;">' +
+            // Certifications - 3 cols
+            '<div class="np-col-3" style="border-right:1px dotted #1a1a1a; padding-right:16px;">' +
+            '<h4 class="np-headline np-headline-lg" style="text-align:center; border-bottom:1px solid #1a1a1a; padding-bottom:8px;">PROFESSIONAL CREDENTIALS</h4>' +
+            '<p class="np-byline" style="text-align:center; margin-top:6px; margin-bottom:12px;">Certifications &amp; Distinctions</p>' +
+            '<div class="np-body">' +
+            '<ul style="list-style-type:square; margin-left:16px; line-height:1.6;">' +
+            "<li><strong>UX/UI Design</strong> — Henry Harvin Education (Jul 2023)</li>" +
+            "<li><strong>Figma UI/UX &amp; Animations</strong> — Udemy (Feb 2023)</li>" +
+            "<li><strong>Java</strong> — LinkedIn Learning (Jun 2022)</li>" +
+            "<li><strong>UML Modeling</strong> — LinkedIn Learning (Nov 2021)</li>" +
+            "<li><strong>OOP Foundations</strong> — LinkedIn Learning (Oct 2021)</li>" +
+            "</ul>" +
+            "</div>" +
+            "</div>" +
+            // Education - 2 cols
+            '<div class="np-col-2" style="padding-left:16px;">' +
+            '<div style="border: 2px solid #1a1a1a; padding: 16px; height: 100%; box-sizing: border-box; text-align:center;">' +
+            '<h4 class="np-headline np-headline-lg" style="margin-bottom:8px;">ACADEMIC RECORD</h4>' +
+            '<p class="np-byline" style="margin-bottom:12px;">Higher Education</p>' +
+            '<div class="np-body" style="border-top:1px dashed #1a1a1a; padding-top:12px; margin-bottom:12px;">' +
+            "<p style=\"font-family:'Playfair Display', serif; font-size:16px; font-weight:700; margin-bottom:2px;\">MASTER OF COMPUTER APPLICATIONS</p>" +
+            '<p style="margin-bottom:2px; font-style:italic;">SVKM’s NMIMS Mumbai</p>' +
+            '<p class="np-byline">2021 – 2023</p>' +
+            "</div>" +
+            '<div class="np-body" style="border-top:1px dashed #1a1a1a; padding-top:12px;">' +
+            "<p style=\"font-family:'Playfair Display', serif; font-size:16px; font-weight:700; margin-bottom:2px;\">BACHELOR OF COMPUTER APPLICATIONS</p>" +
+            '<p style="margin-bottom:2px; font-style:italic;">L F Polytechnic, TMV University</p>' +
+            '<p class="np-byline">2019 – 2021</p>' +
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            // ===== SECTION DIVIDER: PM CASES =====
+            '<div class="np-grid" style="margin-top:24px;">' +
+            '<div class="np-section-bar" style="background:#1a1a1a; color:#f4ece0;">✦ Product Sense Archive — Detailed Analysis ✦</div>' +
+            "</div>" +
+            '<div class="np-grid">' +
+            // Intro
+            '<div class="np-col-5" style="border-bottom:2px solid #1a1a1a; padding-bottom:16px;">' +
+            '<h2 class="np-headline np-headline-xl" style="text-align:center;margin-top:20px;font-size:32px;">STRUCTURED PRODUCT THINKING AT SCALE</h2>' +
+            '<p class="np-deck" style="text-align:center; max-width:600px; margin:0 auto;">The PM Archive is a self-directed initiative to sharpen product sense through rigorous case analysis.</p>' +
+            "</div>" +
+            "</div>" +
+            // Case 1 (Full row, float left)
+            '<div class="np-grid" style="border-bottom:1px solid #1a1a1a; padding:32px 0;">' +
+            '<div class="np-col-5">' +
+            '<h3 class="np-headline np-headline-xl" style="font-size:36px; margin-bottom:8px;">RIDE-SHARING FOR ELDERLY USERS: NAVIGATING ACCESSIBILITY IN MOBILITY</h3>' +
+            '<p class="np-byline" style="margin-bottom:16px; border-bottom:1px solid #1a1a1a; padding-bottom:8px;">Product Case Study PM-001 · Mobility · India Market</p>' +
+            '<div class="np-body np-dropcap" style="font-size:16px; line-height:1.6;">' +
+            '<div style="float:left; width:45%; margin: 6px 24px 12px 0;">' +
+            "<img src=\"/images/vintage/PMCase1.png\" alt=\"Ride sharing for elderly users concept art\" style=\"width:100%; height:auto; border:2px solid #1a1a1a;\">" +
+            '<p class="np-caption" style="text-align:center; font-style:italic; margin-top:6px; font-size:12px;">Figure 1: Analysis of proxy-booking systems and specialized driver dispatch.</p>' +
+            "</div>" +
+            "<p>The burgeoning senior demographic presents a unique challenge for modern ride-sharing platforms. This case explores the specific pain points elderly users face—from complex UI elements and rushed boarding times to a lack of caregiver integration. As mobility tech matures, optimizing for the margins (in this case, users aged 65+) unlocks significant business value while addressing a critical social need.</p>" +
+            '<p>Through rigorous user segmentation into "Independent, Tech-Literate Seniors" and "Assisted-Living Seniors", the analysis defines targeted solutions. Our proposed interventions include high-contrast simplified interfaces avoiding complex gestures, specialized driver training modules for accessibility awareness, and—most crucially—proxy-booking features allowing family members to safely manage rides remotely.</p>' +
+            "<p><strong>Metrics for Success:</strong> The North Star metric focuses strictly on the <em>successful completion rate</em> of rides booked by or for the 65+ demographic. Secondary metrics tracking specific friction points include cancellation rates mapped to pickup locations, average driver wait times, and driver ratings explicitly categorized under this demographic.</p>" +
+            '<div style="clear:both;"></div>' +
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            // Case 2 (Full row, float right)
+            '<div class="np-grid" style="padding:32px 0;">' +
+            '<div class="np-col-5">' +
+            '<h3 class="np-headline np-headline-xl" style="font-size:36px; margin-bottom:8px; text-align:right;">GOOGLE MAPS ACCESSIBILITY: BEYOND THE STANDARD ROUTE</h3>' +
+            '<p class="np-byline" style="margin-bottom:16px; border-bottom:1px solid #1a1a1a; padding-bottom:8px; text-align:right;">Product Case Study PM-002 · Navigation · Inclusive Design</p>' +
+            '<div class="np-body" style="font-size:16px; line-height:1.6;">' +
+            '<div style="float:right; width:45%; margin: 6px 0 12px 24px;">' +
+            "<img src=\"/images/vintage/PMCase2.png\" alt=\"Google Maps Wheelchair Routing interface\" style=\"width:100%; height:auto; border:2px solid #1a1a1a;\">" +
+            '<p class="np-caption" style="text-align:center; font-style:italic; margin-top:6px; font-size:12px;">Figure 2: Topographical constraints and broken transit infrastructure.</p>' +
+            "</div>" +
+            "<p> Navigation tools traditionally optimize solely for the fastest route, creating blind spots for users traversing cities with mobility impairments. This case analyzes the market opportunity and technical feasibility for integrating a robust wheelchair-accessible routing engine directly within the core Google Maps experience.</p>" +
+            "<p><strong>Pain Point Prioritization:</strong> Standard routing assumes uniform traversal capability. The most critical friction point identified is the information deficit: the lack of reliable, real-time data regarding broken transit elevators and uneven pavement topographies. This singular gap routinely turns estimated standard 10-minute trips into insurmountable challenges.</p>" +
+            '<p><strong>Proposed Mechanisms:</strong> The feature strategy bridges this gap via crowdsourced reporting tools empowering local accessibility advocates, machine-learning models designed to estimate sidewalk inclines from street-view data, and "Stair-Free" explicit route filtering. The success of this feature set is measured not purely by initial adoption, but by the measurable reduction in mid-route abandonment rates among users who enable the accessibility filter.</p>' +
+            '<div style="clear:both;"></div>' +
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            // ===== CLASSIFIEDS =====
+            '<div class="np-grid">' +
+            '<div class="np-section-bar">✦ Classifieds &amp; Notices</div>' +
+            "</div>" +
+            '<div class="np-grid">' +
+            '<div class="np-col-2">' +
+            '<div class="np-classified">' +
+            '<p class="np-classified-title">✉ General Enquiries</p>' +
+            '<p class="np-classified-text">' +
+            "Open to discussions around product design, UX engineering, trust systems, and meaningful problem-solving.<br><br>" +
+            'E-mail: <a href="mailto:uxmayuresh@gmail.com">uxmayuresh@gmail.com</a>' +
+            "</p>" +
+            "</div>" +
+            "</div>" +
+            '<div class="np-col-1">' +
+            '<div class="np-classified">' +
+            '<p class="np-classified-title">🔗 Professional</p>' +
+            '<p class="np-classified-text">' +
+            '<a href="https://www.linkedin.com/in/mayuresh-mule/" target="_blank" rel="noopener">LinkedIn Profile</a><br>' +
+            '<a href="/ProductMayureshMule.pdf" target="_blank">Download Resume</a>' +
+            "</p>" +
+            "</div>" +
+            "</div>" +
+            '<div class="np-col-1">' +
+            '<div class="np-classified">' +
+            '<p class="np-classified-title">🌐 On the Web</p>' +
+            '<p class="np-classified-text">' +
+            '<a href="https://www.unicorncraftstudios.com/" target="_blank" rel="noopener">Unicorn Craft Studios</a><br>' +
+            '<a href="https://www.instagram.com/mayuresh.mule/" target="_blank" rel="noopener">Instagram</a>' +
+            "</p>" +
+            "</div>" +
+            "</div>" +
+            '<div class="np-col-1">' +
+            '<div class="np-ad-box">' +
+            '<p class="np-ad-title" style="font-size:11px;font-style:italic">Long Live Product Thinking!</p>' +
+            '<p class="np-ad-text" style="font-size:9px;margin-top:4px">— The Mule Chronicle</p>' +
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            // ===== FOLIO =====
+            '<div class="np-folio">' +
+            '<p class="np-folio-text">The Mule Chronicle · Est. 2024 · "Designing trust, one product at a time."</p>' +
+            '<p class="np-folio-text" style="margin-top:4px;font-size:7px;opacity:0.5">This newspaper is a creative representation of Mayuresh Mule\'s portfolio. All content is real. The format is vintage.</p>' +
+            "</div>" +
+            // Scroll to top
+            '<button class="np-scroll-top" aria-label="Scroll to top">↑</button>' +
+            "</div>"
+          );
+        }
+
+        // ---- Initialization ----
+        function initNewspaper() {
+          var btn = document.getElementById("newspaper-toggle-btn");
+          if (btn) {
+            btn.addEventListener("click", toggleNewspaper);
+          }
+
+          // Check localStorage for persistence
+          if (localStorage.getItem(STORAGE_KEY) === "true") {
+            // Small delay to let Vue components mount first
+            setTimeout(activateNewspaper, 100);
+          }
+        }
+
+        // Run on DOM ready
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initNewspaper);
+        } else {
+          initNewspaper();
+        }
+      })();
+    </script>
   </body>
 </html>

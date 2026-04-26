@@ -1,0 +1,692 @@
+/* ============================================================
+   NEWSPAPER MODE — Scoped Vintage Styles
+   Inspired by The Hindustan Times (1947) front page layout.
+   All rules scoped under #newspaper-mode / #newspaper-toggle-btn.
+   ============================================================
+
+   FONT MAP:
+   - Masthead/Title:     UnifrakturMaguntia (Gothic Blackletter)
+   - Headlines:          Playfair Display SC (Vintage Condensed Serif)  
+   - Sub-headlines:      Old Standard TT (Antique Victorian Serif)
+   - Bylines/Captions:   Special Elite (Old Typewriter)
+   - Section Labels:     Cinzel (Vintage Condensed Serif)
+   - Body:               Lora / Georgia (Readable Serif)
+   ============================================================ */
+
+/* ---- Toggle Button ---- */
+#newspaper-toggle-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border: 2px solid #5c4a32;
+  border-radius: 50px;
+  background: #f4ecd8;
+  color: #2b2b2b;
+  font-family: 'Cinzel', 'Georgia', serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(92, 74, 50, 0.25);
+  transition: all 0.3s ease;
+}
+#newspaper-toggle-btn:hover {
+  background: #2b2b2b;
+  color: #f4ecd8;
+  border-color: #2b2b2b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(43, 43, 43, 0.35);
+}
+#newspaper-toggle-btn.np-active {
+  background: #2b2b2b;
+  color: #f4ecd8;
+  border-color: #f4ecd8;
+}
+#newspaper-toggle-btn.np-active:hover {
+  background: #f4ecd8;
+  color: #2b2b2b;
+  border-color: #5c4a32;
+}
+
+/* ============================================================
+   OVERLAY CONTAINER
+   ============================================================ */
+#newspaper-mode {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #f0e6ce;
+  color: #1a1a1a;
+  font-family: 'Lora', 'Georgia', 'Times New Roman', serif;
+  font-size: 13px;
+  line-height: 1.55;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+#newspaper-mode.active {
+  display: block;
+}
+
+/* Paper grain texture */
+#newspaper-mode::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* Aged edges vignette */
+#newspaper-mode::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 60%, rgba(120,100,70,0.15) 100%);
+}
+
+/* ---- Inner wrapper ---- */
+#newspaper-mode .np-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 20px 20px 80px;
+}
+
+/* ============================================================
+   MASTHEAD — Gothic Blackletter
+   ============================================================ */
+#newspaper-mode .np-masthead {
+  text-align: center;
+  padding: 16px 0 12px;
+  border-bottom: 3px solid #1a1a1a;
+  margin-bottom: 0;
+}
+
+/* Top info bar */
+#newspaper-mode .np-masthead-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Special Elite', 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: #5c4a32;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+/* Corner ad boxes (like Hindustan Times) */
+#newspaper-mode .np-masthead-ad {
+  border: 1.5px solid #1a1a1a;
+  padding: 4px 8px;
+  font-family: 'Old Standard TT', 'Georgia', serif;
+  font-size: 8px;
+  text-align: center;
+  line-height: 1.3;
+  max-width: 120px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Main title — Blackletter */
+#newspaper-mode .np-masthead-title {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  font-size: clamp(38px, 6.5vw, 76px);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  margin: 4px 0;
+  color: #1a1a1a;
+  text-transform: uppercase;
+}
+
+/* Subtitle / Circulation line */
+#newspaper-mode .np-masthead-subtitle {
+  font-family: 'Cinzel', 'Georgia', serif;
+  font-size: clamp(7px, 1.2vw, 10px);
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: #5c4a32;
+  margin: 4px 0 0;
+}
+
+/* Date rule under masthead */
+#newspaper-mode .np-masthead-dateline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Special Elite', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #1a1a1a;
+  border-top: 1px solid #1a1a1a;
+  border-bottom: 1px solid #1a1a1a;
+  padding: 4px 0;
+  margin-top: 4px;
+}
+
+/* ============================================================
+   DENSE 5-COLUMN GRID (Hindustan Times style)
+   ============================================================ */
+#newspaper-mode .np-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+}
+
+/* Column dividers via borders */
+#newspaper-mode .np-grid > * {
+  border-right: 1px solid #b8a88a;
+  padding: 10px 12px;
+  min-width: 0;
+}
+#newspaper-mode .np-grid > *:last-child {
+  border-right: none;
+}
+
+/* Column spans */
+#newspaper-mode .np-col-1 { grid-column: span 1; }
+#newspaper-mode .np-col-2 { grid-column: span 2; }
+#newspaper-mode .np-col-3 { grid-column: span 3; }
+#newspaper-mode .np-col-4 { grid-column: span 4; }
+#newspaper-mode .np-col-5 { grid-column: span 5; }
+#newspaper-mode .np-row-2 { grid-row: span 2; }
+#newspaper-mode .np-row-3 { grid-row: span 3; }
+
+/* ============================================================
+   HORIZONTAL RULES & SECTION DIVIDERS
+   ============================================================ */
+#newspaper-mode .np-rule-section {
+  grid-column: 1 / -1;
+  border: none;
+  border-top: 2px solid #1a1a1a;
+  border-bottom: 1px solid #1a1a1a;
+  margin: 0;
+  padding: 0;
+  height: 5px;
+}
+
+#newspaper-mode .np-rule-thin {
+  grid-column: 1 / -1;
+  border: none;
+  border-top: 1px solid #b8a88a;
+  margin: 0;
+  padding: 0;
+  height: 0;
+}
+
+#newspaper-mode .np-rule-double {
+  border: none;
+  border-top: 3px double #1a1a1a;
+  margin: 0;
+  padding: 0;
+}
+
+/* Section header bar */
+#newspaper-mode .np-section-bar {
+  grid-column: 1 / -1;
+  font-family: 'Cinzel', 'Georgia', serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  border-top: 2px solid #1a1a1a;
+  border-bottom: 1px solid #1a1a1a;
+  padding: 5px 12px;
+  margin: 0;
+  background: rgba(180,160,120,0.08);
+}
+
+/* ============================================================
+   TYPOGRAPHY — 5 Font Categories
+   ============================================================ */
+
+/* === HEADLINES — Playfair Display SC (Vintage Condensed Serif) === */
+#newspaper-mode .np-headline {
+  font-family: 'Playfair Display SC', 'Playfair Display', 'Georgia', serif;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  color: #1a1a1a;
+  margin: 0 0 6px;
+  text-transform: uppercase;
+}
+#newspaper-mode .np-headline-banner {
+  font-size: clamp(24px, 3.5vw, 38px);
+}
+#newspaper-mode .np-headline-xl {
+  font-size: clamp(20px, 3vw, 30px);
+}
+#newspaper-mode .np-headline-lg {
+  font-size: clamp(16px, 2.2vw, 22px);
+}
+#newspaper-mode .np-headline-md {
+  font-size: clamp(14px, 1.8vw, 17px);
+}
+#newspaper-mode .np-headline-sm {
+  font-size: clamp(12px, 1.4vw, 14px);
+}
+
+/* === SUB-HEADLINES — Old Standard TT (Victorian Antique Serif) === */
+#newspaper-mode .np-subhead {
+  font-family: 'Old Standard TT', 'Georgia', serif;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1.25;
+  margin: 0 0 6px;
+  color: #1a1a1a;
+}
+
+/* Deck / standfirst (italic sub-headline) */
+#newspaper-mode .np-deck {
+  font-family: 'Old Standard TT', 'Georgia', serif;
+  font-style: italic;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: #3a3a3a;
+  margin-bottom: 8px;
+}
+
+/* === BYLINES & CAPTIONS — Special Elite (Old Typewriter) === */
+#newspaper-mode .np-byline {
+  font-family: 'Special Elite', 'Courier New', monospace;
+  font-size: 8.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #6b5e4c;
+  margin-bottom: 8px;
+}
+
+#newspaper-mode .np-caption {
+  font-family: 'Special Elite', 'Courier New', monospace;
+  font-size: 9px;
+  color: #5c4a32;
+  text-align: center;
+  padding: 4px 4px 2px;
+  line-height: 1.3;
+}
+
+/* === BODY — Lora (Readable Serif) === */
+#newspaper-mode .np-body {
+  font-family: 'Lora', 'Georgia', serif;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #1a1a1a;
+  text-align: justify;
+  hyphens: auto;
+}
+#newspaper-mode .np-body p {
+  margin: 0 0 8px;
+}
+#newspaper-mode .np-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* Drop cap */
+#newspaper-mode .np-dropcap::first-letter {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  float: left;
+  font-size: 3.8em;
+  line-height: 0.78;
+  padding-right: 6px;
+  padding-top: 4px;
+  font-weight: 900;
+  color: #1a1a1a;
+}
+
+/* ============================================================
+   IMAGES (newspaper photo treatment)
+   ============================================================ */
+#newspaper-mode .np-img-wrap {
+  margin: 8px 0;
+  background: #ddd4bf;
+  padding: 3px;
+}
+#newspaper-mode .np-img-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: sepia(40%) contrast(1.1) brightness(0.95);
+  background: #c8bea8;
+  min-height: 80px;
+}
+
+/* ============================================================
+   BOXES & CALLOUTS
+   ============================================================ */
+#newspaper-mode .np-box {
+  border: 1.5px solid #1a1a1a;
+  padding: 10px;
+  margin: 6px 0;
+  background: rgba(240,230,206,0.4);
+}
+#newspaper-mode .np-box-title {
+  font-family: 'Cinzel', 'Georgia', serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #b8a88a;
+}
+
+/* Ad-style box (corner advertisements) */
+#newspaper-mode .np-ad-box {
+  border: 2px solid #1a1a1a;
+  padding: 10px;
+  text-align: center;
+  background: rgba(240,230,206,0.3);
+}
+#newspaper-mode .np-ad-box .np-ad-title {
+  font-family: 'Old Standard TT', serif;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+#newspaper-mode .np-ad-box .np-ad-text {
+  font-family: 'Lora', serif;
+  font-size: 10px;
+  line-height: 1.4;
+  color: #3a3a3a;
+}
+
+/* ============================================================
+   BULLETIN / LISTS
+   ============================================================ */
+#newspaper-mode .np-bulletin {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#newspaper-mode .np-bulletin li {
+  font-family: 'Lora', 'Georgia', serif;
+  font-size: 11px;
+  line-height: 1.4;
+  padding: 3px 0;
+  border-bottom: 1px dotted #c4b5a0;
+  color: #1a1a1a;
+}
+#newspaper-mode .np-bulletin li:last-child {
+  border-bottom: none;
+}
+
+/* ============================================================
+   TAGS
+   ============================================================ */
+#newspaper-mode .np-tag {
+  display: inline-block;
+  font-family: 'Cinzel', serif;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #f0e6ce;
+  background: #1a1a1a;
+  padding: 2px 8px;
+  margin: 2px 3px 2px 0;
+}
+
+/* ============================================================
+   CLASSIFIEDS (dense small-ad strip)
+   ============================================================ */
+#newspaper-mode .np-classified {
+  border: 1.5px solid #1a1a1a;
+  padding: 10px;
+  text-align: center;
+  background: rgba(180,160,120,0.06);
+}
+#newspaper-mode .np-classified-title {
+  font-family: 'Old Standard TT', serif;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+#newspaper-mode .np-classified-text {
+  font-family: 'Lora', serif;
+  font-size: 10.5px;
+  line-height: 1.5;
+  color: #3a3a3a;
+}
+#newspaper-mode .np-classified-text a {
+  color: #3a2a14;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ============================================================
+   FOLIO / FOOTER
+   ============================================================ */
+#newspaper-mode .np-folio {
+  text-align: center;
+  padding: 16px 0 0;
+  border-top: 2px solid #1a1a1a;
+  margin-top: 0;
+}
+#newspaper-mode .np-folio-text {
+  font-family: 'Cinzel', 'Georgia', serif;
+  font-size: 8px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #6b5e4c;
+}
+
+/* ============================================================
+   SCROLL TO TOP
+   ============================================================ */
+#newspaper-mode .np-scroll-top {
+  position: fixed;
+  bottom: 90px;
+  right: 28px;
+  z-index: 10001;
+  width: 36px;
+  height: 36px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a1a;
+  color: #f0e6ce;
+  border: 1px solid #5c4a32;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+#newspaper-mode.active .np-scroll-top.visible {
+  display: flex;
+  opacity: 1;
+}
+#newspaper-mode .np-scroll-top:hover {
+  background: #5c4a32;
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   PM CASE CARD (mini article block)
+   ============================================================ */
+#newspaper-mode .np-pm-card {
+  padding: 8px 0;
+  border-bottom: 1px solid #c4b5a0;
+  margin-bottom: 6px;
+}
+#newspaper-mode .np-pm-card:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+#newspaper-mode .np-pm-card .np-pm-num {
+  font-family: 'Cinzel', serif;
+  font-size: 7px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #6b5e4c;
+  margin-bottom: 2px;
+}
+#newspaper-mode .np-pm-card .np-pm-title {
+  font-family: 'Old Standard TT', serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 3px;
+  color: #1a1a1a;
+}
+#newspaper-mode .np-pm-card .np-pm-meta {
+  font-family: 'Special Elite', monospace;
+  font-size: 8px;
+  color: #7a6b55;
+  letter-spacing: 0.08em;
+}
+
+/* ============================================================
+   RESPONSIVE — TABLET (768px–1023px)
+   ============================================================ */
+@media (max-width: 1023px) {
+  #newspaper-mode .np-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  #newspaper-mode .np-col-4,
+  #newspaper-mode .np-col-5 {
+    grid-column: span 3;
+  }
+  #newspaper-mode .np-col-3 {
+    grid-column: span 3;
+  }
+  #newspaper-mode .np-inner {
+    padding: 16px 16px 60px;
+  }
+  #newspaper-mode .np-masthead-title {
+    font-size: clamp(36px, 7vw, 60px);
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — MOBILE (<768px)
+   ============================================================ */
+@media (max-width: 767px) {
+  #newspaper-mode .np-grid {
+    grid-template-columns: 1fr;
+  }
+  #newspaper-mode .np-col-1,
+  #newspaper-mode .np-col-2,
+  #newspaper-mode .np-col-3,
+  #newspaper-mode .np-col-4,
+  #newspaper-mode .np-col-5 {
+    grid-column: span 1;
+  }
+  #newspaper-mode .np-grid > * {
+    border-right: none !important;
+    border-bottom: 1px solid #c4b5a0;
+    padding: 10px 8px;
+  }
+  #newspaper-mode .np-inner {
+    padding: 12px 12px 60px;
+  }
+  #newspaper-mode .np-masthead {
+    padding: 12px 0 8px;
+  }
+  #newspaper-mode .np-masthead-top {
+    flex-direction: column;
+    gap: 4px;
+  }
+  #newspaper-mode .np-masthead-ad {
+    display: none;
+  }
+}
+
+/* Bento Grid for Awards */
+#newspaper-mode .np-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  padding: 16px 0;
+}
+
+#newspaper-mode .np-bento-item-large {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+#newspaper-mode .np-bento-item-medium {
+  grid-column: span 2;
+}
+
+#newspaper-mode .np-bento-item-small {
+  grid-column: span 1;
+}
+
+@media (max-width: 900px) {
+  #newspaper-mode .np-bento-grid {
+    display: flex;
+    flex-direction: column;
+  }
+  #newspaper-mode .np-bento-item-large,
+  #newspaper-mode .np-bento-item-medium,
+  #newspaper-mode .np-bento-item-small {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 900px) {
+  #newspaper-mode .np-masthead-title {
+    font-size: 36px;
+  }
+  #newspaper-mode .np-masthead-dateline {
+    flex-direction: column;
+    gap: 2px;
+    text-align: center;
+  }
+  #newspaper-mode .np-body {
+    text-align: left;
+    font-size: 12.5px;
+  }
+  #newspaper-mode .np-dropcap::first-letter {
+    font-size: 2.8em;
+  }
+  #newspaper-toggle-btn {
+    bottom: 16px;
+    right: 16px;
+    padding: 10px 16px;
+    font-size: 11px;
+  }
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes np-fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+#newspaper-mode.active .np-inner {
+  animation: np-fadeIn 0.4s ease-out;
+}
+
+/* ============================================================
+   PRINT
+   ============================================================ */
+@media print {
+  #newspaper-toggle-btn { display: none !important; }
+  #newspaper-mode .np-scroll-top { display: none !important; }
+  #newspaper-mode { position: static; overflow: visible; }
+}
