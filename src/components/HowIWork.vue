@@ -133,7 +133,7 @@ const iconComponents = {
                     Want a detailed view of my experience and responsibilities?
                 </p>
 
-                <a href="/ProductMayureshMule.pdf" target="_blank"
+                <a href="/Mayuresh_Mule_Resume_09-06-2026.pdf" target="_blank"
                     class="inline-block px-8 py-3 bg-primary-black dark:bg-primary-white text-primary-white dark:text-primary-black rounded-md font-medium hover:opacity-80 transition-all duration-300">
                     Resume
                 </a>
