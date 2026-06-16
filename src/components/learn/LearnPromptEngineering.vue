@@ -11,7 +11,7 @@
       </div>
       <p class="text-gray-500 dark:text-gray-400 text-sm md:text-base max-w-2xl">
         From tokens to transformers, from zero-shot to enterprise-scale system design.
-        Learn to design clarity for probabilistic systems — with interactive exercises.
+        Learn to design clarity for probabilistic systems - with interactive exercises.
       </p>
     </div>
 
@@ -43,7 +43,7 @@
             subtitle="Deterministic systems vs Probabilistic systems"
             definition="Traditional programming relies on deterministic logic models: if X happens, execute Y. Generative AI operates on probabilistic models: it predicts the next sequence based on learned patterns and the provided context (the prompt). Prompt engineering is the discipline of structuring the context to narrow down the statistical probability space toward an optimal, deterministic-like result."
             analogy="If traditional programming is giving a chef an exact, gram-by-gram recipe to follow without question, prompting is giving a highly creative chef an idea of the dish you want, the ingredients they shouldn't use, and the presentation style you expect."
-            seniorTip="At an enterprise level, you are not writing 'prompts'—you are architecting input payloads. You're combining Retrieval-Augmented Generation (RAG) contexts, dynamic user state variables, guardrails, and tone guidelines into a single context window payload to get a robust, API-predictable response."
+            seniorTip="At an enterprise level, you are not writing 'prompts'-you are architecting input payloads. You're combining Retrieval-Augmented Generation (RAG) contexts, dynamic user state variables, guardrails, and tone guidelines into a single context window payload to get a robust, API-predictable response."
             defaultOpen
           >
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
@@ -97,7 +97,7 @@
             icon="🧬"
             title="The Neural Architecture Evolution"
             subtitle="From RNNs to the Transformer revolution"
-            definition="Historically, NLP relied on RNNs (Recurrent Neural Networks) which processed text sequentially, leading to memory loss over long strings (vanishing gradient). The Transformer architecture (2017 'Attention Is All You Need' paper) revolutionized AI by using 'Self-Attention'—allowing the model to process all words simultaneously and understand context regardless of distance."
+            definition="Historically, NLP relied on RNNs (Recurrent Neural Networks) which processed text sequentially, leading to memory loss over long strings (vanishing gradient). The Transformer architecture (2017 'Attention Is All You Need' paper) revolutionized AI by using 'Self-Attention'-allowing the model to process all words simultaneously and understand context regardless of distance."
             analogy="An RNN is like reading a book word-by-word through a tiny peephole; by the end of the page, you've forgotten the first sentence. A Transformer is like having a bird's-eye view of the entire page at once, instantly seeing how every word relates to every other word."
             seniorTip="Understand that Transformers (like GPT - Generative Pre-trained Transformer) have a fixed 'Context Window' because self-attention computation scales quadratically with length. This is why API costs and response latency explode as your prompt gets too large."
           >
@@ -208,9 +208,9 @@
             icon="📐"
             title="The Golden Rules of Prompt Design"
             subtitle="Best practices for determinism and clarity"
-            definition="To maximize output reliability: 1) Be Explicit—leave nothing to assumption. 2) Provide Examples (Few-Shot)—showing the model the desired pattern is 10x more effective than describing it. 3) Use Delimiters—wrap data in triple quotes (```) or XML tags (<data>) so the model separates instructions from content. 4) Use Chain of Thought—forcing the model to break down steps before answering improves logic accuracy."
+            definition="To maximize output reliability: 1) Be Explicit-leave nothing to assumption. 2) Provide Examples (Few-Shot)-showing the model the desired pattern is 10x more effective than describing it. 3) Use Delimiters-wrap data in triple quotes (```) or XML tags (<data>) so the model separates instructions from content. 4) Use Chain of Thought-forcing the model to break down steps before answering improves logic accuracy."
             analogy="Zero-shot prompting is asking someone to play a new board game by only reading the rules. Few-shot is sitting down and showing them a practice round. They will perform infinitely better."
-            seniorTip="XML tags are highly recommended for Claude models (Anthropic explicitly trains them on XML delimiters). Always put the target 'Format' instruction at the very end of the prompt—recency bias is a real phenomenon in LLMs."
+            seniorTip="XML tags are highly recommended for Claude models (Anthropic explicitly trains them on XML delimiters). Always put the target 'Format' instruction at the very end of the prompt-recency bias is a real phenomenon in LLMs."
             defaultOpen
           >
             <div class="space-y-3 mt-4 mb-6">
@@ -300,7 +300,7 @@
                 <div class="flex items-center gap-2">
                   <span class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-emerald-100 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400">Builder</span>
                   <span class="text-xs font-semibold" :style="{ color: builderQualityColor }">
-                    {{ builderQuality }} — {{ builderFilledCount }}/5 components
+                    {{ builderQuality }} - {{ builderFilledCount }}/5 components
                   </span>
                 </div>
                 <button @click="showPreview = !showPreview" class="px-4 py-1.5 text-xs font-semibold rounded-lg border transition-all" :class="showPreview ? 'bg-indigo-500 text-white border-indigo-500' : 'text-indigo-500 border-indigo-300 dark:border-indigo-700'">{{ showPreview ? 'Edit' : 'Preview' }}</button>
@@ -472,7 +472,7 @@ const useCases = [
 ]
 
 const architectures = [
-  { year: '~2015', name: 'RNN', full: 'Recurrent Neural Networks', desc: 'Sequential processing with weak memory. Suffered from vanishing gradient problem — couldn\'t handle long context.', status: 'legacy', color: '#ef4444' },
+  { year: '~2015', name: 'RNN', full: 'Recurrent Neural Networks', desc: 'Sequential processing with weak memory. Suffered from vanishing gradient problem - couldn\'t handle long context.', status: 'legacy', color: '#ef4444' },
   { year: '~2016', name: 'LSTM', full: 'Long Short-Term Memory', desc: 'Introduced gating mechanism to decide what to remember and forget. Better memory but still slow and inefficient.', status: 'improved', color: '#f59e0b' },
   { year: '2017', name: 'Transformer', full: '"Attention Is All You Need"', desc: 'Parallel processing with self-attention. Foundation of all modern Generative Pre-trained Transformers (GPT).', status: 'current', color: '#10b981' },
 ]
@@ -565,7 +565,7 @@ const quizData = [
     q: 'What does AI actually process instead of words?',
     options: ['Characters', 'Sentences', 'Tokens', 'Paragraphs'],
     correct: 2,
-    explanation: "AI reads tokens — which can be full words, parts of words, characters, or prefixes/suffixes. 'playing' becomes 'play' + 'ing'.",
+    explanation: "AI reads tokens - which can be full words, parts of words, characters, or prefixes/suffixes. 'playing' becomes 'play' + 'ing'.",
   },
   {
     q: 'Which architecture is the foundation of modern LLMs like GPT & Claude?',
@@ -577,7 +577,7 @@ const quizData = [
     q: "What is the 'Context Window' in AI?",
     options: ['The UI window of the chat', 'Maximum tokens a model can remember at once', 'The training dataset size', 'The number of users online'],
     correct: 1,
-    explanation: "Context Window = maximum tokens a model can hold in memory. Like a blackboard — when it fills up, older content gets erased.",
+    explanation: "Context Window = maximum tokens a model can hold in memory. Like a blackboard - when it fills up, older content gets erased.",
   },
   {
     q: "Which prompting technique asks the model to 'think step-by-step'?",

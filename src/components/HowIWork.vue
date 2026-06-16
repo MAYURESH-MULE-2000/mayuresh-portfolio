@@ -1,143 +1,111 @@
 <script setup>
-import { Wrench, Sparkles, Code } from 'lucide-vue-next'
-import MagnifyText from '../components/MagnifyText.vue'
-const workData = [
-    {
-        id: 1,
-        title: 'Methods',
-        icon: 'Wrench',
-        color: 'bg-pink-50 dark:bg-pink-900/20',
-        items: [
-            'Product Discovery',
-            'User Research & Insights',
-            'Experimentation & Hypothesis Testing',
-            'Product Analytics',
-            'Roadmapping & Prioritization',
-            'Requirement Gathering',
-            'Problem Framing',
-            'User Journey Mapping',
-            'Workflow Optimization',
-            'MVP Definition',
-            'Data-driven Decision Making',
-            'Feature Scoping',
-            'Prototyping (Low–High Fidelity)',
-            'Design Systems Thinking',
-            'Accessible Product Practices',
-            'Agile & Sprint Planning',
-            'Product KPI Mapping',
-        ],
-    },
-    {
-        id: 2,
-        title: 'Core Strengths',
-        icon: 'Sparkles',
-        color: 'bg-teal-50 dark:bg-teal-900/20',
-        items: [
-            'Stakeholder Management',
-            'Cross-functional Collaboration',
-            'Strategic Thinking',
-            'Decision Making',
-            'Leadership in Ambiguous Environments',
-            'Communication & Storytelling',
-            'Developer Handoff',
-            'Workshopping Facilitation',
-            'Problem Solving',
-            'User Empathy',
-            'Conflict Resolution',
-            'Presentation Skills',
-            'Time & Scope Management',
-            'Product Sense',
-            'Execution Ownership',
-        ],
-    },
-    {
-        id: 3,
-        title: 'Tools & Technology',
-        icon: 'Code',
-        color: 'bg-yellow-50 dark:bg-yellow-900/20',
-        items: [
-            'Product & Analytics – Mixpanel, Google Analytics, Amplitude (learning)',
-            'Design – Figma, Webflow, LottieFiles',
-            'PM Tools – JIRA, Confluence, Notion',
-            'Prototyping – Figma Interactive, Whimsical',
-            'Documentation – PRDs, User Stories, Acceptance Criteria',
-            'Frontend (Execution Strength) – Vue.js, Quasar, JavaScript, HTML, CSS',
-            'Version Control – Git, GitHub',
-            'APIs – REST, Axios/FETCH',
-            'AI Tools – GPT, Midjourney (Ideation, Uttard)',
-            'CMS / No-code – Webflow',
-            'Performance Tools – Lighthouse, Chrome DevTools',
-        ],
-    },
-]
+import { Map, PenTool, Terminal, Users } from 'lucide-vue-next'
 
-// Map icon names to components
-const iconComponents = {
-    Wrench,
-    Sparkles,
-    Code
-}
+const cards = [
+  {
+    title: 'Discovery & Strategy',
+    icon: Map,
+    bg: 'bg-purple-50 dark:bg-purple-900/20',
+    tags: [
+      'User Research',
+      'Journey Mapping',
+      'Problem Framing',
+      'Roadmapping',
+      'Hypothesis Testing',
+      'KPI Mapping',
+    ],
+  },
+  {
+    title: 'Design & Prototyping',
+    icon: PenTool,
+    bg: 'bg-teal-50 dark:bg-teal-900/20',
+    tags: [
+      'Figma',
+      'Wireframing (Lo–Hi)',
+      'Design Systems',
+      'Webflow',
+      'Accessible Practices',
+      'LottieFiles',
+    ],
+  },
+  {
+    title: 'Build & Ship',
+    icon: Terminal,
+    bg: 'bg-red-50 dark:bg-red-900/20',
+    tags: [
+      'Vue.js',
+      'Quasar',
+      'Nuxt',
+      'REST APIs',
+      'SQL',
+      'Git',
+      'Performance (Lighthouse)',
+    ],
+  },
+  {
+    title: 'Collaborate & Align',
+    icon: Users,
+    bg: 'bg-blue-50 dark:bg-blue-900/20',
+    tags: [
+      'Stakeholder Management',
+      'PRDs',
+      'User Stories',
+      'Jira',
+      'Confluence',
+      'Developer Handoff',
+      'Sprint Planning',
+    ],
+  },
+]
 </script>
 
 <template>
-    <section class="py-8">
-        <div class="max-w-7xl mx-auto">
-            <!-- Section Header -->
-            <div class="relative mb-4">
-                <div class="flex items-center justify-between">
-                    <MagnifyText size=100 zoom=1.8 client:visible>
-                        <h2 class="text-3xl md:text-4xl font-bold">This is how I work</h2>
-                    </MagnifyText>
-                </div>
-            </div>
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto">
+      <!-- Section Header -->
+      <div class="mb-4">
+        <h2 class="text-3xl md:text-4xl font-bold text-primary-black dark:text-primary-white">
+          This is how I work
+        </h2>
+      </div>
 
-            <!-- Description -->
-            <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-12 md:mb-16 max-w-4xl">
-                <MagnifyText size=100 zoom=1.8 client:visible>
-                    I work at the intersection of user research, data, and product strategy to design systems that solve
-                    real operational and user trust problems at scale.
-                </MagnifyText>
-            </p>
+      <!-- Subtitle -->
+      <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-12 md:mb-16 max-w-4xl">
+        I work across the full product loop - from messy problem to shipped feature.
+      </p>
 
-            <!-- 3 Column Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16">
-                <!-- Card -->
-                <div v-for="section in workData" :key="section.id"
-                    class="rounded-3xl p-6 md:p-8 transition-all duration-300 shadow-xl hover:shadow-2xl"
-                    :class="section.color">
-                    <!-- Icon + Title -->
-                    <MagnifyText size=100 zoom=1.8 client:visible>
+      <!-- 2×2 Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div
+          v-for="card in cards"
+          :key="card.title"
+          class="border border-gray-200/50 dark:border-gray-700/50 rounded-xl p-6 md:p-8 transition-all duration-300"
+          :class="card.bg"
+        >
+          <!-- Icon + Title -->
+          <div class="flex items-center gap-3 mb-5">
+            <component
+              :is="card.icon"
+              :size="20"
+              class="text-gray-700 dark:text-gray-300 shrink-0"
+            />
+            <h3 class="text-lg md:text-xl font-bold text-primary-black dark:text-primary-white">
+              {{ card.title }}
+            </h3>
+          </div>
 
-                        <div class="flex items-center gap-3 mb-6">
-                            <!-- Dynamic Lucide Icon -->
-                            <component :is="iconComponents[section.icon]" :size="16"
-                                class="text-gray-700 dark:text-gray-300" />
-                            <h3 class="text-xl md:text-2xl font-bold">{{ section.title }}</h3>
-                        </div>
-
-                        <!-- Items List -->
-                        <ul class="space-y-2">
-                            <li v-for="(item, index) in section.items" :key="index"
-                                class="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-                                {{ item }}
-                            </li>
-                        </ul>
-                    </MagnifyText>
-
-                </div>
-            </div>
-
-            <!-- CTA Section -->
-            <div class="text-center">
-                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-6">
-                    Want a detailed view of my experience and responsibilities?
-                </p>
-
-                <a href="/Mayuresh_Mule_Resume_09-06-2026.pdf" target="_blank"
-                    class="inline-block px-8 py-3 bg-primary-black dark:bg-primary-white text-primary-white dark:text-primary-black rounded-md font-medium hover:opacity-80 transition-all duration-300">
-                    Resume
-                </a>
-            </div>
+          <!-- Tag Pills -->
+          <div class="flex flex-wrap gap-2">
+            <span
+              v-for="tag in card.tags"
+              :key="tag"
+              class="bg-white/70 dark:bg-white/10 text-gray-700 dark:text-gray-300 text-xs px-3 py-1.5 rounded-full font-medium"
+            >
+              {{ tag }}
+            </span>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 </template>

@@ -240,8 +240,8 @@ const crpSteps = [
 ]
 
 const thrashingDemo = reactive({
-  badTime: '—',
-  goodTime: '—',
+  badTime: '-',
+  goodTime: '-',
   running: false
 })
 

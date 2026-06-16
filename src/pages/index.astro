@@ -3,15 +3,16 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.vue";
 import SocialSidebar from "../components/SocialSidebar.vue";
 import EmailSidebar from "../components/EmailSidebar.vue";
-import ImpactStories from "../components/ImpactStories.vue";
-import PM100Section from "../components/pm/PM100Section.vue";
+import HeroDiagram from "../components/HeroDiagram.vue";
 import HowIWork from "../components/HowIWork.vue";
+import WinsStrip from "../components/WinsStrip.vue";
+// import ImpactStories from "../components/ImpactStories.vue";
+import WhatImBuilding from "../components/WhatImBuilding.vue";
+import PM100Section from "../components/pm/PM100Section.vue";
 import WhereImWorking from "../components/WhereImWorking.vue";
 import LetsConnect from "../components/LetsConnect.vue";
-import MagnifyText from "../components/MagnifyText.vue";
-import  SpeedInsights  from "@vercel/speed-insights/astro"
+import SpeedInsights from "@vercel/speed-insights/astro";
 import { getCaseStudies, getProjects, getBlogs, getPMCases } from "../lib/content";
-
 
 const caseStudies = await getCaseStudies();
 const projects = await getProjects();
@@ -26,9 +27,9 @@ const resources = [
     label: item.category,
     slug: item.slug,
     thumbnail: item.heroImage || "",
-    logo: item.logo || "", // Company/project logo
+    logo: item.logo || "",
     order: item.order,
-    cardGradient: item.cardGradient, // Custom gradient
+    cardGradient: item.cardGradient,
     cardHoverGradient: item.cardHoverGradient,
     insights: item.insights,
   })),
@@ -39,9 +40,9 @@ const resources = [
     label: item.category,
     slug: item.slug,
     thumbnail: item.heroImage || "",
-    logo: item.logo || "", // Company/project logo
+    logo: item.logo || "",
     order: item.order,
-    cardGradient: item.cardGradient, // Custom gradient
+    cardGradient: item.cardGradient,
     cardHoverGradient: item.cardHoverGradient,
     insights: item.insights,
   })),
@@ -52,9 +53,9 @@ const resources = [
     label: item.category,
     slug: item.slug,
     thumbnail: item.heroImage || "",
-    logo: item.logo || "", // Company/project logo
+    logo: item.logo || "",
     order: item.order,
-    cardGradient: item.cardGradient, // Custom gradient
+    cardGradient: item.cardGradient,
     cardHoverGradient: item.cardHoverGradient,
     insights: item.insights,
   })),
@@ -63,7 +64,7 @@ const resources = [
 
 <Layout
   title="Mayuresh Mule - UX Engineer & Product Builder"
-  description="Portfolio of Mayuresh Mule – UX Engineer and Product Builder."
+  description="Portfolio of Mayuresh Mule – UX Engineer and Product Builder based in Mumbai, India."
 >
   <Header client:load />
   <SocialSidebar client:load />
@@ -71,56 +72,119 @@ const resources = [
 
   <main class="px-16 md:px-32 py-20 pt-32">
     <div class="max-w-7xl mx-auto">
-      <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
-        <div
-          class="aspect-video bg-gray-200 dark:bg-gray-800 rounded-3xl overflow-hidden transition-colors duration-300"
-        >
-          <div
-            class="w-full h-full flex items-center justify-center text-gray-400 transition-colors duration-300"
-          >
-            Video Placeholder
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- SECTION 1 - HERO                        -->
+      <!-- ═══════════════════════════════════════ -->
+      <section id="hero" class="py-20 md:py-28">
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-12 xl:gap-8 items-center">
+          <div class="xl:col-span-7 max-w-3xl">
+            <!-- Tagline -->
+          <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-6 tracking-tight">
+            I close the gap between what stakeholders ask for and what engineers can build
+            <span class="text-gray-400 dark:text-gray-500"> - through research, Figma, and Vue.js.</span>
+          </h1>
+
+          <!-- Sub-line -->
+          <p class="text-lg md:text-xl text-gray-500 dark:text-gray-400 mb-8 transition-colors duration-300">
+            UX Engineer · Product Builder · Mumbai, India
+          </p>
+
+          <!-- Metric Pills -->
+          <div class="flex flex-wrap gap-3 mb-10">
+            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-200/60 dark:border-gray-700/50 transition-colors duration-300">
+              3+ years shipped
+            </span>
+            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-200/60 dark:border-gray-700/50 transition-colors duration-300">
+              4 hackathon wins
+            </span>
+            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-200/60 dark:border-gray-700/50 transition-colors duration-300">
+              1 live product (ShellScholars)
+            </span>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-wrap items-center gap-4">
+            <a
+              href="#impact-stories"
+              class="inline-flex items-center px-7 py-3 bg-primary-black dark:bg-primary-white text-primary-white dark:text-primary-black rounded-xl font-semibold hover:opacity-85 transition-all duration-300 text-base"
+            >
+              View my work
+            </a>
+            <a
+              href="/Mayuresh_Mule_Resume_15-06-2026.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group inline-flex items-center gap-1.5 px-7 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl font-semibold hover:border-primary-black dark:hover:border-primary-white hover:text-primary-black dark:hover:text-primary-white transition-all duration-300 text-base"
+            >
+              Resume
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover:scale-125 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg>
+            </a>
           </div>
         </div>
-
-        <div class="text-center md:text-left">
-          <p class="text-xl mb-2">
-            <MagnifyText size={100} client:visible>
-              <!-- I'm a <strong class="font-bold underline cursor-pointer"
-                >UX Engineer</strong
-              > and
-              <strong class="font-bold underline cursor-pointer"
-                >Product Builder</strong
-              > focused on creating user-centric experiences through design-driven
-              development. -->
-
-              <strong class="font-bold cursor-pointer block mb-2"
-                >UX Engineer & Product Builder designing trust-centric product
-                systems.</strong
-              >
-              <span class="block"
-                >I design product flows that reduce misuse, improve decision
-                clarity, and balance user trust with business risk.</span
-              >
-            </MagnifyText>
-          </p>
-          <p
-            class="text-gray-600 dark:text-gray-400 text-lg transition-colors duration-300"
-          >
-            <MagnifyText size={100} client:visible>
-              2+ years of experience · Mumbai, India
-            </MagnifyText>
-          </p>
+        <div class="xl:col-span-5 hidden xl:block">
+          <HeroDiagram client:load />
         </div>
       </div>
+    </section>
 
-      <ImpactStories items={resources} client:visible />
+      <!-- ═══════════════════════════════════════ -->
+      <!-- SECTION 2 - HOW I WORK                  -->
+      <!-- ═══════════════════════════════════════ -->
+      <HowIWork client:visible />
 
+      <!-- ═══════════════════════════════════════ -->
+      <!-- SECTION 3 - WINS STRIP                  -->
+      <!-- ═══════════════════════════════════════ -->
+      <WinsStrip client:visible />
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- SECTION 4 - IMPACT STORIES              -->
+      <!-- ═══════════════════════════════════════ -->
+      <!-- <ImpactStories items={resources} client:visible /> -->
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- SECTION 5 - WHAT I'M BUILDING           -->
+      <!-- ═══════════════════════════════════════ -->
+      <WhatImBuilding client:visible />
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- SECTION 6 - PM 100 CASES (UNTOUCHED)    -->
+      <!-- ═══════════════════════════════════════ -->
       <PM100Section cases={pmCases} client:visible />
 
-      <HowIWork client:visible />
+      <!-- ═══════════════════════════════════════ -->
+      <!-- SECTION 7 - WHERE I'M WORKING           -->
+      <!-- ═══════════════════════════════════════ -->
       <WhereImWorking client:visible />
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- SECTION 7 - LET'S CONNECT               -->
+      <!-- ═══════════════════════════════════════ -->
       <LetsConnect client:visible />
-       <SpeedInsights/>
+
+      <SpeedInsights />
     </div>
   </main>
 </Layout>
+
+<script>
+  // Smooth scroll for "View my work" CTA
+  document.addEventListener('DOMContentLoaded', () => {
+    const links = document.querySelectorAll('a[href^="#"]');
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          const target = document.querySelector(href);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
+  });
+</script>

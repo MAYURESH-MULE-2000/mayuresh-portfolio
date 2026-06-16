@@ -40,7 +40,7 @@
             icon="🧠"
             title="Slaying the For-Loop"
             subtitle="The core tenet of Data Engineering"
-            definition="NumPy introduces 'ndarrays' (N-dimensional arrays) written in C, allowing contiguous memory block math. Pandas builds on top of NumPy, offering 'DataFrames'—essentially Excel spreadsheets on coding steroids—allowing you to manipulate millions of rows instantly."
+            definition="NumPy introduces 'ndarrays' (N-dimensional arrays) written in C, allowing contiguous memory block math. Pandas builds on top of NumPy, offering 'DataFrames'-essentially Excel spreadsheets on coding steroids-allowing you to manipulate millions of rows instantly."
             analogy="A Python list is a box of randomly sized, individually wrapped candies. Changing them means unwrapping and modifying each one. A NumPy array is a solid brick of chocolate. Changing it happens in one massive, instantaneous slice."
             seniorTip="If you write a `for` loop to iterate over rows in Pandas, you are doing it wrong. You must 'Vectorize' your thought process."
             defaultOpen

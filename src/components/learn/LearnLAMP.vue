@@ -85,7 +85,7 @@
             title="Caching & Compression"
             subtitle="Speed up the frontend from the backend"
             definition="Apache modules like mod_expires and mod_deflate handle caching and compression. Expires headers tell browsers how long to cache files. Gzip/Brotli compresses files before sending."
-            analogy="Compression is like zipping a suitcase before flying. Caching headers are like 'Best Before' dates — the browser knows if it can eat the food (file) from the fridge (cache) or needs to buy new."
+            analogy="Compression is like zipping a suitcase before flying. Caching headers are like 'Best Before' dates - the browser knows if it can eat the food (file) from the fridge (cache) or needs to buy new."
           >
             <CodePlayground
               title="caching.conf"

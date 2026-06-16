@@ -55,7 +55,7 @@
             icon="💡"
             title="Mental Models: Freezing the Brain"
             subtitle="Serialization"
-            definition="When you train a PyTorch model, it's alive in your RAM. If you turn off your computer, it dies. You must 'Serialize' it—freezing all the mathematical weights into a hard drive file (like `.pkl` or `.onnx`). The Serving server then 'Deserializes' that file back into RAM when it boots up."
+            definition="When you train a PyTorch model, it's alive in your RAM. If you turn off your computer, it dies. You must 'Serialize' it-freezing all the mathematical weights into a hard drive file (like `.pkl` or `.onnx`). The Serving server then 'Deserializes' that file back into RAM when it boots up."
             defaultOpen
           >
           </ConceptCard>

@@ -32,9 +32,9 @@
             icon="📦"
             title="var, let, const & Hoisting"
             subtitle="Scoping differences that bite you"
-            definition="var is function-scoped and hoisted (initialized as undefined). let and const are block-scoped and hoisted but NOT initialized — accessing them before declaration throws a ReferenceError (the Temporal Dead Zone)."
-            analogy="var is like a sticky note placed at the top of a room (function) — everyone can see it. let/const are like sticky notes inside a drawer (block) — only visible when the drawer is open."
-            seniorTip="In production, always use const by default. Use let only when you need reassignment. Never use var — it creates bugs with closures in loops."
+            definition="var is function-scoped and hoisted (initialized as undefined). let and const are block-scoped and hoisted but NOT initialized - accessing them before declaration throws a ReferenceError (the Temporal Dead Zone)."
+            analogy="var is like a sticky note placed at the top of a room (function) - everyone can see it. let/const are like sticky notes inside a drawer (block) - only visible when the drawer is open."
+            seniorTip="In production, always use const by default. Use let only when you need reassignment. Never use var - it creates bugs with closures in loops."
             defaultOpen
           >
             <CodePlayground
@@ -51,7 +51,7 @@
             subtitle="Functions that remember their birthplace"
             definition="A closure is when a function retains access to its outer scope's variables even after the outer function has returned. Every function in JS creates a closure."
             analogy="Imagine you leave home but carry a photo album of your room. The room (outer scope) is gone, but you still see everything in the photos (closure)."
-            seniorTip="Closures are the backbone of data privacy, factory functions, and React hooks. In production, watch for accidental closures in loops — use let, not var."
+            seniorTip="Closures are the backbone of data privacy, factory functions, and React hooks. In production, watch for accidental closures in loops - use let, not var."
           >
             <CodePlayground
               title="closures.js"
@@ -84,7 +84,7 @@
             subtitle="How JS runs your code line by line"
             definition="When JS runs code, it creates an Execution Context (a container with: variable environment, scope chain, this). The Call Stack is a LIFO stack that tracks which execution context is currently running."
             analogy="Think of a stack of plates. Each function call adds a plate (context). When the function finishes, the plate is removed. JS always eats from the top plate."
-            seniorTip="Understanding the call stack helps you debug stack overflow errors (infinite recursion) and understand why async callbacks run later — they wait until the stack is empty."
+            seniorTip="Understanding the call stack helps you debug stack overflow errors (infinite recursion) and understand why async callbacks run later - they wait until the stack is empty."
           >
             <CodePlayground
               title="call-stack.js"
@@ -99,7 +99,7 @@
             title="Event Loop, Microtasks vs Macrotasks"
             subtitle="The heart of async JavaScript"
             definition="The Event Loop checks if the call stack is empty, then picks tasks from queues. Microtasks (Promise.then, queueMicrotask) run BEFORE macrotasks (setTimeout, setInterval). The loop: Call Stack → Microtasks (all) → 1 Macrotask → repeat."
-            analogy="You're a chef (call stack). Microtasks are urgent orders (VIP) — you finish ALL of them before touching the next regular order (macrotask). Even if 100 VIPs come, they all go first."
+            analogy="You're a chef (call stack). Microtasks are urgent orders (VIP) - you finish ALL of them before touching the next regular order (macrotask). Even if 100 VIPs come, they all go first."
             seniorTip="Promise.then is a microtask, setTimeout(..., 0) is a macrotask. That's why Promise resolves before setTimeout even with 0ms delay."
           >
             <CodePlayground
@@ -109,7 +109,7 @@
             />
             <!-- Visual Demo: Event Loop -->
             <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
-              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Event Loop Visualizer — Watch the order</p>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Event Loop Visualizer - Watch the order</p>
               <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
                 <div class="p-3 rounded-lg bg-blue-500/10 border border-blue-500/20">
                   <p class="text-xs font-medium text-blue-400 mb-2">📚 Call Stack</p>
@@ -169,9 +169,9 @@
             icon="👆"
             title="this Keyword & Arrow vs Normal"
             subtitle="The most confusing thing in JS, demystified"
-            definition="'this' depends on HOW a function is called, not WHERE it's defined. Arrow functions DON'T have their own 'this' — they inherit from the enclosing scope. Regular functions get 'this' from the call site."
+            definition="'this' depends on HOW a function is called, not WHERE it's defined. Arrow functions DON'T have their own 'this' - they inherit from the enclosing scope. Regular functions get 'this' from the call site."
             analogy="Imagine 'this' is a name tag. Normal functions get a new name tag at every party (call site). Arrow functions keep the name tag from home (parent scope) and never change it."
-            seniorTip="Use arrow functions in callbacks/event handlers inside classes to avoid 'this' issues. In production, bind(this) or arrow functions — pick one pattern for your team."
+            seniorTip="Use arrow functions in callbacks/event handlers inside classes to avoid 'this' issues. In production, bind(this) or arrow functions - pick one pattern for your team."
           >
             <CodePlayground
               title="this-keyword.js"
@@ -201,9 +201,9 @@
             icon="🔁"
             title="Loops: for, for...of, for...in, while"
             subtitle="Every loop type and when to use which"
-            definition="for: classic counter loop. for...of: iterates over values (arrays, strings, Maps, Sets). for...in: iterates over keys (object properties — includes inherited!). while: condition-based loop. forEach: array method, cannot break out. for...of is the modern standard for iteration."
-            analogy="for = counting steps on a staircase. for...of = reading each page of a book. for...in = opening each drawer in a cabinet (including inherited drawers from grandma). forEach = a guided tour — you can't leave early."
-            seniorTip="Use for...of for arrays (it works with break/continue). Use Object.keys/values/entries for objects instead of for...in (avoids prototype issues). forEach can't be broken — use for...of if you need early exit. Never use for...in on arrays!"
+            definition="for: classic counter loop. for...of: iterates over values (arrays, strings, Maps, Sets). for...in: iterates over keys (object properties - includes inherited!). while: condition-based loop. forEach: array method, cannot break out. for...of is the modern standard for iteration."
+            analogy="for = counting steps on a staircase. for...of = reading each page of a book. for...in = opening each drawer in a cabinet (including inherited drawers from grandma). forEach = a guided tour - you can't leave early."
+            seniorTip="Use for...of for arrays (it works with break/continue). Use Object.keys/values/entries for objects instead of for...in (avoids prototype issues). forEach can't be broken - use for...of if you need early exit. Never use for...in on arrays!"
           >
             <CodePlayground
               title="loops.js"
@@ -218,7 +218,7 @@
           <ConceptCard
             id="map-filter-reduce"
             icon="🔗"
-            title="map, filter, reduce — The Holy Trinity"
+            title="map, filter, reduce - The Holy Trinity"
             subtitle="Transform, select, aggregate"
             definition="map() transforms each element and returns a new array. filter() selects elements passing a test. reduce() accumulates all elements into a single value. They never mutate the original array."
             analogy="map = a factory assembly line (transform each item). filter = a security gate (only qualified pass). reduce = a snowball rolling downhill (accumulates everything into one)."
@@ -227,7 +227,7 @@
           >
             <!-- Live Pipeline Demo -->
             <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5 mb-3">
-              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Live Array Pipeline — Watch data flow through each step</p>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Live Array Pipeline - Watch data flow through each step</p>
               <div class="space-y-3">
                 <div class="flex items-center gap-2 flex-wrap">
                   <span class="text-xs text-gray-400">Input:</span>
@@ -262,7 +262,7 @@
             icon="🔍"
             title="find, some, every, sort"
             subtitle="Search and organize"
-            definition="find() returns the first match (or undefined). some() returns true if ANY element passes. every() returns true only if ALL pass. sort() mutates the original array — use [...arr].sort() to avoid surprises."
+            definition="find() returns the first match (or undefined). some() returns true if ANY element passes. every() returns true only if ALL pass. sort() mutates the original array - use [...arr].sort() to avoid surprises."
             analogy="find = looking for your lost keys (stop at first match). some = 'Is ANYONE available?' (one yes is enough). every = 'Is EVERYONE ready?' (one no fails it)."
             seniorTip="sort() without a comparator converts to strings: [10, 2, 1].sort() gives [1, 10, 2]. Always pass a comparator: .sort((a,b) => a - b)."
           >
@@ -277,10 +277,10 @@
             id="polyfill"
             icon="🔧"
             title="Write Your Own map() Polyfill"
-            subtitle="Interview classic — prove you understand the internals"
+            subtitle="Interview classic - prove you understand the internals"
             definition="A polyfill is code that provides missing functionality. Writing Array.prototype.map from scratch proves you understand: this binding, callback signature (element, index, array), and returning a new array."
-            analogy="It's like building a LEGO replica of a car — you already know what it should do, now prove you understand how each piece fits."
-            seniorTip="In production, you wouldn't write polyfills manually — you'd use core-js or Babel. But showing you CAN write one signals deep understanding."
+            analogy="It's like building a LEGO replica of a car - you already know what it should do, now prove you understand how each piece fits."
+            seniorTip="In production, you wouldn't write polyfills manually - you'd use core-js or Babel. But showing you CAN write one signals deep understanding."
           >
             <CodePlayground
               title="map-polyfill.js"
@@ -294,8 +294,8 @@
             icon="📐"
             title="flat() & flatMap()"
             subtitle="Flatten nested structures"
-            definition="flat(depth) flattens nested arrays by the specified depth (default 1). flatMap() first maps, then flattens one level — perfect for one-to-many transformations."
-            analogy="flat() is like ironing wrinkled clothes — each pass removes one level of wrinkle. flatMap() is like unboxing packages that each contain multiple items."
+            definition="flat(depth) flattens nested arrays by the specified depth (default 1). flatMap() first maps, then flattens one level - perfect for one-to-many transformations."
+            analogy="flat() is like ironing wrinkled clothes - each pass removes one level of wrinkle. flatMap() is like unboxing packages that each contain multiple items."
           >
             <CodePlayground
               title="flat-methods.js"
@@ -312,7 +312,7 @@
             icon="🤝"
             title="Promises & async/await"
             subtitle="Taming asynchronous code"
-            definition="A Promise is an object representing a future value. It's either pending, fulfilled, or rejected. async/await is syntactic sugar over Promises — it makes async code look synchronous."
+            definition="A Promise is an object representing a future value. It's either pending, fulfilled, or rejected. async/await is syntactic sugar over Promises - it makes async code look synchronous."
             analogy="A Promise is like ordering food online: you get a tracking number (Promise). It's 'pending' during delivery. It 'fulfills' when you get food. It 'rejects' if the order is cancelled."
             seniorTip="Always handle errors with try/catch in async functions. Unhandled promise rejections crash Node.js processes and get silently swallowed in browsers."
             defaultOpen
@@ -329,8 +329,8 @@
             icon="🏁"
             title="Promise.all, Promise.race, Promise.allSettled"
             subtitle="Running async operations in parallel"
-            definition="Promise.all() waits for ALL promises — fails fast on any rejection. Promise.race() resolves/rejects with the FIRST settled promise. Promise.allSettled() waits for ALL, never short-circuits, gives you status of each."
-            analogy="Promise.all = group project — if ONE person fails, the whole project fails. Promise.race = a race — only the first finisher matters. Promise.allSettled = teacher collecting all papers — doesn't matter if some are blank."
+            definition="Promise.all() waits for ALL promises - fails fast on any rejection. Promise.race() resolves/rejects with the FIRST settled promise. Promise.allSettled() waits for ALL, never short-circuits, gives you status of each."
+            analogy="Promise.all = group project - if ONE person fails, the whole project fails. Promise.race = a race - only the first finisher matters. Promise.allSettled = teacher collecting all papers - doesn't matter if some are blank."
             seniorTip="Use Promise.allSettled when you need results from all operations even if some fail (e.g., fetching data from multiple APIs). Use Promise.all when all must succeed."
           >
             <CodePlayground
@@ -346,7 +346,7 @@
             title="Debounce & Throttle"
             subtitle="Control the rate of function execution"
             definition="Debounce: waits until the user STOPS doing something for X ms, then fires once. Throttle: fires at most once every X ms, no matter how many times triggered."
-            analogy="Debounce = elevator door — it waits until everyone stops pressing the button, then closes. Throttle = a bus — it departs every 10 minutes regardless of how many people arrive."
+            analogy="Debounce = elevator door - it waits until everyone stops pressing the button, then closes. Throttle = a bus - it departs every 10 minutes regardless of how many people arrive."
             seniorTip="Use debounce for search inputs (wait until user stops typing). Use throttle for scroll/resize events (fire at consistent intervals). In production, I'd handle edge cases like leading/trailing edge options."
           >
             <CodePlayground
@@ -355,7 +355,7 @@
             />
             <!-- Interactive Demo -->
             <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
-              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Move your mouse over the box — compare raw vs debounced vs throttled</p>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Move your mouse over the box - compare raw vs debounced vs throttled</p>
               <div
                 @mousemove="handleMouseMove"
                 @touchmove="handleMouseMove"
@@ -389,8 +389,8 @@
             icon="🛡️"
             title="Error Handling in Async"
             subtitle="Catch errors before they crash your app"
-            definition="In async/await, wrap calls in try/catch. For Promises, chain .catch(). Always provide a fallback — unhandled rejections are the #1 source of production bugs in modern JS apps."
-            analogy="Error handling is like wearing a seatbelt — you hope you never need it, but when you do, it saves everything."
+            definition="In async/await, wrap calls in try/catch. For Promises, chain .catch(). Always provide a fallback - unhandled rejections are the #1 source of production bugs in modern JS apps."
+            analogy="Error handling is like wearing a seatbelt - you hope you never need it, but when you do, it saves everything."
             seniorTip="Create a centralized error handler. In production, I'd log errors to a service like Sentry and show user-friendly messages instead of raw error objects."
           >
             <CodePlayground
@@ -415,7 +415,7 @@
           >
             <!-- Interactive: Clickable Boxes -->
             <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
-              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Click any box — the parent catches ALL clicks via delegation</p>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Click any box - the parent catches ALL clicks via delegation</p>
               <div
                 @click="handleDelegation"
                 class="grid grid-cols-3 gap-2 mb-3"
@@ -452,7 +452,7 @@
             title="Reflows, Repaints & Rendering Pipeline"
             subtitle="Why some DOM changes are expensive"
             definition="Reflow (Layout): recalculates positions when geometry changes (width, height, position). Repaint: re-draws pixels when visual properties change (color, shadow). Reflows are expensive because they trigger repaints too."
-            analogy="Repaint = repainting a wall (cheap). Reflow = knocking down a wall and rebuilding (expensive — everything around it shifts too)."
+            analogy="Repaint = repainting a wall (cheap). Reflow = knocking down a wall and rebuilding (expensive - everything around it shifts too)."
             seniorTip="Batch DOM reads/writes to avoid layout thrashing. Use transform/opacity for animations (GPU-composited, skip reflow). In production, use will-change and requestAnimationFrame."
           >
             <CodePlayground
@@ -467,7 +467,7 @@
             title="Preventing Memory Leaks"
             subtitle="Common leaks and how to fix them"
             definition="Memory leaks occur when objects that are no longer needed stay in memory. Common causes: forgotten event listeners, closures holding large objects, uncleared timers, and detached DOM nodes."
-            analogy="A memory leak is like leaving the faucet running — the water (memory) keeps accumulating until the sink (browser tab) overflows."
+            analogy="A memory leak is like leaving the faucet running - the water (memory) keeps accumulating until the sink (browser tab) overflows."
             seniorTip="Always removeEventListener on component unmount. Clear setInterval/setTimeout. In frameworks, use cleanup functions in useEffect (React) or onUnmounted (Vue)."
           >
             <CodePlayground
@@ -482,7 +482,7 @@
           <ConceptCard
             id="modules"
             icon="📦"
-            title="ES6 Modules — import/export"
+            title="ES6 Modules - import/export"
             subtitle="Organizing code into reusable pieces"
             definition="ES6 Modules use import/export for static, analyzable dependencies. Named exports (multiple per file), default export (one per file). They're statically analyzed at parse time, enabling tree shaking."
             analogy="Modules are like shipping containers: each one is sealed (own scope), clearly labeled (exports), and you only unpack what you need (named imports)."
@@ -516,7 +516,7 @@
             title="Optional Chaining & Nullish Coalescing"
             subtitle="Safe navigation through nested objects"
             definition="Optional chaining (?.) short-circuits to undefined if a link is null/undefined. Nullish coalescing (??) provides a default only for null/undefined (not for '' or 0, unlike ||)."
-            analogy="Optional chaining is like knocking on a door — if no one is home (?. returns undefined), you don't break in, you just leave. ?? is 'use this backup key ONLY if there's truly no one home'."
+            analogy="Optional chaining is like knocking on a door - if no one is home (?. returns undefined), you don't break in, you just leave. ?? is 'use this backup key ONLY if there's truly no one home'."
           >
             <CodePlayground
               title="optional-chaining.js"
@@ -534,7 +534,7 @@
             title="Currying & Partial Application"
             subtitle="Transform functions one argument at a time"
             definition="Currying transforms a function that takes multiple arguments into a chain of single-argument functions: f(a, b, c) → f(a)(b)(c). Partial application fixes some arguments upfront and returns a function for the rest."
-            analogy="Currying is like a production line — each worker (function) handles one part (argument) before passing it to the next. Partial application is like pre-setting the oven temperature — you fix one setting, then just add the food."
+            analogy="Currying is like a production line - each worker (function) handles one part (argument) before passing it to the next. Partial application is like pre-setting the oven temperature - you fix one setting, then just add the food."
             seniorTip="Use currying for utility functions: const log = level => msg => console.log(level, msg); const warn = log('WARN'). Lodash has _.curry(). In interviews, show you can implement curry() yourself."
             defaultOpen
           >
@@ -551,8 +551,8 @@
             title="Memoization"
             subtitle="Cache expensive function results"
             definition="Memoization caches the result of a function call based on its arguments. If the same arguments are passed again, the cached result is returned instead of re-computing. Uses a Map or object as cache."
-            analogy="Memoization is like a student writing answers on their hand — if the teacher asks the same question twice, they just read their hand instead of solving it again."
-            seniorTip="React.memo, useMemo, and Vue's computed properties are all forms of memoization. In production, be careful with cache size — use WeakMap for object keys or implement LRU cache."
+            analogy="Memoization is like a student writing answers on their hand - if the teacher asks the same question twice, they just read their hand instead of solving it again."
+            seniorTip="React.memo, useMemo, and Vue's computed properties are all forms of memoization. In production, be careful with cache size - use WeakMap for object keys or implement LRU cache."
           >
             <CodePlayground
               title="memoization.js"
@@ -566,8 +566,8 @@
             icon="🗺️"
             title="Map, Set, WeakMap, WeakSet"
             subtitle="Modern data structures beyond objects & arrays"
-            definition="Map: key-value pairs with ANY key type (not just strings). Set: unique values only. WeakMap/WeakSet: keys are weakly held — garbage collected when no other references exist. Great for caching and preventing memory leaks."
-            analogy="Map is a dictionary where the keys can be anything (not just words). Set is a VIP guest list — no duplicates allowed. WeakMap is a sticky note on an object — when the object is thrown away, the note goes too."
+            definition="Map: key-value pairs with ANY key type (not just strings). Set: unique values only. WeakMap/WeakSet: keys are weakly held - garbage collected when no other references exist. Great for caching and preventing memory leaks."
+            analogy="Map is a dictionary where the keys can be anything (not just words). Set is a VIP guest list - no duplicates allowed. WeakMap is a sticky note on an object - when the object is thrown away, the note goes too."
             seniorTip="Use Map over objects when keys aren't strings. Use Set for deduplication: [...new Set(array)]. Use WeakMap for private data in classes or DOM element metadata. Maps maintain insertion order."
           >
             <CodePlayground
@@ -583,7 +583,7 @@
             title="Generators & Iterators"
             subtitle="Lazy evaluation and custom iteration"
             definition="Generators (function*) can pause and resume execution via yield. They return an iterator with a .next() method. Great for lazy evaluation, infinite sequences, and implementing async flows."
-            analogy="A generator is like a book with a bookmark — you read (execute) up to the bookmark (yield), then close the book. Next time you open it, you continue from exactly where you left off."
+            analogy="A generator is like a book with a bookmark - you read (execute) up to the bookmark (yield), then close the book. Next time you open it, you continue from exactly where you left off."
             seniorTip="Redux-Saga uses generators for side effects. Generators power async/await under the hood. Use for pagination, infinite scroll data loading, or any lazy sequence."
           >
             <CodePlayground
@@ -635,7 +635,7 @@
             title="Immutability"
             subtitle="Don't change it, replace it"
             definition="Immutability means data cannot be changed after creation. Instead of modifying objects/arrays, you create new copies with changes. This prevents unexpected bugs where data changes behind your back."
-            analogy="Immutability is like writing in pen. If you make a mistake, you don't erase (mutate) — you rewrite the page (new copy). History is preserved."
+            analogy="Immutability is like writing in pen. If you make a mistake, you don't erase (mutate) - you rewrite the page (new copy). History is preserved."
             seniorTip="Use spread syntax (...) or libraries like Immer for immutable updates. Immutability is critical for React/Redux performance (allows fast reference equality checks)."
           >
             <CodePlayground
@@ -757,7 +757,7 @@
             title="Exercise 4: Implement Promise.all()"
             subtitle="Understand Promise internals"
             definition="Write your own myPromiseAll(promises) that: takes an array of promises, resolves with an array of results (in order), rejects immediately if any promise rejects."
-            seniorTip="Key insights: return a new Promise. Track results in an array. Use a counter to know when ALL have resolved. Preserve order (don't push — assign by index)."
+            seniorTip="Key insights: return a new Promise. Track results in an array. Use a counter to know when ALL have resolved. Preserve order (don't push - assign by index)."
           >
             <CodePlayground
               title="exercise-promise-all.js"
@@ -771,7 +771,7 @@
             icon="💪"
             title="Exercise 5: Build an Event Emitter"
             subtitle="The pub/sub pattern from scratch"
-            definition="Build a class EventEmitter with: on(event, callback) — subscribe, emit(event, ...args) — trigger all callbacks, off(event, callback) — unsubscribe. This is the foundation of Node.js EventEmitter and many UI frameworks."
+            definition="Build a class EventEmitter with: on(event, callback) - subscribe, emit(event, ...args) - trigger all callbacks, off(event, callback) - unsubscribe. This is the foundation of Node.js EventEmitter and many UI frameworks."
             seniorTip="Store listeners in a Map of event → callback arrays. on() pushes to the array. emit() calls all callbacks for that event. off() filters out the specific callback."
           >
             <CodePlayground
@@ -1020,7 +1020,7 @@ for (var i = 0; i < 3; i++) {
 for (let j = 0; j < 3; j++) {
   setTimeout(() => console.log("let j =", j), 0);
 }
-// Prints 0, 1, 2 — let creates a new binding per iteration.`,
+// Prints 0, 1, 2 - let creates a new binding per iteration.`,
 
   closures: `// A closure = function + its outer scope
 function createCounter(start) {
@@ -1039,23 +1039,23 @@ console.log(counter.decrement()); // 11
 console.log(counter.getCount());  // 11
 
 // The 'count' variable is private!
-// You can't access it directly — only through the methods.
-// This is the MODULE PATTERN — closures enable data privacy.`,
+// You can't access it directly - only through the methods.
+// This is the MODULE PATTERN - closures enable data privacy.`,
 
   callStack: `function third() {
-  console.log("3️⃣ third() — top of stack");
+  console.log("3️⃣ third() - top of stack");
 }
 
 function second() {
-  console.log("2️⃣ second() — calls third");
+  console.log("2️⃣ second() - calls third");
   third();
-  console.log("2️⃣ second() — after third returns");
+  console.log("2️⃣ second() - after third returns");
 }
 
 function first() {
-  console.log("1️⃣ first() — calls second");
+  console.log("1️⃣ first() - calls second");
   second();
-  console.log("1️⃣ first() — after second returns");
+  console.log("1️⃣ first() - after second returns");
 }
 
 first();
@@ -1111,8 +1111,8 @@ const animal = {
 const dog = Object.create(animal);
 dog.bark = function() { return "Woof!"; };
 
-console.log(dog.bark());    // "Woof!" — own property
-console.log(dog.breathe()); // "breathing..." — from prototype
+console.log(dog.bark());    // "Woof!" - own property
+console.log(dog.breathe()); // "breathing..." - from prototype
 
 // Class syntax (same thing under the hood)
 class Vehicle {
@@ -1378,7 +1378,7 @@ console.log("");
 console.log("🟡 REPAINT triggers (moderate):");
 console.log("  color, background, box-shadow, border-color");
 console.log("");
-console.log("🟢 COMPOSITE-only (cheap — GPU accelerated):");
+console.log("🟢 COMPOSITE-only (cheap - GPU accelerated):");
 console.log("  transform, opacity");
 console.log("");
 console.log("💡 TIP: animate with transform & opacity only!");`,
@@ -1424,17 +1424,17 @@ console.log("✅ In Vue: onUnmounted(), In React: useEffect cleanup");`,
   modules: `// ES6 Modules (can't actually run import/export here,
 // but showing the syntax)
 
-// 📁 math.js — Named exports
+// 📁 math.js - Named exports
 // export const add = (a, b) => a + b;
 // export const multiply = (a, b) => a * b;
 // export const PI = 3.14159;
 
-// 📁 logger.js — Default export
+// 📁 logger.js - Default export
 // export default function log(msg) {
 //   console.log('[LOG]', msg);
 // }
 
-// 📁 app.js — Importing
+// 📁 app.js - Importing
 // import log from './logger.js';          // Default
 // import { add, PI } from './math.js';    // Named
 // import * as math from './math.js';      // Namespace
@@ -1522,13 +1522,13 @@ for (let i = 0; i < fruits.length; i++) {
   console.log("  " + i + ": " + fruits[i]);
 }
 
-// 2. for...of (modern, iterates VALUES — use this!)
+// 2. for...of (modern, iterates VALUES - use this!)
 console.log("\n2️⃣ for...of (values):");
 for (const fruit of fruits) {
   console.log("  " + fruit);
 }
 
-// 3. for...in (iterates KEYS — use on objects, NOT arrays!)
+// 3. for...in (iterates KEYS - use on objects, NOT arrays!)
 console.log("\n3️⃣ for...in (keys):");
 const user = { name: "Mayuresh", age: 28, city: "Mumbai" };
 for (const key in user) {
@@ -1799,7 +1799,7 @@ setTimeout(() => {
   console.log("\\n✅ Expected: Called with 'third', Total calls: 1");
   console.log("   Your result: Total calls:", callCount);
   if (callCount === 1) console.log("   🎉 PASSED!");
-  else console.log("   ❌ FAILED — debounce should fire only once");
+  else console.log("   ❌ FAILED - debounce should fire only once");
 }, 200);`,
 
   exFlatten: `// 💪 EXERCISE: Flatten a nested array
@@ -1930,16 +1930,16 @@ myPromiseAll([]).then(r => {
   exEventEmitter: `// 💪 EXERCISE: Build an Event Emitter
 //
 // Requirements:
-// 1. on(event, callback) — subscribe to an event
-// 2. emit(event, ...args) — trigger all callbacks for event
-// 3. off(event, callback) — unsubscribe specific callback
-// 4. once(event, callback) — subscribe, but auto-remove after first call
+// 1. on(event, callback) - subscribe to an event
+// 2. emit(event, ...args) - trigger all callbacks for event
+// 3. off(event, callback) - unsubscribe specific callback
+// 4. once(event, callback) - subscribe, but auto-remove after first call
 //
 // Write your solution below, then click Run!
 
 class EventEmitter {
   constructor() {
-    // YOUR CODE HERE — initialize storage
+    // YOUR CODE HERE - initialize storage
   }
 
   on(event, callback) {

@@ -139,9 +139,9 @@
             id="composition"
             icon="🧱"
             title="Composition vs Inheritance"
-            subtitle="Prefer composition — always"
+            subtitle="Prefer composition - always"
             definition="Composition: build complex components by combining simple ones (slots, render props, hooks). Inheritance: extend a parent class. In modern frontend, composition wins because it's more flexible, testable, and avoids the fragile base class problem."
-            analogy="Inheritance is like a rigid family tree — change grandpa's recipe and it breaks for everyone. Composition is like LEGO — snap pieces together, swap any block without breaking the rest."
+            analogy="Inheritance is like a rigid family tree - change grandpa's recipe and it breaks for everyone. Composition is like LEGO - snap pieces together, swap any block without breaking the rest."
             seniorTip="React and Vue both moved AWAY from mixins/inheritance toward hooks/composables. In interviews, say: 'I prefer composition because it makes dependencies explicit and components easier to test in isolation.'"
             defaultOpen
           >

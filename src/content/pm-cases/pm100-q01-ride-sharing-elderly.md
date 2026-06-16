@@ -19,11 +19,11 @@ goal:
   objective: "Increase completed rides by elderly users by 20% within 6 months"
   measures:
     - "App open to ride end (full funnel completion rate)"
-    - "Driver cancellation rates on elderly bookings — flat or declining"
-  whyItMatters: "Elderly users have high trip frequency (medical, social etc) and low price sensitivity. Capturing this segment also builds loyalty with their adult children — future high LTV users."
+    - "Driver cancellation rates on elderly bookings - flat or declining"
+  whyItMatters: "Elderly users have high trip frequency (medical, social etc) and low price sensitivity. Capturing this segment also builds loyalty with their adult children - future high LTV users."
 
 market:
-  context: "India's context — Uber's largest emerging market for this segment"
+  context: "India's context - Uber's largest emerging market for this segment"
   funnel:
     - label: "People aged 65+ in India"
       value: "~140 Million / 14 Crore"
@@ -49,7 +49,7 @@ users:
       who: "73+, hands off phone to others"
       coreNeed: "Driver finds them easily, no app needed"
       wtp: "Low"
-  focus: "Segment 1 — Adult Children. High WTP, acts as the onboarding agent for the elderly parent, and directly solves the safety anxiety pain point."
+  focus: "Segment 1 - Adult Children. High WTP, acts as the onboarding agent for the elderly parent, and directly solves the safety anxiety pain point."
 
 pains:
   - title: "Family can't track elderly parent's live ride"
@@ -105,17 +105,17 @@ features:
       confidence: 0.5
       effort: 14
       score: 24
-  mvpDecision: "Ship Driver alert + Linked family account + Saved destinations together as the MVP — solves both booking friction and tracking anxiety in one sprint."
+  mvpDecision: "Ship Driver alert + Linked family account + Saved destinations together as the MVP - solves both booking friction and tracking anxiety in one sprint."
 
 solution:
   name: "Uber Saathi (companion) mode"
   features:
     - title: "Driver briefing flag"
-      description: "When an elderly account books, the driver app shows: 'Senior passenger — please call if you cannot locate pickup.' Reduces cancellations caused by the passenger not answering an unknown number."
+      description: "When an elderly account books, the driver app shows: 'Senior passenger - please call if you cannot locate pickup.' Reduces cancellations caused by the passenger not answering an unknown number."
     - title: "Linked family account"
-      description: "Adult child links parent's Uber account via phone number. They can book a ride for the parent from their own app — the ride shows up on the parent's phone with large-format driver details and a single 'Call driver' button. Both accounts see live tracking simultaneously."
+      description: "Adult child links parent's Uber account via phone number. They can book a ride for the parent from their own app - the ride shows up on the parent's phone with large-format driver details and a single 'Call driver' button. Both accounts see live tracking simultaneously."
     - title: "Saved My Places with friendly labels"
-      description: "Family pre-saves 3–5 frequent destinations (hospital, temple, daughter's home). Elderly user sees these as large tappable tiles — no typing required. Labels can be set as 'Doctor' or 'Home' in the user's language."
+      description: "Family pre-saves 3–5 frequent destinations (hospital, temple, daughter's home). Elderly user sees these as large tappable tiles - no typing required. Labels can be set as 'Doctor' or 'Home' in the user's language."
 
 metrics:
   northStar: "% of active 65+ accounts that complete at least 1 ride per week, booked by themselves or a linked family member"
@@ -133,23 +133,23 @@ metrics:
       metric: "Cancellation rate on senior-flagged rides"
       target: "Flat or declining"
   guardrails:
-    - "Family tracking view opens but elderly user unlinks within 7 days at >25% — signals privacy friction"
-    - "Overall elderly ride volume drops after launch — feature is causing confusion, not solving it"
+    - "Family tracking view opens but elderly user unlinks within 7 days at >25% - signals privacy friction"
+    - "Overall elderly ride volume drops after launch - feature is causing confusion, not solving it"
     - "Driver complaint rate on senior-flagged rides increases"
 
 risks:
-  - risk: "Privacy — elderly user feels surveilled"
+  - risk: "Privacy - elderly user feels surveilled"
     likelihood: "High"
     mitigation: "Tracking only during active ride; parent can unlink at any time; OTP-based consent flow"
-  - risk: "Onboarding drop-off — family doesn't complete setup"
+  - risk: "Onboarding drop-off - family doesn't complete setup"
     likelihood: "Medium"
     mitigation: "In-app guided flow with <4 steps; WhatsApp deep-link for family invite"
   - risk: "Driver resistance to senior flag"
     likelihood: "Medium"
     mitigation: "A/B test flag visibility; incentivize good ratings on senior rides"
-  - risk: "Regulatory — location data retention (DPDP Act 2023)"
+  - risk: "Regulatory - location data retention (DPDP Act 2023)"
     likelihood: "Low"
     mitigation: "Purge location data within 24hr of ride end; align with India's Digital Personal Data Protection Act"
 
-summary: "The core bet is that the adult child is the real product user for this segment — they onboard the parent, they pay, and they carry the safety anxiety that makes this feature worth building. If family-linked tracking works, voice booking is a natural Phase 2 that reuses the same infrastructure. The MVP is deliberately narrow: two features, one sprint, one measurable north star."
+summary: "The core bet is that the adult child is the real product user for this segment - they onboard the parent, they pay, and they carry the safety anxiety that makes this feature worth building. If family-linked tracking works, voice booking is a natural Phase 2 that reuses the same infrastructure. The MVP is deliberately narrow: two features, one sprint, one measurable north star."
 ---

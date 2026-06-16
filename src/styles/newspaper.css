@@ -1,5 +1,5 @@
 /* ============================================================
-   NEWSPAPER MODE — Scoped Vintage Styles
+   NEWSPAPER MODE - Scoped Vintage Styles
    Inspired by The Hindustan Times (1947) front page layout.
    All rules scoped under #newspaper-mode / #newspaper-toggle-btn.
    ============================================================
@@ -108,7 +108,7 @@
 }
 
 /* ============================================================
-   MASTHEAD — Gothic Blackletter
+   MASTHEAD - Gothic Blackletter
    ============================================================ */
 #newspaper-mode .np-masthead {
   text-align: center;
@@ -143,7 +143,7 @@
   letter-spacing: 0;
 }
 
-/* Main title — Blackletter */
+/* Main title - Blackletter */
 #newspaper-mode .np-masthead-title {
   font-family: 'Playfair Display', 'Georgia', serif;
   font-size: clamp(38px, 6.5vw, 76px);
@@ -255,10 +255,10 @@
 }
 
 /* ============================================================
-   TYPOGRAPHY — 5 Font Categories
+   TYPOGRAPHY - 5 Font Categories
    ============================================================ */
 
-/* === HEADLINES — Playfair Display SC (Vintage Condensed Serif) === */
+/* === HEADLINES - Playfair Display SC (Vintage Condensed Serif) === */
 #newspaper-mode .np-headline {
   font-family: 'Playfair Display SC', 'Playfair Display', 'Georgia', serif;
   font-weight: 900;
@@ -284,7 +284,7 @@
   font-size: clamp(12px, 1.4vw, 14px);
 }
 
-/* === SUB-HEADLINES — Old Standard TT (Victorian Antique Serif) === */
+/* === SUB-HEADLINES - Old Standard TT (Victorian Antique Serif) === */
 #newspaper-mode .np-subhead {
   font-family: 'Old Standard TT', 'Georgia', serif;
   font-weight: 700;
@@ -304,7 +304,7 @@
   margin-bottom: 8px;
 }
 
-/* === BYLINES & CAPTIONS — Special Elite (Old Typewriter) === */
+/* === BYLINES & CAPTIONS - Special Elite (Old Typewriter) === */
 #newspaper-mode .np-byline {
   font-family: 'Special Elite', 'Courier New', monospace;
   font-size: 8.5px;
@@ -323,7 +323,7 @@
   line-height: 1.3;
 }
 
-/* === BODY — Lora (Readable Serif) === */
+/* === BODY - Lora (Readable Serif) === */
 #newspaper-mode .np-body {
   font-family: 'Lora', 'Georgia', serif;
   font-size: 12px;
@@ -558,7 +558,7 @@
 }
 
 /* ============================================================
-   RESPONSIVE — TABLET (768px–1023px)
+   RESPONSIVE - TABLET (768px–1023px)
    ============================================================ */
 @media (max-width: 1023px) {
   #newspaper-mode .np-grid {
@@ -580,7 +580,7 @@
 }
 
 /* ============================================================
-   RESPONSIVE — MOBILE (<768px)
+   RESPONSIVE - MOBILE (<768px)
    ============================================================ */
 @media (max-width: 767px) {
   #newspaper-mode .np-grid {

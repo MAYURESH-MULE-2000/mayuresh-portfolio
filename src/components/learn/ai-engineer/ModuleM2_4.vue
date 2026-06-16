@@ -76,7 +76,7 @@
             icon="🔬"
             title="Feature Engineering & Scikit-Learn"
             subtitle="Turning reality into tensors"
-            definition="Many data types aren't numeric. Cities (NY, SF) must be One-Hot Encoded (represented as [1,0], [0,1]). Vast numeric ranges (Salary: 100k vs Age: 25) must be Scaled—otherwise the ML model will hallucinate that Salary is 4000x more 'important' just because the raw number is larger."
+            definition="Many data types aren't numeric. Cities (NY, SF) must be One-Hot Encoded (represented as [1,0], [0,1]). Vast numeric ranges (Salary: 100k vs Age: 25) must be Scaled-otherwise the ML model will hallucinate that Salary is 4000x more 'important' just because the raw number is larger."
             defaultOpen
           >
           </ConceptCard>

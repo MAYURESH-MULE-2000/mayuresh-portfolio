@@ -42,7 +42,7 @@
             subtitle="The problem with MLPs"
             definition="An image is a 2D matrix of pixels. A standard MLP requires you to 'flatten' that image into a 1D list of 10,000 numbers. This destroys the fact that Pixel (1,1) is physically next to Pixel (1,2). A CNN uses a mathematical operation called a Convolution to scan the 2D image intact."
             analogy="Flattening an image is like cutting a photograph into 10,000 microscopic pieces, putting them in a single line, and asking someone what the picture is. A CNN simply looks at the unbroken photograph with a magnifying glass."
-            seniorTip="Almost no one trains CNNs perfectly from scratch today. You use Transfer Learning—downloading a pre-trained ResNet model that already knows what a dog is, and fine-tuning it to your specific task (e.g., detecting tumors)."
+            seniorTip="Almost no one trains CNNs perfectly from scratch today. You use Transfer Learning-downloading a pre-trained ResNet model that already knows what a dog is, and fine-tuning it to your specific task (e.g., detecting tumors)."
             defaultOpen
           >
           </ConceptCard>
@@ -55,7 +55,7 @@
             icon="💡"
             title="Mental Models: The Flashlight"
             subtitle="Kernels and Filters"
-            definition="A Convolution is simply a tiny matrix of weights (e.g., a 3x3 grid) called a 'Kernel'. We slide this 3x3 grid across the big image, stopping at every pixel to do math. The math amplifies certain patterns—like vertical lines, or sharp color changes (edges)."
+            definition="A Convolution is simply a tiny matrix of weights (e.g., a 3x3 grid) called a 'Kernel'. We slide this 3x3 grid across the big image, stopping at every pixel to do math. The math amplifies certain patterns-like vertical lines, or sharp color changes (edges)."
             analogy="Imagine walking through a dark room with a flashlight (the kernel) that only highlights the color Red. As you sweep it across the room (stride), it builds a mental map of only the red objects (feature map)."
             defaultOpen
           >
@@ -264,7 +264,7 @@
               Apple FaceID uses advanced CNN architectures.
             </p>
             <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-              If an MLP learns your face in the center of the camera, and then you move your face to the top-right corner, the MLP breaks completely. A CNN scans the *entire* image searching for the "Eye Feature Pattern". Because of this, CNNs are "Translation Invariant"—it doesn't matter where your face is in the frame, the localized math kernel will find it.
+              If an MLP learns your face in the center of the camera, and then you move your face to the top-right corner, the MLP breaks completely. A CNN scans the *entire* image searching for the "Eye Feature Pattern". Because of this, CNNs are "Translation Invariant"-it doesn't matter where your face is in the frame, the localized math kernel will find it.
             </p>
           </ConceptCard>
         </template>

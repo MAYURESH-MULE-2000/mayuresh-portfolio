@@ -10,7 +10,7 @@
         <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">AI Engineering Roadmap</h1>
       </div>
       <p class="text-gray-500 dark:text-gray-400 text-sm md:text-base max-w-2xl mb-6">
-        From complete beginner to job-ready AI Engineer — 6 phases, 24 interactive modules, hands-on projects.
+        From complete beginner to job-ready AI Engineer - 6 phases, 24 interactive modules, hands-on projects.
         Click any module to start learning.
       </p>
 
@@ -150,7 +150,7 @@ const phases = [
     id: 'p1', num: '1', title: 'Python Foundations', color: '#10b981',
     level: 'Beginner', levelId: 'beginner', duration: '4–6 weeks',
     levelClass: 'bg-emerald-100 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400',
-    description: 'Build a rock-solid Python foundation — data structures, OOP, file handling, and scientific computing with NumPy & Pandas.',
+    description: 'Build a rock-solid Python foundation - data structures, OOP, file handling, and scientific computing with NumPy & Pandas.',
     tools: ['Python', 'Jupyter', 'NumPy', 'Pandas', 'Matplotlib'],
     datasets: 'Datasets: Titanic, Iris',
     project: 'Project: EDA on Real Dataset',
@@ -165,7 +165,7 @@ const phases = [
     id: 'p2', num: '2', title: 'Math & Data Fundamentals', color: '#3b82f6',
     level: 'Beginner+', levelId: 'beginner+', duration: '3–4 weeks',
     levelClass: 'bg-blue-100 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400',
-    description: 'The mathematical backbone of AI — linear algebra, statistics, calculus intuition, and data engineering essentials.',
+    description: 'The mathematical backbone of AI - linear algebra, statistics, calculus intuition, and data engineering essentials.',
     tools: ['NumPy', 'SciPy', 'Scikit-learn preprocessing'],
     datasets: 'Datasets: Housing prices, Customer churn',
     project: 'Project: Data Pipeline from Scratch',
@@ -180,7 +180,7 @@ const phases = [
     id: 'p3', num: '3', title: 'Classical Machine Learning', color: '#f59e0b',
     level: 'Intermediate', levelId: 'intermediate', duration: '5–6 weeks',
     levelClass: 'bg-amber-100 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400',
-    description: 'Master the algorithms that power real-world ML — from linear regression to gradient boosting, with proper evaluation.',
+    description: 'Master the algorithms that power real-world ML - from linear regression to gradient boosting, with proper evaluation.',
     tools: ['Scikit-learn', 'XGBoost', 'Optuna'],
     datasets: 'Datasets: Kaggle Titanic, Heart disease',
     project: 'Project: End-to-end ML Pipeline + Kaggle Submission',
@@ -195,7 +195,7 @@ const phases = [
     id: 'p4', num: '4', title: 'Deep Learning & Neural Networks', color: '#f97316',
     level: 'Intermediate+', levelId: 'intermediate+', duration: '6–8 weeks',
     levelClass: 'bg-orange-100 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400',
-    description: 'Dive deep into neural architectures — CNNs, RNNs, attention, and hands-on PyTorch training for vision and NLP.',
+    description: 'Dive deep into neural architectures - CNNs, RNNs, attention, and hands-on PyTorch training for vision and NLP.',
     tools: ['PyTorch', 'torchvision', 'Weights & Biases'],
     datasets: 'Datasets: MNIST, CIFAR-10, IMDb',
     project: 'Project: Image Classifier + Sentiment Analyzer',
@@ -210,7 +210,7 @@ const phases = [
     id: 'p5', num: '5', title: 'LLMs & Modern AI', color: '#8b5cf6',
     level: 'Advanced', levelId: 'advanced', duration: '6–8 weeks',
     levelClass: 'bg-violet-100 dark:bg-violet-900/20 text-violet-600 dark:text-violet-400',
-    description: 'The cutting edge — transformers, prompt engineering, RAG systems, vector databases, and agentic AI pipelines.',
+    description: 'The cutting edge - transformers, prompt engineering, RAG systems, vector databases, and agentic AI pipelines.',
     tools: ['HuggingFace', 'LangChain', 'OpenAI API', 'ChromaDB'],
     datasets: 'Datasets: Custom docs, Wikipedia, arXiv',
     project: 'Project: RAG Chatbot over Custom Knowledge Base',
@@ -225,7 +225,7 @@ const phases = [
     id: 'p6', num: '6', title: 'Production & MLOps', color: '#ef4444',
     level: 'Advanced', levelId: 'advanced', duration: '4–6 weeks',
     levelClass: 'bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400',
-    description: 'Ship AI to production — serving, monitoring, CI/CD, Docker, cloud deployment, and responsible AI practices.',
+    description: 'Ship AI to production - serving, monitoring, CI/CD, Docker, cloud deployment, and responsible AI practices.',
     tools: ['FastAPI', 'Docker', 'MLflow', 'AWS SageMaker'],
     datasets: 'Output: Deployed, live AI application',
     project: 'Capstone: Full-stack AI App, Deployed to Cloud',

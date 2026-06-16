@@ -7,6 +7,8 @@ export default {
       colors: {
         'primary-black': '#1C1B1B',
         'primary-white': '#FFFFFF',
+        'accent': '#2DD4BF',
+        'accent-dark': '#14B8A6',
       },
       backgroundColor: {
         light: '#FFFFFF',

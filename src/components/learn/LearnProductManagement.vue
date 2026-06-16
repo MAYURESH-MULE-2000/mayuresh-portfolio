@@ -51,7 +51,7 @@
             </div>
             
             <div class="mt-10 text-indigo-300 text-sm">
-              <p>Everything else — roadmaps, tickets, meetings — is just a <span class="text-white font-bold decoration-dotted underline cursor-help" title="Don't confuse activity with productivity">method</span>.</p>
+              <p>Everything else - roadmaps, tickets, meetings - is just a <span class="text-white font-bold decoration-dotted underline cursor-help" title="Don't confuse activity with productivity">method</span>.</p>
             </div>
           </div>
         </template>
@@ -63,7 +63,7 @@
             <div class="border-l-4 border-amber-500 pl-6">
               <span class="text-xs font-bold text-amber-500 uppercase tracking-widest">Phase A</span>
               <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-1">Product Discovery</h3>
-              <p class="text-gray-500">The "What" and "Why" — Narrowing solutions into a roadmap.</p>
+              <p class="text-gray-500">The "What" and "Why" - Narrowing solutions into a roadmap.</p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-4">
@@ -116,7 +116,7 @@
             <div class="mt-12 border-l-4 border-blue-500 pl-6">
                <span class="text-xs font-bold text-blue-500 uppercase tracking-widest">Phase B</span>
                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-1">Product Delivery</h3>
-               <p class="text-gray-500">The "How" — Converting roadmap into software.</p>
+               <p class="text-gray-500">The "How" - Converting roadmap into software.</p>
             </div>
             
             <div class="relative pl-4 space-y-8 before:absolute before:left-0 before:top-2 before:bottom-2 before:w-0.5 before:bg-gray-200 dark:before:bg-gray-700">

@@ -93,7 +93,7 @@ blocks:
   - type: "text"
     data:
       title: "Conclusion"
-      content: "This project demonstrates that Product Management in Trust & Safety isn't just about 'blocking'—it's about designing intelligent friction. By using behavioral data and randomized physical prompts, we can outpace the evolution of AI-generated fraud while keeping the platform healthy for everyone."
+      content: "This project demonstrates that Product Management in Trust & Safety isn't just about 'blocking'-it's about designing intelligent friction. By using behavioral data and randomized physical prompts, we can outpace the evolution of AI-generated fraud while keeping the platform healthy for everyone."
 
 navigation:
   next:

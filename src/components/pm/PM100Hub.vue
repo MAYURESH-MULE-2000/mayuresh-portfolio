@@ -18,7 +18,7 @@
         Product Sense Case Studies
       </h1>
       <p class="text-gray-500 dark:text-gray-400 text-base md:text-lg max-w-2xl">
-        100 mini case studies covering real product problems — from user segmentation and pain prioritisation
+        100 mini case studies covering real product problems - from user segmentation and pain prioritisation
         to MVP scoping and metric definition. Each case is structured with a standard 8-section framework.
       </p>
     </div>

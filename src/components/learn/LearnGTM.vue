@@ -10,7 +10,7 @@
         <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Go-To-Market (GTM) Strategy</h1>
       </div>
       <p class="text-gray-500 dark:text-gray-400 text-sm md:text-base max-w-2xl">
-        The difference between startup success and failure is rarely product alone — it's disciplined focus, systematic measurement, and executing GTM like an engineering problem.
+        The difference between startup success and failure is rarely product alone - it's disciplined focus, systematic measurement, and executing GTM like an engineering problem.
       </p>
     </div>
 
@@ -82,7 +82,7 @@
               <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                 A B2B e-commerce platform rebranded around the concept of <strong>'potential'</strong>. While competitors argued over technical specs, they positioned themselves as the canvas for ambitious brands.
                 <br><br>
-                <strong>Insight:</strong> People buy on emotion but justify with fact. The emotional hook — <em>"Does this brand make me feel like a winner?"</em> — drives the human decision-making layer.
+                <strong>Insight:</strong> People buy on emotion but justify with fact. The emotional hook - <em>"Does this brand make me feel like a winner?"</em> - drives the human decision-making layer.
               </p>
             </div>
 
@@ -681,7 +681,7 @@ const takeaways = [
   "<strong>FOCUS</strong> is the single most important word. Expanding on success is achievable. Contracting on failure is catastrophic.",
   "Your brand starts with your founders. Execute consistently on one clear promise.",
   "Find your <strong>Minimum Viable Segment</strong> before scaling. A product for everyone is a product for no one.",
-  "Qualify early and often. Ask why people didn't buy — it teaches more than win analyses.",
+  "Qualify early and often. Ask why people didn't buy - it teaches more than win analyses.",
   "Inbound marketing compounds; outbound scales. Build owned assets for long-term leverage.",
   "The customer controls the accelerator, brake, and clutch. Design the funnel to make the next step obvious and motivated.",
   "Measure everything (ROME). Marketing with measurement is an investment, not an expense.",

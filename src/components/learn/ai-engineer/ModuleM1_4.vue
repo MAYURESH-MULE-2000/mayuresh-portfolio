@@ -40,7 +40,7 @@
             icon="🧠"
             title="The Purpose of Plots"
             subtitle="EDA: Exploratory Data Analysis"
-            definition="Matplotlib is the foundational plotting library in Python, interacting closely with NumPy arrays. Seaborn is built on top of Matplotlib, offering beautiful statistical plots out-of-the-box. We use them for EDA—spotting outliers, discovering multi-collinearity, and checking class imbalances."
+            definition="Matplotlib is the foundational plotting library in Python, interacting closely with NumPy arrays. Seaborn is built on top of Matplotlib, offering beautiful statistical plots out-of-the-box. We use them for EDA-spotting outliers, discovering multi-collinearity, and checking class imbalances."
             analogy="If Pandas is an X-Ray machine, Matplotlib is the doctor holding up the film to interpret the broken bones."
             seniorTip="Do not over-obsess about pretty colors in Jupyter Notebooks. Engineering plots are exploratory; you just need to spot the outlier. UI engineers make it pretty later."
             defaultOpen

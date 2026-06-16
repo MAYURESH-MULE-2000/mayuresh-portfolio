@@ -33,7 +33,7 @@
             title="Semantic HTML5 Elements"
             subtitle="Structure that means something"
             definition="Semantic HTML uses elements that describe their content: nav, main, article, section, aside, header, footer, figure, figcaption, time, mark, details/summary. Benefits: accessibility, SEO, readability, and maintainability."
-            analogy="Semantic HTML is like labeling boxes when you move house — 'Kitchen Items' is way more useful than 'Box #7'. Screen readers, search engines, and other developers all benefit from clear labels."
+            analogy="Semantic HTML is like labeling boxes when you move house - 'Kitchen Items' is way more useful than 'Box #7'. Screen readers, search engines, and other developers all benefit from clear labels."
             seniorTip="At Media.net, premium properties need excellent SEO. Semantic HTML is free SEO boost. Always use one h1 per page, proper heading hierarchy, nav for navigation, main for primary content. Never use div soup."
             defaultOpen
           >
@@ -82,7 +82,7 @@
             title="Meta Tags & SEO Fundamentals"
             subtitle="What search engines and social platforms see"
             definition="Essential meta tags: title, description, viewport, charset, Open Graph (og:title, og:image), Twitter Cards, canonical URLs, robots. These directly affect search rankings, social sharing previews, and responsive behavior."
-            analogy="Meta tags are like the back cover of a book — the title and summary that help people (and Google) decide whether to 'read' (visit) your page."
+            analogy="Meta tags are like the back cover of a book - the title and summary that help people (and Google) decide whether to 'read' (visit) your page."
             seniorTip="At Media.net, informational websites need top-tier SEO. Always include: unique title (50-60 chars), description (150-160 chars), og:image (1200x630px), canonical URL, proper viewport meta. Use structured data (JSON-LD) for rich snippets."
           >
             <CodePlayground
@@ -100,7 +100,7 @@
             title="Browser Quirks & Compatibility"
             subtitle="Why it looks different in Safari"
             definition="Different browsers render CSS and handle JS differently. Common issues: Safari gap property support, Firefox scrollbar styling, IE flexbox bugs, Chrome vs Firefox font rendering. Solutions: feature detection, progressive enhancement, vendor prefixes, polyfills."
-            analogy="Cross-browser compatibility is like cooking for a dinner party — everyone has different dietary needs (browser engines). You prepare the base dish (standards-first), then add modifications (vendor prefixes) for each guest."
+            analogy="Cross-browser compatibility is like cooking for a dinner party - everyone has different dietary needs (browser engines). You prepare the base dish (standards-first), then add modifications (vendor prefixes) for each guest."
             seniorTip="Media.net requires pixel-perfect cross-browser markup from scratch. Use caniuse.com to check support. Prefer @supports for feature detection over user-agent sniffing. Test on real devices, not just DevTools emulation."
             defaultOpen
           >
@@ -131,7 +131,7 @@
             title="Progressive Enhancement & Graceful Degradation"
             subtitle="Build for the lowest common denominator, enhance for modern"
             definition="Progressive Enhancement: start with basic HTML that works everywhere, then layer on CSS and JS for capable browsers. Graceful Degradation: build the full experience first, then add fallbacks for older browsers."
-            analogy="Progressive enhancement is like building a house with good bones first — the structure works, then you add paint, then smart home features. Those without the latest tech still have a solid house."
+            analogy="Progressive enhancement is like building a house with good bones first - the structure works, then you add paint, then smart home features. Those without the latest tech still have a solid house."
             seniorTip="Always ask: 'Does this work without JavaScript?' For critical content: yes. For interactive features: provide a noscript fallback. Use @supports, loading='lazy', and feature queries (not browser detection)."
           >
             <CodePlayground
@@ -146,8 +146,8 @@
             title="CSS Reset & Normalization"
             subtitle="Start from a consistent baseline"
             definition="Browsers have different default styles (user-agent stylesheet). CSS Reset removes ALL defaults. Normalize.css preserves useful defaults while fixing inconsistencies. Modern approaches: box-sizing: border-box globally, consistent font sizing."
-            analogy="A CSS Reset is like clearing a whiteboard before a meeting — everyone starts with a clean slate. Normalize is like tidying up the whiteboard but keeping the helpful reference notes."
-            seniorTip="Use a modern CSS reset: *, *::before, *::after { box-sizing: border-box; margin: 0; }. This is the foundation Media.net expects — you implement cross-browser markup FROM SCRATCH, not with Bootstrap."
+            analogy="A CSS Reset is like clearing a whiteboard before a meeting - everyone starts with a clean slate. Normalize is like tidying up the whiteboard but keeping the helpful reference notes."
+            seniorTip="Use a modern CSS reset: *, *::before, *::after { box-sizing: border-box; margin: 0; }. This is the foundation Media.net expects - you implement cross-browser markup FROM SCRATCH, not with Bootstrap."
           >
             <CodePlayground
               title="css-reset.js"
@@ -164,13 +164,13 @@
             title="Responsive Design Patterns"
             subtitle="Desktop → Tablet → Mobile without frameworks"
             definition="Responsive design uses fluid grids, flexible images, and media queries to adapt layouts. Patterns: mobile-first, desktop-first, container queries, clamp() for fluid typography, min()/max() for dynamic sizing."
-            analogy="Responsive design is like water — it takes the shape of whatever container (screen) it's poured into. The content stays the same, but its presentation adapts."
+            analogy="Responsive design is like water - it takes the shape of whatever container (screen) it's poured into. The content stays the same, but its presentation adapts."
             seniorTip="Mobile-first is the standard approach. Use min-width media queries. Set viewport meta tag. Use rem/em units instead of px. Use CSS clamp() for responsive typography without media queries. Test at common breakpoints: 320px, 768px, 1024px, 1440px."
             defaultOpen
           >
             <!-- Breakpoint Visualizer -->
             <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
-              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">📐 Current Viewport: <span class="text-orange-400 font-bold">{{ viewportWidth }}px</span> — <span class="text-orange-400">{{ currentBreakpoint }}</span></p>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">📐 Current Viewport: <span class="text-orange-400 font-bold">{{ viewportWidth }}px</span> - <span class="text-orange-400">{{ currentBreakpoint }}</span></p>
               <div class="flex gap-1 items-end h-20">
                 <div v-for="bp in breakpoints" :key="bp.name"
                   class="flex-1 rounded-t-lg flex items-end justify-center transition-all duration-300"
@@ -196,7 +196,7 @@
             title="Responsive Images & Media"
             subtitle="Right image, right size, right format"
             definition="Use srcset and sizes attributes for responsive images. Picture element for art direction. Lazy loading with loading='lazy'. Modern formats: WebP (30% smaller), AVIF (50% smaller). Aspect-ratio CSS property prevents layout shifts."
-            analogy="Responsive images are like a waiter who brings the right-sized plate for each table — a small plate for appetizers (mobile) and a large plate for the main course (desktop). No point serving a pizza-sized plate for a canape."
+            analogy="Responsive images are like a waiter who brings the right-sized plate for each table - a small plate for appetizers (mobile) and a large plate for the main course (desktop). No point serving a pizza-sized plate for a canape."
             seniorTip="Use srcset for resolution switching, picture for art direction. Always specify width and height attributes OR use aspect-ratio CSS to prevent CLS. Use loading='lazy' for below-fold images. Media.net's premium properties need fast-loading images."
           >
             <CodePlayground
@@ -214,7 +214,7 @@
             title="Essential Browser APIs"
             subtitle="The platform is more powerful than you think"
             definition="Key browser APIs: IntersectionObserver (lazy loading, viewability), MutationObserver (DOM changes), ResizeObserver (element sizing), Web Workers (off-thread), Service Workers (offline/caching), Fetch API, Performance API, Clipboard API."
-            analogy="Browser APIs are like the hidden features of a Swiss Army knife — most people only use the blade (DOM manipulation), but there's a bottle opener (IntersectionObserver), scissors (MutationObserver), and a magnifying glass (Performance API)."
+            analogy="Browser APIs are like the hidden features of a Swiss Army knife - most people only use the blade (DOM manipulation), but there's a bottle opener (IntersectionObserver), scissors (MutationObserver), and a magnifying glass (Performance API)."
             seniorTip="IntersectionObserver is essential at Media.net for ad viewability tracking. Learn Performance API for measuring real-user experience. Service Workers power offline-first apps. Web Workers offload heavy computation from the main thread."
             defaultOpen
           >
@@ -230,7 +230,7 @@
             title="Web Workers & Service Workers"
             subtitle="Off the main thread"
             definition="Web Workers: run JS in background thread (heavy computation). Service Workers: proxy between browser and network (caching, offline, push notifications). SharedWorker: shared between multiple tabs. Worklets: lightweight workers (CSS Paint, Audio)."
-            analogy="Web Workers are like sous-chefs in the kitchen — the head chef (main thread) delegates heavy tasks (chopping, prep) so they can focus on plating and serving (rendering the UI)."
+            analogy="Web Workers are like sous-chefs in the kitchen - the head chef (main thread) delegates heavy tasks (chopping, prep) so they can focus on plating and serving (rendering the UI)."
             seniorTip="Use Web Workers for: parsing large JSON, image processing, complex calculations. Use Service Workers for: runtime caching (cache-first, stale-while-revalidate), offline fallback. At Media.net, use Workers for analytics processing without blocking ad rendering."
           >
             <CodePlayground
@@ -245,8 +245,8 @@
             title="Performance API & Core Web Vitals"
             subtitle="Measure what matters"
             definition="Core Web Vitals: LCP (Largest Contentful Paint, <2.5s), FID/INP (Interaction to Next Paint, <200ms), CLS (Cumulative Layout Shift, <0.1). Performance API gives precise timing data. PerformanceObserver monitors metrics in real-time."
-            analogy="Core Web Vitals are like a car's dashboard gauges — LCP is the speedometer (how fast you load), INP is the responsiveness gauge (how quickly you react to steering), CLS is the stability meter (how smooth the ride is)."
-            seniorTip="Google uses CWV as a ranking factor. Measure with web-vitals library. Track Real User Metrics (RUM), not just lab data. Ad-heavy pages struggle with CLS — set explicit sizes for ad slots. Optimize LCP by preloading hero images."
+            analogy="Core Web Vitals are like a car's dashboard gauges - LCP is the speedometer (how fast you load), INP is the responsiveness gauge (how quickly you react to steering), CLS is the stability meter (how smooth the ride is)."
+            seniorTip="Google uses CWV as a ranking factor. Measure with web-vitals library. Track Real User Metrics (RUM), not just lab data. Ad-heavy pages struggle with CLS - set explicit sizes for ad slots. Optimize LCP by preloading hero images."
           >
             <CodePlayground
               title="performance-api.js"
@@ -385,7 +385,7 @@ console.log('    "@type": "Article",');
 console.log('    "headline": "Title" }');
 console.log('  </' + 'script>');`,
 
-  featureDetection: `// Feature Detection — Not Browser Detection
+  featureDetection: `// Feature Detection - Not Browser Detection
 
 console.log("🐛 Feature Detection Approaches:\\n");
 
@@ -485,9 +485,9 @@ console.log("}\\n");
 console.log("💡 Why not Bootstrap?");
 console.log("  Media.net requires markup FROM SCRATCH.");
 console.log("  This reset ensures consistent cross-browser baseline.");
-console.log("  You control every pixel — no framework opinions.");`,
+console.log("  You control every pixel - no framework opinions.");`,
 
-  responsiveCss: `// Responsive Design — CSS Techniques
+  responsiveCss: `// Responsive Design - CSS Techniques
 
 console.log("📱 Responsive Design Without Frameworks:\\n");
 
@@ -521,11 +521,11 @@ console.log("  gap: clamp(1rem, 3vw, 3rem); → fluid spacing\\n");
 console.log("5️⃣ Common Breakpoints:");
 console.log("  640px (sm), 768px (md), 1024px (lg), 1280px (xl)");`,
 
-  responsiveImages: `// Responsive Images — Techniques
+  responsiveImages: `// Responsive Images - Techniques
 
 console.log("🖼️ Responsive Image Techniques:\\n");
 
-console.log("1️⃣ srcset — Resolution Switching:");
+console.log("1️⃣ srcset - Resolution Switching:");
 console.log('  <img');
 console.log('    srcset="img-320w.jpg 320w,');
 console.log('            img-768w.jpg 768w,');
@@ -537,7 +537,7 @@ console.log('    width="1200" height="800"');
 console.log('    loading="lazy"');
 console.log('  >\\n');
 
-console.log("2️⃣ <picture> — Art Direction:");
+console.log("2️⃣ <picture> - Art Direction:");
 console.log('  <picture>');
 console.log('    <source media="(min-width: 1024px)" srcset="hero-wide.webp">');
 console.log('    <source media="(min-width: 640px)" srcset="hero-medium.webp">');
@@ -557,21 +557,21 @@ console.log("  Use <picture> with WebP source + JPEG fallback");`,
 
 console.log("⚙️ Browser APIs Every Senior Dev Must Know:\\n");
 
-console.log("1️⃣ IntersectionObserver — Visibility Detection:");
+console.log("1️⃣ IntersectionObserver - Visibility Detection:");
 console.log("  new IntersectionObserver((entries) => {");
 console.log("    entries.forEach(e => {");
 console.log("      if (e.isIntersecting) lazyLoad(e.target)");
 console.log("    })");
 console.log("  }, { threshold: 0.5 })\\n");
 
-console.log("2️⃣ MutationObserver — DOM Change Detection:");
+console.log("2️⃣ MutationObserver - DOM Change Detection:");
 console.log("  new MutationObserver((mutations) => {");
 console.log("    mutations.forEach(m => trackDOMChange(m))");
 console.log("  }).observe(element, {");
 console.log("    childList: true, subtree: true");
 console.log("  })\\n");
 
-console.log("3️⃣ ResizeObserver — Element Size Changes:");
+console.log("3️⃣ ResizeObserver - Element Size Changes:");
 console.log("  new ResizeObserver((entries) => {");
 console.log("    entries.forEach(e => {");
 console.log("      adjustLayout(e.contentRect.width)");
@@ -590,7 +590,7 @@ console.log("  })");`,
 
   workers: `// Web Workers & Service Workers
 
-console.log("🔄 Workers — Off the Main Thread:\\n");
+console.log("🔄 Workers - Off the Main Thread:\\n");
 
 console.log("1️⃣ Web Worker (Dedicated):");
 console.log("  // main.js");
@@ -606,7 +606,7 @@ console.log("  }\\n");
 console.log("2️⃣ Service Worker (Network Proxy):");
 console.log("  // Register");
 console.log("  navigator.serviceWorker.register('/sw.js')\\n");
-console.log("  // sw.js — Cache-first strategy");
+console.log("  // sw.js - Cache-first strategy");
 console.log("  self.addEventListener('fetch', (e) => {");
 console.log("    e.respondWith(");
 console.log("      caches.match(e.request)");
@@ -623,15 +623,15 @@ console.log("  SharedWorker → Shared state between tabs");`,
 
 console.log("📊 Core Web Vitals (Google's UX Metrics):\\n");
 
-console.log("1️⃣ LCP — Largest Contentful Paint");
+console.log("1️⃣ LCP - Largest Contentful Paint");
 console.log("  Good: < 2.5s | Poor: > 4.0s");
 console.log("  Measures: how fast main content loads\\n");
 
-console.log("2️⃣ INP — Interaction to Next Paint");
+console.log("2️⃣ INP - Interaction to Next Paint");
 console.log("  Good: < 200ms | Poor: > 500ms");
 console.log("  Measures: how responsive to user input\\n");
 
-console.log("3️⃣ CLS — Cumulative Layout Shift");
+console.log("3️⃣ CLS - Cumulative Layout Shift");
 console.log("  Good: < 0.1 | Poor: > 0.25");
 console.log("  Measures: visual stability (content jumping)\\n");
 

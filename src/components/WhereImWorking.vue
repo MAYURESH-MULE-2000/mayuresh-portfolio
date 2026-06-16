@@ -1,58 +1,66 @@
 <script setup>
-import MagnifyText from './MagnifyText.vue';
-const currentRole = {
+const roles = [
+  {
     company: 'PMaps',
     position: 'UX Engineer',
     period: 'Jul 2023 – Present',
-    description: {
-        intro: 'PMaps builds',
-        highlight1: 'AI-driven psychometric',
-        middle: 'and',
-        highlight2: 'assessment tools ',
-        outro: 'that help recruiters make more accurate hiring decisions. As a',
-        role: 'UX Engineer',
-        details: ', I design and build user-focused web interfaces, combining frontend engineering with design thinking to improve clarity, usability, and decision-making across',
-        highlight3: 'hiring workflows.',
-    }
-}
+    description:
+      'PMaps builds AI-driven psychometric and assessment tools for recruiters. I design and build user-focused web interfaces - combining frontend engineering with design thinking to improve clarity and decision-making across hiring workflows.',
+    bg: 'bg-blue-50 dark:bg-blue-900/20',
+  },
+  {
+    company: 'ShellScholars',
+    position: 'Independent Product Builder',
+    period: 'Ongoing',
+    description:
+      'A portfolio registry platform focused on professional proof-of-work and digital identity. I am the sole product, design, and engineering owner - built on Nuxt and Supabase.',
+    bg: 'bg-emerald-50 dark:bg-emerald-900/20',
+    link: {
+      label: 'shellscholars.com ↗',
+      href: 'https://shellscholars.com',
+    },
+  },
+]
 </script>
 
 <template>
-    <section class="py-16 md:py-24">
-        <div class="max-w-7xl mx-auto">
-            <!-- Section Header with Dashed Line + Asterisk -->
-            <div class="relative mb-12 md:mb-16">
-                <div class="flex items-center justify-between">
-                    <!-- Left: Title -->
-                    <MagnifyText size=100 zoom=1.8 client:visible>
-                        <h2 class="text-3xl md:text-4xl font-bold">Where I'm Working.</h2>
-                    </MagnifyText>
-                </div>
-            </div>
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto">
+      <!-- Section Header -->
+      <div class="mb-12 md:mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold">Where I'm Working.</h2>
+      </div>
 
-            <!-- Job Card -->
-            <div class="bg-blue-50 dark:bg-blue-900/20 rounded-3xl p-8 md:p-12 max-w-full shadow-xl hover:shadow-2xl">
-                <!-- Company + Role + Period -->
-                <h3 class="text-xl md:text-2xl font-bold mb-6">
-                    <MagnifyText size=100 zoom=1.8 client:visible>
-                        {{ currentRole.company }} – {{ currentRole.position }} | {{ currentRole.period }}
-                    </MagnifyText>
-                </h3>
+      <!-- Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div
+          v-for="role in roles"
+          :key="role.company"
+          :class="role.bg"
+          class="border border-gray-200/50 dark:border-gray-700/50 rounded-xl p-8 md:p-10"
+        >
+          <!-- Header -->
+          <h3 class="text-xl md:text-2xl font-bold mb-4">
+            {{ role.company }} - {{ role.position }} | {{ role.period }}
+          </h3>
 
-                <!-- Description with Bold Highlights -->
-                <p class="text-base md:text-lg leading-relaxed text-gray-800 dark:text-gray-200">
-                    <MagnifyText size=100 zoom=1.8 client:visible>
-                        {{ currentRole.description.intro }}
-                        <strong class="font-bold">{{ currentRole.description.highlight1 }}</strong>
-                        {{ currentRole.description.middle }}
-                        <strong class="font-bold">{{ currentRole.description.highlight2 }}</strong>{{
-                        currentRole.description.outro }}
-                        <strong class="font-bold">{{ currentRole.description.role }}</strong>{{
-                        currentRole.description.details }}
-                        <strong class="font-bold">{{ currentRole.description.highlight3 }}</strong>
-                    </MagnifyText>
-                    </p>
-            </div>
+          <!-- Body -->
+          <p class="text-base md:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+            {{ role.description }}
+          </p>
+
+          <!-- Link -->
+          <a
+            v-if="role.link"
+            :href="role.link.href"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-accent hover:text-accent-dark font-medium inline-flex items-center gap-1 mt-4"
+          >
+            {{ role.link.label }}
+          </a>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 </template>

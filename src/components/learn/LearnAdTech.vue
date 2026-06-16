@@ -30,11 +30,11 @@
           <ConceptCard
             id="ecosystem-overview"
             icon="🌐"
-            title="The Ad-Tech Ecosystem — Who's Who"
+            title="The Ad-Tech Ecosystem - Who's Who"
             subtitle="SSP, DSP, DMP, Ad Exchange, Ad Server"
             definition="The ad-tech ecosystem connects advertisers to publishers through automated platforms. Publishers (website owners) use SSPs (Supply-Side Platforms) to sell ad space. Advertisers use DSPs (Demand-Side Platforms) to buy impressions. Ad Exchanges are the marketplace. DMPs (Data Management Platforms) provide audience data. Ad Servers store and deliver the creative assets."
             analogy="Think of a farmers market: Publishers are farmers (supply), Advertisers are restaurants (demand), the SSP is the farmer's market stall, the DSP is the restaurant's purchasing agent, the Ad Exchange is the market floor where trades happen, and the DMP is the market researcher who knows what each restaurant wants to buy."
-            seniorTip="At Media.net (contextual advertising), the key differentiator is CONTEXTUAL targeting — analyzing page content to match relevant ads, rather than tracking users. Understand where Media.net sits: they are the SSP + Ad Exchange layer, connecting publishers to demand."
+            seniorTip="At Media.net (contextual advertising), the key differentiator is CONTEXTUAL targeting - analyzing page content to match relevant ads, rather than tracking users. Understand where Media.net sits: they are the SSP + Ad Exchange layer, connecting publishers to demand."
             defaultOpen
           >
             <!-- Ecosystem Flow Visual -->
@@ -67,15 +67,15 @@
           <ConceptCard
             id="rtb-flow"
             icon="⚡"
-            title="Real-Time Bidding (RTB) — Complete Journey"
+            title="Real-Time Bidding (RTB) - Complete Journey"
             subtitle="From page load to ad render in ~200ms"
             definition="RTB is an auction that happens for every ad impression. When a user loads a page: 1) Ad slot detected, 2) Bid request sent to SSP, 3) SSP broadcasts to multiple DSPs, 4) DSPs evaluate and bid, 5) Auction runs (highest bid wins), 6) Winning creative is served, 7) Impression & viewability tracked. This entire process takes 100-200ms."
-            analogy="RTB is like a lightning-fast stock exchange — every ad impression is a 'share' being auctioned off in real-time. Thousands of buyers (DSPs) evaluate and bid within milliseconds, the highest bidder wins, and the 'stock' (ad space) is immediately 'delivered' (rendered)."
+            analogy="RTB is like a lightning-fast stock exchange - every ad impression is a 'share' being auctioned off in real-time. Thousands of buyers (DSPs) evaluate and bid within milliseconds, the highest bidder wins, and the 'stock' (ad space) is immediately 'delivered' (rendered)."
             seniorTip="Know the difference between first-price and second-price auctions. First-price: you pay what you bid. Second-price: you pay $0.01 more than the second-highest bid. Google moved to first-price in 2019. Header bidding added client-side auctions BEFORE the ad server."
           >
             <!-- RTB Step-by-Step -->
             <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
-              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">⚡ RTB Flow — click through each step (entire flow takes ~200ms)</p>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">⚡ RTB Flow - click through each step (entire flow takes ~200ms)</p>
               <div class="space-y-2">
                 <div v-for="(step, i) in rtbSteps" :key="i"
                   @click="activeRtbStep = i"
@@ -104,8 +104,8 @@
             title="Ad Serving & Creative Storage"
             subtitle="Where ads live and how they're delivered"
             definition="Ad creatives (images, HTML5, video) are stored on Ad Servers (Google Ad Manager, proprietary servers) and CDNs. When an auction is won, the ad server returns a creative URL or HTML snippet. Creatives are rendered inside sandboxed iframes. VAST/VPAID standards handle video ad serving."
-            analogy="An ad server is like a giant vending machine — it stores thousands of different products (creatives), and when someone puts in a coin (wins an auction), it delivers the exact right product to the exact right slot."
-            seniorTip="Creatives should be served from CDNs close to the user for speed. HTML5 ads have strict size limits (150KB typically). VAST = XML for video ad metadata. VPAID = interactive video ads. Know that ad creatives run in isolation (iframe) — they can't access the publisher's DOM."
+            analogy="An ad server is like a giant vending machine - it stores thousands of different products (creatives), and when someone puts in a coin (wins an auction), it delivers the exact right product to the exact right slot."
+            seniorTip="Creatives should be served from CDNs close to the user for speed. HTML5 ads have strict size limits (150KB typically). VAST = XML for video ad metadata. VPAID = interactive video ads. Know that ad creatives run in isolation (iframe) - they can't access the publisher's DOM."
           >
             <CodePlayground
               title="ad-serving.js"
@@ -122,7 +122,7 @@
             title="Types of Digital Ads"
             subtitle="Display, Native, Video, Rich Media, Programmatic"
             definition="Display ads: banner images/HTML5 in standard IAB sizes (300x250, 728x90, 160x600). Native ads: blend into page content (in-feed, recommendation widgets). Video ads: pre-roll, mid-roll, outstream. Rich media: interactive HTML5 ads with animations. Programmatic: automated buying/selling via RTB."
-            analogy="Ad types are like types of advertising in a newspaper — Display = traditional rectangular ad boxes. Native = sponsored articles that look like editorial content. Video = TV commercial-style. Rich media = interactive pull-out inserts with games or samples."
+            analogy="Ad types are like types of advertising in a newspaper - Display = traditional rectangular ad boxes. Native = sponsored articles that look like editorial content. Video = TV commercial-style. Rich media = interactive pull-out inserts with games or samples."
             seniorTip="At Media.net, you'll work primarily with display and native ads. Know IAB standard sizes. Native ads need careful styling to match publisher content while maintaining FTC disclosure ('Sponsored' label). Contextual ads match page CONTENT, not user data."
             defaultOpen
           >
@@ -155,7 +155,7 @@
             subtitle="Media.net's core differentiator"
             definition="Contextual: analyze PAGE CONTENT to serve relevant ads (article about cooking → kitchen ads). Behavioral: track USER HISTORY across sites via cookies (user visited shoe sites → shoe ads everywhere). Contextual is privacy-friendly and doesn't need third-party cookies."
             analogy="Contextual is like a bookstore employee who recommends books based on the section you're browsing in (cooking section → cookbook). Behavioral is like a store that follows you around the mall and recommends based on every store you've visited."
-            seniorTip="Media.net is a CONTEXTUAL advertising company — this is their biggest selling point. With third-party cookies dying, contextual is making a comeback. Understand NLP/keyword extraction from page content, semantic analysis, and how to classify content for ad matching."
+            seniorTip="Media.net is a CONTEXTUAL advertising company - this is their biggest selling point. With third-party cookies dying, contextual is making a comeback. Understand NLP/keyword extraction from page content, semantic analysis, and how to classify content for ad matching."
           >
             <!-- Contextual vs Behavioral Comparison -->
             <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
@@ -193,10 +193,10 @@
           <ConceptCard
             id="targeting-types"
             icon="🎯"
-            title="Ad Targeting Methods — Complete Guide"
+            title="Ad Targeting Methods - Complete Guide"
             subtitle="How ads find the right audience"
-            definition="Targeting strategies: 1) Contextual — match ads to page content. 2) Behavioral — track user activity. 3) Demographic — age, gender, location. 4) Geo-targeting — location-based. 5) Retargeting — users who already visited. 6) Lookalike — find similar users. 7) Device/Browser — target by device type."
-            analogy="Targeting methods are like fishing techniques — Contextual is fishing where the fish ARE (right content). Behavioral is tracking a specific fish's pattern. Retargeting is going back to where you saw a fish earlier. Geo is fishing in a specific lake."
+            definition="Targeting strategies: 1) Contextual - match ads to page content. 2) Behavioral - track user activity. 3) Demographic - age, gender, location. 4) Geo-targeting - location-based. 5) Retargeting - users who already visited. 6) Lookalike - find similar users. 7) Device/Browser - target by device type."
+            analogy="Targeting methods are like fishing techniques - Contextual is fishing where the fish ARE (right content). Behavioral is tracking a specific fish's pattern. Retargeting is going back to where you saw a fish earlier. Geo is fishing in a specific lake."
             seniorTip="As a frontend dev, you implement targeting by: passing contextual signals (page title, keywords, URL) in bid requests, reading cookies/localStorage for user segments, detecting device/viewport for responsive ad sizes, and managing consent with CMP (Consent Management Platform)."
             defaultOpen
           >
@@ -231,7 +231,7 @@
             title="Privacy & the Cookie-less Future"
             subtitle="Topics API, Protected Audiences, Attribution Reporting"
             definition="Third-party cookies are being deprecated. Google's Privacy Sandbox replaces them with: Topics API (interest-based targeting without tracking), Protected Audiences (formerly FLEDGE, on-device ad auctions), Attribution Reporting (conversion measurement without cross-site tracking). Apple's ATT already blocks tracking on iOS."
-            analogy="The cookie-less future is like moving from spy cameras (third-party cookies) to a suggestion box (Topics API) — users still get relevant ads, but nobody's following them around taking notes."
+            analogy="The cookie-less future is like moving from spy cameras (third-party cookies) to a suggestion box (Topics API) - users still get relevant ads, but nobody's following them around taking notes."
             seniorTip="Contextual advertising (Media.net's strength) becomes MORE valuable as cookies disappear. Frontend devs need to implement: consent management (CMP), Privacy Sandbox APIs, first-party data collection, and contextual signal extraction from page content."
           >
             <CodePlayground
@@ -249,8 +249,8 @@
             title="Ad Tags & Google Publisher Tags (GPT)"
             subtitle="How ads get onto the page"
             definition="Ad tags are code snippets that tell the browser where to fetch and render ads. Google Publisher Tags (GPT) is the most common library. It defines ad slots with sizes, loads the GPT library async, and calls googletag.display() to render. Each slot has a div with a unique ID and can have key-value targeting."
-            analogy="GPT ad tags are like reserved parking spots — you define the spot (div), specify the car size allowed (ad dimensions), put up a sign (targeting), and then the parking attendant (GPT) brings the right car (ad creative) to the right spot."
-            seniorTip="Key GPT concepts: defineSlot() creates slots, addService() connects to the ad exchange, enableServices() starts the library, display() renders ads. Use enableSingleRequest() for SRA (Single Request Architecture) — one HTTP call for all ad slots. Lazy-load below-fold ads."
+            analogy="GPT ad tags are like reserved parking spots - you define the spot (div), specify the car size allowed (ad dimensions), put up a sign (targeting), and then the parking attendant (GPT) brings the right car (ad creative) to the right spot."
+            seniorTip="Key GPT concepts: defineSlot() creates slots, addService() connects to the ad exchange, enableServices() starts the library, display() renders ads. Use enableSingleRequest() for SRA (Single Request Architecture) - one HTTP call for all ad slots. Lazy-load below-fold ads."
             defaultOpen
           >
             <CodePlayground
@@ -265,7 +265,7 @@
             title="Header Bidding (Prebid.js)"
             subtitle="Client-side auction before the ad server"
             definition="Header bidding lets multiple demand sources bid simultaneously BEFORE calling the ad server (Google Ad Manager). Prebid.js: open-source header bidding wrapper. Flow: 1) Prebid calls all demand partners simultaneously, 2) collects bids within timeout (~1s), 3) sends highest bid to ad server, 4) ad server decides final winner (prebid bid vs direct deals)."
-            analogy="Header bidding is like getting quotes from multiple contractors BEFORE going to your preferred builder. If a contractor offers a better price, you can present that offer to your builder and say 'can you beat this?' — resulting in higher revenue."
+            analogy="Header bidding is like getting quotes from multiple contractors BEFORE going to your preferred builder. If a contractor offers a better price, you can present that offer to your builder and say 'can you beat this?' - resulting in higher revenue."
             seniorTip="Header bidding increased publisher revenue by 20-50%. Know the flow: Prebid.js calls bidders → waits for timeout → sets targeting on GPT → GPT calls ad server → ad renders. Key configs: bidder adapters, price granularity, timeout settings, and bid caching."
           >
             <CodePlayground
@@ -311,8 +311,8 @@
             title="Iframes Deep Dive"
             subtitle="Sandboxed worlds within your page"
             definition="An iframe embeds a separate browsing context (its own document, DOM, and JS execution). Communication between parent and iframe uses postMessage. Security: same-origin policy, sandbox attribute, allow attribute for permissions."
-            analogy="An iframe is like a TV inside your living room — it shows content from somewhere else, you can control the volume (sandbox), and shout at it (postMessage), but you can't reach inside the TV screen to rearrange the furniture."
-            seniorTip="In ad-tech, ads run inside cross-origin iframes for security isolation. Use sandbox='allow-scripts allow-same-origin' carefully — both together re-enable full access. Use postMessage for parent↔iframe communication with origin checks."
+            analogy="An iframe is like a TV inside your living room - it shows content from somewhere else, you can control the volume (sandbox), and shout at it (postMessage), but you can't reach inside the TV screen to rearrange the furniture."
+            seniorTip="In ad-tech, ads run inside cross-origin iframes for security isolation. Use sandbox='allow-scripts allow-same-origin' carefully - both together re-enable full access. Use postMessage for parent↔iframe communication with origin checks."
             defaultOpen
           >
             <!-- iframe Communication Demo -->
@@ -362,12 +362,12 @@
             title="iframe Sandbox & Permissions"
             subtitle="Control what iframes can do"
             definition="The sandbox attribute restricts iframe capabilities by default (no scripts, no forms, no same-origin). You opt-in to specific permissions: allow-scripts, allow-same-origin, allow-popups, allow-forms. The allow attribute controls feature policies (camera, microphone, geolocation)."
-            analogy="sandbox is like a playpen for a toddler (iframe) — by default they can't do anything dangerous. You add specific toys (permissions) one at a time based on what they need."
-            seniorTip="⚠️ NEVER use sandbox='allow-scripts allow-same-origin' together on a cross-origin iframe — it lets the iframe remove its own sandbox! For ads, use allow-scripts only. Use CSP frame-ancestors to prevent clickjacking."
+            analogy="sandbox is like a playpen for a toddler (iframe) - by default they can't do anything dangerous. You add specific toys (permissions) one at a time based on what they need."
+            seniorTip="⚠️ NEVER use sandbox='allow-scripts allow-same-origin' together on a cross-origin iframe - it lets the iframe remove its own sandbox! For ads, use allow-scripts only. Use CSP frame-ancestors to prevent clickjacking."
           >
             <!-- Sandbox Permission Toggle -->
             <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
-              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Toggle sandbox permissions — see the generated attribute</p>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Toggle sandbox permissions - see the generated attribute</p>
               <div class="grid grid-cols-2 md:grid-cols-3 gap-2 mb-3">
                 <button v-for="perm in sandboxPerms" :key="perm.name"
                   @click="perm.enabled = !perm.enabled"
@@ -391,16 +391,16 @@
           <ConceptCard
             id="cors"
             icon="🌐"
-            title="CORS — Cross-Origin Resource Sharing"
+            title="CORS - Cross-Origin Resource Sharing"
             subtitle="Why your API call is blocked"
             definition="CORS is a security mechanism that blocks cross-origin HTTP requests from browsers. The server must include Access-Control-Allow-Origin headers to permit cross-domain requests. Preflight OPTIONS requests check permissions for non-simple requests."
-            analogy="CORS is like a bouncer at a club (server). When you (browser) arrive from a different venue (origin), the bouncer checks the guest list (CORS headers). If you're not on it, you're denied entry — even if you have a valid ticket (API key)."
+            analogy="CORS is like a bouncer at a club (server). When you (browser) arrive from a different venue (origin), the bouncer checks the guest list (CORS headers). If you're not on it, you're denied entry - even if you have a valid ticket (API key)."
             seniorTip="CORS is a BROWSER security feature, not a server one. cURL ignores CORS entirely. For development, use a proxy. For production, configure the server to send correct Access-Control headers. Understand preflight (OPTIONS) requests."
             defaultOpen
           >
             <!-- CORS Flow Diagram -->
             <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
-              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🔄 CORS Request Flow — click to step through</p>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🔄 CORS Request Flow - click to step through</p>
               <div class="space-y-2">
                 <div v-for="(step, i) in corsSteps" :key="i"
                   @click="activeCorsStep = i"
@@ -430,7 +430,7 @@
             title="Content Security Policy (CSP)"
             subtitle="Prevent XSS and injection attacks"
             definition="CSP is a security header that tells the browser which sources of content are allowed. It prevents XSS by blocking inline scripts, eval(), and resources from untrusted domains. Set via HTTP header or meta tag."
-            analogy="CSP is like airport security — it has a list of approved airlines (sources). Anything not on the approved list gets confiscated (blocked), even if it looks legitimate."
+            analogy="CSP is like airport security - it has a list of approved airlines (sources). Anything not on the approved list gets confiscated (blocked), even if it looks legitimate."
             seniorTip="Start with a strict CSP: default-src 'self'. Gradually whitelist what you need. Use nonce-based CSP for inline scripts. Report violations with report-uri. In ad-tech, CSP is tricky because ad scripts need multiple external sources."
           >
             <CodePlayground
@@ -492,11 +492,11 @@
             subtitle="The foundation of ad tracking (and its demise)"
             definition="First-party cookies: set by the domain you visit. Third-party cookies: set by other domains (ads, analytics). Third-party cookies are being phased out (Chrome's Privacy Sandbox). SameSite attribute controls cross-site cookie sending."
             analogy="First-party cookies = your loyalty card at a specific store. Third-party cookies = a tracking device that multiple stores share to know everywhere you shop. Browsers are removing the tracking device."
-            seniorTip="Set SameSite=Strict for auth cookies (prevents CSRF). SameSite=None; Secure for cross-site needs (still works in iframes). Know about Topics API, Attribution Reporting, and FLEDGE — Chrome's replacements for third-party cookies."
+            seniorTip="Set SameSite=Strict for auth cookies (prevents CSRF). SameSite=None; Secure for cross-site needs (still works in iframes). Know about Topics API, Attribution Reporting, and FLEDGE - Chrome's replacements for third-party cookies."
           >
             <!-- Cookie Attribute Builder -->
             <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
-              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Build a cookie — toggle attributes</p>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Build a cookie - toggle attributes</p>
               <div class="grid grid-cols-2 md:grid-cols-3 gap-2 mb-3">
                 <div v-for="attr in cookieAttrs" :key="attr.name">
                   <button
@@ -520,15 +520,15 @@
           <ConceptCard
             id="ad-lifecycle"
             icon="📺"
-            title="Ad Lifecycle — How Ads Actually Work"
+            title="Ad Lifecycle - How Ads Actually Work"
             subtitle="From bid to render in milliseconds"
             definition="Real-time bidding (RTB): publisher sends ad request → SSP sends bid request to DSPs → DSPs bid within ~100ms → highest bid wins → ad creative is served → tracking pixels fire on viewability events. This happens every pageview."
-            analogy="RTB is like an incredibly fast auction house — the auctioneer (SSP) calls out the item (ad slot), buyers (DSPs) shout bids simultaneously, the fastest highest bidder wins, and the painting (ad) is hung on the wall (rendered) — all in under 200ms."
+            analogy="RTB is like an incredibly fast auction house - the auctioneer (SSP) calls out the item (ad slot), buyers (DSPs) shout bids simultaneously, the fastest highest bidder wins, and the painting (ad) is hung on the wall (rendered) - all in under 200ms."
             seniorTip="As a frontend engineer in ad-tech, you manage the ad slots (placements), handle the render timing (don't block main content), monitor viewability (IntersectionObserver), and ensure ads don't degrade page performance."
             defaultOpen
           >
             <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
-              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🔄 Ad Request Lifecycle — click through each step</p>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🔄 Ad Request Lifecycle - click through each step</p>
               <div class="space-y-2">
                 <div v-for="(step, i) in adLifecycleSteps" :key="i"
                   @click="activeAdStep = i"
@@ -553,8 +553,8 @@
             icon="👁️"
             title="Ad Viewability & IntersectionObserver"
             subtitle="Was your ad actually seen?"
-            definition="Viewability = ad was ≥50% visible in viewport for ≥1 second (IAB standard). Tracked using IntersectionObserver API. Critical for billing — advertisers only pay for viewable impressions (vCPM). Frontend engineers implement viewability tracking."
-            analogy="Viewability is like proof of delivery — the advertiser doesn't pay for a billboard that's hidden behind a tree. IntersectionObserver is the camera that proves the billboard was actually visible to drivers."
+            definition="Viewability = ad was ≥50% visible in viewport for ≥1 second (IAB standard). Tracked using IntersectionObserver API. Critical for billing - advertisers only pay for viewable impressions (vCPM). Frontend engineers implement viewability tracking."
+            analogy="Viewability is like proof of delivery - the advertiser doesn't pay for a billboard that's hidden behind a tree. IntersectionObserver is the camera that proves the billboard was actually visible to drivers."
             seniorTip="Use IntersectionObserver with threshold: [0, 0.5, 1.0]. Track time-in-view with a timer started on 50% visibility. Fire viewability pixel after 1s of continuous visibility. Handle tab visibility changes (document.hidden)."
           >
             <CodePlayground
@@ -569,7 +569,7 @@
             title="Third-Party Scripts & Performance"
             subtitle="The hidden cost of external code"
             definition="Third-party scripts (analytics, ads, A/B testing, chat widgets) can degrade performance: blocking main thread, adding network requests, increasing bundle size. Strategies: async/defer loading, lazy initialization, resource hints (preconnect), Web Workers."
-            analogy="Third-party scripts are like houseguests — a few are helpful, but too many hog the WiFi (bandwidth), eat all the food (CPU), and make a mess (DOM mutations). Be selective about who you invite."
+            analogy="Third-party scripts are like houseguests - a few are helpful, but too many hog the WiFi (bandwidth), eat all the food (CPU), and make a mess (DOM mutations). Be selective about who you invite."
             seniorTip="Audit third-party scripts quarterly. Use async/defer for non-critical scripts. Lazy-load until user interaction (chat widgets). Use PerformanceObserver to monitor third-party impact. Consider a tag manager for centralized control."
           >
             <CodePlayground
@@ -648,7 +648,7 @@ const sandboxWarning = computed(() => {
 // ==================== CORS Flow ====================
 const activeCorsStep = ref(0)
 const corsSteps = [
-  { title: '1. Browser sends request', detail: 'fetch("https://api.other-domain.com/data") — browser detects cross-origin.' },
+  { title: '1. Browser sends request', detail: 'fetch("https://api.other-domain.com/data") - browser detects cross-origin.' },
   { title: '2. Preflight check (OPTIONS)', detail: 'For non-simple requests (PUT, custom headers), browser sends an OPTIONS request first to check permissions.' },
   { title: '3. Server responds to preflight', detail: 'Server includes: Access-Control-Allow-Origin, Access-Control-Allow-Methods, Access-Control-Allow-Headers.' },
   { title: '4. Actual request sent', detail: 'If preflight passes, browser sends the actual request with credentials/headers.' },
@@ -701,7 +701,7 @@ const rtbSteps = [
   { title: 'Header bidding starts (optional)', time: '~20ms', detail: 'Prebid.js calls multiple demand partners (DSPs) simultaneously. Each adapter sends a bid request with slot info, sizes, and targeting.', who: 'Prebid.js → Multiple SSPs/DSPs' },
   { title: 'Bid request sent to SSP/Exchange', time: '~30ms', detail: 'SSP receives: ad slot sizes, page URL, user signals (if consented), device info, geo data. SSP sends bid request to connected DSPs.', who: 'Media.net SSP → DSPs' },
   { title: 'DSPs evaluate and bid', time: '50-100ms', detail: 'Each DSP checks: Does this impression match our campaign targeting? What\'s it worth? They calculate bid price based on advertiser budgets, campaign goals, and user value.', who: 'DSPs (DV360, Trade Desk, etc.)' },
-  { title: 'Auction runs — winner selected', time: '~110ms', detail: 'SSP/Exchange runs the auction. First-price: highest bid wins, pays what they bid. Second-price: highest bid wins, pays $0.01 more than the second bid. Winning creative URL returned.', who: 'Ad Exchange' },
+  { title: 'Auction runs - winner selected', time: '~110ms', detail: 'SSP/Exchange runs the auction. First-price: highest bid wins, pays what they bid. Second-price: highest bid wins, pays $0.01 more than the second bid. Winning creative URL returned.', who: 'Ad Exchange' },
   { title: 'Creative rendered in iframe', time: '~150ms', detail: 'The winning ad creative (image/HTML5/video) is loaded from the ad server CDN and injected into a sandboxed iframe inside the ad slot div.', who: 'Browser rendering engine' },
   { title: 'Tracking pixels fire', time: '150ms-1200ms+', detail: 'Impression pixel fires on render. Viewability tracking starts via IntersectionObserver (50% visible for 1s). Click tracking attached. Revenue recorded.', who: 'Ad server tracking + third-party verification' },
 ]
@@ -781,7 +781,7 @@ console.log("  ✅ Always check event.origin on receive");
 console.log("  ❌ Never use '*' as target in production");
 console.log("  ❌ Never trust event.data without validation");`,
 
-  cors: `// CORS — Understanding the Mechanism
+  cors: `// CORS - Understanding the Mechanism
 
 console.log("🌐 CORS Explained:\\n");
 
@@ -810,7 +810,7 @@ console.log("💡 CORS is browser-only. Server-to-server has no CORS.");`,
 
   csp: `// Content Security Policy (CSP)
 
-console.log("🔐 CSP — Prevent XSS & Injection:\\n");
+console.log("🔐 CSP - Prevent XSS & Injection:\\n");
 
 console.log("Setting CSP via HTTP Header:");
 console.log("  Content-Security-Policy: default-src 'self'\\n");
@@ -883,10 +883,10 @@ console.log("const observer = new IntersectionObserver(");
 console.log("  (entries) => {");
 console.log("    entries.forEach(entry => {");
 console.log("      if (entry.intersectionRatio >= 0.5) {");
-console.log("        // Start timer — ad is 50%+ visible");
+console.log("        // Start timer - ad is 50%+ visible");
 console.log("        startViewTimer(entry.target)");
 console.log("      } else {");
-console.log("        // Stop timer — ad left viewport");
+console.log("        // Stop timer - ad left viewport");
 console.log("        clearViewTimer(entry.target)");
 console.log("      }");
 console.log("    })");
@@ -940,9 +940,9 @@ console.log("  • Does it block rendering?");
 console.log("  • Is it still needed?");
 console.log("  • Can it be loaded later?");`,
 
-  ecosystem: `// The Ad-Tech Ecosystem — Complete Data Flow
+  ecosystem: `// The Ad-Tech Ecosystem - Complete Data Flow
 
-console.log("🌐 AD-TECH ECOSYSTEM — END TO END:\\n");
+console.log("🌐 AD-TECH ECOSYSTEM - END TO END:\\n");
 
 console.log("THE PLAYERS:");
 console.log("  📰 Publisher → Owns the website (e.g., Forbes)");
@@ -970,7 +970,7 @@ console.log("  9. Impression tracked, viewability monitored\\n");
 console.log("💡 This happens for EVERY ad slot, EVERY page load");
 console.log("   Billions of auctions per day, each in ~200ms");`,
 
-  adServing: `// Ad Serving — Where Ads Are Stored & Delivered
+  adServing: `// Ad Serving - Where Ads Are Stored & Delivered
 
 console.log("🗃️ AD SERVING ARCHITECTURE:\\n");
 
@@ -986,7 +986,7 @@ console.log("    → Caches at edge servers near users");
 console.log("    → Reduces latency: 200ms → 20ms\\n");
 
 console.log("2️⃣ Creative FORMATS:");
-console.log("  • Image: JPEG/PNG/WebP — simplest, fastest");
+console.log("  • Image: JPEG/PNG/WebP - simplest, fastest");
 console.log("  • HTML5: Rich interactive ads (animations, forms)");
 console.log("    → Runs in sandboxed iframe, max 150KB");
 console.log("  • VAST (Video): XML that tells player what to show");
@@ -1006,7 +1006,7 @@ console.log("  Everything is isolated in cross-origin iframes.");`,
 
   adTypes: `// Types of Digital Advertising
 
-console.log("🎨 AD TYPES — COMPLETE GUIDE:\\n");
+console.log("🎨 AD TYPES - COMPLETE GUIDE:\\n");
 
 console.log("1️⃣ DISPLAY ADS (Banner Ads):");
 console.log("  • Standard IAB sizes: 300x250, 728x90, 160x600");
@@ -1062,14 +1062,14 @@ console.log("    → Aggregated reports, not individual tracking\\n");
 
 console.log("WHY THIS MATTERS FOR MEDIA.NET:");
 console.log("  ✅ Contextual advertising GAINS value");
-console.log("  → No cookies needed — analyze page content instead");
+console.log("  → No cookies needed - analyze page content instead");
 console.log("  → Privacy-compliant by design");
 console.log("  → Works everywhere (Safari, Firefox, Chrome)");
 console.log("  → Media.net's NLP reads the page, not the user");`,
 
-  gpt: `// Google Publisher Tags (GPT) — Frontend Integration
+  gpt: `// Google Publisher Tags (GPT) - Frontend Integration
 
-console.log("🏷️ GPT — How Ads Get On The Page:\\n");
+console.log("🏷️ GPT - How Ads Get On The Page:\\n");
 
 console.log("STEP 1: Load GPT library (async, non-blocking):");
 console.log("  // In document head");
@@ -1109,7 +1109,7 @@ console.log("  }, { rootMargin: '200px' }) // Load 200px before visible");`,
 
   headerBidding: `// Header Bidding with Prebid.js
 
-console.log("🔨 HEADER BIDDING — Complete Flow:\\n");
+console.log("🔨 HEADER BIDDING - Complete Flow:\\n");
 
 console.log("WHY Header Bidding exists:");
 console.log("  Before: Publisher relies only on Google AdX (one buyer)");

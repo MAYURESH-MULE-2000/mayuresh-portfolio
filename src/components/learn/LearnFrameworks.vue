@@ -10,7 +10,7 @@
         <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Framework Concepts</h1>
       </div>
       <p class="text-gray-500 dark:text-gray-400 text-sm md:text-base max-w-2xl">
-        Lifecycle hooks, reactivity, state management, and re-render triggers. The concepts that make frameworks tick — applicable to Vue, React, and beyond.
+        Lifecycle hooks, reactivity, state management, and re-render triggers. The concepts that make frameworks tick - applicable to Vue, React, and beyond.
       </p>
     </div>
 
@@ -39,7 +39,7 @@
           >
             <!-- Interactive Lifecycle Visualizer -->
             <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
-              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Component Lifecycle — Click buttons to trigger lifecycle events</p>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Component Lifecycle - Click buttons to trigger lifecycle events</p>
               <div class="flex flex-wrap gap-2 mb-4">
                 <button @click="lifecycleDemo.mounted = true; addLifecycleLog('🟢 onMounted')"
                   class="px-3 py-1.5 text-xs rounded-lg bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-all"
@@ -92,7 +92,7 @@
             icon="🔀"
             title="Vue vs React Lifecycle Comparison"
             subtitle="Same concepts, different API"
-            definition="Vue uses onMounted/onUpdated/onUnmounted (Composition API) or created/mounted/updated/beforeUnmount (Options API). React uses useEffect with dependency arrays. The mental model is the same — only syntax changes."
+            definition="Vue uses onMounted/onUpdated/onUnmounted (Composition API) or created/mounted/updated/beforeUnmount (Options API). React uses useEffect with dependency arrays. The mental model is the same - only syntax changes."
             analogy="Vue and React lifecycle are like driving automatic vs manual: the car (component) works the same way, you just shift gears (call hooks) differently."
             seniorTip="In interviews, show you understand BOTH patterns. Say: 'In Vue I'd use onMounted, in React the equivalent is useEffect with an empty dependency array.' This shows framework-agnostic thinking."
           >
@@ -138,7 +138,7 @@
           >
             <!-- Reactivity Demo -->
             <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
-              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Reactivity in action — change the value and watch dependents update</p>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Reactivity in action - change the value and watch dependents update</p>
 
               <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <div class="p-3 rounded-lg border border-emerald-500/20 bg-emerald-500/5">
@@ -174,11 +174,11 @@
           <ConceptCard
             id="rerender"
             icon="🔁"
-            title="Re-render Triggers — Why Did It Re-render?"
+            title="Re-render Triggers - Why Did It Re-render?"
             subtitle="The most important debugging skill"
             definition="Vue re-renders when reactive data used in the template changes (fine-grained). React re-renders when setState is called OR parent re-renders (cascading). Unnecessary re-renders waste performance."
-            analogy="Vue is like a smart TV — it only refreshes the pixels that changed (fine-grained). React is like a CRT TV — it redraws the entire screen each frame (but uses Virtual DOM to make it efficient)."
-            seniorTip="Use Vue DevTools to track which components re-render. In React, use React.memo + useCallback + useMemo for optimization. Know WHY re-renders happen — not just how to fix them."
+            analogy="Vue is like a smart TV - it only refreshes the pixels that changed (fine-grained). React is like a CRT TV - it redraws the entire screen each frame (but uses Virtual DOM to make it efficient)."
+            seniorTip="Use Vue DevTools to track which components re-render. In React, use React.memo + useCallback + useMemo for optimization. Know WHY re-renders happen - not just how to fix them."
           >
             <!-- Re-render Trigger Comparison -->
             <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
@@ -214,8 +214,8 @@
             title="Computed vs Watch (Vue) / useMemo vs useEffect (React)"
             subtitle="Derived values vs side effects"
             definition="Computed/useMemo: derives a value from other reactive data (cached, lazy). Watch/useEffect: runs side effects when dependencies change (fetch data, update DOM, log). Use computed for transforming data, watch for reacting to data."
-            analogy="Computed is like a dashboard gauge — it shows derived information (speed from RPM). Watch is like an alarm — it triggers an ACTION when something changes (alert when temperature too high)."
-            seniorTip="Default to computed. Use watch only for side effects (API calls, localStorage, analytics). In React, useEffect is overused — many effects should be useMemo or event handlers instead."
+            analogy="Computed is like a dashboard gauge - it shows derived information (speed from RPM). Watch is like an alarm - it triggers an ACTION when something changes (alert when temperature too high)."
+            seniorTip="Default to computed. Use watch only for side effects (API calls, localStorage, analytics). In React, useEffect is overused - many effects should be useMemo or event handlers instead."
           >
             <CodePlayground
               title="computed-watch.js"
@@ -311,7 +311,7 @@
             title="Suspense & Transitions"
             subtitle="Declarative async UI"
             definition="Suspense lets components 'wait' for something (code split, data) before rendering. Transitions mark updates as non-urgent, keeping the UI responsive during heavy renders."
-            seniorTip="Use Suspense boundaries to orchestrate loading. Don't just wrap the whole app—wrap specific sections so the rest of the app remains usable while one part loads."
+            seniorTip="Use Suspense boundaries to orchestrate loading. Don't just wrap the whole app-wrap specific sections so the rest of the app remains usable while one part loads."
           >
             <CodePlayground
               title="concurrent.js"
@@ -497,7 +497,7 @@ const rerenderTriggers = [
 // ==================== Performance Checklist ====================
 const perfChecklist = reactive([
   { label: 'Lazy-load routes', detail: 'Dynamic import() for each route', checked: false },
-  { label: 'Use unique keys in lists', detail: 'Not index — stable IDs', checked: false },
+  { label: 'Use unique keys in lists', detail: 'Not index - stable IDs', checked: false },
   { label: 'Memoize expensive computations', detail: 'computed (Vue) / useMemo (React)', checked: false },
   { label: 'Avoid inline functions in templates', detail: 'Define handlers outside template', checked: false },
   { label: 'Virtual scrolling for long lists', detail: 'vue-virtual-scroller / react-window', checked: false },
@@ -586,12 +586,12 @@ console.log("  setCount(c => c + 1) → ✅ triggers re-render\\n");
 console.log("Key insight: Vue tracks individual properties,");
 console.log("React compares entire state snapshots.");`,
 
-  computedWatch: `// Computed vs Watch — Know When to Use Which
+  computedWatch: `// Computed vs Watch - Know When to Use Which
 
 console.log("📊 Computed (useMemo):\\n");
 console.log("  USE FOR: Deriving values from state");
-console.log("  • Cached — only recalculates when deps change");
-console.log("  • Synchronous — returns a value");
+console.log("  • Cached - only recalculates when deps change");
+console.log("  • Synchronous - returns a value");
 console.log("  • Example: fullName = first + ' ' + last\\n");
 
 console.log("  Vue:  const full = computed(() => a + b)");

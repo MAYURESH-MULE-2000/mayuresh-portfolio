@@ -11,7 +11,7 @@
         </div>
         <h2 class="text-3xl md:text-4xl font-bold">Product Sense Cases</h2>
         <p class="text-gray-600 dark:text-gray-400 text-lg mt-2 transition-colors duration-300">
-          100 mini case studies — each structured with goals, market sizing, user segments, pain prioritisation, and metrics.
+          100 mini case studies - each structured with goals, market sizing, user segments, pain prioritisation, and metrics.
         </p>
       </div>
 

@@ -33,7 +33,7 @@
             title="Webpack vs Vite"
             subtitle="The build tool landscape"
             definition="Webpack: mature, configurable, uses bundle-based dev server (slow HMR). Vite: modern, uses native ESM dev server (instant HMR), Rollup for production. Key difference: Webpack bundles EVERYTHING first, Vite serves files on-demand."
-            analogy="Webpack is like a traditional restaurant — prepares everything in the kitchen before serving (bundling). Vite is like a sushi conveyor belt — serves each piece as it's ready, no waiting for the full meal."
+            analogy="Webpack is like a traditional restaurant - prepares everything in the kitchen before serving (bundling). Vite is like a sushi conveyor belt - serves each piece as it's ready, no waiting for the full meal."
             seniorTip="Most new projects should use Vite. Webpack still dominates in legacy projects and complex configs. Know how to configure both: entry points, loaders/plugins (Webpack), plugins and resolve (Vite). Understand tree-shaking in both."
             defaultOpen
           >
@@ -72,8 +72,8 @@
             title="Tree Shaking & Code Splitting"
             subtitle="Ship only what you use"
             definition="Tree shaking: remove unused exports from bundles (requires ES modules). Code splitting: break bundle into smaller chunks loaded on-demand (dynamic import). Both reduce initial load size. Webpack and Rollup/Vite both support tree-shaking."
-            analogy="Tree shaking is like packing for a trip — you shake the tree of all your clothes and only pack what falls into the suitcase (used code). Code splitting is like shipping luggage separately — you carry a small bag (critical code) and the rest arrives later."
-            seniorTip="Ensure ES modules (import/export) for tree-shaking — CommonJS (require) can't be tree-shaken. Use dynamic import() for code splitting. Analyze bundle with webpack-bundle-analyzer or vite-plugin-visualizer. Target: initial JS < 200KB gzipped."
+            analogy="Tree shaking is like packing for a trip - you shake the tree of all your clothes and only pack what falls into the suitcase (used code). Code splitting is like shipping luggage separately - you carry a small bag (critical code) and the rest arrives later."
+            seniorTip="Ensure ES modules (import/export) for tree-shaking - CommonJS (require) can't be tree-shaken. Use dynamic import() for code splitting. Analyze bundle with webpack-bundle-analyzer or vite-plugin-visualizer. Target: initial JS < 200KB gzipped."
           >
             <CodePlayground
               title="tree-shaking.js"
@@ -90,7 +90,7 @@
             title="The Testing Pyramid"
             subtitle="Unit → Integration → E2E"
             definition="Unit tests: test individual functions/components in isolation (fast, many). Integration tests: test multiple units working together (medium). E2E tests: test complete user flows in a real browser (slow, few). The pyramid suggests: many unit, some integration, few E2E."
-            analogy="The testing pyramid is like quality control in a car factory — lots of quick material tests (unit), fewer assembly checks (integration), and a final test drive (E2E). You don't test-drive every bolt."
+            analogy="The testing pyramid is like quality control in a car factory - lots of quick material tests (unit), fewer assembly checks (integration), and a final test drive (E2E). You don't test-drive every bolt."
             seniorTip="Follow the 70/20/10 rule: 70% unit, 20% integration, 10% E2E. Use Vitest/Jest for unit, Testing Library for integration, Playwright/Cypress for E2E. Write tests that test BEHAVIOR, not implementation. Test what users see, not internal state."
             defaultOpen
           >
@@ -127,9 +127,9 @@
             icon="🧩"
             title="Component Testing with Testing Library"
             subtitle="Test components like a user would"
-            definition="Testing Library (for React, Vue, Angular) renders components and lets you query by text, role, label — the way users find elements. Avoid testing internal state or implementation details. Query priority: getByRole → getByLabelText → getByText → getByTestId."
-            analogy="Testing Library is like a mystery shopper — they don't care about the restaurant's kitchen setup (implementation), they test the experience: 'Can I find the menu? Can I order? Does the food arrive?'"
-            seniorTip="Prefer getByRole over getByTestId — it forces accessible markup. Test user interactions: click, type, submit. Test what's VISIBLE, not what's in state. Mock API calls, not internal functions. Use userEvent over fireEvent for realistic interactions."
+            definition="Testing Library (for React, Vue, Angular) renders components and lets you query by text, role, label - the way users find elements. Avoid testing internal state or implementation details. Query priority: getByRole → getByLabelText → getByText → getByTestId."
+            analogy="Testing Library is like a mystery shopper - they don't care about the restaurant's kitchen setup (implementation), they test the experience: 'Can I find the menu? Can I order? Does the food arrive?'"
+            seniorTip="Prefer getByRole over getByTestId - it forces accessible markup. Test user interactions: click, type, submit. Test what's VISIBLE, not what's in state. Mock API calls, not internal functions. Use userEvent over fireEvent for realistic interactions."
           >
             <CodePlayground
               title="component-testing.js"
@@ -146,7 +146,7 @@
             title="Git Workflow & Branching Strategy"
             subtitle="Trunk-based, GitFlow, and feature branches"
             definition="Trunk-based: short-lived feature branches merged to main frequently. GitFlow: develop, feature, release, hotfix branches. Feature branches: branch per feature, PR review, merge to main. Most modern teams prefer trunk-based with feature flags."
-            analogy="Trunk-based is like a highway with short on-ramps — you merge quickly and keep traffic flowing. GitFlow is like a complex interchange with many lanes — powerful but can cause traffic jams (merge conflicts)."
+            analogy="Trunk-based is like a highway with short on-ramps - you merge quickly and keep traffic flowing. GitFlow is like a complex interchange with many lanes - powerful but can cause traffic jams (merge conflicts)."
             seniorTip="Use trunk-based development with feature flags for senior-level projects. Keep PRs small (< 400 lines). Write meaningful commit messages (conventional commits). Squash merge to keep history clean. Use pre-commit hooks for linting."
             defaultOpen
           >
@@ -162,7 +162,7 @@
             title="CI/CD Pipeline for Frontend"
             subtitle="Automate everything from commit to deploy"
             definition="CI (Continuous Integration): auto-run lint, tests, build on every push. CD (Continuous Deployment): auto-deploy on merge to main. Pipeline stages: install → lint → test → build → deploy. Tools: GitHub Actions, GitLab CI, CircleCI, Vercel."
-            analogy="CI/CD is like an assembly line in a factory — each station (stage) checks one thing. If any station fails, the whole line stops and catches the defect before it reaches the customer (production)."
+            analogy="CI/CD is like an assembly line in a factory - each station (stage) checks one thing. If any station fails, the whole line stops and catches the defect before it reaches the customer (production)."
             seniorTip="Minimum CI pipeline: lint → type-check → unit tests → build → deploy preview. Add: bundle size check, Lighthouse CI, visual regression tests. Cache node_modules between runs. Use branch previews for PR review."
           >
             <CodePlayground
@@ -196,7 +196,7 @@
             title="TypeScript Essentials for UI Developers"
             subtitle="Type safety without the overhead"
             definition="TypeScript adds static typing to JavaScript: interfaces, types, generics, enums, type guards. Benefits: catch errors at build time, better IDE support, self-documenting code. Key: utility types (Partial, Pick, Omit, Record), type narrowing, discriminated unions."
-            analogy="TypeScript is like labeling all cables behind your TV — it takes time upfront, but when something breaks, you know exactly which cable (type) goes where, instead of unplugging everything randomly."
+            analogy="TypeScript is like labeling all cables behind your TV - it takes time upfront, but when something breaks, you know exactly which cable (type) goes where, instead of unplugging everything randomly."
             seniorTip="Use TypeScript for all new projects. Start with strict mode. Define API response types. Use Zod for runtime validation + type inference. Avoid 'any' like the plague. Key utility types: Partial, Required, Pick, Omit, Record, Exclude."
           >
             <CodePlayground
@@ -211,7 +211,7 @@
             title="Performance Budgets & Monitoring"
             subtitle="Set limits, enforce them"
             definition="Performance budget: a threshold for metrics like bundle size (< 200KB gzipped), LCP (< 2.5s), or number of requests (< 50). Enforce via CI (bundlesize, Lighthouse CI). Monitor via RUM (Real User Monitoring) and synthetic testing."
-            analogy="A performance budget is like a calorie budget for your website — you decide the daily limit upfront, and every new feature (ingredient) must fit within that limit, or you cut something else."
+            analogy="A performance budget is like a calorie budget for your website - you decide the daily limit upfront, and every new feature (ingredient) must fit within that limit, or you cut something else."
             seniorTip="Set budgets: JS < 200KB, CSS < 50KB, images < 500KB per page. Use Lighthouse CI in your pipeline. Track real-user performance with web-vitals. At Media.net, ad-heavy pages need strict budgets to maintain good UX."
           >
             <CodePlayground
@@ -258,7 +258,7 @@ const buildComparison = [
 
 // ==================== Code Examples ====================
 const codes = {
-  buildTools: `// Webpack vs Vite — Key Differences
+  buildTools: `// Webpack vs Vite - Key Differences
 
 console.log("📦 Build Tool Architecture:\\n");
 
@@ -271,7 +271,7 @@ console.log("  5. Serve bundled files to browser");
 console.log("  ⏱️ Cold start: 10-60 seconds\\n");
 
 console.log("VITE (ESM-Based):");
-console.log("  1. Pre-bundle dependencies (esbuild — FAST)");
+console.log("  1. Pre-bundle dependencies (esbuild - FAST)");
 console.log("  2. Serve source files as native ES modules");
 console.log("  3. Browser requests files → Vite transforms on-demand");
 console.log("  4. Only processes what's actually imported");
@@ -291,7 +291,7 @@ console.log("  • When DX (Developer Experience) matters");`,
 
   treeShaking: `// Tree Shaking & Code Splitting
 
-console.log("🌳 Tree Shaking — Remove Dead Code:\\n");
+console.log("🌳 Tree Shaking - Remove Dead Code:\\n");
 
 console.log("Works with ES modules (import/export):");
 console.log("  // utils.js");
@@ -303,7 +303,7 @@ console.log("  import { add } from './utils'  // subtract is REMOVED\\n");
 console.log("❌ Does NOT work with CommonJS:");
 console.log("  const utils = require('./utils')  // ALL code included\\n");
 
-console.log("✂️ Code Splitting — On-Demand Loading:\\n");
+console.log("✂️ Code Splitting - On-Demand Loading:\\n");
 
 console.log("  // Route-level splitting (most common)");
 console.log("  const About = () => import('./pages/About.vue')\\n");
@@ -323,11 +323,11 @@ console.log("📏 Bundle Size Targets:");
 console.log("  Initial JS: < 200KB gzipped");
 console.log("  Per-route chunk: < 50KB gzipped");`,
 
-  testingPyramid: `// Testing Strategy — The Pyramid
+  testingPyramid: `// Testing Strategy - The Pyramid
 
 console.log("🧪 Frontend Testing Strategy:\\n");
 
-console.log("1️⃣ UNIT TESTS (70%) — Fast, Isolated");
+console.log("1️⃣ UNIT TESTS (70%) - Fast, Isolated");
 console.log("  • Pure functions, utilities, composables");
 console.log("  • Tools: Vitest, Jest");
 console.log("  • Speed: < 10ms per test\\n");
@@ -339,7 +339,7 @@ console.log("        .toBe('$1,234.00')");
 console.log("    })");
 console.log("  })\\n");
 
-console.log("2️⃣ INTEGRATION TESTS (20%) — Component Behavior");
+console.log("2️⃣ INTEGRATION TESTS (20%) - Component Behavior");
 console.log("  • Render component, simulate user actions");
 console.log("  • Tools: Testing Library + Vitest");
 console.log("  • Speed: < 100ms per test\\n");
@@ -351,7 +351,7 @@ console.log("    await userEvent.click(getByRole('button', { name: 'Login' }))")
 console.log("    expect(getByText('Welcome!')).toBeVisible()");
 console.log("  })\\n");
 
-console.log("3️⃣ E2E TESTS (10%) — Full User Flows");
+console.log("3️⃣ E2E TESTS (10%) - Full User Flows");
 console.log("  • Real browser, real API (or mocked)");
 console.log("  • Tools: Playwright, Cypress");
 console.log("  • Speed: 1-30 seconds per test\\n");
@@ -465,7 +465,7 @@ console.log("   If CI passes → safe to merge.");`,
 
 console.log("✨ Code Quality Toolchain:\\n");
 
-console.log("1️⃣ ESLint — Catches Code Issues:");
+console.log("1️⃣ ESLint - Catches Code Issues:");
 console.log("  npm install -D eslint @eslint/js\\n");
 console.log("  // eslint.config.js");
 console.log("  export default [");
@@ -476,7 +476,7 @@ console.log("        'prefer-const': 'error',");
 console.log("    }}");
 console.log("  ]\\n");
 
-console.log("2️⃣ Prettier — Auto-Formats Code:");
+console.log("2️⃣ Prettier - Auto-Formats Code:");
 console.log("  npm install -D prettier\\n");
 console.log("  // .prettierrc");
 console.log("  { semi: false,");
@@ -484,7 +484,7 @@ console.log("    singleQuote: true,");
 console.log("    trailingComma: 'es5',");
 console.log("    printWidth: 100 }\\n");
 
-console.log("3️⃣ Husky — Git Hooks:");
+console.log("3️⃣ Husky - Git Hooks:");
 console.log("  npm install -D husky lint-staged");
 console.log("  npx husky init\\n");
 
@@ -498,7 +498,7 @@ console.log("    }}");`,
 
   typescript: `// TypeScript Essentials for Frontend
 
-console.log("📘 TypeScript — Key Concepts:\\n");
+console.log("📘 TypeScript - Key Concepts:\\n");
 
 console.log("1️⃣ Interfaces vs Types:");
 console.log("  interface User { name: string; age: number }");

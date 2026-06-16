@@ -291,7 +291,7 @@ export const blogs = [
       sections: [
         {
           title: 'Introduction',
-          content: `Accessibility is not just a feature—it's a fundamental aspect of good design. Learn how to build interfaces that work for everyone.`,
+          content: `Accessibility is not just a feature-it's a fundamental aspect of good design. Learn how to build interfaces that work for everyone.`,
         },
       ],
       sidebar: {

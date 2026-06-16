@@ -93,7 +93,7 @@
         </nav>
       </aside>
 
-      <!-- Scrollable main content — all sections stacked -->
+      <!-- Scrollable main content - all sections stacked -->
       <div ref="contentRef" class="flex-1 min-w-0 space-y-16">
 
         <!-- 01 · GOAL -->
@@ -286,7 +286,7 @@
             </table>
           </div>
           <div class="p-5 rounded-2xl border border-red-100 dark:border-red-800/30 bg-red-50 dark:bg-red-900/10">
-            <p class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-red-500 dark:text-red-400 mb-3"><OctagonX class="w-3.5 h-3.5 shrink-0" /> Guardrails — stop shipping if:</p>
+            <p class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-red-500 dark:text-red-400 mb-3"><OctagonX class="w-3.5 h-3.5 shrink-0" /> Guardrails - stop shipping if:</p>
             <ul class="space-y-2">
               <li v-for="(g, i) in case_.metrics.guardrails" :key="i" class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
                 <X class="w-3.5 h-3.5 text-red-400 shrink-0 mt-0.5" />{{ g }}
@@ -409,7 +409,7 @@ function updateReadingState() {
   dispatchReading(bodyVisible && !endSentinelVisible)
 }
 
-// ── IntersectionObserver — highlight sidebar as sections enter view ───────────
+// ── IntersectionObserver - highlight sidebar as sections enter view ───────────
 let observer = null
 
 onMounted(() => {

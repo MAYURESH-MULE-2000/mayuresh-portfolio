@@ -33,13 +33,13 @@
             title="Flexbox Deep Dive"
             subtitle="One-dimensional layouts made easy"
             definition="Flexbox is a one-dimensional layout model. Items flow along a main axis (row/column). Key properties: display:flex, justify-content (main axis), align-items (cross axis), flex-grow/shrink/basis, gap, flex-wrap."
-            analogy="Flexbox is like a clothesline — items hang in a row (main axis), and you decide if they should spread out, bunch up, or wrap to a new line."
+            analogy="Flexbox is like a clothesline - items hang in a row (main axis), and you decide if they should spread out, bunch up, or wrap to a new line."
             seniorTip="Use gap instead of margins between flex items. flex: 1 is shorthand for flex-grow:1 flex-shrink:1 flex-basis:0%. Know the difference between align-items (single line) and align-content (multi-line)."
             defaultOpen
           >
             <!-- Interactive Flexbox Playground -->
             <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
-              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Flexbox Playground — Change properties and see the result live</p>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Flexbox Playground - Change properties and see the result live</p>
 
               <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
                 <div>
@@ -125,12 +125,12 @@
             title="CSS Grid"
             subtitle="Two-dimensional layout powerhouse"
             definition="CSS Grid is a two-dimensional layout system. Define rows and columns with grid-template-rows/columns, place items with grid-row/column. Use fr units for flexible sizing, minmax() for responsive ranges."
-            analogy="Grid is like a spreadsheet — you define rows and columns, then place items into specific cells. Unlike Flexbox (clothesline), Grid controls BOTH axes simultaneously."
+            analogy="Grid is like a spreadsheet - you define rows and columns, then place items into specific cells. Unlike Flexbox (clothesline), Grid controls BOTH axes simultaneously."
             seniorTip="Use Grid for page layouts and Flexbox for component-level alignment. grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) creates responsive grids without media queries."
           >
             <!-- Interactive Grid Playground -->
             <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
-              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Grid Playground — Adjust columns and gap</p>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Grid Playground - Adjust columns and gap</p>
 
               <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
                 <div>
@@ -195,15 +195,15 @@
           <ConceptCard
             id="centering"
             icon="⭕"
-            title="Centering — The Interview Classic"
+            title="Centering - The Interview Classic"
             subtitle="'Why is this div not centering?'"
             definition="There are multiple ways to center in CSS. The modern approach: display:grid; place-items:center (both axes in one line). Also: display:flex; justify-content:center; align-items:center. Or position:absolute with transform."
-            analogy="Centering in CSS is like parking in a lot — there are many valid spots (methods), but some are easier than others. place-items:center is the VIP spot right by the entrance."
+            analogy="Centering in CSS is like parking in a lot - there are many valid spots (methods), but some are easier than others. place-items:center is the VIP spot right by the entrance."
             seniorTip="Grid place-items:center is the cleanest one-liner for centering. For text, use text-align:center + line-height. For absolute positioning, use inset:0 + margin:auto. Know multiple methods because interviewers love this question."
           >
             <!-- Centering Methods Showcase -->
             <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
-              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Pick a centering method — see it applied</p>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Pick a centering method - see it applied</p>
               <div class="flex flex-wrap gap-2 mb-4">
                 <button
                   v-for="method in centerMethods"
@@ -240,12 +240,12 @@
             subtitle="Which style wins?"
             definition="Specificity is a scoring system: inline styles (1000) > IDs (100) > classes/attributes/pseudo-classes (10) > elements/pseudo-elements (1). !important overrides all (but avoid it). When equal specificity, the LAST rule wins."
             analogy="Specificity is like a military rank: a General (ID) outranks a Captain (class), who outranks a Private (element). No matter how many Privates you have, one General overrides them all."
-            seniorTip="Keep specificity flat — use classes only (BEM methodology). Avoid IDs in CSS. If you need to override, increase specificity minimally or use :where() (zero specificity). Never use !important in production CSS."
+            seniorTip="Keep specificity flat - use classes only (BEM methodology). Avoid IDs in CSS. If you need to override, increase specificity minimally or use :where() (zero specificity). Never use !important in production CSS."
             defaultOpen
           >
             <!-- Interactive Specificity Calculator -->
             <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
-              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Specificity Calculator — Enter selectors and compare</p>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Specificity Calculator - Enter selectors and compare</p>
               <div class="space-y-3">
                 <div v-for="(sel, i) in specificitySelectors" :key="i" class="flex items-center gap-3">
                   <input
@@ -280,7 +280,7 @@
           >
             <!-- z-index Stacking Demo -->
             <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
-              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Drag the z-index sliders — see stacking contexts in action</p>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">🎮 Drag the z-index sliders - see stacking contexts in action</p>
               <div class="relative h-48 rounded-xl bg-gray-200 dark:bg-white/5 overflow-hidden">
                 <div
                   v-for="(box, i) in stackingBoxes"
@@ -317,13 +317,13 @@
             title="Responsive Design & Media Queries"
             subtitle="One codebase, every screen"
             definition="Responsive design adapts layout to viewport size using media queries, fluid typography (clamp()), and flexible units (%, vw, vh, rem). Mobile-first approach: start with mobile styles, add @media (min-width) for larger screens."
-            analogy="Responsive design is like water — it takes the shape of its container. Media queries are like valves that change the flow at certain points."
+            analogy="Responsive design is like water - it takes the shape of its container. Media queries are like valves that change the flow at certain points."
             seniorTip="Use min-width (mobile-first) over max-width. Common breakpoints: 640px (sm), 768px (md), 1024px (lg), 1280px (xl). Use clamp() for fluid typography: clamp(1rem, 2.5vw, 2rem). Container queries (@container) are the future."
             defaultOpen
           >
             <!-- Breakpoint Visualizer -->
             <div class="p-4 rounded-xl bg-gray-100/80 dark:bg-white/5 border border-gray-200/50 dark:border-white/5">
-              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">📊 Common breakpoints — your current viewport is highlighted</p>
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3">📊 Common breakpoints - your current viewport is highlighted</p>
               <div class="space-y-2">
                 <div v-for="bp in breakpoints" :key="bp.name"
                   class="flex items-center gap-3 p-2 rounded-lg transition-all"
@@ -368,8 +368,8 @@
             title="Cross-Browser Issues & Fixes"
             subtitle="Why it looks different in Safari"
             definition="Browsers render CSS differently. Common issues: Safari flexbox gap support, Firefox scrollbar styling, webkit-prefixes, different default styles. Use CSS resets (normalize.css), autoprefixer, and caniuse.com."
-            analogy="Cross-browser compatibility is like cooking the same recipe in different kitchens — each oven (browser) heats slightly differently, so you need to test and adjust."
-            seniorTip="Use `@supports` for progressive enhancement. Test on real devices, not just emulators. Safari is the new IE — always test on WebKit. Use browserslist to configure target browsers for autoprefixer and Babel."
+            analogy="Cross-browser compatibility is like cooking the same recipe in different kitchens - each oven (browser) heats slightly differently, so you need to test and adjust."
+            seniorTip="Use `@supports` for progressive enhancement. Test on real devices, not just emulators. Safari is the new IE - always test on WebKit. Use browserslist to configure target browsers for autoprefixer and Babel."
           >
             <CodePlayground
               title="cross-browser.js"
@@ -386,8 +386,8 @@
             title="CSS Transitions"
             subtitle="Smooth state changes"
             definition="Transitions animate property changes over time. Shorthand: transition: property duration timing-function delay. Only certain properties are animatable (not display!). Use transform and opacity for best performance (GPU-composited)."
-            analogy="A transition is like a dimmer switch — instead of flipping the light on/off instantly, you smoothly adjust the brightness over time."
-            seniorTip="Only animate transform and opacity for 60fps — these skip layout and paint. Use will-change sparingly (it consumes GPU memory). transition: all is lazy — always specify the exact property."
+            analogy="A transition is like a dimmer switch - instead of flipping the light on/off instantly, you smoothly adjust the brightness over time."
+            seniorTip="Only animate transform and opacity for 60fps - these skip layout and paint. Use will-change sparingly (it consumes GPU memory). transition: all is lazy - always specify the exact property."
             defaultOpen
           >
             <CodePlayground
@@ -402,8 +402,8 @@
             title="CSS Keyframe Animations"
             subtitle="Multi-step animations"
             definition="@keyframes defines animation steps (0% to 100%). animation shorthand: name duration timing-function delay iteration-count direction fill-mode. Use animation-fill-mode: forwards to keep end state."
-            analogy="Keyframes are like a flipbook — you draw key frames (0%, 50%, 100%) and the browser fills in the in-betweens automatically."
-            seniorTip="Use animation-play-state for pause/resume. Prefer CSS animations over JS for simple effects — they're GPU-optimized. Use prefers-reduced-motion media query for accessibility."
+            analogy="Keyframes are like a flipbook - you draw key frames (0%, 50%, 100%) and the browser fills in the in-betweens automatically."
+            seniorTip="Use animation-play-state for pause/resume. Prefer CSS animations over JS for simple effects - they're GPU-optimized. Use prefers-reduced-motion media query for accessibility."
           >
             <CodePlayground
               title="keyframes.js"
@@ -416,9 +416,9 @@
             icon="🔀"
             title="CSS Transforms & Performance"
             subtitle="Move, rotate, scale without reflow"
-            definition="transform: translate(), rotate(), scale(), skew(). Transforms don't trigger layout recalculation — they're composited on the GPU. This is why you should animate transforms instead of top/left/width/height."
-            analogy="Transforms are like moving a sticker on glass — the sticker moves but the glass (layout) stays put. Changing width/height is like reshaping the glass itself."
-            seniorTip="GPU-composited properties: transform, opacity, filter. Everything else triggers layout. Use translate3d(0,0,0) to force GPU layer creation (but don't overuse — each layer uses memory)."
+            definition="transform: translate(), rotate(), scale(), skew(). Transforms don't trigger layout recalculation - they're composited on the GPU. This is why you should animate transforms instead of top/left/width/height."
+            analogy="Transforms are like moving a sticker on glass - the sticker moves but the glass (layout) stays put. Changing width/height is like reshaping the glass itself."
+            seniorTip="GPU-composited properties: transform, opacity, filter. Everything else triggers layout. Use translate3d(0,0,0) to force GPU layer creation (but don't overuse - each layer uses memory)."
           >
             <CodePlayground
               title="transforms.js"
@@ -450,9 +450,9 @@
             icon="📌"
             title="CSS Positioning Deep Dive"
             subtitle="static, relative, absolute, fixed, sticky"
-            definition="static: normal flow (default). relative: offset from normal position, still in flow. absolute: removed from flow, positioned relative to nearest positioned ancestor. fixed: relative to viewport. sticky: hybrid — relative until scroll threshold, then fixed."
+            definition="static: normal flow (default). relative: offset from normal position, still in flow. absolute: removed from flow, positioned relative to nearest positioned ancestor. fixed: relative to viewport. sticky: hybrid - relative until scroll threshold, then fixed."
             analogy="static = sitting in class. relative = leaning in your chair (still in your seat). absolute = floating above the class (removed from seating). fixed = pinned to the whiteboard (stays when you scroll). sticky = a student who sits until the teacher walks by, then follows."
-            seniorTip="position:sticky is underused — perfect for sticky headers, table headers, and sidebar navigation. Set top/bottom/left/right for it to activate. Check browser support for sticky inside overflow:hidden parents."
+            seniorTip="position:sticky is underused - perfect for sticky headers, table headers, and sidebar navigation. Set top/bottom/left/right for it to activate. Check browser support for sticky inside overflow:hidden parents."
           >
             <CodePlayground
               title="positioning.js"
@@ -465,9 +465,9 @@
             icon="🎨"
             title="CSS Custom Properties (Variables)"
             subtitle="Dynamic theming without preprocessors"
-            definition="CSS variables (--name: value) cascade and inherit. Use var(--name, fallback) to access. Unlike Sass variables, CSS variables are live — they can be changed with JS and respond to media queries."
+            definition="CSS variables (--name: value) cascade and inherit. Use var(--name, fallback) to access. Unlike Sass variables, CSS variables are live - they can be changed with JS and respond to media queries."
             analogy="CSS variables are like colored markers in a shared drawer. Everyone uses the same marker name ('primary'). If you swap the marker for a different color, everyone's drawings change instantly."
-            seniorTip="Use CSS variables for theming (dark mode toggle), component-level customization, and responsive values. They're runtime-dynamic — change them with JS for interactive themes. Use :root for globals."
+            seniorTip="Use CSS variables for theming (dark mode toggle), component-level customization, and responsive values. They're runtime-dynamic - change them with JS for interactive themes. Use :root for globals."
           >
             <CodePlayground
               title="css-variables.js"
@@ -517,7 +517,7 @@
             title="Visually Hidden & Focus Management"
             subtitle="Hiding things from eyes, but not ears"
             definition="display:none removes element from accessibility tree (screen readers ignore it). To hide visually but keep accessible (e.g., 'Skip to content' link), use a .visually-hidden class (clip pattern)."
-            analogy="display:none is vanishing into thin air. .visually-hidden is wearing an invisibility cloak — you're still there and can be heard, just not seen."
+            analogy="display:none is vanishing into thin air. .visually-hidden is wearing an invisibility cloak - you're still there and can be heard, just not seen."
             seniorTip="Use the standard .sr-only / .visually-hidden utility class. Never use width:0/height:0 as some screen readers ignore it."
           >
             <CodePlayground
@@ -770,7 +770,7 @@ const specificityWinner = computed(() => {
   const score2 = s2.ids * 100 + s2.classes * 10 + s2.elements
   if (score1 > score2) return '← First selector wins (' + score1 + ' vs ' + score2 + ')'
   if (score2 > score1) return 'Second selector wins → (' + score2 + ' vs ' + score1 + ')'
-  return 'Equal specificity — last rule wins (' + score1 + ')'
+  return 'Equal specificity - last rule wins (' + score1 + ')'
 })
 
 // ==================== Stacking Context Demo ====================
@@ -912,7 +912,7 @@ console.log("  autoprefixer → auto-add vendor prefixes");
 console.log("  browserslist → configure target browsers");`,
 
   // ==================== Animations ====================
-  transitions: `// CSS Transitions — Smooth State Changes
+  transitions: `// CSS Transitions - Smooth State Changes
 
 console.log("🔄 CSS TRANSITIONS:\\n");
 
@@ -939,15 +939,15 @@ console.log("  ease-in-out → slow start and end");
 console.log("  cubic-bezier(0.25, 0.1, 0.25, 1) → custom curve\\n");
 
 console.log("⚠️ CAN'T transition:");
-console.log("  display (none/block) — use opacity + visibility instead");
-console.log("  height: auto — use max-height hack instead\\n");
+console.log("  display (none/block) - use opacity + visibility instead");
+console.log("  height: auto - use max-height hack instead\\n");
 
 console.log("✅ PERFORMANT transitions (GPU-composited):");
 console.log("  transform, opacity, filter");
 console.log("❌ EXPENSIVE transitions (trigger layout):");
 console.log("  width, height, top, left, margin, padding");`,
 
-  keyframes: `// CSS @keyframes — Multi-Step Animations
+  keyframes: `// CSS @keyframes - Multi-Step Animations
 
 console.log("🎬 CSS KEYFRAME ANIMATIONS:\\n");
 
@@ -983,15 +983,15 @@ console.log("  @media (prefers-reduced-motion: reduce) {");
 console.log("    * { animation: none !important; }");
 console.log("  }");`,
 
-  transforms: `// CSS Transforms — Move Without Reflow
+  transforms: `// CSS Transforms - Move Without Reflow
 
 console.log("🔀 CSS TRANSFORMS:\\n");
 
 console.log("FUNCTIONS:");
-console.log("  translate(x, y) — move element");
-console.log("  rotate(deg)     — rotate element");
-console.log("  scale(x, y)     — resize element");
-console.log("  skew(x, y)      — slant element\\n");
+console.log("  translate(x, y) - move element");
+console.log("  rotate(deg)     - rotate element");
+console.log("  scale(x, y)     - resize element");
+console.log("  skew(x, y)      - slant element\\n");
 
 console.log("EXAMPLES:");
 console.log("  transform: translate(100px, 50px);");
@@ -1055,7 +1055,7 @@ console.log("  .box2 { margin-top: 30px; }");
 console.log("  → Gap = 30px (not 50px!)");
 console.log("  Fix: use padding, or flexbox/grid (no collapse)");`,
 
-  positioning: `// CSS Positioning — Complete Guide
+  positioning: `// CSS Positioning - Complete Guide
 
 console.log("📌 CSS POSITION VALUES:\\n");
 
@@ -1322,7 +1322,7 @@ Object.entries(layout.areas).forEach(([name, area]) => {
 const cardGrid = {
   display: "grid",
   gap: "24px",
-  gridTemplateColumns: "", // THE ONE LINE — fill this in!
+  gridTemplateColumns: "", // THE ONE LINE - fill this in!
 };
 
 // ===== CHECK =====

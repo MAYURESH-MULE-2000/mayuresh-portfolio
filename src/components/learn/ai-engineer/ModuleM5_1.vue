@@ -55,7 +55,7 @@
             icon="💡"
             title="Mental Models: The Cocktail Party"
             subtitle="Self-Attention"
-            definition="At a loud cocktail party, a dozen people are talking. Your brain mathematically computes 'Attention'—it suppresses the noise of the music and amplifies the voice of the person you are talking to. Transformers do this to words."
+            definition="At a loud cocktail party, a dozen people are talking. Your brain mathematically computes 'Attention'-it suppresses the noise of the music and amplifies the voice of the person you are talking to. Transformers do this to words."
             analogy="Consider the sentence: 'The bank of the river'. The word 'bank' by itself means 'Financial Institution'. But the Transformer's Attention mechanism sees the word 'river' and mathematically shifts the definition of 'bank' to mean 'Muddy slope'."
             defaultOpen
           >
@@ -220,7 +220,7 @@ print(results[<span class="text-emerald-300">0</span>][<span class="text-orange-
           >
              <div class="mt-4 p-5 border border-purple-200 dark:border-purple-900/30 bg-purple-50/50 dark:bg-purple-900/10 rounded-xl text-sm">
                 <span class="font-bold text-purple-700 dark:text-purple-400 block mb-2">➡️ Phase 5.3: RAG (Retrieval Augmented Generation)</span>
-                Because of the Context Window limit, you cannot train an LLM on your private company wiki every day. Instead, you will build RAG (M5.3)—a system that uses Vector DBs to find just the 3 most relevant paragraphs and pastes them into the prompt.
+                Because of the Context Window limit, you cannot train an LLM on your private company wiki every day. Instead, you will build RAG (M5.3)-a system that uses Vector DBs to find just the 3 most relevant paragraphs and pastes them into the prompt.
               </div>
           </ConceptCard>
         </template>
@@ -298,7 +298,7 @@ print(results[<span class="text-emerald-300">0</span>][<span class="text-orange-
               <div class="p-4 bg-violet-50 dark:bg-violet-900/10 border border-violet-200 dark:border-violet-800/20 rounded-xl">
                 <h4 class="font-bold text-violet-800 dark:text-violet-400 mb-2">Tasks & Exercises</h4>
                 <p class="text-gray-700 dark:text-gray-300 mb-4"><strong>Task 1 (Memory):</strong> NO! Transformers have literal zero memory of past calls. The web-interface (ChatGPT UI) is actually copy-pasting your entire 50-message chat history silently into the prompt block and sending the ENTIRE thing to the model every single time you hit enter.</p>
-                <p class="text-gray-700 dark:text-gray-300 mb-4"><strong>Exercise 1 (Temperature):</strong> The LLM outputs probabilities (e.g., "Blue" 80%, "Cloudy" 15%, "Pizza" 0.001%). At temp > 0, it rolls a weighted dice, occasionally picking "Cloudy". At temp 0.0, the math strictly takes the `.argmax()`—the highest probability guaranteed every time. It becomes deterministic.</p>
+                <p class="text-gray-700 dark:text-gray-300 mb-4"><strong>Exercise 1 (Temperature):</strong> The LLM outputs probabilities (e.g., "Blue" 80%, "Cloudy" 15%, "Pizza" 0.001%). At temp > 0, it rolls a weighted dice, occasionally picking "Cloudy". At temp 0.0, the math strictly takes the `.argmax()`-the highest probability guaranteed every time. It becomes deterministic.</p>
                 <p class="text-gray-700 dark:text-gray-300"><strong>Project (Loop):</strong><br>
                 Step 3: `prompt = prompt + " blue"`. Then it feeds "The sky is blue" to predict the next word. It MUST recount the whole sequence continuously.
                 </p>

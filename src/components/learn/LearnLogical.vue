@@ -33,7 +33,7 @@
             title="Array.prototype.map Polyfill"
             subtitle="Write it from scratch"
             definition="map() creates a new array by calling a function on every element. It doesn't mutate the original. Your polyfill must: accept a callback with (element, index, array) args, return a new array, and handle edge cases."
-            analogy="map() is like a factory assembly line — each raw material (element) goes through a machine (callback), and the output is a completely new product (new array). The raw materials stay untouched."
+            analogy="map() is like a factory assembly line - each raw material (element) goes through a machine (callback), and the output is a completely new product (new array). The raw materials stay untouched."
             seniorTip="In interviews, show you understand: 1) it returns a NEW array, 2) callback receives (value, index, array), 3) 'this' binding via second argument. Bonus: handle sparse arrays."
             defaultOpen
           >
@@ -50,7 +50,7 @@
             title="Array.prototype.filter Polyfill"
             subtitle="The gatekeeper function"
             definition="filter() creates a new array with elements that pass a test function. The callback returns true/false for each element. Only truthy results are included in the output."
-            analogy="filter() is like a bouncer at a club — everyone lines up (array), the bouncer checks each person (callback), and only those who pass the check (return true) get into the new VIP list (new array)."
+            analogy="filter() is like a bouncer at a club - everyone lines up (array), the bouncer checks each person (callback), and only those who pass the check (return true) get into the new VIP list (new array)."
             seniorTip="filter + map is the most common combination. Know that filter ALWAYS returns an array (even empty). Use findIndex if you want just one match."
           >
             <CodePlayground
@@ -65,9 +65,9 @@
             icon="🔧"
             title="Array.prototype.reduce Polyfill"
             subtitle="The swiss-army knife of arrays"
-            definition="reduce() executes a reducer function on each element, accumulating a single result. Takes (accumulator, currentValue, index, array). The initial value is optional but recommended — without it, the first element becomes the initial accumulator."
-            analogy="reduce() is like a snowball rolling downhill — it starts small (initial value), picks up more snow (each element), and by the end it's combined everything into one big snowball (result)."
-            seniorTip="reduce can implement map, filter, flat, groupBy, and more. But don't abuse it — if map or filter is clearer, use those. The interview power move: implement groupBy with reduce."
+            definition="reduce() executes a reducer function on each element, accumulating a single result. Takes (accumulator, currentValue, index, array). The initial value is optional but recommended - without it, the first element becomes the initial accumulator."
+            analogy="reduce() is like a snowball rolling downhill - it starts small (initial value), picks up more snow (each element), and by the end it's combined everything into one big snowball (result)."
+            seniorTip="reduce can implement map, filter, flat, groupBy, and more. But don't abuse it - if map or filter is clearer, use those. The interview power move: implement groupBy with reduce."
           >
             <CodePlayground
               title="reduce-polyfill.js"
@@ -82,7 +82,7 @@
             title="Debounce Implementation"
             subtitle="Wait for the user to stop typing"
             definition="Debounce delays execution until a pause in events. Each new event resets the timer. Only fires after the specified delay of inactivity. Used for: search input, resize handlers, scroll events."
-            analogy="Debounce is like an elevator door — it waits until people stop entering (events stop) before closing (executing). Each new person resets the wait timer."
+            analogy="Debounce is like an elevator door - it waits until people stop entering (events stop) before closing (executing). Each new person resets the wait timer."
             seniorTip="Implement both leading and trailing edge. The leading edge fires immediately on the first call, then waits. Know the difference between debounce (wait for pause) and throttle (limit frequency)."
           >
             <CodePlayground
@@ -98,7 +98,7 @@
             title="Throttle Implementation"
             subtitle="Limit execution frequency"
             definition="Throttle ensures a function runs at most once per specified interval, regardless of how often it's called. Used for: scroll handlers, mousemove, API rate limiting."
-            analogy="Throttle is like a faucet — no matter how hard you turn it (events), water (executions) only flows at a fixed rate. Debounce waits for you to stop turning."
+            analogy="Throttle is like a faucet - no matter how hard you turn it (events), water (executions) only flows at a fixed rate. Debounce waits for you to stop turning."
             seniorTip="Common mistake: confusing debounce and throttle. Throttle = execute every N ms (regular intervals). Debounce = execute after N ms of silence. Use throttle for continuous events, debounce for burst events."
           >
             <CodePlayground
@@ -116,8 +116,8 @@
             icon="📋"
             title="Deep Clone"
             subtitle="Copy everything, share nothing"
-            definition="Deep clone creates a completely independent copy of an object, including nested objects, arrays, dates, and maps. Shallow copy (spread, Object.assign) only copies the first level — nested references are shared."
-            analogy="Shallow copy is like photocopying a folder — you get the folder but the photos inside are still the originals. Deep clone is like individually photographing every photo and making entirely new copies."
+            definition="Deep clone creates a completely independent copy of an object, including nested objects, arrays, dates, and maps. Shallow copy (spread, Object.assign) only copies the first level - nested references are shared."
+            analogy="Shallow copy is like photocopying a folder - you get the folder but the photos inside are still the originals. Deep clone is like individually photographing every photo and making entirely new copies."
             seniorTip="structuredClone() is the modern native solution (supported in all browsers). For interviews, implement recursive deep clone handling: objects, arrays, Date, Map, Set, and circular references."
             defaultOpen
           >
@@ -134,7 +134,7 @@
             title="Array & Object Flatten"
             subtitle="Flatten nested structures"
             definition="Array flatten: [1, [2, [3]]] → [1, 2, 3]. Object flatten: { a: { b: 1 } } → { 'a.b': 1 }. Both use recursion. Array.prototype.flat(Infinity) is the native solution for arrays."
-            analogy="Flattening is like ironing a crumpled shirt — multiple layers of fabric (nesting) become one smooth surface (flat structure)."
+            analogy="Flattening is like ironing a crumpled shirt - multiple layers of fabric (nesting) become one smooth surface (flat structure)."
             seniorTip="Know Array.prototype.flat(depth). For a flat polyfill, use recursion with concat. For object flatten, use a prefix parameter. Handle edge cases: null, undefined, empty arrays, circular references."
           >
             <CodePlayground
@@ -150,7 +150,7 @@
             title="Currying & Partial Application"
             subtitle="Functions that remember their arguments"
             definition="Currying transforms f(a, b, c) into f(a)(b)(c). Each call returns a new function until all arguments are provided. Partial application fixes some arguments upfront. Both enable function composition and reusability."
-            analogy="Currying is like a vending machine with multiple slots — insert coin 1 (arg 1), then coin 2 (arg 2), then the item drops (result). Each coin slot remembers the previous coins."
+            analogy="Currying is like a vending machine with multiple slots - insert coin 1 (arg 1), then coin 2 (arg 2), then the item drops (result). Each coin slot remembers the previous coins."
             seniorTip="Implement a generic curry function that handles any number of arguments. Use Function.length to know when all args are provided. Real-world use: event handlers with pre-filled context, configuration builders."
           >
             <CodePlayground
@@ -169,7 +169,7 @@
             title="String Reversal & Palindrome"
             subtitle="The warm-up classic"
             definition="Reverse a string in-place or via new string. Multiple approaches: spread + reverse + join, two-pointer swap, recursion, reduce. Palindrome: string reads the same forwards and backwards."
-            analogy="String reversal is like reading a word in a mirror — 'hello' becomes 'olleh'. A palindrome is a word that looks the same in the mirror ('racecar')."
+            analogy="String reversal is like reading a word in a mirror - 'hello' becomes 'olleh'. A palindrome is a word that looks the same in the mirror ('racecar')."
             seniorTip="The most efficient approach: two-pointer swap (in-place, O(1) space). For interviews, know all approaches and their trade-offs. Handle Unicode correctly (emojis are multi-byte)."
             defaultOpen
           >
@@ -186,7 +186,7 @@
             title="Anagram & Character Frequency"
             subtitle="Do they use the same letters?"
             definition="Two strings are anagrams if they contain the exact same characters with the same frequency. Approach: sort both and compare, OR use a frequency map (O(n) vs O(n log n))."
-            analogy="Anagrams are like bag-of-Scrabble-tiles — 'listen' and 'silent' use the exact same tiles, just rearranged."
+            analogy="Anagrams are like bag-of-Scrabble-tiles - 'listen' and 'silent' use the exact same tiles, just rearranged."
             seniorTip="Always use the frequency map approach in interviews (O(n) time, O(k) space where k = unique chars). Mention you'd normalize: lowercase, remove spaces. Follow up with: 'grouped anagrams' (common LC medium)."
           >
             <CodePlayground
@@ -202,7 +202,7 @@
             title="Promise.all / Promise.race Polyfill"
             subtitle="Coordinate multiple async operations"
             definition="Promise.all: resolves when ALL promises resolve, rejects if ANY rejects. Promise.race: resolves/rejects with the FIRST settled promise. Promise.allSettled: waits for ALL, never rejects."
-            analogy="Promise.all = group dinner reservation — everyone must arrive before you're seated (all resolve), one cancellation cancels for everyone. Promise.race = race to the finish — first to cross the line wins."
+            analogy="Promise.all = group dinner reservation - everyone must arrive before you're seated (all resolve), one cancellation cancels for everyone. Promise.race = race to the finish - first to cross the line wins."
             seniorTip="Implement Promise.all from scratch: track resolved count, collect results in order (not completion order), reject immediately on any rejection. Bonus: implement Promise.allSettled."
           >
             <CodePlayground
@@ -221,7 +221,7 @@
             title="Event Emitter Implementation"
             subtitle="The pub/sub pattern from scratch"
             definition="EventEmitter: on(event, callback) subscribes, emit(event, ...args) fires all callbacks, off(event, callback) unsubscribes. It's the foundation of Node.js events, Vue's event bus, and DOM events."
-            analogy="EventEmitter is like a radio station — listeners tune in (on), the station broadcasts (emit), and listeners can unsubscribe (off). Multiple listeners can tune into the same frequency."
+            analogy="EventEmitter is like a radio station - listeners tune in (on), the station broadcasts (emit), and listeners can unsubscribe (off). Multiple listeners can tune into the same frequency."
             seniorTip="Implement: on, off, emit, once. Handle edge cases: remove listener during emit, add listener during emit, once that auto-removes. Return 'this' for chaining. This pattern appears in every framework."
             defaultOpen
           >
@@ -238,8 +238,8 @@
             title="LRU Cache"
             subtitle="Least Recently Used eviction"
             definition="LRU Cache stores key-value pairs with a max capacity. When full, the least recently used item is evicted. get() and put() must be O(1). Implementation: HashMap + Doubly Linked List."
-            analogy="LRU Cache is like a phone's recent apps — it shows the most recently used apps. When you open a new app and the list is full, the app you haven't used for the longest time disappears."
-            seniorTip="Use Map in JavaScript (preserves insertion order). On get/put: delete and re-insert to move to end (most recent). On overflow: delete first key (least recent). This is LeetCode #146 — very commonly asked."
+            analogy="LRU Cache is like a phone's recent apps - it shows the most recently used apps. When you open a new app and the list is full, the app you haven't used for the longest time disappears."
+            seniorTip="Use Map in JavaScript (preserves insertion order). On get/put: delete and re-insert to move to end (most recent). On overflow: delete first key (least recent). This is LeetCode #146 - very commonly asked."
           >
             <CodePlayground
               title="lru-cache.js"
@@ -254,7 +254,7 @@
             title="Generic Memoize Function"
             subtitle="Cache function results"
             definition="Memoize wraps a function and caches its results based on arguments. If called again with the same args, returns cached result instead of recomputing. Key challenge: creating a unique cache key from arguments."
-            analogy="Memoize is like writing answers in the margins of your textbook — the first time you solve a problem, you write the answer. Next time you see it, you just read the margin instead of solving again."
+            analogy="Memoize is like writing answers in the margins of your textbook - the first time you solve a problem, you write the answer. Next time you see it, you just read the margin instead of solving again."
             seniorTip="Handle multi-argument caching with JSON.stringify as key (simple) or a nested Map (efficient). Consider WeakMap for object arguments to prevent memory leaks. Add TTL (time-to-live) for production use."
           >
             <CodePlayground
@@ -437,7 +437,7 @@ search("hello");  // Only this one fires after 300ms
 // Wait and see the result
 setTimeout(() => {
   console.log("\\nTotal API calls: " + callCount);
-  console.log("(Only 1 — the last call after 300ms of silence!)");
+  console.log("(Only 1 - the last call after 300ms of silence!)");
 }, 500);`,
 
   throttle: `// Implement throttle from scratch
@@ -450,7 +450,7 @@ function throttle(fn, limit) {
     const now = Date.now();
 
     if (now - lastCall >= limit) {
-      // Enough time passed — execute immediately
+      // Enough time passed - execute immediately
       lastCall = now;
       fn.apply(this, args);
     } else if (!timer) {
@@ -537,7 +537,7 @@ console.log("Original city:", original.address.city);  // NYC ✅
 console.log("Cloned city:", cloned.address.city);       // LA
 console.log("Original zip:", original.address.zip);     // [1,0,0,0,1] ✅
 console.log("Cloned zip:", cloned.address.zip);         // [1,0,0,0,1,9]
-console.log("\\n✅ Deep clone — no shared references!");`,
+console.log("\\n✅ Deep clone - no shared references!");`,
 
   flatten: `// Flatten Array & Object
 
@@ -615,7 +615,7 @@ const triple = multiply(3);
 console.log("\\ndouble(5):", double(5));
 console.log("triple(5):", triple(5));`,
 
-  stringReverse: `// String Reversal — Multiple Approaches
+  stringReverse: `// String Reversal - Multiple Approaches
 
 // Approach 1: Built-in methods
 function reverse1(str) {
@@ -657,7 +657,7 @@ console.log("'racecar':", isPalindrome("racecar"));
 console.log("'A man a plan a canal Panama':", isPalindrome("A man a plan a canal Panama"));
 console.log("'hello':", isPalindrome("hello"));`,
 
-  anagram: `// Anagram Check — Frequency Map Approach
+  anagram: `// Anagram Check - Frequency Map Approach
 
 function isAnagram(str1, str2) {
   // Normalize: lowercase, remove non-alpha
@@ -791,14 +791,14 @@ emitter.on('greet', name => console.log("Welcome, " + name + "!"));
 
 emitter.emit('greet', 'Alice');
 
-// Once — fires only once
+// Once - fires only once
 emitter.once('init', () => console.log("\\nInitialized! (only once)"));
 emitter.emit('init');
 emitter.emit('init');  // Won't fire
 
 console.log("\\n✅ Custom EventEmitter working!");`,
 
-  lruCache: `// LRU Cache — Using Map (preserves order)
+  lruCache: `// LRU Cache - Using Map (preserves order)
 
 class LRUCache {
   constructor(capacity) {
@@ -845,7 +845,7 @@ cache.put("b", 2);
 cache.put("c", 3);
 console.log("Cache:", cache.toString());
 
-cache.get("a");  // Access 'a' — moves to end
+cache.get("a");  // Access 'a' - moves to end
 cache.put("d", 4);  // Evicts 'b' (least recently used)
 console.log("After get(a) + put(d):", cache.toString());
 
