@@ -25,9 +25,13 @@ overview:
     duration: "Self-directed product sense study"
     teamMembers:
       - name: "Mayuresh Mule"
-        role: "Product Manager"
+        role: "UX UI Developer"
         image: ""
         linkedIn: "https://www.linkedin.com/in/mayuresh-mule/"
+      - name: "Paul Das"
+        role: "Sales Development Representative"
+        image: ""
+        linkedIn: "https://www.linkedin.com/in/pauldass/"
 blocks:
   - type: "flow"
     data:
