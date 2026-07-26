@@ -7,7 +7,8 @@ import EmailSidebar from "../components/EmailSidebar.vue";
 import HowIWork from "../components/HowIWork.vue";
 import WinsStrip from "../components/WinsStrip.vue";
 // import ImpactStories from "../components/ImpactStories.vue";
-import WhatImBuilding from "../components/WhatImBuilding.vue";
+// import WhatImBuilding from "../components/WhatImBuilding.vue";
+import WhatImWorkingOn from "../components/WhatImWorkingOn.vue";
 import PM100Section from "../components/pm/PM100Section.vue";
 import WhereImWorking from "../components/WhereImWorking.vue";
 import LetsConnect from "../components/LetsConnect.vue";
@@ -19,47 +20,37 @@ const projects = await getProjects();
 const blogs = await getBlogs();
 const pmCases = await getPMCases();
 
+const toResource = (type: string) => (item: any) => ({
+  id: item.slug,
+  type,
+  title: item.title,
+  label: item.category,
+  slug: item.slug,
+  status: item.status,
+  description: item.metaDescription || "",
+  thumbnail: item.heroImage || "",
+  logo: item.logo || "",
+  order: item.order,
+  cardGradient: item.cardGradient,
+  cardHoverGradient: item.cardHoverGradient,
+  insights: item.insights,
+});
+
 const resources = [
-  ...caseStudies.map((item: any) => ({
-    id: item.slug,
-    type: "case-study",
-    title: item.title,
-    label: item.category,
-    slug: item.slug,
-    thumbnail: item.heroImage || "",
-    logo: item.logo || "",
-    order: item.order,
-    cardGradient: item.cardGradient,
-    cardHoverGradient: item.cardHoverGradient,
-    insights: item.insights,
-  })),
-  ...projects.map((item: any) => ({
-    id: item.slug,
-    type: "project",
-    title: item.title,
-    label: item.category,
-    slug: item.slug,
-    thumbnail: item.heroImage || "",
-    logo: item.logo || "",
-    order: item.order,
-    cardGradient: item.cardGradient,
-    cardHoverGradient: item.cardHoverGradient,
-    insights: item.insights,
-  })),
-  ...blogs.map((item: any) => ({
-    id: item.slug,
-    type: "blog",
-    title: item.title,
-    label: item.category,
-    slug: item.slug,
-    thumbnail: item.heroImage || "",
-    logo: item.logo || "",
-    order: item.order,
-    cardGradient: item.cardGradient,
-    cardHoverGradient: item.cardHoverGradient,
-    insights: item.insights,
-  })),
+  ...caseStudies.map(toResource("case-study")),
+  ...projects.map(toResource("project")),
+  ...blogs.map(toResource("blog")),
 ].sort((a, b) => a.order - b.order);
+
+// Slugs temporarily hidden from the home page only (they stay live on /resources).
+// Remove a slug from this list to bring it back on the home page.
+const HIDDEN_ON_HOME = [
+  "zomato-refund-trust", // Zomato refund & trust case study - hidden for now
+];
+
+const workingOnItems = resources.filter(
+  (item) => !HIDDEN_ON_HOME.includes(item.slug),
+);
 ---
 
 <Layout
@@ -147,22 +138,27 @@ const resources = [
       <!-- <ImpactStories items={resources} client:visible /> -->
 
       <!-- ═══════════════════════════════════════ -->
-      <!-- SECTION 5 - WHAT I'M BUILDING           -->
+      <!-- SECTION 5 - WHAT I'M BUILDING (HIDDEN)  -->
       <!-- ═══════════════════════════════════════ -->
-      <WhatImBuilding client:visible />
+      <!-- <WhatImBuilding client:visible /> -->
 
       <!-- ═══════════════════════════════════════ -->
-      <!-- SECTION 6 - PM 100 CASES (UNTOUCHED)    -->
+      <!-- SECTION 6 - WHAT I'M WORKING ON         -->
+      <!-- ═══════════════════════════════════════ -->
+      <WhatImWorkingOn items={workingOnItems} client:visible />
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- SECTION 7 - PM 100 CASES (UNTOUCHED)    -->
       <!-- ═══════════════════════════════════════ -->
       <PM100Section cases={pmCases} client:visible />
 
       <!-- ═══════════════════════════════════════ -->
-      <!-- SECTION 7 - WHERE I'M WORKING           -->
+      <!-- SECTION 8 - WHERE I'M WORKING           -->
       <!-- ═══════════════════════════════════════ -->
       <WhereImWorking client:visible />
 
       <!-- ═══════════════════════════════════════ -->
-      <!-- SECTION 7 - LET'S CONNECT               -->
+      <!-- SECTION 9 - LET'S CONNECT               -->
       <!-- ═══════════════════════════════════════ -->
       <LetsConnect client:visible />
 

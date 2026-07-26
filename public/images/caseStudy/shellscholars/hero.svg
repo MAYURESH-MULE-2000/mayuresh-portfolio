@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="ShellScholars - one link, many versions of you">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#151C28" />
+      <stop offset="55%" stop-color="#12303A" />
+      <stop offset="100%" stop-color="#0D9488" />
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#2DD4BF" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#2DD4BF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="cardEdge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.18" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.04" />
+    </linearGradient>
+  </defs>
+
+  <rect x="-200" y="-200" width="1600" height="1300" fill="url(#bg)" />
+  <circle cx="600" cy="760" r="620" fill="url(#glow)" />
+
+  <g font-family="'Plus Jakarta Sans', Inter, Helvetica, Arial, sans-serif" text-anchor="middle">
+    <!-- Eyebrow -->
+    <g transform="translate(600, 190)">
+      <rect x="-136" y="-28" width="272" height="46" rx="23" fill="#2DD4BF" fill-opacity="0.16" stroke="#2DD4BF" stroke-opacity="0.35" />
+      <text y="3" fill="#5EEAD4" font-size="19" font-weight="700" letter-spacing="4.5">BUILDING IN PUBLIC</text>
+    </g>
+
+    <!-- Wordmark -->
+    <text x="600" y="310" fill="#FFFFFF" font-size="92" font-weight="800" letter-spacing="-2.5">shellscholars<tspan fill="#2DD4BF">.</tspan></text>
+
+    <!-- Promise -->
+    <text x="600" y="372" fill="#CBD5E1" font-size="31" font-weight="500">One link · many versions of you.</text>
+  </g>
+
+  <!-- The shell, rendered as blocks -->
+  <g transform="translate(190, 430)">
+    <rect x="0" y="0" width="820" height="380" rx="30" fill="#0B1220" fill-opacity="0.5" stroke="url(#cardEdge)" stroke-width="2" />
+
+    <!-- address bar -->
+    <g transform="translate(34, 32)">
+      <rect x="0" y="0" width="752" height="50" rx="25" fill="#FFFFFF" fill-opacity="0.08" />
+      <circle cx="32" cy="25" r="7" fill="#2DD4BF" />
+      <text x="56" y="32" font-family="'Plus Jakarta Sans', Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#94A3B8">shellscholars.com/p/your-slug</text>
+    </g>
+
+    <!-- banner block -->
+    <g transform="translate(34, 104)">
+      <rect x="0" y="0" width="752" height="104" rx="20" fill="#FFFFFF" fill-opacity="0.1" />
+      <circle cx="58" cy="52" r="30" fill="#2DD4BF" fill-opacity="0.55" />
+      <rect x="108" y="32" width="210" height="15" rx="7" fill="#FFFFFF" fill-opacity="0.45" />
+      <rect x="108" y="60" width="330" height="11" rx="5" fill="#FFFFFF" fill-opacity="0.2" />
+      <!-- public tag -->
+      <g transform="translate(614, 38)">
+        <rect x="0" y="0" width="104" height="28" rx="14" fill="#2DD4BF" fill-opacity="0.22" />
+        <text x="52" y="19" text-anchor="middle" font-family="'Plus Jakarta Sans', Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="1.5" fill="#5EEAD4">PUBLIC</text>
+      </g>
+    </g>
+
+    <!-- two project blocks -->
+    <g transform="translate(34, 226)">
+      <rect x="0" y="0" width="364" height="120" rx="20" fill="#FFFFFF" fill-opacity="0.08" />
+      <rect x="24" y="24" width="130" height="12" rx="6" fill="#FFFFFF" fill-opacity="0.42" />
+      <rect x="24" y="50" width="250" height="10" rx="5" fill="#FFFFFF" fill-opacity="0.18" />
+      <rect x="24" y="70" width="196" height="10" rx="5" fill="#FFFFFF" fill-opacity="0.18" />
+      <rect x="24" y="92" width="88" height="16" rx="8" fill="#2DD4BF" fill-opacity="0.4" />
+
+      <rect x="388" y="0" width="364" height="120" rx="20" fill="#FFFFFF" fill-opacity="0.08" />
+      <rect x="412" y="24" width="110" height="12" rx="6" fill="#FFFFFF" fill-opacity="0.42" />
+      <rect x="412" y="50" width="236" height="10" rx="5" fill="#FFFFFF" fill-opacity="0.18" />
+      <rect x="412" y="70" width="170" height="10" rx="5" fill="#FFFFFF" fill-opacity="0.18" />
+      <!-- connections-only lock -->
+      <g transform="translate(412, 88)" opacity="0.8">
+        <rect x="0" y="7" width="24" height="17" rx="5" fill="#2DD4BF" fill-opacity="0.7" />
+        <path d="M5.5 7 V4.5 a6.5 6.5 0 0 1 13 0 V7" fill="none" stroke="#2DD4BF" stroke-width="3" stroke-opacity="0.7" />
+        <text x="36" y="22" font-family="'Plus Jakarta Sans', Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#5EEAD4" letter-spacing="1.2">CONNECTIONS ONLY</text>
+      </g>
+    </g>
+  </g>
+</svg>

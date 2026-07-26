@@ -5,6 +5,7 @@ function mapEntry(entry: any) {
     title: entry.data.title,
     slug: entry.slug,
     category: entry.data.category,
+    status: entry.data.status, // e.g. "Currently building" - shown as a pill on cards
     heroImage: entry.data.heroImage,
     heroVideo: entry.data.heroVideo, // Loop video for hero
     logo: entry.data.logo, // Company/project logo
