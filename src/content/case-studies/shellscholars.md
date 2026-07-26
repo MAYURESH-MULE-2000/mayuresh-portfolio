@@ -99,7 +99,7 @@ blocks:
 
   - type: "image"
     data:
-      image: "/images/caseStudy/shellscholars/resume-import.svg"
+      image: "/images/caseStudy/shellscholars/onboarding.png"
       alt: "AI resume import review step"
       caption: "Import is an accelerator, not an authority - the parser drafts, the user confirms."
 
@@ -150,7 +150,7 @@ blocks:
 
   - type: "image"
     data:
-      image: "/images/caseStudy/shellscholars/editor.svg"
+      image: "/images/caseStudy/shellscholars/editor.png"
       alt: "The ShellScholars block editor with a visibility menu open"
       caption: "You always edit the live page; Save publishes and writes a change log entry."
 
