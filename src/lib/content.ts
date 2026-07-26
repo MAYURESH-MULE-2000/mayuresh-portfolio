@@ -9,6 +9,8 @@ function mapEntry(entry: any) {
     heroImage: entry.data.heroImage,
     heroVideo: entry.data.heroVideo, // Loop video for hero
     logo: entry.data.logo, // Company/project logo
+    liveUrl: entry.data.liveUrl, // Live product URL for the hero button
+    liveLabel: entry.data.liveLabel,
     metaTitle: entry.data.metaTitle,
     metaDescription: entry.data.metaDescription,
     overview: entry.data.overview,

@@ -7,6 +7,8 @@ order: 0
 cardGradient: "from-[#151C28] to-[#0D9488]"
 cardHoverGradient: "from-[#0D9488] to-[#151C28]"
 logo: "/images/secondary-shellscholars.png"
+liveUrl: "https://shellscholars.com"
+liveLabel: "shellscholars.com"
 heroImage: "/images/caseStudy/shellscholars/hero.svg"
 insights:
   - "0 to 1 Product"
@@ -17,10 +19,10 @@ metaTitle: "Case Study: ShellScholars - A Portfolio Builder for Proof of Work"
 metaDescription: "The 0 to 1 story behind ShellScholars - one durable link that renders a different version of you for recruiters, connections, and strangers."
 overview:
   sections:
-    - title: "What ShellScholars Is"
-      content: "**Proof of work, not proof of posting.**\n\nShellScholars is a portfolio builder. Instead of a static resume or a LinkedIn profile you don't fully control, you get one link - your **shell** - that shows the right person the right proof. A recruiter, a friend, and a stranger can each open the same link and see a version tailored to them.\n\n**One link · many versions of you.**"
-    - title: "The Problem It Solves"
-      content: "The tools people use to represent themselves are each broken in a different way:\n\n• **Resumes** are static, one-size-fits-all, and out of date the moment you send them.\n• **LinkedIn** is a walled garden - you don't own the design, the layout, or who sees what, and everyone sees the same profile.\n• **Personal sites** are powerful, but expensive in time and skill to build and maintain.\n\nNone of them let you control what a specific audience sees. A recruiter, a potential client, and a curious stranger all arrive with different questions - and today you answer all of them with the same page."
+    - title: "Proof of work, not proof of posting"
+      content: "ShellScholars is a portfolio builder. Instead of a static resume or a LinkedIn profile you don't fully control, you get one link - your **shell** - that shows the right person the right proof.\n\nA recruiter, a friend, and a stranger can each open the same URL and see a version tailored to them. **One link · many versions of you.**"
+    - title: "Why it exists"
+      content: "Every tool people use to represent themselves fails at the same job: none of them let you control *what a specific audience sees*. A recruiter, a client, and a curious stranger arrive with different questions - and today you answer all of them with the same page."
   sidebar:
     role: ["Product", "Design", "Frontend", "Database"]
     duration: "Ongoing - building in public"
@@ -30,30 +32,143 @@ overview:
         image: ""
         linkedIn: "https://www.linkedin.com/in/mayuresh-mule/"
 blocks:
-  - type: "text"
+  - type: "comparison"
     data:
-      title: "1. The Idea"
-      content: "ShellScholars gives every person **one durable link** (`shellscholars.com/p/your-slug`) backed by a portfolio built from drag-and-drop **blocks** - banners, project cards, timelines, metrics, testimonials, bios, contact, and more.\n\nTwo things separate it from a normal site builder:\n\n• **Audience-aware visibility.** For every block you decide what is **public**, what is only visible to **people you approve** (connections), and what stays **hidden**. The same link renders differently depending on who is looking.\n• **It gets better on its own.** Like a phone OS, your shell receives design and presentation upgrades over time. Your content stays yours - only the packaging improves."
+      title: "1. The problem, four ways"
+      caption: "Each existing option breaks somewhere different - and the break is always the same shape: you cannot decide what a given reader sees."
+      columns:
+        - label: "Resume"
+          verdict: "Static"
+          tone: "negative"
+          items:
+            - "One file, one version, sent to everyone"
+            - "Out of date the moment you send it"
+            - "No way to show working proof - only claims about it"
+        - label: "LinkedIn"
+          verdict: "Not yours"
+          tone: "negative"
+          items:
+            - "You don't own the design, layout, or ordering"
+            - "Everyone sees the same profile"
+            - "Depth gets flattened into buzzwords"
+        - label: "Personal site"
+          verdict: "Expensive"
+          tone: "negative"
+          items:
+            - "Real time and skill cost to build"
+            - "Rots the moment you stop maintaining it"
+            - "Still one page for every audience"
+        - label: "A shell"
+          verdict: "Selected"
+          tone: "positive"
+          items:
+            - "One durable link you own"
+            - "Per-block audience control"
+            - "Design upgrades arrive on their own"
 
-  - type: "text"
+  - type: "callout"
     data:
-      title: "2. Who It's For"
-      content: "Anyone who needs to prove what they have done and control who sees it - students, job-seekers, freelancers, founders, career-switchers, and creators across disciplines: Technology, Design, Business, Writing & Media, Sales & Marketing, Healthcare, Legal, Founder, and Education.\n\nThe first wedge is the person who has real work to show but no good surface to show it on: the career-switcher whose resume undersells them, and the builder whose best work lives across five different links."
+      variant: "insight"
+      title: "The reframe"
+      content: "A portfolio isn't a page - it's an **answer to a question**, and different readers arrive with different questions. So visibility belongs on the smallest unit of content (the block), not on the page. That single decision is what makes one link able to be many versions of you."
 
-  - type: "text"
+  - type: "flow"
     data:
-      title: "3. The 0 to 1 Flow"
-      content: "**Step 1 - Claim your shell.** Sign in with Google or a passwordless email magic link. No password to set; new users go straight into onboarding.\n\n**Step 2 - Onboarding wizard (2 steps).**\n• *Your details:* name, location, and a public URL - checked live for availability and suggested from your name.\n• *Choose how to start:* upload a resume and let AI build it (drop in a PDF, image, or text file and ShellScholars extracts roles, skills, education, projects, and milestones, matches a job family, and generates a filled-in shell), start from a discipline template that seeds roughly 10 curated starter blocks, or start from a blank canvas.\n\n**Step 3 - Edit your shell.** Add, reorder, and edit blocks inline on your live page. Set per-block visibility. Save when ready - there is a change log of everything you published.\n\n**Step 4 - Share one link.** Send the same URL to anyone. Connections you approve unlock the blocks you reserved for them.\n\n**Step 5 - Learn from it.** Insights show how your shell is being viewed; connection requests let people ask for deeper access."
+      title: "2. The 0 to 1 flow"
+      caption: "Signup to shared link, with no blank canvas anywhere in the path."
+      orientation: "horizontal"
+      steps:
+        - label: "Claim your shell"
+          detail: "Google or a passwordless magic link. No password to set."
+          note: "0 friction"
+        - label: "Onboard in 2 steps"
+          detail: "Name, location, and a public URL checked live for availability."
+          note: "Suggested slug"
+        - label: "Seed the content"
+          detail: "Upload a resume and let AI build it, pick a discipline template, or start blank."
+          note: "Never a blank page"
+        - label: "Edit in place"
+          detail: "Add, reorder, and edit blocks on your live page. Set per-block visibility."
+          note: "Publish on save"
+        - label: "Share one link"
+          detail: "The same URL for everyone. Approved connections unlock reserved blocks."
+          note: "One surface"
+        - label: "Learn from it"
+          detail: "Insights show how the shell is viewed; requests ask for deeper access."
+          note: "Feedback loop"
 
-  - type: "text"
+  - type: "image"
     data:
-      title: "4. Core Concepts"
-      content: "The product runs on five nouns, and holding the vocabulary tight is what keeps the UI teachable:\n\n• **Shell** - your portfolio and its single public link. You can have more than one.\n• **Block** - a modular content card (banner, project, timeline, metric, and so on) you drag onto your shell.\n• **Visibility** - a per-block setting: Public, Connections-only, or Hidden.\n• **Connection** - someone you have approved to see your restricted blocks.\n• **Insights** - analytics on how your shell is being viewed."
+      image: "/images/caseStudy/shellscholars/resume-import.svg"
+      alt: "AI resume import review step"
+      caption: "Import is an accelerator, not an authority - the parser drafts, the user confirms."
 
-  - type: "text"
+  - type: "table"
     data:
-      title: "5. What's Shipped"
-      content: "• One durable public link per shell (`shellscholars.com/p/your-slug`).\n• Drag-and-drop block editor - you always edit your live page, and changes publish on Save.\n• AI resume import that builds a full shell from a PDF, image, or text file.\n• Discipline templates that seed a tailored starter set of blocks.\n• Per-block, audience-aware visibility: public, connections, or hidden.\n• Connection requests and approvals that gate restricted content.\n• Insights and analytics on views.\n• Automatic design and presentation upgrades - your content stays yours."
+      title: "3. Five nouns the whole product runs on"
+      caption: "Keeping this vocabulary tight is what keeps the UI teachable."
+      headers: ["Term", "What it means"]
+      rows:
+        - cells: ["Shell", "Your portfolio and its single public link. You can have more than one."]
+        - cells: ["Block", "A modular content card - banner, project, timeline, metric, testimonial, bio, contact."]
+        - cells: ["Visibility", "A per-block setting: Public, Connections-only, or Hidden."]
+        - cells: ["Connection", "Someone you approved to see your restricted blocks."]
+        - cells: ["Insights", "Analytics on how your shell is being viewed."]
+
+  - type: "comparison"
+    data:
+      title: "4. What each audience gets from the same URL"
+      caption: "Visibility is a property of every block, so the page composes itself around the reader."
+      columns:
+        - label: "Public"
+          verdict: "Anyone"
+          tone: "positive"
+          items:
+            - "Banner, bio, headline projects"
+            - "Public metrics and testimonials"
+            - "Enough proof to decide whether to ask for more"
+        - label: "Connections"
+          verdict: "Approved"
+          tone: "neutral"
+          items:
+            - "Everything public, plus reserved blocks"
+            - "Detailed case studies, salary or client context, references"
+            - "Unlocked by an approval you control, one person at a time"
+        - label: "Hidden"
+          verdict: "Nobody"
+          tone: "neutral"
+          items:
+            - "Drafts and work in progress"
+            - "Content parked for a future audience"
+            - "Still yours, still on the shell, simply not rendered"
+
+  - type: "image"
+    data:
+      image: "/images/caseStudy/shellscholars/audience-views.svg"
+      alt: "The same shell rendered for the public and for an approved connection"
+      caption: "Same link, two readers, two pages."
+
+  - type: "image"
+    data:
+      image: "/images/caseStudy/shellscholars/editor.svg"
+      alt: "The ShellScholars block editor with a visibility menu open"
+      caption: "You always edit the live page; Save publishes and writes a change log entry."
+
+  - type: "personas"
+    data:
+      title: "5. Who it's for"
+      caption: "Anyone who needs to prove what they've done and control who sees it."
+      items:
+        - name: "The career-switcher"
+          tag: "Primary wedge"
+          who: "Has real work across disciplines, but a resume that reads like someone else's job history."
+          need: "Show the proof that doesn't fit a resume line, to the one recruiter who will care."
+          control: "Keeps the old-career detail hidden without deleting it."
+        - name: "The builder / freelancer"
+          tag: "Second wedge"
+          who: "Ships constantly; the work lives across GitHub, Figma, Notion, and five dead links."
+          need: "One durable URL that survives every job change and client."
+          control: "Client-specific proof reserved for approved connections."
 
   - type: "stats"
     data:
@@ -68,27 +183,64 @@ blocks:
           icon: "EyeOff"
         - value: "~10"
           label: "STARTER BLOCKS"
-          description: "Discipline templates seed a curated starter shell so the blank page is never the first screen."
+          description: "Discipline templates seed a curated starter shell, so the blank page is never the first screen."
           icon: "LayoutGrid"
         - value: "0 to 1"
           label: "SOLE OWNER"
           description: "Product, design, frontend, and database - built end to end on Nuxt and Supabase."
           icon: "Hammer"
 
-  - type: "text"
+  - type: "decisions"
     data:
-      title: "6. Trade-offs I Made"
-      content: "**Edit-in-place over a separate builder view.** A preview mode would have been simpler to build, but splitting \"edit\" from \"see\" is exactly what makes portfolio tools feel heavy. You edit the live page and publish on Save.\n\n**Blocks over free-form canvas.** A free canvas gives more freedom and worse output. Constrained blocks keep every shell legible and let me upgrade the design system underneath without touching anyone's content.\n\n**AI import as an accelerator, not an authority.** The resume parser fills the first draft; the user always confirms and edits. Treating extraction as truth would have made the first impression wrong in a way people don't come back from.\n\n**Visibility as a per-block property, not a separate \"private page\".** Audience control belongs on the smallest unit of content, otherwise people end up maintaining two portfolios again."
+      title: "6. Trade-offs I made"
+      caption: "Four calls that shaped everything downstream."
+      items:
+        - decision: "Edit in place, not a separate builder view"
+          tradeoff: "A preview mode would have been simpler to build and safer to ship."
+          why: "Splitting \"edit\" from \"see\" is exactly what makes portfolio tools feel heavy. You edit the live page and publish on Save."
+        - decision: "Blocks, not a free-form canvas"
+          tradeoff: "Less creative freedom for the author."
+          why: "Constrained blocks keep every shell legible and let me upgrade the design system underneath without touching anyone's content."
+        - decision: "AI import is an accelerator, not an authority"
+          tradeoff: "An extra confirmation step between upload and a finished shell."
+          why: "Treating extraction as truth makes the first impression wrong in a way people don't come back from."
+        - decision: "Visibility per block, not a second private page"
+          tradeoff: "More state to design and explain per block."
+          why: "Audience control on the page level just means maintaining two portfolios again - the exact problem this replaces."
+
+  - type: "timeline"
+    data:
+      title: "7. Shipped, and what's next"
+      items:
+        - marker: "Shipped"
+          title: "Identity and onboarding"
+          description: "Passwordless auth, live slug availability, discipline templates, and AI resume import."
+          status: "done"
+        - marker: "Shipped"
+          title: "The block editor"
+          description: "Drag-and-drop editing on the live page, per-block visibility, publish-on-save with a change log."
+          status: "done"
+        - marker: "Shipped"
+          title: "Connections and insights"
+          description: "Connection requests and approvals that gate restricted blocks; analytics on how a shell is viewed."
+          status: "done"
+        - marker: "Next"
+          title: "Insights that name the block, not the visit"
+          description: "Which blocks actually carry a visit - the signal that tells someone what to write more of."
+          status: "next"
+        - marker: "Next"
+          title: "Richer connection flows"
+          description: "Requesting and granting access should feel social, not administrative."
+          status: "next"
+        - marker: "Next"
+          title: "More block types, seeded by discipline"
+          description: "Plus continued design upgrades that roll out to existing shells without asking anyone to rebuild."
+          status: "next"
 
   - type: "text"
     data:
-      title: "7. What I'm Building Next"
-      content: "• Deeper insights - not just view counts, but which blocks actually carry a visit.\n• Richer connection flows so requesting and granting access feels social, not administrative.\n• More block types across disciplines, seeded by template.\n• Continued design upgrades that roll out to existing shells without asking anyone to rebuild."
-
-  - type: "text"
-    data:
-      title: "What I'm Taking Away From It"
-      content: "Owning every layer - product, design, frontend, and database - means every scope decision is also an engineering decision. The hardest part of ShellScholars has not been building blocks; it has been deciding what the product refuses to do so the thing it does do stays sharp: give one person one link that tells the right story to the right reader."
+      title: "What I'm taking away from it"
+      content: "Owning every layer - product, design, frontend, and database - means every scope decision is also an engineering decision. The hardest part of ShellScholars hasn't been building blocks; it's been deciding what the product refuses to do, so the thing it does do stays sharp: give one person one link that tells the right story to the right reader."
 
 navigation:
   next:
