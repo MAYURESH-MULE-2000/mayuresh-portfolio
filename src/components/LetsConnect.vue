@@ -50,7 +50,7 @@ const handleSubmit = async (event) => {
 
 const socialLinks = [
     { name: 'LinkedIn', href: 'https://www.linkedin.com/in/mayuresh-mule/', icon: 'linkedin' },
-    { name: 'Resume', href: '/Mayuresh_Mule_Resume_15-06-2026.pdf', icon: 'file-text' },
+    { name: 'Resume', href: '/Mayuresh_Mule_26_7_26.pdf', icon: 'file-text' },
     { name: 'My Website', href: 'https://www.unicorncraftstudios.com/', icon: 'globe' },
     { name: 'Instagram', href: 'https://www.instagram.com/mayuresh.mule/?igsh=MTJsdWptdzF3dWlvbg%3D%3D#', icon: 'instagram' },
 ]
