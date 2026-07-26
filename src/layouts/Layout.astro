@@ -9,6 +9,10 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+
+// Newspaper Mode is hidden site-wide for now.
+// Set this back to true to bring the toggle (and the whole overlay) back.
+const SHOW_NEWSPAPER_MODE = false;
 ---
 
 <!doctype html>
@@ -113,19 +117,27 @@ const { title, description } = Astro.props;
     </script>
     <slot />
 
-    <!-- Newspaper Mode Overlay Container -->
-    <div id="newspaper-mode"></div>
-
-    <!-- Newspaper Mode Toggle Button -->
-    <button id="newspaper-toggle-btn" aria-label="Toggle Newspaper Mode">
-      <span id="np-btn-icon">📰</span>
-      <span id="np-btn-label">Newspaper Mode</span>
-    </button>
+    <!-- Newspaper Mode Overlay Container + Toggle Button (hidden while SHOW_NEWSPAPER_MODE is false) -->
+    {
+      SHOW_NEWSPAPER_MODE && (
+        <>
+          <div id="newspaper-mode" />
+          <button id="newspaper-toggle-btn" aria-label="Toggle Newspaper Mode">
+            <span id="np-btn-icon">📰</span>
+            <span id="np-btn-label">Newspaper Mode</span>
+          </button>
+        </>
+      )
+    }
 
     <!-- Newspaper Mode Logic -->
     <script is:inline>
       (function () {
         "use strict";
+
+        // Newspaper Mode is hidden while SHOW_NEWSPAPER_MODE is false in this
+        // layout - without the toggle button there is nothing to drive.
+        if (!document.getElementById("newspaper-toggle-btn")) return;
 
         const STORAGE_KEY = "newspaperMode";
         let newspaperBuilt = false;

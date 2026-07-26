@@ -1,4 +1,6 @@
 <script setup>
+import { parseRichText } from '../../lib/richText'
+
 defineProps({
     title: {
         type: String,
@@ -10,10 +12,7 @@ defineProps({
     }
 })
 
-const parseContent = (text) => {
-    if (!text) return ''
-    return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-}
+const parseContent = (text) => parseRichText(text)
 </script>
 
 <template>

@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { Linkedin } from 'lucide-vue-next'
+import { parseRichText } from '../../lib/richText'
 
 defineProps({
     sections: {
@@ -15,10 +16,7 @@ defineProps({
     }
 })
 
-const parseContent = (text) => {
-    if (!text) return ''
-    return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-}
+const parseContent = (text) => parseRichText(text)
 
 const hoveredMember = ref(null)
 let hoverTimeout = null

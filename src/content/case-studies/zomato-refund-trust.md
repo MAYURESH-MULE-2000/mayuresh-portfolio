@@ -2,7 +2,7 @@
 title: "Designing a Fraud-Resistant Refund Verification System for Food Delivery"
 slug: "zomato-refund-trust"
 category: "Refund & Complaint Flow"
-order: 1
+order: 3
 cardGradient: "from-[#E23744] to-[#f4515E]"
 cardHoverGradient: "from-[#cb202d] to-[#E23744]"
 logo: "../images/caseStudy/zomatoLogo.png"
