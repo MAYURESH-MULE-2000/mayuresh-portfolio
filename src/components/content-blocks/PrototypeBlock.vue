@@ -27,7 +27,10 @@ const prototype = computed(() => registry[props.name] || null)
         <p v-if="caption" class="text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mb-8"
             v-html="parseRichText(caption)"></p>
 
-        <div class="rounded-3xl border border-gray-200 dark:border-gray-800 bg-gray-50/70 dark:bg-white/[0.02] p-6 md:p-10">
+        <!-- Pulls out of the page's mobile side padding so the device isn't squeezed -->
+        <div
+            class="-mx-10 sm:mx-0 rounded-2xl sm:rounded-3xl border border-gray-200 dark:border-gray-800 bg-gray-50/70 dark:bg-white/[0.02] p-4 sm:p-6 md:p-10"
+        >
             <component :is="prototype" v-if="prototype" />
             <p v-else class="text-sm text-gray-500 dark:text-gray-400">Prototype "{{ name }}" is not registered.</p>
         </div>
