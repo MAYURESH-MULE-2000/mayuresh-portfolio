@@ -271,9 +271,9 @@ watch(activeCategory, runSearch)
                                 </li>
                                 <li
                                     v-for="(chat, i) in [
-                                        { name: 'Next trip kab?', preview: 'You: Kal lonavala ?', time: '10:36 PM', emoji: '🏔️' },
-                                        { name: 'Cohort 51 - HelloPM', preview: 'Office hours session started', time: '9:00 PM', emoji: '📚' },
-                                        { name: 'Paully Dass', preview: 'Photo', time: '11:26 PM', emoji: '👤' },
+                                        { name: 'Next trip kab?', preview: '~Saurabh: Kal lonavala ?', time: '10:36 PM', emoji: '🏔️' },
+                                        { name: 'AI Product Ecosystem', preview: '~Dev Singh: OpenAI Agent going rogue by hacking', time: '9:00 PM', emoji: '📚' },
+                                        { name: 'Movie?', preview: 'Photo', time: '11:26 PM', emoji: '👤' },
                                     ]"
                                     :key="chat.name"
                                     class="wa-stagger flex items-center gap-3 px-4 py-3 active:bg-white/5"
