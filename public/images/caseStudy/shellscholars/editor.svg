@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-label="Placeholder: The block editor, mid-edit">
+  <rect width="1600" height="1000" fill="#F8FAFC" />
+  <rect x="24" y="24" width="1552" height="952" rx="28" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="3" stroke-dasharray="14 12" />
+  <g font-family="'Plus Jakarta Sans', Inter, Helvetica, Arial, sans-serif">
+    <g transform="translate(120, 150)">
+      <rect x="0" y="-40" width="286" height="56" rx="28" fill="#E2E8F0" />
+      <text x="28" y="-2" font-size="24" font-weight="800" letter-spacing="4" fill="#64748B">PLACEHOLDER</text>
+    </g>
+    <text x="120" y="270" font-size="30" font-weight="700" letter-spacing="4" fill="#94A3B8">SHELLSCHOLARS · SCREENSHOT 1</text>
+    <text x="120" y="360" font-size="62" font-weight="800" fill="#0F172A">The block editor, mid-edit</text>
+    <text x="120" y="470" font-size="26" font-weight="700" letter-spacing="3" fill="#94A3B8">THE SHOT MUST SHOW</text>
+      <text x="120" y="560" font-size="30" fill="#4B5563" font-family="'Plus Jakarta Sans', Inter, Helvetica, Arial, sans-serif">• A real shell being edited in place - not a separate builder view</text>
+      <text x="120" y="622" font-size="30" fill="#4B5563" font-family="'Plus Jakarta Sans', Inter, Helvetica, Arial, sans-serif">• One block selected with its visibility menu open</text>
+      <text x="120" y="684" font-size="30" fill="#4B5563" font-family="'Plus Jakarta Sans', Inter, Helvetica, Arial, sans-serif">• Public / Connections / Hidden options readable in that menu</text>
+      <text x="120" y="746" font-size="30" fill="#4B5563" font-family="'Plus Jakarta Sans', Inter, Helvetica, Arial, sans-serif">• The Save button in its unsaved-changes state</text>
+    <text x="120" y="890" font-size="24" fill="#94A3B8">Replace this file · keep the same path · 16 / 10 works best</text>
+  </g>
+</svg>

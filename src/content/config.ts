@@ -61,6 +61,145 @@ const blocksSchema = z.discriminatedUnion('type', [
       ),
     }),
   }),
+
+  /* ── Visual blocks: prefer these over long paragraphs ─────────────── */
+
+  // Step-by-step flow (user flow, process, pipeline)
+  z.object({
+    type: z.literal('flow'),
+    data: z.object({
+      title: z.string().optional(),
+      caption: z.string().optional(),
+      orientation: z.enum(['horizontal', 'vertical']).default('horizontal'),
+      steps: z.array(
+        z.object({
+          label: z.string(),
+          detail: z.string().optional(),
+          note: z.string().optional(), // small tag under the step
+        })
+      ),
+    }),
+  }),
+
+  // Side-by-side columns: before/after, options considered, alternatives
+  z.object({
+    type: z.literal('comparison'),
+    data: z.object({
+      title: z.string().optional(),
+      caption: z.string().optional(),
+      columns: z.array(
+        z.object({
+          label: z.string(),
+          verdict: z.string().optional(), // e.g. "Rejected" / "Selected"
+          tone: z.enum(['neutral', 'negative', 'positive']).default('neutral'),
+          items: z.array(z.string()),
+        })
+      ),
+    }),
+  }),
+
+  // Phase / release timeline
+  z.object({
+    type: z.literal('timeline'),
+    data: z.object({
+      title: z.string().optional(),
+      caption: z.string().optional(),
+      items: z.array(
+        z.object({
+          marker: z.string(), // e.g. "Phase 4"
+          title: z.string(),
+          description: z.string().optional(),
+          status: z.enum(['done', 'next']).default('done'),
+        })
+      ),
+    }),
+  }),
+
+  // Decision + trade-off + reasoning cards
+  z.object({
+    type: z.literal('decisions'),
+    data: z.object({
+      title: z.string().optional(),
+      caption: z.string().optional(),
+      items: z.array(
+        z.object({
+          decision: z.string(),
+          tradeoff: z.string(),
+          why: z.string(),
+        })
+      ),
+    }),
+  }),
+
+  // Numbered principle / framework cards
+  z.object({
+    type: z.literal('principles'),
+    data: z.object({
+      title: z.string().optional(),
+      caption: z.string().optional(),
+      items: z.array(
+        z.object({
+          title: z.string(),
+          content: z.string(),
+          icon: z.string().optional(), // lucide icon name
+        })
+      ),
+    }),
+  }),
+
+  // User / persona cards
+  z.object({
+    type: z.literal('personas'),
+    data: z.object({
+      title: z.string().optional(),
+      caption: z.string().optional(),
+      items: z.array(
+        z.object({
+          name: z.string(),
+          tag: z.string().optional(),
+          who: z.string(),
+          need: z.string(),
+          control: z.string().optional(),
+        })
+      ),
+    }),
+  }),
+
+  // Plain table
+  z.object({
+    type: z.literal('table'),
+    data: z.object({
+      title: z.string().optional(),
+      caption: z.string().optional(),
+      headers: z.array(z.string()),
+      rows: z.array(
+        z.object({
+          cells: z.array(z.string()),
+          highlight: z.boolean().default(false),
+        })
+      ),
+    }),
+  }),
+
+  // Insight / caveat banner
+  z.object({
+    type: z.literal('callout'),
+    data: z.object({
+      variant: z.enum(['insight', 'warning', 'note']).default('insight'),
+      title: z.string().optional(),
+      content: z.string(),
+    }),
+  }),
+
+  // Interactive prototype embed
+  z.object({
+    type: z.literal('prototype'),
+    data: z.object({
+      name: z.string(), // key registered in ContentLayout
+      title: z.string().optional(),
+      caption: z.string().optional(),
+    }),
+  }),
 ])
 
 const overviewSchema = z
@@ -123,6 +262,8 @@ const caseStudies = defineCollection({
     cardGradient: z.string().optional(), // Custom gradient for card (e.g., 'from-blue-500 to-purple-600')
     cardHoverGradient: z.string().optional(),
     logo: z.string().optional(), // Company/project logo for card display
+    liveUrl: z.string().optional(), // Live product URL shown on the hero
+    liveLabel: z.string().optional(), // Label for the live URL button
     heroImage: z.string().optional(), // ContentLayout passes string to HeroBlock
     heroVideo: z.string().optional(), // Loop video for hero
     metaTitle: z.string().optional(),
@@ -147,6 +288,8 @@ const projects = defineCollection({
     cardGradient: z.string().optional(), // Custom gradient for card
     cardHoverGradient: z.string().optional(),
     logo: z.string().optional(), // Company/project logo for card display
+    liveUrl: z.string().optional(), // Live product URL shown on the hero
+    liveLabel: z.string().optional(), // Label for the live URL button
     heroImage: z.string().optional(),
     heroVideo: z.string().optional(),
     metaTitle: z.string().optional(),
@@ -171,6 +314,8 @@ const blogs = defineCollection({
     cardGradient: z.string().optional(), // Custom gradient for card
     cardHoverGradient: z.string().optional(),
     logo: z.string().optional(), // Company/project logo for card display
+    liveUrl: z.string().optional(), // Live product URL shown on the hero
+    liveLabel: z.string().optional(), // Label for the live URL button
     heroImage: z.string().optional(),
     heroVideo: z.string().optional(),
     metaTitle: z.string().optional(),

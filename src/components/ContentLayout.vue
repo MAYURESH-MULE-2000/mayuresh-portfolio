@@ -7,6 +7,15 @@ import LeftTextImageBlock from './content-blocks/LeftTextImageBlock.vue'
 import RightTextImageBlock from './content-blocks/RightTextImageBlock.vue'
 import ImageGridBlock from './content-blocks/ImageGridBlock.vue'
 import StatsBlock from './content-blocks/StatsBlock.vue'
+import FlowBlock from './content-blocks/FlowBlock.vue'
+import ComparisonBlock from './content-blocks/ComparisonBlock.vue'
+import TimelineBlock from './content-blocks/TimelineBlock.vue'
+import DecisionsBlock from './content-blocks/DecisionsBlock.vue'
+import PrinciplesBlock from './content-blocks/PrinciplesBlock.vue'
+import PersonasBlock from './content-blocks/PersonasBlock.vue'
+import TableBlock from './content-blocks/TableBlock.vue'
+import CalloutBlock from './content-blocks/CalloutBlock.vue'
+import PrototypeBlock from './content-blocks/PrototypeBlock.vue'
 import NavigationBlock from './content-blocks/NavigationBlock.vue'
 
 const props = defineProps({
@@ -23,6 +32,15 @@ const componentMap = {
     'right-text-image': RightTextImageBlock,
     'image-grid': ImageGridBlock,
     'stats': StatsBlock,
+    'flow': FlowBlock,
+    'comparison': ComparisonBlock,
+    'timeline': TimelineBlock,
+    'decisions': DecisionsBlock,
+    'principles': PrinciplesBlock,
+    'personas': PersonasBlock,
+    'table': TableBlock,
+    'callout': CalloutBlock,
+    'prototype': PrototypeBlock,
 }
 
 const getComponent = (type) => {
@@ -34,7 +52,8 @@ const getComponent = (type) => {
     <div class="max-w-6xl mx-auto">
         <!-- Hero -->
         <HeroBlock backLink="/resources" backText="Back to all resources" :title="content.title"
-            :category="content.category" :image="content.heroImage" :video="content.heroVideo" />
+            :category="content.category" :image="content.heroImage" :video="content.heroVideo"
+            :liveUrl="content.liveUrl" :liveLabel="content.liveLabel" />
 
         <!-- Overview -->
         <OverviewBlock v-if="content.overview" :sections="content.overview.sections"
