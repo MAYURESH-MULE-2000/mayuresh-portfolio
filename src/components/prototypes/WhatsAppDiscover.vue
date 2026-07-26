@@ -3,11 +3,11 @@
  * Interactive Android prototype for the WhatsApp "Discover" case study.
  * Everything is local state - no network, no real WhatsApp assets.
  */
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onBeforeUnmount } from 'vue'
 import {
     Compass, IndianRupee, Camera, MoreVertical, Search, ArrowLeft, MapPin, Check,
     Plus, MessageCircle, Phone, Users, Radio, Store, Rocket, Eye, ShieldCheck,
-    ChevronRight, Send, Archive, Lock, Sparkles,
+    ChevronRight, Send, Archive, Lock, Sparkles, Maximize2, X,
 } from 'lucide-vue-next'
 
 const screens = [
@@ -163,6 +163,26 @@ function resetPrototype() {
 }
 
 watch(activeCategory, runSearch)
+
+/* ── Fullscreen (the only way to really test this on a phone) ─────── */
+const fullscreen = ref(false)
+
+function onKeydown(event) {
+    if (event.key === 'Escape') fullscreen.value = false
+}
+
+watch(fullscreen, (isOpen) => {
+    if (typeof document === 'undefined') return
+    document.body.style.overflow = isOpen ? 'hidden' : ''
+    if (isOpen) document.addEventListener('keydown', onKeydown)
+    else document.removeEventListener('keydown', onKeydown)
+})
+
+onBeforeUnmount(() => {
+    if (typeof document === 'undefined') return
+    document.body.style.overflow = ''
+    document.removeEventListener('keydown', onKeydown)
+})
 </script>
 
 <template>
@@ -188,13 +208,41 @@ watch(activeCategory, runSearch)
             >
                 Reset
             </button>
+            <button
+                type="button"
+                class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold border border-accent-dark/40 dark:border-accent/40 text-accent-dark dark:text-accent hover:bg-accent/10 transition-colors active:scale-95"
+                @click="fullscreen = true"
+            >
+                <Maximize2 :size="13" /> Fullscreen
+            </button>
         </div>
 
         <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
-            <!-- Phone -->
-            <div class="mx-auto lg:mx-0 shrink-0">
+            <!-- Phone (inline, or lifted into a fullscreen overlay) -->
+            <div
+                :class="fullscreen
+                    ? 'fixed inset-0 z-[9998] bg-[#05070A] flex flex-col'
+                    : 'mx-auto lg:mx-0 shrink-0 w-full max-w-[320px]'"
+            >
+                <!-- Prototype chrome, so the exit control never sits on top of the app UI -->
+                <div v-if="fullscreen" class="h-12 shrink-0 flex items-center justify-between px-4 text-white/60">
+                    <span class="text-[10px] font-bold uppercase tracking-widest">Prototype · WhatsApp Discover</span>
+                    <button
+                        type="button"
+                        class="h-9 w-9 -mr-1 rounded-full bg-white/10 text-white flex items-center justify-center active:scale-90 transition-transform"
+                        aria-label="Close fullscreen prototype"
+                        @click="fullscreen = false"
+                    >
+                        <X :size="18" />
+                    </button>
+                </div>
+
+                <div :class="fullscreen ? 'flex-1 min-h-0 flex items-center justify-center sm:p-6' : ''">
                 <div
-                    class="relative w-[320px] h-[660px] rounded-[2.4rem] bg-[#0B0F0D] border-[6px] border-[#1d1f1e] shadow-2xl overflow-hidden select-none"
+                    class="relative bg-[#0B0F0D] shadow-2xl overflow-hidden select-none"
+                    :class="fullscreen
+                        ? 'w-full h-full sm:w-[360px] sm:h-[740px] sm:max-h-full rounded-none sm:rounded-[2.4rem] border-0 sm:border-[6px] border-[#1d1f1e]'
+                        : 'w-full h-[620px] sm:h-[660px] rounded-[2.4rem] border-[6px] border-[#1d1f1e]'"
                 >
                     <!-- Status bar -->
                     <div class="absolute top-0 inset-x-0 h-8 px-5 flex items-center justify-between text-[11px] text-white/80 font-medium z-30">
@@ -717,6 +765,7 @@ watch(activeCategory, runSearch)
                             {{ tab.label }}
                         </button>
                     </nav>
+                </div>
                 </div>
             </div>
 
