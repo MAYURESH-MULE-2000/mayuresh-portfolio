@@ -117,6 +117,7 @@ const caseStudies = defineCollection({
     title: z.string(),
     // slug: z.string(),
     category: z.string().default('Case Study'),
+    status: z.string().optional(), // e.g. "Currently building" - shown as a pill on cards
     order: z.number().optional(), // For controlling display order
     audioFile: z.string().optional(), // Path to audio overview file
     cardGradient: z.string().optional(), // Custom gradient for card (e.g., 'from-blue-500 to-purple-600')
@@ -140,6 +141,7 @@ const projects = defineCollection({
     title: z.string(),
     // slug: z.string(),
     category: z.string().default('Project'),
+    status: z.string().optional(), // e.g. "Currently building" - shown as a pill on cards
     order: z.number().optional(), // For controlling display order
     audioFile: z.string().optional(), // Path to audio overview file
     cardGradient: z.string().optional(), // Custom gradient for card
@@ -163,6 +165,7 @@ const blogs = defineCollection({
     title: z.string(),
     // slug: z.string(),
     category: z.string().default('Blog'),
+    status: z.string().optional(), // e.g. "Currently building" - shown as a pill on cards
     order: z.number().optional(), // For controlling display order
     audioFile: z.string().optional(), // Path to audio overview file
     cardGradient: z.string().optional(), // Custom gradient for card
