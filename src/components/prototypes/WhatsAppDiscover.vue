@@ -20,20 +20,33 @@ const screens = [
 ]
 
 const merchants = [
-    { id: 'daily', name: 'Daily Fresh Kirana', category: 'Grocery', distance: '400 m', emoji: '🛒', tint: 'bg-emerald-500/25', followers: '312', boosted: false, post: 'Fresh stock in - Alphonso mangoes ₹240/dozen, today only.' },
-    { id: 'crown', name: 'Crown Salon & Spa', category: 'Salon', distance: '650 m', emoji: '💈', tint: 'bg-violet-500/25', followers: '1.2K', boosted: true, post: 'Weekday offer: haircut + beard styling at ₹399 till Friday.' },
-    { id: 'bakers', name: 'Sunrise Bakers', category: 'Bakery', distance: '900 m', emoji: '🥐', tint: 'bg-amber-500/25', followers: '840', boosted: false, post: 'Fresh croissants out of the oven at 7am and 5pm daily.' },
-    { id: 'medico', name: 'Medico Pharmacy', category: 'Pharmacy', distance: '1.1 km', emoji: '💊', tint: 'bg-sky-500/25', followers: '506', boosted: false, post: 'Now open till 11pm. Free home delivery within 2 km.' },
-    { id: 'stitch', name: 'Perfect Fit Tailors', category: 'Tailor', distance: '1.4 km', emoji: '🧵', tint: 'bg-rose-500/25', followers: '198', boosted: false, post: 'Wedding season slots open - 3 day turnaround on blouses.' },
+    { id: 'daily', name: 'Daily Fresh Kirana', category: 'Grocery', distance: '400 m', emoji: '🛒', tint: 'bg-emerald-500/25', followers: '312', boosted: false, time: '11:04 AM', post: 'Fresh stock in - Alphonso mangoes ₹240/dozen, today only.' },
+    { id: 'crown', name: 'Crown Salon & Spa', category: 'Salon', distance: '650 m', emoji: '💈', tint: 'bg-violet-500/25', followers: '1.2K', boosted: true, time: '10:52 AM', post: 'Weekday offer: haircut + beard styling at ₹399 till Friday.' },
+    { id: 'bakers', name: 'Sunrise Bakers', category: 'Bakery', distance: '900 m', emoji: '🥐', tint: 'bg-amber-500/25', followers: '840', boosted: false, time: '9:18 AM', post: 'Fresh croissants out of the oven at 7am and 5pm daily.' },
+    { id: 'medico', name: 'Medico Pharmacy', category: 'Pharmacy', distance: '1.1 km', emoji: '💊', tint: 'bg-sky-500/25', followers: '506', boosted: false, time: 'Yesterday', post: 'Now open till 11pm. Free home delivery within 2 km.' },
+    { id: 'stitch', name: 'Perfect Fit Tailors', category: 'Tailor', distance: '1.4 km', emoji: '🧵', tint: 'bg-rose-500/25', followers: '198', boosted: false, time: 'Yesterday', post: 'Wedding season slots open - 3 day turnaround on blouses.' },
 ]
 
-const categories = ['All', 'Grocery', 'Salon', 'Bakery', 'Pharmacy']
+const categories = ['Following', 'All', 'Grocery', 'Salon', 'Bakery', 'Pharmacy', 'Tailor']
+const updatesFilters = ['All', 'Channels', 'Groups', 'Status']
+
+const groupUpdates = [
+    { id: 'g1', name: 'Portfolio Builders 2.0', emoji: '🧩', tint: 'bg-indigo-500/25', text: 'General Chat 2.0 · 3 new messages in UI/UX Community V.2', time: '11:12 AM' },
+    { id: 'g2', name: 'Cohort 51 - HelloPM', emoji: '📚', tint: 'bg-amber-500/25', text: '~Deepak: Office hours session started', time: '9:00 PM' },
+]
+
+const statusUpdates = [
+    { id: 's1', name: 'Saurabh', emoji: '🏔️', tint: 'bg-teal-500/25', text: '2 new updates', time: '22m ago' },
+]
 
 const screen = ref('chats')
 const consentGranted = ref(false)
 const showConsent = ref(false)
 const radius = ref(2)
 const activeCategory = ref('All')
+const discoverQuery = ref('')
+const updatesQuery = ref('')
+const updatesFilter = ref('All')
 const loading = ref(false)
 const following = ref([])
 const activeMerchantId = ref('crown')
@@ -53,20 +66,47 @@ const activeMerchant = computed(
     () => merchants.find((m) => m.id === activeMerchantId.value) || merchants[0]
 )
 
+const matches = (query, ...fields) => {
+    const q = query.trim().toLowerCase()
+    if (!q) return true
+    return fields.join(' ').toLowerCase().includes(q)
+}
+
+const isFollowingTab = computed(() => activeCategory.value === 'Following')
+
 const visibleMerchants = computed(() => {
     const withinRadius = merchants.filter((m) => {
         const km = m.distance.includes('km') ? parseFloat(m.distance) : parseFloat(m.distance) / 1000
         return km <= radius.value
     })
+    const searched = withinRadius.filter((m) => matches(discoverQuery.value, m.name, m.category))
     const filtered =
         activeCategory.value === 'All'
-            ? withinRadius
-            : withinRadius.filter((m) => m.category === activeCategory.value)
+            ? searched
+            : searched.filter((m) => m.category === activeCategory.value)
     // Boosted merchants rank first - that is the entire paid product.
     return [...filtered].sort((a, b) => Number(b.boosted) - Number(a.boosted))
 })
 
 const followedMerchants = computed(() => merchants.filter((m) => following.value.includes(m.id)))
+
+// The Following tab reads as a chat list - these are conversations now, not listings.
+const followingChats = computed(() =>
+    followedMerchants.value.filter((m) => matches(discoverQuery.value, m.name, m.category, m.post))
+)
+
+const updateItems = computed(() => {
+    const channels = followedMerchants.value.map((m) => ({
+        kind: 'Channels', id: m.id, name: m.name, emoji: m.emoji, tint: m.tint,
+        text: m.post, time: m.time, merchant: m,
+    }))
+    const groups = groupUpdates.map((g) => ({ ...g, kind: 'Groups', merchant: null }))
+    const statuses = statusUpdates.map((s) => ({ ...s, kind: 'Status', merchant: null }))
+
+    return [...channels, ...groups, ...statuses]
+        .filter((item) => updatesFilter.value === 'All' || item.kind === updatesFilter.value)
+        .filter((item) => matches(updatesQuery.value, item.name, item.text))
+})
 
 const isFollowing = (id) => following.value.includes(id)
 
@@ -156,6 +196,9 @@ function resetPrototype() {
     following.value = []
     radius.value = 2
     activeCategory.value = 'All'
+    discoverQuery.value = ''
+    updatesQuery.value = ''
+    updatesFilter.value = 'All'
     boosted.value = false
     discoverable.value = true
     chatMessages.value = []
@@ -360,23 +403,86 @@ onBeforeUnmount(() => {
                                 </button>
                             </header>
 
+                            <!-- Search -->
+                            <div class="px-4 pb-3">
+                                <div class="flex items-center gap-2.5 h-10 rounded-full bg-white/[0.07] px-3.5">
+                                    <Search :size="14" class="text-white/40 shrink-0" />
+                                    <input
+                                        v-model="discoverQuery"
+                                        type="text"
+                                        placeholder="Search nearby businesses"
+                                        class="flex-1 min-w-0 bg-transparent text-[12.5px] text-white placeholder:text-white/40 outline-none"
+                                    />
+                                    <button
+                                        v-if="discoverQuery"
+                                        type="button"
+                                        class="shrink-0 text-white/40 active:scale-90 transition-transform"
+                                        aria-label="Clear search"
+                                        @click="discoverQuery = ''"
+                                    >
+                                        <X :size="14" />
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Filter group -->
                             <div class="flex gap-2 px-4 pb-3 overflow-x-auto wa-scroll">
                                 <button
                                     v-for="c in categories"
                                     :key="c"
                                     type="button"
-                                    class="shrink-0 px-3 py-1.5 rounded-full text-[11px] font-semibold border transition-colors active:scale-95"
+                                    class="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-semibold border transition-colors active:scale-95"
                                     :class="activeCategory === c
                                         ? 'bg-[#25D366] border-[#25D366] text-[#04150F]'
                                         : 'border-white/15 text-white/60'"
                                     @click="activeCategory = c"
                                 >
                                     {{ c }}
+                                    <span
+                                        v-if="c === 'Following' && following.length"
+                                        class="px-1.5 rounded-full text-[9px] font-black"
+                                        :class="activeCategory === c ? 'bg-black/20' : 'bg-white/15 text-white/80'"
+                                    >
+                                        {{ following.length }}
+                                    </span>
                                 </button>
                             </div>
 
+                            <!-- FOLLOWING: the channels you follow, as a chat list -->
+                            <ul v-if="isFollowingTab" class="px-2">
+                                <li
+                                    v-for="(m, i) in followingChats"
+                                    :key="m.id"
+                                    class="wa-stagger flex items-center gap-3 px-2 py-3 rounded-2xl active:bg-white/[0.06]"
+                                    :style="{ animationDelay: `${i * 60}ms` }"
+                                    @click="openChannel(m)"
+                                >
+                                    <div class="h-11 w-11 rounded-full flex items-center justify-center text-lg shrink-0" :class="m.tint">
+                                        {{ m.emoji }}
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <div class="flex items-center gap-2">
+                                            <p class="text-[13.5px] font-semibold truncate flex-1">{{ m.name }}</p>
+                                            <span class="text-[10px] text-white/35 shrink-0">{{ m.time }}</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 mt-0.5">
+                                            <p class="text-[11.5px] text-white/45 truncate flex-1">{{ m.post }}</p>
+                                            <span class="h-4 min-w-4 px-1 rounded-full bg-[#25D366] text-[9px] font-black text-[#04150F] flex items-center justify-center shrink-0">1</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li v-if="!followingChats.length" class="py-14 px-8 text-center">
+                                    <Radio :size="24" class="mx-auto text-white/25 mb-3" />
+                                    <p class="text-[12px] text-white/45 leading-relaxed">
+                                        {{ discoverQuery
+                                            ? 'No followed channel matches that search.'
+                                            : 'Follow a business and its channel shows up here as a chat.' }}
+                                    </p>
+                                </li>
+                            </ul>
+
                             <!-- Loading skeletons -->
-                            <ul v-if="loading" class="px-4 space-y-3">
+                            <ul v-else-if="loading" class="px-4 space-y-3">
                                 <li v-for="n in 3" :key="n" class="flex items-center gap-3 p-3 rounded-2xl bg-white/[0.05]">
                                     <div class="h-11 w-11 rounded-full wa-shimmer"></div>
                                     <div class="flex-1 space-y-2">
@@ -420,8 +526,10 @@ onBeforeUnmount(() => {
                                         BOOSTED
                                     </span>
                                 </li>
-                                <li v-if="!visibleMerchants.length" class="py-10 text-center text-white/40 text-[12px]">
-                                    No opted-in businesses within {{ radius }} km yet.
+                                <li v-if="!visibleMerchants.length" class="py-10 text-center text-white/40 text-[12px] leading-relaxed px-8">
+                                    {{ discoverQuery
+                                        ? `Nothing matching "${discoverQuery}" within ${radius} km.`
+                                        : `No opted-in businesses within ${radius} km yet.` }}
                                 </li>
                             </ul>
 
@@ -539,31 +647,93 @@ onBeforeUnmount(() => {
                                 <h3 class="text-[22px] font-bold tracking-tight">Updates</h3>
                             </header>
 
-                            <p class="px-4 text-[10px] font-black uppercase tracking-widest text-white/35 mb-3">Channels you follow</p>
+                            <!-- Search -->
+                            <div class="px-4 pb-3">
+                                <div class="flex items-center gap-2.5 h-10 rounded-full bg-white/[0.07] px-3.5">
+                                    <Search :size="14" class="text-white/40 shrink-0" />
+                                    <input
+                                        v-model="updatesQuery"
+                                        type="text"
+                                        placeholder="Search updates"
+                                        class="flex-1 min-w-0 bg-transparent text-[12.5px] text-white placeholder:text-white/40 outline-none"
+                                    />
+                                    <button
+                                        v-if="updatesQuery"
+                                        type="button"
+                                        class="shrink-0 text-white/40 active:scale-90 transition-transform"
+                                        aria-label="Clear search"
+                                        @click="updatesQuery = ''"
+                                    >
+                                        <X :size="14" />
+                                    </button>
+                                </div>
+                            </div>
 
-                            <div v-if="followedMerchants.length" class="px-4 space-y-3">
+                            <!-- Filter group -->
+                            <div class="flex gap-2 px-4 pb-3 overflow-x-auto wa-scroll">
+                                <button
+                                    v-for="f in updatesFilters"
+                                    :key="f"
+                                    type="button"
+                                    class="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-semibold border transition-colors active:scale-95"
+                                    :class="updatesFilter === f
+                                        ? 'bg-[#25D366] border-[#25D366] text-[#04150F]'
+                                        : 'border-white/15 text-white/60'"
+                                    @click="updatesFilter = f"
+                                >
+                                    {{ f }}
+                                    <span
+                                        v-if="f === 'Channels' && following.length"
+                                        class="px-1.5 rounded-full text-[9px] font-black"
+                                        :class="updatesFilter === f ? 'bg-black/20' : 'bg-white/15 text-white/80'"
+                                    >
+                                        {{ following.length }}
+                                    </span>
+                                    <span
+                                        v-if="f === 'Groups'"
+                                        class="px-1.5 rounded-full text-[9px] font-black"
+                                        :class="updatesFilter === f ? 'bg-black/20' : 'bg-white/15 text-white/80'"
+                                    >
+                                        {{ groupUpdates.length }}
+                                    </span>
+                                </button>
+                            </div>
+
+                            <div v-if="updateItems.length" class="px-4 space-y-3">
                                 <article
-                                    v-for="(m, i) in followedMerchants"
-                                    :key="m.id"
+                                    v-for="(item, i) in updateItems"
+                                    :key="item.kind + item.id"
                                     class="wa-stagger rounded-2xl bg-white/[0.05] p-3.5 active:bg-white/[0.09]"
                                     :style="{ animationDelay: `${i * 70}ms` }"
-                                    @click="openChannel(m)"
+                                    @click="item.merchant && openChannel(item.merchant)"
                                 >
-                                    <div class="flex items-center gap-2.5 mb-2.5">
-                                        <div class="h-8 w-8 rounded-full flex items-center justify-center text-sm" :class="m.tint">{{ m.emoji }}</div>
-                                        <p class="text-[12.5px] font-semibold flex-1 truncate">{{ m.name }}</p>
-                                        <span class="text-[10px] text-white/35">now</span>
+                                    <div class="flex items-center gap-2.5 mb-2">
+                                        <div class="h-8 w-8 rounded-full flex items-center justify-center text-sm shrink-0" :class="item.tint">
+                                            {{ item.emoji }}
+                                        </div>
+                                        <p class="text-[12.5px] font-semibold flex-1 truncate">{{ item.name }}</p>
+                                        <span class="text-[10px] text-white/35 shrink-0">{{ item.time }}</span>
                                     </div>
-                                    <p class="text-[12px] text-white/70 leading-relaxed">{{ m.post }}</p>
+                                    <p class="text-[12px] text-white/70 leading-relaxed">
+                                        <span
+                                            class="inline-block align-middle mr-1.5 px-1.5 py-0.5 rounded text-[8.5px] font-black uppercase tracking-widest bg-white/10 text-white/50"
+                                        >
+                                            {{ item.kind }}
+                                        </span>
+                                        {{ item.text }}
+                                    </p>
                                 </article>
                             </div>
 
                             <div v-else class="px-8 py-16 text-center">
                                 <Radio :size="26" class="mx-auto text-white/25 mb-4" />
                                 <p class="text-[12.5px] text-white/50 leading-relaxed mb-5">
-                                    No local channels yet. Open Discover to find businesses near you.
+                                    {{ updatesQuery
+                                        ? `Nothing matching "${updatesQuery}" in ${updatesFilter === 'All' ? 'your updates' : updatesFilter}.`
+                                        : 'No local channels yet. Open Discover to find businesses near you.' }}
                                 </p>
                                 <button
+                                    v-if="!updatesQuery"
                                     type="button"
                                     class="px-5 py-2.5 rounded-full bg-[#25D366] text-[#04150F] text-[12px] font-bold active:scale-95 transition-transform"
                                     @click="openDiscover"
@@ -775,8 +945,9 @@ onBeforeUnmount(() => {
                     <h3 class="font-bold text-base mb-3">What to try</h3>
                     <ol class="space-y-2.5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed list-decimal pl-4">
                         <li>Tap the <strong class="text-gray-900 dark:text-gray-100">compass</strong> in the header - it sits immediately left of Pay - and allow location once.</li>
-                        <li>Change the radius chip and watch the nearby list re-query; the boosted salon always ranks first.</li>
-                        <li>Follow a shop, then open <strong class="text-gray-900 dark:text-gray-100">Updates</strong> - followed channels start posting there.</li>
+                        <li>Search nearby businesses, or filter by category; change the radius chip and watch the list re-query. The boosted salon always ranks first.</li>
+                        <li>Follow a shop, then open the <strong class="text-gray-900 dark:text-gray-100">Following</strong> tab - followed channels turn into a chat list with unread counts.</li>
+                        <li>In <strong class="text-gray-900 dark:text-gray-100">Updates</strong>, filter across Channels, Groups and Status, or search every update at once.</li>
                         <li>Open a channel and hit <strong class="text-gray-900 dark:text-gray-100">Message this shop</strong>: identity only moves customer → merchant.</li>
                         <li>Switch to <strong class="text-gray-900 dark:text-gray-100">Business side</strong> to toggle discoverability and buy a boost.</li>
                     </ol>
@@ -788,6 +959,8 @@ onBeforeUnmount(() => {
                         <li>· Pulsing ring on the Discover entry point - the only new affordance in a familiar header.</li>
                         <li>· Consent sheet slides up before any location read; "Allow once" is the primary action, not "Always".</li>
                         <li>· Skeleton shimmer on every radius or category change, so the query feels local and cheap.</li>
+                        <li>· Search filters as you type, with a clear button and an empty state that quotes the query back.</li>
+                        <li>· The Following tab reframes a listing as a conversation - same rows, unread badge, no new mental model.</li>
                         <li>· Follow morphs in place to "Following ✓" and fires a toast that restates the privacy rule.</li>
                         <li>· Staggered list entry, typing dots in chat, and a spring on every tap target.</li>
                     </ul>
