@@ -20,11 +20,41 @@ const screens = [
 ]
 
 const merchants = [
-    { id: 'daily', name: 'Daily Fresh Kirana', category: 'Grocery', distance: '400 m', emoji: '🛒', tint: 'bg-emerald-500/25', followers: '312', boosted: false, time: '11:04 AM', post: 'Fresh stock in - Alphonso mangoes ₹240/dozen, today only.' },
-    { id: 'crown', name: 'Crown Salon & Spa', category: 'Salon', distance: '650 m', emoji: '💈', tint: 'bg-violet-500/25', followers: '1.2K', boosted: true, time: '10:52 AM', post: 'Weekday offer: haircut + beard styling at ₹399 till Friday.' },
-    { id: 'bakers', name: 'Sunrise Bakers', category: 'Bakery', distance: '900 m', emoji: '🥐', tint: 'bg-amber-500/25', followers: '840', boosted: false, time: '9:18 AM', post: 'Fresh croissants out of the oven at 7am and 5pm daily.' },
-    { id: 'medico', name: 'Medico Pharmacy', category: 'Pharmacy', distance: '1.1 km', emoji: '💊', tint: 'bg-sky-500/25', followers: '506', boosted: false, time: 'Yesterday', post: 'Now open till 11pm. Free home delivery within 2 km.' },
-    { id: 'stitch', name: 'Perfect Fit Tailors', category: 'Tailor', distance: '1.4 km', emoji: '🧵', tint: 'bg-rose-500/25', followers: '198', boosted: false, time: 'Yesterday', post: 'Wedding season slots open - 3 day turnaround on blouses.' },
+    {
+        id: 'daily', name: 'Daily Fresh Kirana', category: 'Grocery', distance: '400 m', emoji: '🛒',
+        tint: 'bg-emerald-500/25', followers: '312', boosted: false, time: '11:04 AM',
+        post: 'Fresh stock in - Alphonso mangoes ₹240/dozen, today only.',
+        ask: 'Hi! Do you still have the Alphonso mangoes?',
+        reply: 'Yes - ₹240 a dozen. Shall I keep a box aside for you?',
+    },
+    {
+        id: 'crown', name: 'Crown Salon & Spa', category: 'Salon', distance: '650 m', emoji: '💈',
+        tint: 'bg-violet-500/25', followers: '1.2K', boosted: true, time: '10:52 AM',
+        post: 'Weekday offer: haircut + beard styling at ₹399 till Friday.',
+        ask: 'Hi! Do you have slots free this evening?',
+        reply: 'Yes - 6pm and 7:30pm are open. Shall I hold one for you?',
+    },
+    {
+        id: 'bakers', name: 'Sunrise Bakers', category: 'Bakery', distance: '900 m', emoji: '🥐',
+        tint: 'bg-amber-500/25', followers: '840', boosted: false, time: '9:18 AM',
+        post: 'Fresh croissants out of the oven at 7am and 5pm daily.',
+        ask: 'Hi! Is the evening batch of croissants out yet?',
+        reply: 'Going in at 5pm - want me to reserve two for you?',
+    },
+    {
+        id: 'medico', name: 'Medico Pharmacy', category: 'Pharmacy', distance: '1.1 km', emoji: '💊',
+        tint: 'bg-sky-500/25', followers: '506', boosted: false, time: 'Yesterday',
+        post: 'Now open till 11pm. Free home delivery within 2 km.',
+        ask: 'Hi! Do you deliver to the next lane?',
+        reply: 'Yes - free within 2 km, usually under 40 minutes.',
+    },
+    {
+        id: 'stitch', name: 'Perfect Fit Tailors', category: 'Tailor', distance: '1.4 km', emoji: '🧵',
+        tint: 'bg-rose-500/25', followers: '198', boosted: false, time: 'Yesterday',
+        post: 'Wedding season slots open - 3 day turnaround on blouses.',
+        ask: 'Hi! How long for a blouse alteration right now?',
+        reply: 'Three days at the moment. You can drop it any time before 8pm.',
+    },
 ]
 
 const categories = ['Following', 'All', 'Grocery', 'Salon', 'Bakery', 'Pharmacy', 'Tailor']
@@ -55,7 +85,10 @@ const discoverable = ref(true)
 const boosted = ref(false)
 const showBoostSheet = ref(false)
 const boostRadius = ref(3)
-const chatMessages = ref([])
+// Following puts a business in Discover and Updates. Only messaging it opens a chat.
+const conversations = ref([])
+const threads = ref({})
+const chatBackTo = ref('channel')
 const typing = ref(false)
 
 let toastTimer = null
@@ -89,6 +122,11 @@ const visibleMerchants = computed(() => {
 })
 
 const followedMerchants = computed(() => merchants.filter((m) => following.value.includes(m.id)))
+
+// Chats only ever contains businesses you actually messaged.
+const chatMerchants = computed(() => merchants.filter((m) => conversations.value.includes(m.id)))
+const activeThread = computed(() => threads.value[activeMerchantId.value] || [])
+const lastMessage = (id) => (threads.value[id] || []).at(-1)
 
 // The Following tab reads as a chat list - these are conversations now, not listings.
 const followingChats = computed(() =>
@@ -160,19 +198,38 @@ function openChannel(merchant) {
 }
 
 function messageShop() {
+    const merchant = activeMerchant.value
+    chatBackTo.value = 'channel'
     screen.value = 'chat'
-    chatMessages.value = [
-        { from: 'me', text: `Hi! Do you have slots free this evening?`, time: '11:32' },
-    ]
+
+    // Already talking to them - just reopen the thread.
+    if (conversations.value.includes(merchant.id)) return
+
+    conversations.value = [...conversations.value, merchant.id]
+    threads.value = {
+        ...threads.value,
+        [merchant.id]: [{ from: 'me', text: merchant.ask, time: '11:32' }],
+    }
+    flash('Chat started - the shop now has your number')
+
     typing.value = true
     clearTimeout(typingTimer)
     typingTimer = setTimeout(() => {
         typing.value = false
-        chatMessages.value = [
-            ...chatMessages.value,
-            { from: 'them', text: 'Yes - 6pm and 7:30pm are open. Shall I hold one for you?', time: '11:32' },
-        ]
+        threads.value = {
+            ...threads.value,
+            [merchant.id]: [
+                ...(threads.value[merchant.id] || []),
+                { from: 'them', text: merchant.reply, time: '11:32' },
+            ],
+        }
     }, 1800)
+}
+
+function openChat(merchant) {
+    activeMerchantId.value = merchant.id
+    chatBackTo.value = 'chats'
+    screen.value = 'chat'
 }
 
 function confirmBoost() {
@@ -201,7 +258,8 @@ function resetPrototype() {
     updatesFilter.value = 'All'
     boosted.value = false
     discoverable.value = true
-    chatMessages.value = []
+    conversations.value = []
+    threads.value = {}
     flash('Prototype reset')
 }
 
@@ -347,18 +405,20 @@ onBeforeUnmount(() => {
 
                             <ul>
                                 <li
-                                    v-for="(m, i) in followedMerchants"
+                                    v-for="(m, i) in chatMerchants"
                                     :key="m.id"
                                     class="wa-stagger flex items-center gap-3 px-4 py-3 active:bg-white/5"
                                     :style="{ animationDelay: `${i * 60}ms` }"
-                                    @click="openChannel(m)"
+                                    @click="openChat(m)"
                                 >
                                     <div class="h-11 w-11 rounded-full flex items-center justify-center text-lg" :class="m.tint">{{ m.emoji }}</div>
                                     <div class="min-w-0 flex-1">
                                         <p class="text-[14px] font-semibold truncate">{{ m.name }}</p>
-                                        <p class="text-[12px] text-white/45 truncate">Channel · {{ m.post }}</p>
+                                        <p class="text-[12px] text-white/45 truncate">
+                                            <span v-if="lastMessage(m.id)?.from === 'me'">You: </span>{{ lastMessage(m.id)?.text }}
+                                        </p>
                                     </div>
-                                    <ChevronRight :size="15" class="text-white/25" />
+                                    <span class="text-[10px] text-white/35 shrink-0">{{ lastMessage(m.id)?.time }}</span>
                                 </li>
                                 <li
                                     v-for="(chat, i) in [
@@ -368,7 +428,7 @@ onBeforeUnmount(() => {
                                     ]"
                                     :key="chat.name"
                                     class="wa-stagger flex items-center gap-3 px-4 py-3 active:bg-white/5"
-                                    :style="{ animationDelay: `${(followedMerchants.length + i) * 60}ms` }"
+                                    :style="{ animationDelay: `${(chatMerchants.length + i) * 60}ms` }"
                                 >
                                     <div class="h-11 w-11 rounded-full bg-white/10 flex items-center justify-center text-lg">{{ chat.emoji }}</div>
                                     <div class="min-w-0 flex-1">
@@ -584,10 +644,12 @@ onBeforeUnmount(() => {
                                     class="w-full py-3 rounded-2xl bg-white/[0.07] text-[12px] font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform"
                                     @click="messageShop"
                                 >
-                                    <MessageCircle :size="14" /> Message this shop
+                                    <MessageCircle :size="14" />
+                                    {{ conversations.includes(activeMerchant.id) ? 'Open your chat' : 'Message this shop' }}
                                 </button>
                                 <p class="text-[10px] text-white/35 text-center mt-3 leading-relaxed">
-                                    Your number reaches the merchant only when <em>you</em> send the first message.
+                                    Following keeps this in Discover and Updates only. It reaches your Chats - and the
+                                    merchant gets your number - only when <em>you</em> send the first message.
                                 </p>
                             </div>
                         </div>
@@ -595,7 +657,7 @@ onBeforeUnmount(() => {
                         <!-- ══ CUSTOMER-INITIATED CHAT ══ -->
                         <div v-else-if="screen === 'chat'" key="chat" class="absolute inset-0 pt-8 pb-14 bg-[#0B141A] text-white flex flex-col">
                             <header class="flex items-center gap-3 px-4 py-3 bg-[#1F2C33]">
-                                <button type="button" class="active:scale-90 transition-transform" @click="screen = 'channel'">
+                                <button type="button" class="active:scale-90 transition-transform" @click="screen = chatBackTo">
                                     <ArrowLeft :size="19" />
                                 </button>
                                 <div class="h-9 w-9 rounded-full flex items-center justify-center" :class="activeMerchant.tint">
@@ -613,7 +675,7 @@ onBeforeUnmount(() => {
                                     You started this chat from a Discover channel. The business now has your number.
                                 </p>
                                 <div
-                                    v-for="(msg, i) in chatMessages"
+                                    v-for="(msg, i) in activeThread"
                                     :key="i"
                                     class="wa-bubble flex"
                                     :class="msg.from === 'me' ? 'justify-end' : 'justify-start'"
@@ -946,9 +1008,9 @@ onBeforeUnmount(() => {
                     <ol class="space-y-2.5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed list-decimal pl-4">
                         <li>Tap the <strong class="text-gray-900 dark:text-gray-100">compass</strong> in the header - it sits immediately left of Pay - and allow location once.</li>
                         <li>Search nearby businesses, or filter by category; change the radius chip and watch the list re-query. The boosted salon always ranks first.</li>
-                        <li>Follow a shop, then open the <strong class="text-gray-900 dark:text-gray-100">Following</strong> tab - followed channels turn into a chat list with unread counts.</li>
+                        <li>Follow a shop: it appears in the <strong class="text-gray-900 dark:text-gray-100">Following</strong> tab and in Updates - and nowhere else. Your Chats list stays untouched.</li>
                         <li>In <strong class="text-gray-900 dark:text-gray-100">Updates</strong>, filter across Channels, Groups and Status, or search every update at once.</li>
-                        <li>Open a channel and hit <strong class="text-gray-900 dark:text-gray-100">Message this shop</strong>: identity only moves customer → merchant.</li>
+                        <li>Open a channel and hit <strong class="text-gray-900 dark:text-gray-100">Message this shop</strong>. Only now does it enter Chats, and only now does the merchant get your number.</li>
                         <li>Switch to <strong class="text-gray-900 dark:text-gray-100">Business side</strong> to toggle discoverability and buy a boost.</li>
                     </ol>
                 </div>
@@ -961,6 +1023,7 @@ onBeforeUnmount(() => {
                         <li>· Skeleton shimmer on every radius or category change, so the query feels local and cheap.</li>
                         <li>· Search filters as you type, with a clear button and an empty state that quotes the query back.</li>
                         <li>· The Following tab reframes a listing as a conversation - same rows, unread badge, no new mental model.</li>
+                        <li>· Following and messaging are separate states: a follow never lands in Chats, so the inbox stays something the customer opted into twice.</li>
                         <li>· Follow morphs in place to "Following ✓" and fires a toast that restates the privacy rule.</li>
                         <li>· Staggered list entry, typing dots in chat, and a spring on every tap target.</li>
                     </ul>
