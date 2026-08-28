@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Noto+Sans+Devanagari:wght@400;600;800&display=swap');
+
+/* ==========================================================================
+   Joke Video Maker - app shell
+   Design tokens follow the portfolio's system: Plus Jakarta Sans, the teal
+   accent (#2DD4BF) and the same light/dark switch (`html.dark`).
+   ========================================================================== */
+
+.jvm {
+  --jvm-accent: #2DD4BF;
+  --jvm-accent-strong: #14B8A6;
+  --jvm-text: #1C1B1B;
+  --jvm-muted: rgba(28, 27, 27, 0.62);
+  --jvm-surface: rgba(255, 255, 255, 0.82);
+  --jvm-surface-2: rgba(28, 27, 27, 0.035);
+  --jvm-border: rgba(28, 27, 27, 0.12);
+  --jvm-border-strong: rgba(28, 27, 27, 0.24);
+  --jvm-shadow: 0 18px 46px -28px rgba(15, 23, 42, 0.55);
+  --jvm-danger: #e11d48;
+  --jvm-ok: #0d9488;
+  --jvm-radius: 18px;
+  --jvm-radius-sm: 12px;
+
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  color: var(--jvm-text);
+}
+
+html.dark .jvm {
+  --jvm-text: #FFFFFF;
+  --jvm-muted: rgba(255, 255, 255, 0.62);
+  --jvm-surface: rgba(255, 255, 255, 0.045);
+  --jvm-surface-2: rgba(255, 255, 255, 0.06);
+  --jvm-border: rgba(255, 255, 255, 0.12);
+  --jvm-border-strong: rgba(255, 255, 255, 0.26);
+  --jvm-shadow: 0 22px 60px -32px rgba(0, 0, 0, 0.9);
+  --jvm-danger: #fb7185;
+  --jvm-ok: #2DD4BF;
+}
+
+/* `hidden` must win over the display rules below. */
+.jvm [hidden] { display: none !important; }
+
+/* ---------- page header ---------- */
+.jvm__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-bottom: 2rem;
+}
+
+.jvm__title {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.jvm__title em {
+  font-style: normal;
+  color: var(--jvm-accent-strong);
+}
+
+html.dark .jvm__title em { color: var(--jvm-accent); }
+
+.jvm__subtitle {
+  margin: 0.6rem 0 0;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: var(--jvm-muted);
+  max-width: 46ch;
+}
+
+.jvm__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--jvm-border);
+  background: var(--jvm-surface-2);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--jvm-muted);
+  white-space: nowrap;
+}
+
+/* ---------- two column layout ---------- */
+.jvm__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 1100px) {
+  .jvm__layout { grid-template-columns: 1fr; }
+}
+
+.jvm__preview-col { position: sticky; top: 6.5rem; }
+
+/* On phones the preview comes first, then the controls. */
+@media (max-width: 1100px) {
+  .jvm__preview-col { position: static; order: -1; }
+}
+
+/* ---------- panels ---------- */
+.jvm-panel {
+  border: 1px solid var(--jvm-border);
+  border-radius: var(--jvm-radius);
+  background: var(--jvm-surface);
+  backdrop-filter: blur(10px);
+  padding: 1.25rem;
+  margin-bottom: 1.1rem;
+  box-shadow: var(--jvm-shadow);
+}
+
+.jvm-panel__head {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.9rem;
+}
+
+.jvm-panel__step {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: var(--jvm-accent);
+  color: #04201d;
+  font-size: 0.8rem;
+  font-weight: 800;
+  flex: none;
+}
+
+.jvm-panel__title {
+  font-size: 1.02rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.jvm-panel__hint {
+  margin: 0 0 0.9rem;
+  font-size: 0.85rem;
+  color: var(--jvm-muted);
+}
+
+/* ---------- buttons ---------- */
+.jvm-btn {
+  appearance: none;
+  border: 1px solid var(--jvm-border-strong);
+  background: transparent;
+  color: var(--jvm-text);
+  font: inherit;
+  font-weight: 600;
+  padding: 0.7rem 1.1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.jvm-btn:hover:not(:disabled) { background: var(--jvm-surface-2); transform: translateY(-1px); }
+.jvm-btn:active:not(:disabled) { transform: translateY(0); }
+.jvm-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.jvm-btn--primary {
+  background: var(--jvm-accent);
+  border-color: var(--jvm-accent);
+  color: #04201d;
+  font-weight: 800;
+  padding: 0.9rem 1.4rem;
+  font-size: 1.02rem;
+}
+
+.jvm-btn--primary:hover:not(:disabled) { background: var(--jvm-accent-strong); border-color: var(--jvm-accent-strong); }
+
+.jvm-btn--ghost { border-color: var(--jvm-border); }
+
+.jvm-btn--wide { width: 100%; }
+
+.jvm-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.jvm-actions .jvm-btn--primary { flex: 1 1 220px; }
+
+/* ---------- status + notices ---------- */
+.jvm-status {
+  margin-top: 0.9rem;
+  padding: 0.7rem 0.95rem;
+  border-radius: var(--jvm-radius-sm);
+  border: 1px solid var(--jvm-border);
+  background: var(--jvm-surface-2);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  min-height: 0;
+}
+
+.jvm-status.is-visible { opacity: 1; transform: translateY(0); }
+.jvm-status[data-kind="error"] { border-color: var(--jvm-danger); color: var(--jvm-danger); }
+.jvm-status[data-kind="ok"] { border-color: var(--jvm-ok); color: var(--jvm-ok); }
+
+.jvm-notice {
+  margin-top: 0.8rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--jvm-muted);
+  border-left: 3px solid var(--jvm-accent);
+  padding-left: 0.7rem;
+}
+
+.jvm-notice code {
+  font-size: 0.78rem;
+  background: var(--jvm-surface-2);
+  padding: 0.1rem 0.35rem;
+  border-radius: 5px;
+}
+
+.jvm-footnote {
+  margin-top: 1.6rem;
+  font-size: 0.8rem;
+  color: var(--jvm-muted);
+  line-height: 1.6;
+}

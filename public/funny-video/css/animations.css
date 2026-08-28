@@ -1,0 +1,61 @@
+/* ==========================================================================
+   Joke Video Maker - UI micro-animations
+   (The video's own animation lives in js/animation.js - this file is only
+   about the editor chrome.)
+   ========================================================================== */
+
+@keyframes jvm-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes jvm-pop {
+  0%   { transform: scale(0.94); }
+  60%  { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+@keyframes jvm-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.45; }
+}
+
+@keyframes jvm-shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position: 200% 0; }
+}
+
+.jvm-panel,
+.jvm-preview {
+  animation: jvm-fade-up 0.5s ease-out both;
+}
+
+.jvm-panel:nth-of-type(2) { animation-delay: 0.04s; }
+.jvm-panel:nth-of-type(3) { animation-delay: 0.08s; }
+.jvm-panel:nth-of-type(4) { animation-delay: 0.12s; }
+.jvm-panel:nth-of-type(5) { animation-delay: 0.16s; }
+.jvm-panel:nth-of-type(6) { animation-delay: 0.2s; }
+
+.jvm-card.is-active { animation: jvm-pop 0.28s ease-out; }
+.jvm-audio__play.is-playing { animation: jvm-pulse 1.1s ease-in-out infinite; }
+
+/* "Composing your video..." shimmer on the primary button */
+.jvm-btn--primary[data-busy] {
+  background-image: linear-gradient(90deg,
+    var(--jvm-accent) 0%, #ffffff 50%, var(--jvm-accent) 100%);
+  background-size: 200% 100%;
+  animation: jvm-shimmer 1.1s linear infinite;
+}
+
+.jvm-overlay__icon { animation: jvm-pulse 2.4s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .jvm-panel,
+  .jvm-preview,
+  .jvm-card.is-active,
+  .jvm-audio__play.is-playing,
+  .jvm-btn--primary[data-busy],
+  .jvm-overlay__icon {
+    animation: none;
+  }
+}
