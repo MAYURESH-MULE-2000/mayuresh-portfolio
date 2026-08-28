@@ -1,0 +1,174 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.vue";
+---
+
+<Layout
+  title="Joke Video Maker | Mayuresh Mule"
+  description="Turn photos into funny videos in seconds. Upload photos, pick a background, props and audio, and export a 9:16 video right in the browser."
+>
+  <Header client:load />
+
+  <link rel="stylesheet" href="/funny-video/css/app.css" />
+  <link rel="stylesheet" href="/funny-video/css/editor.css" />
+  <link rel="stylesheet" href="/funny-video/css/animations.css" />
+
+  <main class="jvm px-6 md:px-16 lg:px-24 py-12 pt-28 md:pt-32">
+    <div class="max-w-7xl mx-auto">
+      <!-- ============================= Header ============================ -->
+      <header class="jvm__header">
+        <div>
+          <h1 class="jvm__title">Joke Video <em>Maker</em></h1>
+          <p class="jvm__subtitle">
+            Turn photos into funny videos in seconds. Upload, pick, type, generate.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="jvm__badge">📱 1080 × 1920 · 9:16</span>
+          <span class="jvm__badge">🎞️ Reels · Shorts · TikTok</span>
+        </div>
+      </header>
+
+      <div class="jvm__layout">
+        <!-- =========================== Controls =========================== -->
+        <section class="jvm__editor-col" aria-label="Video settings">
+          <!-- Step 1 + 2: people -->
+          <section class="jvm-panel">
+            <div class="jvm-panel__head">
+              <span class="jvm-panel__step">1</span>
+              <h2 class="jvm-panel__title">People &amp; names</h2>
+            </div>
+            <p class="jvm-panel__hint">
+              Add 1–4 people. Transparent PNG cut-outs look best; normal photos are
+              turned into sticker cut-outs automatically.
+            </p>
+            <div class="jvm-people" id="jvm-people"></div>
+            <button type="button" class="jvm-btn jvm-btn--ghost jvm-btn--wide" id="jvm-add-person" style="margin-top:0.85rem">
+              + Add another person
+            </button>
+          </section>
+
+          <!-- Step 3: background -->
+          <section class="jvm-panel">
+            <div class="jvm-panel__head">
+              <span class="jvm-panel__step">2</span>
+              <h2 class="jvm-panel__title">Background</h2>
+            </div>
+            <p class="jvm-panel__hint">Each background is a full template: layout, camera move and matching props.</p>
+            <div class="jvm-grid" id="jvm-backgrounds"></div>
+            <div class="jvm-field" id="jvm-custom-bg-wrap" hidden style="margin-top:0.85rem">
+              <label class="jvm-label" for="jvm-custom-bg">Your background image (9:16 works best)</label>
+              <input class="jvm-input" type="file" id="jvm-custom-bg" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp" />
+            </div>
+          </section>
+
+          <!-- Step 4: props -->
+          <section class="jvm-panel">
+            <div class="jvm-panel__head">
+              <span class="jvm-panel__step">3</span>
+              <h2 class="jvm-panel__title">Props</h2>
+            </div>
+            <p class="jvm-panel__hint">Tap to toggle. Positions, scale and motion are decided by the template.</p>
+            <div class="jvm-grid" id="jvm-props"></div>
+          </section>
+
+          <!-- Step 5: opening line -->
+          <section class="jvm-panel">
+            <div class="jvm-panel__head">
+              <span class="jvm-panel__step">4</span>
+              <h2 class="jvm-panel__title">Opening line</h2>
+            </div>
+            <p class="jvm-panel__hint">Hindi, Hinglish or English — all Unicode is supported.</p>
+            <label class="jvm-label" for="jvm-opening">Opening line</label>
+            <textarea
+              class="jvm-textarea"
+              id="jvm-opening"
+              maxlength="140"
+              placeholder="Akash ki kahani Rani se shuru hui..."></textarea>
+            <div class="jvm-field-row">
+              <div class="jvm-field">
+                <label class="jvm-label" for="jvm-text-anim">Text animation</label>
+                <select class="jvm-select" id="jvm-text-anim"></select>
+              </div>
+              <div class="jvm-field">
+                <label class="jvm-label" for="jvm-camera">Camera move</label>
+                <select class="jvm-select" id="jvm-camera"></select>
+              </div>
+            </div>
+          </section>
+
+          <!-- Step 6: audio -->
+          <section class="jvm-panel">
+            <div class="jvm-panel__head">
+              <span class="jvm-panel__step">5</span>
+              <h2 class="jvm-panel__title">Audio</h2>
+            </div>
+            <p class="jvm-panel__hint">Press ▶ to hear a sample. Random picks a different track on every generate.</p>
+            <div class="jvm-audio-list" id="jvm-audio"></div>
+          </section>
+
+          <!-- Step 7: generate -->
+          <section class="jvm-panel">
+            <div class="jvm-panel__head">
+              <span class="jvm-panel__step">6</span>
+              <h2 class="jvm-panel__title">Generate</h2>
+            </div>
+            <div class="jvm-actions">
+              <button type="button" class="jvm-btn jvm-btn--primary" id="jvm-create">🎬 Create Video</button>
+              <button type="button" class="jvm-btn" id="jvm-preview-btn">Preview</button>
+              <button type="button" class="jvm-btn" id="jvm-randomize">Randomize</button>
+              <button type="button" class="jvm-btn jvm-btn--ghost" id="jvm-reset">Reset</button>
+            </div>
+            <div class="jvm-status" id="jvm-status" role="status" aria-live="polite"></div>
+            <div class="jvm-notice" id="jvm-notice" hidden></div>
+          </section>
+        </section>
+
+        <!-- =========================== Preview ============================ -->
+        <section class="jvm__preview-col" aria-label="Video preview">
+          <div class="jvm-preview">
+            <div class="jvm-preview__head">
+              <h2 class="jvm-preview__title">Preview</h2>
+              <span class="jvm-preview__scene" id="jvm-scene-label"></span>
+            </div>
+
+            <div class="jvm-stage" id="jvm-stage">
+              <canvas id="jvm-canvas" width="1080" height="1920" aria-label="Generated video preview"></canvas>
+              <div class="jvm-overlay" id="jvm-overlay">
+                <span class="jvm-overlay__icon">🎬</span>
+                <span class="jvm-overlay__title">Nothing generated yet</span>
+                <span class="jvm-overlay__text">Add a photo, then press Create Video.</span>
+              </div>
+            </div>
+
+            <div class="jvm-transport">
+              <input class="jvm-seek" id="jvm-seek" type="range" min="0" max="1" step="0.01" value="0" aria-label="Seek" />
+              <div class="jvm-transport__row">
+                <button type="button" class="jvm-btn" id="jvm-playpause" aria-label="Play preview">▶ Play</button>
+                <button type="button" class="jvm-btn jvm-btn--ghost" id="jvm-replay" aria-label="Replay">↻ Replay</button>
+                <span class="jvm-time"><span id="jvm-time">0:00</span> / <span id="jvm-duration">0:00</span></span>
+              </div>
+              <button type="button" class="jvm-btn jvm-btn--wide" id="jvm-export">⬇ Export Video</button>
+            </div>
+
+            <div class="jvm-export-progress" id="jvm-progress" hidden>
+              <div class="jvm-export-progress__track">
+                <div class="jvm-export-progress__bar" id="jvm-progress-bar"></div>
+              </div>
+              <span class="jvm-export-progress__label" id="jvm-progress-label">Recording 0%</span>
+            </div>
+          </div>
+
+          <p class="jvm-footnote">
+            Export records the canvas and the audio in real time, so keep this tab
+            visible until it finishes. Chrome, Edge and Firefox save a WebM file;
+            Safari 17+ saves MP4. Setup and asset docs live in
+            <code>public/funny-video/README.md</code>.
+          </p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script is:inline type="module" src="/funny-video/js/app.js"></script>
+</Layout>
