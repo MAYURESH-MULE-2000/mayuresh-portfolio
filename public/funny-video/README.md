@@ -54,47 +54,95 @@ preview exactly.
 
 `public/funny-video/assets/backgrounds/`
 
-| Template            | Expected file          |
-| ------------------- | ---------------------- |
-| Romantic Garden     | `garden.jpg`           |
-| Night Garden        | `night-garden.jpg`     |
-| Wedding             | `wedding.jpg`          |
-| Village             | `village.jpg`          |
-| Road                | `road.jpg`             |
-| Park                | `park.jpg`             |
-| Classroom           | `classroom.jpg`        |
-| Bedroom             | `bedroom.jpg`          |
-| Funny Colorful      | `funny.jpg`            |
-| Custom Background   | uploaded by the user   |
+| Template            | File name          |
+| ------------------- | ------------------ |
+| Romantic Garden     | `garden`           |
+| Night Garden        | `night-garden`     |
+| Wedding             | `wedding`          |
+| Village             | `village`          |
+| Road                | `road`             |
+| Park                | `park`             |
+| Classroom           | `classroom`        |
+| Bedroom             | `bedroom`          |
+| Funny Colorful      | `funny`            |
+| Custom Background   | uploaded in the UI |
 
-Use 1080 × 1920 (9:16). Anything else is scaled to cover the frame and centred.
+**Extension is up to you** — `.jpg`, `.jpeg`, `.png` or `.webp` are all tried, in
+that order (`garden.png` works even though the default name is `garden.jpg`).
 
-**No file is required.** When a background is missing the matching procedural
-painter in `js/templates.js` draws the scene instead, so the app always runs.
+Size: 1080 × 1920 (9:16) is ideal. Anything else is scaled to cover and centred,
+so a wider image simply gets cropped left and right.
+
+**No file is required.** When a background is missing, the template's procedural
+painter in `js/templates.js` draws the scene instead.
 
 ## 3. Where to put prop images
 
-`public/funny-video/assets/props/` — transparent PNG or WebP:
+`public/funny-video/assets/props/` — transparent PNG (or WebP/JPG):
 
-`grass.png`, `flowers.png`, `lamp.png`, `heart.png`, `star.png`, `balloons.png`,
-`tree.png`, `bike.png`, `car.png`, `moon.png`, `cloud.png`, `wedding.png`,
-`confetti.png`, `sparkle.png`
+| Prop        | File name  | Prop            | File name     |
+| ----------- | ---------- | --------------- | ------------- |
+| Grass       | `grass`    | Trees           | `tree`        |
+| Flowers     | `flowers`  | Bike            | `bike`        |
+| Lamps       | `lamp`     | Car             | `car`         |
+| Hearts      | `heart`    | Moon            | `moon`        |
+| Stars       | `star`     | Clouds          | `cloud`       |
+| Balloons    | `balloons` | Wedding Decor   | `wedding`     |
+| Confetti    | `confetti` | Sparkles        | `sparkle`     |
 
-Again optional: each prop has a canvas painter used as a fallback. A yellow note
-under the Generate panel lists which files were not found.
+Rules of thumb when preparing your own art:
+
+* **Transparent background** (PNG/WebP with alpha) — props are composited over
+  the scene, so a white box will show.
+* **Roughly 300–500 px wide** is plenty; each prop is drawn relative to the
+  1080 px frame. `wedding` is a full-width banner, so make that one ~1080 px.
+* **Draw it upright and centred.** Ground props (grass, flowers, trees, bike,
+  car) are anchored by their bottom edge; hanging props (lamps, wedding decor)
+  by their top edge.
+* **Extension is up to you** — `.png`, `.webp`, `.jpg`, `.jpeg` are all tried.
+
+**Variants (optional).** Drop `flowers-2.png` and `flowers-3.png` next to
+`flowers.png` and the layout engine mixes all three across the frame, which
+looks far less repetitive. Up to 3 variants per prop; numbering must start at
+`-2` and be contiguous.
+
+Anything you do not supply keeps its built-in canvas painter, so you can prefill
+two props today and the rest later.
 
 ## 4. Where to put audio files
 
-`public/funny-video/assets/audio/` — `audio1.mp3` … `audio5.mp3`.
+`public/funny-video/assets/audio/` — `audio1` … `audio5`, in `.mp3`, `.m4a`,
+`.ogg` or `.wav` (tried in that order).
+
+**Rename the tracks in the UI** with an optional `tracks.json` in the same
+folder:
+
+```json
+{
+  "audio1": { "name": "Dhol Intro" },
+  "audio2": { "name": "Sad Violin" },
+  "audio5": { "name": "Baraat Shehnai" }
+}
+```
+
+Only the entries you list are renamed; the rest keep their built-in names. A
+track backed by your own file is marked **· your file** in the audio list.
+
+Length: 15 seconds or more is ideal (a video is ~14.6 s). Shorter audio loops;
+longer audio is cut when the video ends.
 
 If a file is missing, the matching track is **synthesised** with the Web Audio
 API (dhol/bhangra, romantic flute, dramatic twist, comedy bounce, shehnai
 wedding). Synthesised tracks are real audio and are recorded into the export
-just like an MP3 would be. Drop your own MP3s in to replace them — same file
-names, nothing else to change.
+just like an MP3 would be.
 
-Audio shorter than the video loops; audio longer than the video is cut when the
-video ends.
+## 4b. Checking what was picked up
+
+The **Your assets** panel in the app has a **Check my assets** button. It
+re-scans all three folders and lists every prop, background and track as either
+`YOURS` (with the variant count) or `GENERATED`, then rebuilds the preview with
+whatever it found. No page reload needed — add files, press the button, and the
+next preview uses them.
 
 ---
 

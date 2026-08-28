@@ -122,6 +122,24 @@ import Header from "../../components/Header.vue";
             <div class="jvm-status" id="jvm-status" role="status" aria-live="polite"></div>
             <div class="jvm-notice" id="jvm-notice" hidden></div>
           </section>
+
+          <!-- Your own artwork and audio -->
+          <section class="jvm-panel">
+            <div class="jvm-panel__head">
+              <span class="jvm-panel__step">＋</span>
+              <h2 class="jvm-panel__title">Your assets</h2>
+            </div>
+            <p class="jvm-panel__hint">
+              Drop your own prop cut-outs, backgrounds and tracks into
+              <code>public/funny-video/assets/</code> using the file names below — they replace
+              the generated ones. Then check here to confirm they were picked up
+              (no reload needed).
+            </p>
+            <button type="button" class="jvm-btn jvm-btn--ghost jvm-btn--wide" id="jvm-asset-check">
+              Check my assets
+            </button>
+            <div class="jvm-asset-report" id="jvm-asset-report" hidden></div>
+          </section>
         </section>
 
         <!-- =========================== Preview ============================ -->

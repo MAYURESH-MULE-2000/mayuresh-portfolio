@@ -9,7 +9,7 @@
  */
 
 import { pickRandom } from './utils.js';
-import { ASSET_BASE } from './assets.js';
+import { loadAudioManifest, resolveAudioUrl } from './assets.js';
 
 export const AUDIO_TRACKS = [
   { id: 'audio1', label: 'Audio 1', name: 'Dhol Bhangra', emoji: '🥁', file: 'audio1.mp3', synth: 'bhangra' },
@@ -20,6 +20,22 @@ export const AUDIO_TRACKS = [
 ];
 
 export const AUDIO_MAP = Object.fromEntries(AUDIO_TRACKS.map((t) => [t.id, t]));
+
+/**
+ * Apply /assets/audio/tracks.json so your own files show their real names in
+ * the UI. Safe to call repeatedly; returns the (possibly renamed) track list.
+ */
+export async function applyAudioManifest() {
+  const manifest = await loadAudioManifest();
+  AUDIO_TRACKS.forEach((track) => {
+    const entry = manifest[track.id];
+    if (entry && typeof entry.name === 'string' && entry.name.trim()) {
+      track.name = entry.name.trim().slice(0, 48);
+      track.custom = true;
+    }
+  });
+  return AUDIO_TRACKS;
+}
 
 /** Resolve the "random" option into a concrete track id. */
 export function resolveTrackId(selection) {
@@ -232,15 +248,14 @@ export class AudioEngine {
 
     let buffer = null;
     try {
-      const res = await fetch(`${ASSET_BASE}audio/${track.file}`);
-      if (res.ok) {
-        const type = res.headers.get('content-type') || '';
-        if (!type.includes('html')) {
-          buffer = await ctx.decodeAudioData(await res.arrayBuffer());
-        }
+      // mp3 / m4a / ogg / wav are all accepted, whatever you dropped in.
+      const url = await resolveAudioUrl(trackId, track.file);
+      if (url) {
+        const res = await fetch(url);
+        if (res.ok) buffer = await ctx.decodeAudioData(await res.arrayBuffer());
       }
     } catch {
-      buffer = null; // missing file - fall through to the synth
+      buffer = null; // unreadable or missing file - fall through to the synth
     }
 
     if (!buffer) {

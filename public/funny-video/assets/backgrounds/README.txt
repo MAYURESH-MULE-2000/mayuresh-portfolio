@@ -1,8 +1,15 @@
-Drop 1080x1920 background images here (optional).
+Drop 1080x1920 (9:16) backgrounds here. All optional.
 
-Expected names:
-  garden.jpg, night-garden.jpg, wedding.jpg, village.jpg, road.jpg,
-  park.jpg, classroom.jpg, bedroom.jpg, funny.jpg
+File names (extension can be .jpg, .jpeg, .png or .webp):
+  garden, night-garden, wedding, village, road,
+  park, classroom, bedroom, funny
+
+  e.g. garden.jpg   or   garden.png
+
+Other sizes are scaled to cover the frame and centred, so a wider image just
+gets cropped left and right.
 
 When a file is missing, the template's procedural painter (js/templates.js)
-draws the background instead, so the app works without any of these files.
+draws the background instead.
+
+Press "Check my assets" in the app to see which files were picked up.

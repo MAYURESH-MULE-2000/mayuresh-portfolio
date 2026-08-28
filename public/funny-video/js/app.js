@@ -10,10 +10,10 @@ import { store, TEXT_ANIMATIONS, CAMERA_MOVES, readyPeople } from './state.js';
 import { initPeoplePanel } from './people.js';
 import { PROP_LIBRARY } from './props.js';
 import { TEMPLATES, getTemplate } from './templates.js';
-import { AUDIO_TRACKS, audioEngine, resolveTrackId, AUDIO_MAP } from './audio.js';
+import { AUDIO_TRACKS, audioEngine, resolveTrackId, AUDIO_MAP, applyAudioManifest } from './audio.js';
 import { Renderer } from './renderer.js';
 import { VideoExporter, isExportSupported, buildFileName } from './exporter.js';
-import { preloadProject, missingAssets } from './assets.js';
+import { preloadProject, missingAssets, scanAssets, clearAssetCache } from './assets.js';
 import {
   escapeHtml, formatTime, pickRandom, downloadBlob, readFileAsDataURL, clamp,
 } from './utils.js';
@@ -50,6 +50,8 @@ export function initApp() {
     duration: $('jvm-duration'),
     status: $('jvm-status'),
     notice: $('jvm-notice'),
+    assetCheck: $('jvm-asset-check'),
+    assetReport: $('jvm-asset-report'),
     progress: $('jvm-progress'),
     progressBar: $('jvm-progress-bar'),
     progressLabel: $('jvm-progress-label'),
@@ -192,6 +194,7 @@ export function initApp() {
         id: t.id,
         title: t.label,
         subtitle: t.name,
+        custom: !!t.custom,
         emoji: t.emoji,
         playable: true,
       })),
@@ -205,7 +208,7 @@ export function initApp() {
             <span class="jvm-audio__emoji">${o.emoji}</span>
             <span class="jvm-audio__text">
               <strong>${escapeHtml(o.title)}</strong>
-              <small>${escapeHtml(o.subtitle)}</small>
+              <small>${escapeHtml(o.subtitle)}${o.custom ? ' · your file' : ''}</small>
             </span>
           </button>
           ${o.playable ? `<button type="button" class="jvm-audio__play" data-preview="${o.id}" title="Play sample" aria-label="Play ${o.title} sample">▶</button>` : ''}
@@ -443,6 +446,57 @@ export function initApp() {
     }
   });
 
+  /* ---------------- asset check ---------------- */
+  function assetRow(item) {
+    const state = item.custom
+      ? `<span class="jvm-asset__state is-custom">yours${item.variants > 1 ? ` ×${item.variants}` : ''}</span>`
+      : '<span class="jvm-asset__state">generated</span>';
+    return `<li class="jvm-asset"><span class="jvm-asset__name">${escapeHtml(item.label)}</span>
+      <code>${escapeHtml(item.expected)}</code>${state}</li>`;
+  }
+
+  async function runAssetCheck() {
+    el.assetCheck.disabled = true;
+    const label = el.assetCheck.textContent;
+    el.assetCheck.textContent = 'Checking...';
+    try {
+      // Drop the cache first so files added since the page loaded are seen.
+      clearAssetCache();
+      await applyAudioManifest();
+      renderAudio();
+      const report = await scanAssets(AUDIO_TRACKS);
+      el.assetReport.hidden = false;
+      el.assetReport.innerHTML = `
+        <p class="jvm-asset__summary">
+          Your files — props <strong>${report.summary.props}</strong>,
+          backgrounds <strong>${report.summary.backgrounds}</strong>,
+          audio <strong>${report.summary.audio}</strong>.
+          Everything else is drawn or synthesised by the app.
+        </p>
+        <details class="jvm-asset__details"${report.summary.total ? ' open' : ''}>
+          <summary>Props · put files in <code>public/funny-video/assets/props/</code></summary>
+          <ul class="jvm-asset__list">${report.props.map(assetRow).join('')}</ul>
+        </details>
+        <details class="jvm-asset__details">
+          <summary>Backgrounds · <code>assets/backgrounds/</code></summary>
+          <ul class="jvm-asset__list">${report.backgrounds.map(assetRow).join('')}</ul>
+        </details>
+        <details class="jvm-asset__details">
+          <summary>Audio · <code>assets/audio/</code></summary>
+          <ul class="jvm-asset__list">${report.audio.map(assetRow).join('')}</ul>
+        </details>`;
+      if (store.get().generated) await build({ autoplay: false, keepTime: true });
+      say(`Asset check done — ${report.summary.total} of your files in use.`, 'ok');
+    } catch (err) {
+      fail(`Could not check the assets: ${err.message || err}`);
+    } finally {
+      el.assetCheck.disabled = false;
+      el.assetCheck.textContent = label;
+    }
+  }
+
+  el.assetCheck.addEventListener('click', runAssetCheck);
+
   /* ---------------- asset notice ---------------- */
   function showAssetNotice() {
     const missing = missingAssets();
@@ -468,6 +522,9 @@ export function initApp() {
   renderSelects();
   renderAudio();
   el.exportBtn.disabled = true;
+
+  // Pick up /assets/audio/tracks.json names without blocking the first paint.
+  applyAudioManifest().then(renderAudio).catch(() => {});
 
   if (!isExportSupported()) {
     say('Video export is not available in this browser - preview still works. Use Chrome, Edge or Firefox to download.', 'info', true);
