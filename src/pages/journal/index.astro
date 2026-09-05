@@ -1,0 +1,48 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.vue";
+import SocialSidebar from "../../components/SocialSidebar.vue";
+import EmailSidebar from "../../components/EmailSidebar.vue";
+import LetsConnect from "../../components/LetsConnect.vue";
+import JournalHub from "../../components/journal/JournalHub.vue";
+import {
+  journalSeries,
+  journalEntriesNewestFirst,
+  formatJournalDate,
+  getReadingMinutes,
+} from "../../data/journal";
+
+const entries = journalEntriesNewestFirst.map((entry) => ({
+  day: entry.day,
+  slug: entry.slug,
+  title: entry.title,
+  summary: entry.summary,
+  mood: entry.mood,
+  words: entry.words,
+  dateLabel: formatJournalDate(entry.date),
+  readingMinutes: getReadingMinutes(entry),
+}));
+---
+
+<Layout
+  title={`${journalSeries.title} - Journal by Mayuresh Mule`}
+  description={journalSeries.description}
+>
+  <Header client:load />
+  <SocialSidebar client:load />
+  <EmailSidebar client:load />
+
+  <main class="px-6 sm:px-10 md:px-16 lg:px-32 py-20 pt-32">
+    <div class="max-w-5xl mx-auto">
+      <JournalHub
+        series={journalSeries}
+        entries={entries}
+        client:load
+      />
+
+      <div class="mt-8">
+        <LetsConnect client:visible />
+      </div>
+    </div>
+  </main>
+</Layout>

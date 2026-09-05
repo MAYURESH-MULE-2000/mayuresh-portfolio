@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { Linkedin, Instagram, FileText, Globe, CheckCircle, XCircle, X } from 'lucide-vue-next'
+import { Linkedin, Instagram, FileText, BookOpen, CheckCircle, XCircle, X } from 'lucide-vue-next'
 
 const formData = ref({
     name: '',
@@ -49,10 +49,10 @@ const handleSubmit = async (event) => {
 }
 
 const socialLinks = [
-    { name: 'LinkedIn', href: 'https://www.linkedin.com/in/mayuresh-mule/', icon: 'linkedin' },
-    { name: 'Resume', href: '/Mayuresh_Mule_26_7_26.pdf', icon: 'file-text' },
-    { name: 'My Website', href: 'https://www.unicorncraftstudios.com/', icon: 'globe' },
-    { name: 'Instagram', href: 'https://www.instagram.com/mayuresh.mule/?igsh=MTJsdWptdzF3dWlvbg%3D%3D#', icon: 'instagram' },
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/in/mayuresh-mule/', icon: 'linkedin', external: true },
+    { name: 'Resume', href: '/Mayuresh_Mule_26_7_26.pdf', icon: 'file-text', external: true },
+    { name: 'Journal', href: '/journal', icon: 'book', external: false },
+    { name: 'Instagram', href: 'https://www.instagram.com/mayuresh.mule/?igsh=MTJsdWptdzF3dWlvbg%3D%3D#', icon: 'instagram', external: true },
 ]
 </script>
 
@@ -140,9 +140,9 @@ const socialLinks = [
                 <template v-for="link in socialLinks" :key="link.name">
                     <a
                         :href="link.href"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="w-10 h-10 rounded-full border border-gray-300 dark:border-gray-700 flex items-center justify-center hover:bg-primary-black dark:hover:bg-primary-white transition-all duration-300 group"
+                        :target="link.external ? '_blank' : undefined"
+                        :rel="link.external ? 'noopener noreferrer' : undefined"
+                        class="w-10 h-10 rounded-full border border-gray-300 dark:border-gray-700 flex items-center justify-center hover:bg-primary-black dark:hover:bg-primary-white transition-all duration-300 hover:-translate-y-0.5 group"
                         :aria-label="link.name"
                     >
                         <!-- LinkedIn -->
@@ -159,11 +159,11 @@ const socialLinks = [
                             class="text-primary-black dark:text-primary-white group-hover:text-primary-white dark:group-hover:text-primary-black transition-colors"
                         />
 
-                        <!-- Website -->
-                        <Globe
-                            v-else-if="link.icon === 'globe'"
+                        <!-- Journal -->
+                        <BookOpen
+                            v-else-if="link.icon === 'book'"
                             :size="18"
-                            class="text-primary-black dark:text-primary-white group-hover:text-primary-white dark:group-hover:text-primary-black transition-colors"
+                            class="text-primary-black dark:text-primary-white group-hover:text-primary-white dark:group-hover:text-primary-black transition-all duration-300 group-hover:rotate-[-8deg]"
                         />
 
                         <!-- Instagram -->

@@ -1,0 +1,61 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.vue";
+import SocialSidebar from "../../components/SocialSidebar.vue";
+import EmailSidebar from "../../components/EmailSidebar.vue";
+import LetsConnect from "../../components/LetsConnect.vue";
+import JournalEntry from "../../components/journal/JournalEntry.vue";
+import {
+  journalSeries,
+  journalEntries,
+  getJournalEntry,
+  getJournalNeighbours,
+  formatJournalDate,
+  getReadingMinutes,
+} from "../../data/journal";
+
+export function getStaticPaths() {
+  return journalEntries.map((entry) => ({ params: { slug: entry.slug } }));
+}
+
+const { slug } = Astro.params;
+const entry = getJournalEntry(slug!);
+
+if (!entry) {
+  throw new Error(`Journal entry not found: ${slug}`);
+}
+
+const { prev, next } = getJournalNeighbours(entry.day);
+
+const toStub = (item: typeof entry | null) =>
+  item ? { day: item.day, slug: item.slug, title: item.title } : null;
+
+const viewEntry = {
+  ...entry,
+  dateLabel: formatJournalDate(entry.date),
+  readingMinutes: getReadingMinutes(entry),
+};
+---
+
+<Layout
+  title={`Day ${entry.day}: ${entry.title} - ${journalSeries.title}`}
+  description={entry.summary}
+>
+  <Header client:load />
+  <SocialSidebar client:load />
+  <EmailSidebar client:load />
+
+  <main class="px-6 sm:px-10 md:px-16 lg:px-32 py-20 pt-32">
+    <JournalEntry
+      series={journalSeries}
+      entry={viewEntry}
+      prev={toStub(prev)}
+      next={toStub(next)}
+      client:load
+    />
+
+    <div class="max-w-3xl mx-auto">
+      <LetsConnect client:visible />
+    </div>
+  </main>
+</Layout>
