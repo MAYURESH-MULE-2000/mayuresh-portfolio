@@ -26,3 +26,98 @@
 .animate-fade-in {
     animation: fadeIn 0.8s ease-out forwards;
 }
+/* ── Journal: reveal-on-scroll ─────────────────────────────── */
+[data-reveal] {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+        opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+[data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+}
+
+/* ── Journal: ambient animations ───────────────────────────── */
+@keyframes journal-underline {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+@keyframes journal-cursor {
+
+    0%,
+    45% {
+        opacity: 1;
+    }
+
+    50%,
+    95% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes journal-drift {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate3d(0, -14px, 0) scale(1.04);
+    }
+
+    100% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+}
+
+.journal-cursor {
+    animation: journal-cursor 1.1s step-end infinite;
+}
+
+.journal-drift {
+    animation: journal-drift 12s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    [data-reveal] {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    .journal-cursor,
+    .journal-drift {
+        animation: none !important;
+    }
+}
+
+/* Section rule under a journal heading - draws itself as the heading reveals. */
+.journal-rule {
+    transform: scaleX(0);
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+[data-reveal].is-revealed .journal-rule {
+    transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .journal-rule {
+        transform: scaleX(1);
+        transition: none;
+    }
+}

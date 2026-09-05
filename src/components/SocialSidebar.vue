@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import { Instagram, FileText, Linkedin, Globe } from 'lucide-vue-next'
+import { Instagram, FileText, Linkedin, BookOpen } from 'lucide-vue-next'
 
 const isReading = ref(false)
 let handler = null
@@ -38,12 +38,22 @@ onUnmounted(() => {
                     class="text-primary-black dark:text-primary-white group-hover:text-primary-white group-hover:dark:text-primary-black transition-colors" />
             </a>
 
-            <!-- Unicorn Website -->
-            <a href="https://www.unicorncraftstudios.com/" target="_blank" rel="noopener noreferrer"
-                class="w-12 h-12 rounded-full border-2 border-primary-black dark:border-primary-white flex items-center justify-center hover:bg-primary-black hover:dark:bg-primary-white transition-all duration-300 group"
-                aria-label="My Website">
-                <Globe :size="20"
-                    class="text-primary-black dark:text-primary-white group-hover:text-primary-white group-hover:dark:text-primary-black transition-colors" />
+            <!-- Journal -->
+            <a href="/journal"
+                class="relative w-12 h-12 rounded-full border-2 border-primary-black dark:border-primary-white flex items-center justify-center hover:bg-primary-black hover:dark:bg-primary-white transition-all duration-300 hover:-translate-y-0.5 group"
+                aria-label="Read my journal">
+                <BookOpen :size="20"
+                    class="text-primary-black dark:text-primary-white group-hover:text-primary-white group-hover:dark:text-primary-black transition-all duration-300 group-hover:rotate-[-8deg]" />
+                <!-- New-series dot -->
+                <span class="absolute -top-0.5 -right-0.5 flex h-2.5 w-2.5" aria-hidden="true">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                    <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-teal-500"></span>
+                </span>
+                <!-- Label on hover -->
+                <span
+                    class="pointer-events-none absolute left-full ml-3 whitespace-nowrap rounded-lg bg-primary-black dark:bg-primary-white px-2.5 py-1 text-[11px] font-semibold text-primary-white dark:text-primary-black opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
+                    Journal
+                </span>
             </a>
 
             <!-- Instagram -->
