@@ -35,7 +35,7 @@ const handleSubmit = async (event) => {
         const result = await response.json()
 
         if (response.ok) {
-            showToast('success', 'Message sent!', 'Thanks for reaching out — I\'ll get back to you soon.')
+            showToast('success', 'Message sent!', 'Thanks for reaching out, I\'ll get back to you soon.')
             formData.value = { name: '', email: '', message: '' }
             form.reset()
         } else {
