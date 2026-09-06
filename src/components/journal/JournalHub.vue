@@ -157,7 +157,7 @@ onUnmounted(() => {
           class="group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-primary-black dark:bg-primary-white text-primary-white dark:text-primary-black font-semibold text-base transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/10 dark:hover:shadow-white/10"
         >
           <BookOpen :size="18" class="transition-transform duration-500 group-hover:rotate-[-8deg]" />
-          Start reading — Day {{ latest.day }}
+          Start reading: Day {{ latest.day }}
           <ArrowRight
             :size="18"
             class="transition-transform duration-300 group-hover:translate-x-1"
@@ -268,7 +268,7 @@ onUnmounted(() => {
           Every entry
         </h2>
         <p class="text-gray-600 dark:text-gray-400 text-lg mt-2 max-w-2xl">
-          Newest first. Some days are progress, some days are a mess — both get written down.
+          Newest first. Some days are progress, some days are a mess. Both get written down.
         </p>
       </div>
 
@@ -372,7 +372,7 @@ onUnmounted(() => {
             </div>
             <div>
               <h3 class="text-lg font-bold text-gray-400 dark:text-gray-500">
-                Day {{ (latest ? latest.day : 0) + 1 }} — writing tonight
+                Day {{ (latest ? latest.day : 0) + 1 }}, writing tonight
               </h3>
               <p class="mt-1.5 text-sm text-gray-400 dark:text-gray-600 flex items-center gap-1.5">
                 Let's see how long my brain actually brains

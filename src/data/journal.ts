@@ -359,6 +359,128 @@ export const journalEntries: JournalEntry[] = [
       },
     ],
   },
+  {
+    day: 1,
+    slug: 'day-1',
+    title: 'I Thought I Was Addicted to Social Media',
+    summary:
+      'Turns out the apps were never the problem. I uninstalled Instagram and found the same endless scroll waiting on YouTube Shorts, and then on Facebook.',
+    date: '2026-09-06',
+    mood: 'Blunt',
+    blocks: [
+      { type: 'lead', text: 'And I have to say it out loud: **I am phone addicted.**' },
+      {
+        type: 'p',
+        text: 'My first goal was to uninstall games and social media platforms. But the problem I identified is that it’s not actually social media.',
+      },
+      { type: 'beat', text: '**It’s doom scrolling.**' },
+      { type: 'beat', text: 'It’s the going and going and going with no end.' },
+      {
+        type: 'p',
+        text: 'I uninstalled Instagram. Then I realised doom scrolling exists on YouTube Shorts too. Shit.',
+      },
+      {
+        type: 'p',
+        text: 'And a few minutes after figuring that out, I found that Facebook has the same endless scrolling thing.',
+      },
+      {
+        type: 'beat',
+        text: 'And WTF, I watched an entire Doraemon movie through Facebook videos.',
+      },
+      {
+        type: 'loop',
+        steps: [
+          'Uninstall Instagram.',
+          'Open YouTube Shorts.',
+          'Realise it’s the exact same thing.',
+          'Move to Facebook.',
+          'Lose another hour.',
+        ],
+        caption: 'It’s literally an endless loop.',
+      },
+      {
+        type: 'p',
+        text: 'So officially, my problem is not Instagram, Facebook, YouTube, or games.',
+      },
+      {
+        type: 'callout',
+        label: 'The real problem',
+        text: '**My problem is my phone.**',
+      },
+      { type: 'beat', text: 'And that makes the problem bigger.' },
+
+      { type: 'h2', text: 'On the learning side' },
+      {
+        type: 'p',
+        text: 'I only revisited concepts I had already learned: coding-decoding and calendars.',
+      },
+      { type: 'beat', text: 'But my brain is not braining.' },
+      {
+        type: 'p',
+        text: 'There’s something I need to figure out about why I’m struggling to concentrate and actually learn.',
+      },
+      {
+        type: 'p',
+        text: 'Maybe the problem isn’t just the phone. Maybe it’s also how I’m approaching learning.',
+      },
+      { type: 'beat', text: 'I don’t know yet.' },
+
+      { type: 'h2', text: 'So what changes now?' },
+      {
+        type: 'stat',
+        value: 'No change',
+        label: 'My screen time on day one. I swapped the apps, not the hours.',
+      },
+      {
+        type: 'p',
+        text: 'My screen time didn’t reduce. But today officially confirms one thing:',
+      },
+      {
+        type: 'callout',
+        label: 'Confirmed',
+        text: '**I am phone addicted. Not social media addicted, not game addicted.**',
+      },
+      { type: 'p', text: 'So now I need to change my approach.' },
+      {
+        type: 'p',
+        text: 'Instead of trying to suddenly study for hours, I think I need to start learning in **small chunks**.',
+      },
+      {
+        type: 'p',
+        text: 'Otherwise it’s going to get difficult to manage everything: learning, my phone, and now this blog too. :/',
+      },
+      { type: 'beat', text: 'It may be a bad start, but it’s still not the worst.' },
+      { type: 'beat', text: 'At least I’ve identified something I need to work on.' },
+      {
+        type: 'p',
+        text: 'From now on, I’m going to decide the night before what I’m doing the next day.',
+      },
+      { type: 'p', text: 'So my main goal for tomorrow is:' },
+      {
+        type: 'callout',
+        label: "Tomorrow's goal",
+        text: '**Complete Ratio and Proportion. Learning plus practice.**',
+      },
+      { type: 'beat', text: 'Let’s see.' },
+    ],
+    words: [
+      {
+        word: 'Compulsion',
+        meaning: 'An urge to do something that is very hard to resist.',
+        usage: 'Picking up my phone isn’t a decision any more, it’s a compulsion.',
+      },
+      {
+        word: 'Misdiagnose',
+        meaning: 'To identify a problem incorrectly.',
+        usage: 'I misdiagnosed my problem as social media when it was the phone itself.',
+      },
+      {
+        word: 'Incremental',
+        meaning: 'Happening in small stages instead of all at once.',
+        usage: 'Small chunks of study is an incremental approach, and I think that’s what I need.',
+      },
+    ],
+  },
 ]
 
 /** Newest first - what the hub lists. */
