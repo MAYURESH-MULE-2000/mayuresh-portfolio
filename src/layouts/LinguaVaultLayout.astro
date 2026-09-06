@@ -1,4 +1,6 @@
 ---
+import SpeedInsights from "@vercel/speed-insights/astro";
+
 interface Props {
     title?: string;
     description?: string;
@@ -112,5 +114,7 @@ const {
             window.addEventListener("offline", updateOnlineStatus);
             updateOnlineStatus();
         </script>
+
+        <SpeedInsights />
     </body>
 </html>
