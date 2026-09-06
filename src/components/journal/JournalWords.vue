@@ -17,7 +17,7 @@ function toggle(word) {
 
 async function copyWord(word) {
   try {
-    await navigator.clipboard.writeText(`${word.word} — ${word.meaning}`)
+    await navigator.clipboard.writeText(`${word.word}: ${word.meaning}`)
     copiedWord.value = word.word
     setTimeout(() => {
       copiedWord.value = null
@@ -39,7 +39,7 @@ async function copyWord(word) {
       </h2>
     </div>
     <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-      Three new English words from Day {{ day }} — tap a card to see it used in a sentence.
+      Three new English words from Day {{ day }}. Tap a card to see one used in a sentence.
     </p>
 
     <div class="mt-8 grid gap-4 sm:grid-cols-3">
