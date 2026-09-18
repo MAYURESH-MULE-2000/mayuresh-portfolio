@@ -194,6 +194,10 @@ export class JournalState {
           drawText(ctx, sub, 18, y + 9, PAL.grey)
         }
       })
+      // position, so a long list does not look like a short one
+      if (this.rows.length > visible) {
+        drawText(ctx, `${this.index + 1}/${this.rows.length}`, 228, 129, PAL.greyLight, 'right')
+      }
     }
     this.renderFooter(ctx, this.rows.length ? 'Open: A    Change page: ← →    Close: B' : 'Change page: ← →    Close: B')
   }

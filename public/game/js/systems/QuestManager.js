@@ -76,6 +76,27 @@ export class QuestManager {
     }
   }
 
+  /**
+   * Comparing two problems can be an objective in itself. A step with
+   * `compare: 'problem-id'` is completed by any comparison involving it.
+   */
+  notifyComparison(leftId, rightId) {
+    for (const [id, entry] of Object.entries(this.state.quests)) {
+      if (entry.status !== 'active') continue
+      const quest = getQuest(id)
+      if (!quest) continue
+      let changed = false
+      for (const step of quest.steps) {
+        if (!step.compare || entry.steps[step.id]) continue
+        if (step.compare === leftId || step.compare === rightId) {
+          entry.steps[step.id] = true
+          changed = true
+        }
+      }
+      if (changed) this.refresh(id)
+    }
+  }
+
   /** Re-evaluate gates and completion for one quest. */
   refresh(id) {
     const quest = getQuest(id)

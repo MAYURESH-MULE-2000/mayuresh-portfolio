@@ -69,6 +69,7 @@ export class ComparisonState {
     })
     this.summary = this.buildSummary()
     World.addCount(this.game.state, 'comparisons')
+    this.game.quests.notifyComparison(leftId, rightId)
     this.result = { summary: this.summary[0], left: leftId, right: rightId }
     this.buildOptions()
   }

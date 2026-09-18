@@ -500,7 +500,7 @@ export const PROBLEMS = {
     perspectives: [
       {
         speaker: 'Priya Nair',
-        role: 'Works in Metro City, 25',
+        role: 'Works in Nayanagar, 25',
         stance: 'lived',
         text: 'I earn more than anyone in my family ever has. I also see them four days a month. Both of those are the same decision.',
       },
@@ -553,7 +553,7 @@ export const PROBLEMS = {
       },
       {
         speaker: 'Priya Nair',
-        role: 'Works in Metro City, 25',
+        role: 'Works in Nayanagar, 25',
         stance: 'opinion',
         text: 'I was the plan too. It worked. I still would not describe it as light.',
       },
@@ -562,6 +562,473 @@ export const PROBLEMS = {
       { kind: 'account', text: 'Both Deepak and Priya describe the same pressure from opposite ends of it - before the result, and after.' },
     ],
   },
+
+  // =========================================================================
+  // Beyond Shivnagar: the city, the campus, the estate, the coast.
+  // =========================================================================
+
+  'commute-time': {
+    id: 'commute-time',
+    name: 'Three hours that belong to nobody',
+    short: 'The commute',
+    category: 'Infrastructure',
+    summary: 'Two journeys a day that are neither work nor rest, and are paid for as if they were rest.',
+    description:
+      'A city job and an affordable room are rarely in the same place. The gap between them is crossed twice a day, standing, and it does not appear on any payslip.',
+    impacts: { financial: 52, emotional: 70, social: 72, time: 94, longTerm: 58 },
+    affectedGroups: ['Daily rail and bus commuters', 'Anyone priced out of the centre', 'Families who see the commuter awake for an hour a day'],
+    causes: [
+      'Housing near work costing more than the work pays',
+      'Services timed for a peak that everyone shares',
+      'A journey with no reliable alternative',
+    ],
+    consequences: [
+      'Sleep and meals shaped around a train, not a body',
+      'Anything outside work and travel becomes a weekend-only activity',
+      'Missing one connection cascades through the whole day',
+    ],
+    connections: ['housing-rent', 'migration-distance', 'air-quality'],
+    perspectives: [
+      {
+        speaker: 'Anil Deshpande',
+        role: 'Commuter, 38',
+        stance: 'lived',
+        text: 'Six twelve in the morning. I do not set an alarm any more, my body does it. Home by nine, most days.',
+      },
+      {
+        speaker: 'Farida Ansari',
+        role: 'Station cleaner, 44',
+        stance: 'lived',
+        text: 'I see the same faces at six and the same faces at nine. Nobody looks at each other. They are saving it.',
+      },
+      {
+        speaker: 'Priya Nair',
+        role: 'Works in Nayanagar, 25',
+        stance: 'opinion',
+        text: 'People call it a commute like it is a small thing at the edge of a life. It is the second-largest thing in mine.',
+      },
+    ],
+    notes: [
+      { kind: 'account', text: 'Anil says his door-to-desk journey runs about ninety minutes each way on a good day.' },
+      { kind: 'observed', text: 'The 6:12 platform fills before the train is announced. People stand where the doors will be, from memory.' },
+    ],
+  },
+
+  'housing-rent': {
+    id: 'housing-rent',
+    name: 'A room, and what it takes to get one',
+    short: 'Rent and deposit',
+    category: 'Economic',
+    summary: 'Not the rent so much as the deposit, the broker, and the questions asked before either.',
+    description:
+      'The monthly figure is only part of it. The entry cost - deposit, brokerage, a month in advance - is what decides who can move at all, and who commutes instead.',
+    impacts: { financial: 86, emotional: 64, social: 70, time: 46, longTerm: 72 },
+    affectedGroups: ['Young workers new to the city', 'Single women looking for a room', 'Anyone without a lump sum saved'],
+    causes: [
+      'Deposits of several months held upfront',
+      'Informal agreements with no record and no recourse',
+      'Who gets refused a flat, and for what reason, going unrecorded',
+    ],
+    consequences: [
+      'People commute long distances rather than pay to move closer',
+      'Sharing beyond comfort to split a single rent',
+      'Savings locked in a deposit they may argue to get back',
+    ],
+    connections: ['commute-time', 'cost-of-living', 'migration-distance'],
+    perspectives: [
+      {
+        speaker: 'Priya Nair',
+        role: 'Works in Nayanagar, 25',
+        stance: 'lived',
+        text: 'The rent I could manage. It was the deposit that decided where I live - and the deposit is not coming back easily, I already know that.',
+      },
+      {
+        speaker: 'Anil Deshpande',
+        role: 'Commuter, 38',
+        stance: 'opinion',
+        text: 'Move closer, people say. With what? The deposit is four months of everything I do not spend.',
+      },
+    ],
+    notes: [
+      { kind: 'account', text: 'Priya describes being asked questions about her family and her job before being shown a room; she considers that routine, not remarkable.' },
+      { kind: 'contested', text: 'Whether the commute or the deposit is the real barrier is argued at the station daily. They are two ends of one sum.' },
+    ],
+  },
+
+  'air-quality': {
+    id: 'air-quality',
+    name: 'The air on a still day',
+    short: 'Air quality',
+    category: 'Environmental',
+    summary: 'A cost paid by lungs rather than by wallets, and never at the point where it is produced.',
+    description:
+      'Traffic, construction dust, burning waste and a chimney or two. No single source owns it, so nobody has to answer for it - but the people breathing it are not spread evenly either.',
+    impacts: { financial: 44, emotional: 50, social: 58, time: 34, longTerm: 88 },
+    affectedGroups: ['Children and older residents', 'People who work outdoors all day', 'Households nearest the road or the estate'],
+    causes: [
+      'Traffic and construction concentrated in the same corridors',
+      'Waste burned because collection did not come',
+      'Industry and housing that grew into each other',
+    ],
+    consequences: [
+      'Coughs that arrive every winter and are treated as a season',
+      'Medicine costs that are never counted as pollution costs',
+      'The people least able to move living closest to the source',
+    ],
+    connections: ['waste-collection', 'industrial-water', 'commute-time'],
+    perspectives: [
+      {
+        speaker: 'Farida Ansari',
+        role: 'Station cleaner, 44',
+        stance: 'lived',
+        text: 'Eight hours on that platform. By February my chest is tight every year. I do not need a machine to tell me the month.',
+      },
+      {
+        speaker: 'Dr. Meera Iyer',
+        role: 'Clinic doctor, 39',
+        stance: 'opinion',
+        text: 'I can tell you what I see in my OPD each winter. I cannot tell you it was the air - nobody measures what any one person breathed. That gap is the whole argument.',
+      },
+      {
+        speaker: 'Sanjay Bhosle',
+        role: 'Runs a small unit, 51',
+        stance: 'opinion',
+        text: 'Everyone points at the chimney. Count the vehicles on that road first, then point wherever you like.',
+      },
+    ],
+    notes: [
+      { kind: 'contested', text: 'Residents blame the estate; the estate blames traffic; the doctor says she can describe patterns but not attribute any individual case.' },
+      { kind: 'observed', text: 'A waste heap on the ward boundary was still smouldering in the morning.' },
+    ],
+  },
+
+  'work-hours': {
+    id: 'work-hours',
+    name: 'The twelve-hour day',
+    short: 'Working hours',
+    category: 'Economic',
+    summary: 'A shift long enough that the rest of a life has to fit in what is left.',
+    description:
+      'Security, housekeeping, contract lines: shifts written as twelve hours, sometimes with the journey on top. The pay is calculated per shift, so the hours are the only lever anyone has.',
+    impacts: { financial: 64, emotional: 78, social: 76, time: 92, longTerm: 74 },
+    affectedGroups: ['Security and housekeeping staff', 'Contract workers on production lines', 'Anyone paid per shift rather than per month'],
+    causes: [
+      'Pay per shift, so more hours is the only way to earn more',
+      'Two twelve-hour posts being cheaper than three eight-hour ones',
+      'Contract arrangements that sit outside the workplace rules',
+    ],
+    consequences: [
+      'Sleep taken in pieces rather than at night',
+      'Family time that exists only on paper',
+      'Injury and illness arriving as a total, years later',
+    ],
+    connections: ['job-insecurity', 'commute-time', 'healthcare-access'],
+    perspectives: [
+      {
+        speaker: 'Ravi Kale',
+        role: 'Security guard, 46',
+        stance: 'lived',
+        text: 'Twelve hours, six days. On the seventh I sleep, and my wife says I have visited rather than come home.',
+      },
+      {
+        speaker: 'Shabnam Shaikh',
+        role: 'Contract worker, 33',
+        stance: 'lived',
+        text: 'I am on the same line for four years. The company changes the contractor every eleven months, so I am always new.',
+      },
+      {
+        speaker: 'Sanjay Bhosle',
+        role: 'Runs a small unit, 51',
+        stance: 'opinion',
+        text: 'I would hire permanent. Then the order stops for two months and I am paying for a line that is not running. Do not ask me to be the whole system.',
+      },
+    ],
+    notes: [
+      { kind: 'account', text: 'Shabnam says her contractor changes roughly every eleven months while the work and the place stay the same.' },
+      { kind: 'contested', text: 'The worker calls it insecurity by design; the unit owner calls it the only way he survives a thin order book. Neither disputes the arrangement itself.' },
+    ],
+  },
+
+  'informal-work': {
+    id: 'informal-work',
+    name: 'Trading without a place to stand',
+    short: 'Street vending',
+    category: 'Institutional',
+    summary: 'A business that works, on a spot that can be taken away any morning.',
+    description:
+      'The cart earns. What it does not have is a settled right to be where it is - so every improvement to the stall is a bet on not being moved.',
+    impacts: { financial: 72, emotional: 68, social: 54, time: 60, longTerm: 76 },
+    affectedGroups: ['Cart and stall vendors', 'Their regular customers', 'Families with no other income'],
+    causes: [
+      'More vendors than the spaces allotted for them',
+      'Licences that are slow, and enforcement that is not',
+      'No record of who has traded where, or for how long',
+    ],
+    consequences: [
+      'Nothing gets built that cannot be pushed away',
+      'Income disappears on the days a drive happens',
+      'Payments made to be left alone that nobody will write down',
+    ],
+    connections: ['bureaucracy', 'job-insecurity', 'cost-of-living'],
+    perspectives: [
+      {
+        speaker: 'Salma Qureshi',
+        role: 'Fruit vendor, 29',
+        stance: 'lived',
+        text: 'Eleven years my mother stood here. Eleven years. And still, some mornings, we are told to move by evening.',
+      },
+      {
+        speaker: 'Ravi Kale',
+        role: 'Security guard, 46',
+        stance: 'opinion',
+        text: 'They block the footpath, then people walk on the road, then someone gets hit. I am not against her. I am against nobody deciding anything.',
+      },
+    ],
+    notes: [
+      { kind: 'account', text: 'Salma says her family has traded from the same spot for about eleven years without a settled allotment.' },
+      { kind: 'contested', text: 'Pedestrians want the footpath; vendors want a legal pitch. Both are asking the same office for a decision it has not made.' },
+    ],
+  },
+
+  'industrial-water': {
+    id: 'industrial-water',
+    name: 'What the river carries',
+    short: 'Water and effluent',
+    category: 'Environmental',
+    summary: 'A river that everyone downstream uses and nobody upstream answers for.',
+    description:
+      'The colour of the water changes with the shift pattern. Residents can tell you when; what they cannot tell you is exactly what, or from which unit, and that is the part that decides whether anything happens.',
+    impacts: { financial: 58, emotional: 66, social: 62, time: 48, longTerm: 90 },
+    affectedGroups: ['Households on the estate boundary', 'Anyone farming or fishing downstream', 'Children playing near the nallah'],
+    causes: [
+      'Treatment that costs more to run than to skip',
+      'Monitoring that samples rarely and announces itself',
+      'Housing and industry sharing one drainage line',
+    ],
+    consequences: [
+      'Bore water people stop trusting but still use',
+      'Skin and stomach complaints treated household by household',
+      'Damage that outlasts the units that caused it',
+    ],
+    connections: ['air-quality', 'water-supply', 'healthcare-access'],
+    perspectives: [
+      {
+        speaker: 'Kavita Jadhav',
+        role: 'Estate resident, 37',
+        stance: 'lived',
+        text: 'Wednesday nights the water in the nallah runs pale. Ask anyone in this lane. We have all noticed the same night.',
+      },
+      {
+        speaker: 'Sanjay Bhosle',
+        role: 'Runs a small unit, 51',
+        stance: 'opinion',
+        text: 'My effluent goes to the common plant and I pay for it. Forty units on this estate. Ask which ones are connected before you decide it is me.',
+      },
+      {
+        speaker: 'Dr. Meera Iyer',
+        role: 'Clinic doctor, 39',
+        stance: 'opinion',
+        text: 'I see more skin complaints from that lane than from the lane behind it. That is a pattern worth testing, not a finding.',
+      },
+    ],
+    notes: [
+      { kind: 'account', text: 'Several residents independently describe the same weeknight discolouration in the nallah.' },
+      { kind: 'contested', text: 'No sample has been taken that anyone here can point to. Everything after that is inference, and everyone knows it.' },
+    ],
+  },
+
+  'power-supply': {
+    id: 'power-supply',
+    name: 'When the line goes',
+    short: 'Power supply',
+    category: 'Infrastructure',
+    summary: 'Electricity that is present most of the time, and absent exactly when it costs the most.',
+    description:
+      'Nobody here is without power. They are without it for two hours in the afternoon, which is fine for a house and expensive for a workshop with a half-finished batch in it.',
+    impacts: { financial: 66, emotional: 44, social: 40, time: 62, longTerm: 54 },
+    affectedGroups: ['Small manufacturing units', 'Home-based workers', 'Students studying in the evening'],
+    causes: [
+      'Load managed by cutting rather than by building',
+      'Old distribution lines carrying newer demand',
+      'Backup that only those who can afford it have',
+    ],
+    consequences: [
+      'Batches spoiled and orders delivered late',
+      'Diesel backup that turns a power cut into a fuel bill',
+      'Study and homework arranged around a schedule nobody publishes',
+    ],
+    connections: ['work-hours', 'exam-pressure', 'cost-of-living'],
+    perspectives: [
+      {
+        speaker: 'Sanjay Bhosle',
+        role: 'Runs a small unit, 51',
+        stance: 'lived',
+        text: 'Two hours. Every afternoon, more or less. The generator costs me more per hour than the men do.',
+      },
+      {
+        speaker: 'Kavita Jadhav',
+        role: 'Estate resident, 37',
+        stance: 'lived',
+        text: 'For us it is the fan in May and the boy studying in June. You learn which one to give up.',
+      },
+    ],
+    notes: [
+      { kind: 'account', text: 'Sanjay describes a roughly two-hour afternoon cut and says diesel backup costs him more per hour than labour.' },
+    ],
+  },
+
+  'coastal-erosion': {
+    id: 'coastal-erosion',
+    name: 'The lane that floods first',
+    short: 'Flooding and erosion',
+    category: 'Environmental',
+    summary: 'A tide line that has moved in living memory, and a lane built where it used to be.',
+    description:
+      'Two or three days a year, plus whatever a storm adds. That is enough to decide what a house is worth, what can be kept on the floor, and whether anyone repairs anything.',
+    impacts: { financial: 70, emotional: 72, social: 60, time: 44, longTerm: 92 },
+    affectedGroups: ['Households in the low lane', 'Fishing families with boats and gear ashore', 'Anyone whose papers are kept at home'],
+    causes: [
+      'Building on ground that used to be the beach',
+      'Drainage that runs the wrong way at high tide',
+      'Sea walls that protect one stretch by moving the problem along',
+    ],
+    consequences: [
+      'Repairs made every year that never become an improvement',
+      'Nothing valuable kept below waist height',
+      'Households that cannot sell and cannot afford to leave',
+    ],
+    connections: ['waste-collection', 'fishing-livelihood', 'housing-rent'],
+    perspectives: [
+      {
+        speaker: 'Lakshmi Kolambkar',
+        role: 'Fish seller, 52',
+        stance: 'lived',
+        text: 'My mother\u2019s house was the third from the water. Mine is the first. Nobody moved the house.',
+      },
+      {
+        speaker: 'Yusuf Daruwala',
+        role: 'Boat owner, 58',
+        stance: 'opinion',
+        text: 'They built the wall at that end. Now that end is fine and this end takes it. I am not saying it was done to us. I am saying water has to go somewhere.',
+      },
+    ],
+    notes: [
+      { kind: 'account', text: 'Lakshmi describes the shoreline moving over two generations; her account is memory, not measurement.' },
+      { kind: 'contested', text: 'Whether the sea wall shifted the problem down the beach is argued here. It is a question that would need a survey nobody has done.' },
+    ],
+  },
+
+  'fishing-livelihood': {
+    id: 'fishing-livelihood',
+    name: 'Going further for less',
+    short: 'Fishing livelihood',
+    category: 'Economic',
+    summary: 'The same work, further out, on more diesel, for a smaller catch.',
+    description:
+      'Nobody here needs a study to know the catch has changed. What is argued about is why - and the answer decides whether anything can be done or whether it is simply weather.',
+    impacts: { financial: 80, emotional: 66, social: 64, time: 74, longTerm: 84 },
+    affectedGroups: ['Small boat owners and crew', 'Fish sellers at the market', 'Families with no second income'],
+    causes: [
+      'Longer trips for the same quantity, on bought diesel',
+      'Large trawlers working the same water',
+      'Ice, transport and market prices set far from the boat',
+    ],
+    consequences: [
+      'Loans taken against a season rather than a year',
+      'Children steered firmly towards any work that is not this',
+      'Crew leaving for the city between seasons',
+    ],
+    connections: ['debt', 'migration-distance', 'coastal-erosion'],
+    perspectives: [
+      {
+        speaker: 'Yusuf Daruwala',
+        role: 'Boat owner, 58',
+        stance: 'lived',
+        text: 'My father went out four hours. I go out eleven. The sea did not get bigger.',
+      },
+      {
+        speaker: 'Lakshmi Kolambkar',
+        role: 'Fish seller, 52',
+        stance: 'lived',
+        text: 'The price I get is decided before I open my mouth. By ice, by the truck, by the man in the city. Not by me and not by the fish.',
+      },
+      {
+        speaker: 'Salma Qureshi',
+        role: 'Fruit vendor, 29',
+        stance: 'opinion',
+        text: 'Same as my cart. The work is ours, the price is somebody else\u2019s.',
+      },
+    ],
+    notes: [
+      { kind: 'account', text: 'Yusuf compares his own trips to his father\u2019s - a family account across two generations, not a survey.' },
+      { kind: 'contested', text: 'Trawlers, warming water and simple overfishing are all named here by different people. No one in the village claims to know the split.' },
+    ],
+  },
+
+  'graduate-work': {
+    id: 'graduate-work',
+    name: 'The degree and the job',
+    short: 'Work after a degree',
+    category: 'Education',
+    summary: 'A qualification that was the plan, and a job market that did not read the plan.',
+    description:
+      'The degree is real, the fee was real, and the work available is three grades below it. The gap between those facts is where a family\u2019s hope was parked for four years.',
+    impacts: { financial: 74, emotional: 86, social: 78, time: 68, longTerm: 82 },
+    affectedGroups: ['First-generation graduates', 'Families who funded the degree', 'Anyone competing for a fixed number of posts'],
+    causes: [
+      'More graduates than graduate-level posts nearby',
+      'Degrees that certify without connecting to employers',
+      'Exam-shaped recruitment with years between openings',
+    ],
+    consequences: [
+      'Work taken well below qualification, then defended to relatives',
+      'Preparation years that postpone earning entirely',
+      'Confidence eroded by a process that looks personal but is arithmetic',
+    ],
+    connections: ['exam-pressure', 'education-cost', 'family-expectation'],
+    perspectives: [
+      {
+        speaker: 'Nitin Gaikwad',
+        role: 'Graduate, 24',
+        stance: 'lived',
+        text: 'Two years of applications. I have a degree in my drawer and I am on the counter at a phone shop. Both things are true at once and neither cancels the other.',
+      },
+      {
+        speaker: 'Prof. Anjali Rao',
+        role: 'Teaches at the college, 47',
+        stance: 'opinion',
+        text: 'I can teach the syllabus well and still be handing them into a queue. That is my honest position, and I do not enjoy holding it.',
+      },
+      {
+        speaker: 'Deepak Rathod',
+        role: 'Student, 19',
+        stance: 'opinion',
+        text: 'Everyone tells me to study. Nitin bhau studied. I am not being clever, I am asking.',
+      },
+    ],
+    notes: [
+      { kind: 'account', text: 'Nitin says he has been applying for about two years and is working retail in the meantime.' },
+      { kind: 'contested', text: 'Whether the shortage is of jobs or of the right skills is argued on this campus daily. Both readings are held by people who have thought about it.' },
+    ],
+  },
+
+}
+
+/**
+ * Connections are written once, from whichever problem the writer was thinking
+ * about. A link is a two-way statement, though, so they are made symmetric here
+ * rather than being maintained by hand in both places - otherwise "Connect"
+ * works from one side of a pair and not the other.
+ */
+for (const problem of Object.values(PROBLEMS)) {
+  for (const other of problem.connections || []) {
+    const target = PROBLEMS[other]
+    if (!target) {
+      console.warn(`problem ${problem.id}: connection to unknown "${other}"`)
+      continue
+    }
+    if (!target.connections.includes(problem.id)) target.connections.push(problem.id)
+  }
 }
 
 /** Ordered list, used by the journal and comparison pickers. */

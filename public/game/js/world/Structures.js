@@ -86,6 +86,15 @@ function stampTree(map, s) {
   map.place('tree_br', x + 1, y + 1, 'over', true)
 }
 
+/** palm: a 2x2 coconut palm; like the tree, its crown draws over the player. */
+function stampPalm(map, s) {
+  const { x, y } = s
+  map.place('palm_tl', x, y, 'top', false)
+  map.place('palm_tr', x + 1, y, 'top', false)
+  map.place('palm_bl', x, y + 1, 'over', true)
+  map.place('palm_br', x + 1, y + 1, 'over', true)
+}
+
 /** stall: a two-tile tea/snack stall. */
 function stampStall(map, s) {
   map.place('stall_l', s.x, s.y, 'over', true)
@@ -113,6 +122,7 @@ function stampPole(map, s) {
 
 const RECIPES = {
   house: stampHouse,
+  palm: stampPalm,
   shop: stampShop,
   block: stampBlock,
   tree: stampTree,

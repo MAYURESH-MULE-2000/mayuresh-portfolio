@@ -30,6 +30,22 @@ export const ITEMS = {
       'The acknowledgement slip for a written complaint about the Main Road patch. The word "drainage" is in the first line, which was Vasant’s whole point.',
     usage: 'Proof the complaint exists on a record. Vasant expects months.',
   },
+  'sample-bottle': {
+    id: 'sample-bottle',
+    name: 'Sample Bottle',
+    icon: 'bottle',
+    description:
+      'A sterile bottle and a label from the estate clinic. Dr. Iyer wrote the date, the time and the words "upstream" and "downstream" on the label herself.',
+    usage: 'Evidence in waiting. A sample nobody takes is the whole argument at the nallah.',
+  },
+  'platform-ticket': {
+    id: 'platform-ticket',
+    name: 'Platform Ticket',
+    icon: 'ticket',
+    description:
+      'Ten rupees, valid two hours, bought so that standing on a platform without travelling is not an offence.',
+    usage: 'Lets you watch the platform properly instead of being moved along.',
+  },
 }
 
 export function getItem(id) {

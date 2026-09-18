@@ -402,7 +402,6 @@ export class EncounterState {
     this.renderMeters(ctx)
     this.renderActions(ctx)
     this.renderMessage(ctx)
-    this.game.renderToasts(ctx)
   }
 
   renderHeader(ctx) {

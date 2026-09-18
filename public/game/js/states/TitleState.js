@@ -269,6 +269,6 @@ export class TitleState {
     }
     const hint = this.game.isTouch ? 'Tap A to choose' : 'Space or Enter to choose'
     drawText(ctx, hint, 5, VIEW_H - 9, PAL.greyLight)
-    drawText(ctx, 'vertical slice', VIEW_W - 5, VIEW_H - 9, PAL.greyLight, 'right')
+    drawText(ctx, 'v1.0', VIEW_W - 5, VIEW_H - 9, PAL.greyLight, 'right')
   }
 }

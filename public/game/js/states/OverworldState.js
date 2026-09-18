@@ -12,6 +12,7 @@ import { drawText, drawTextShadow, measure } from '../gfx/Font.js'
 import { panel } from '../ui/UIKit.js'
 import { VIEW_W, VIEW_H } from '../core/Renderer.js'
 import { NPC } from '../entities/NPC.js'
+import { ParticleField, applyTint } from '../gfx/Particles.js'
 import { getNpc } from '../../data/npcs.js'
 import { applyEffect } from '../systems/Effects.js'
 import { World } from '../systems/WorldState.js'
@@ -23,6 +24,7 @@ export class OverworldState {
     this.name = 'OVERWORLD'
     this.transparent = false
     this.npcs = []
+    this.particles = new ParticleField()
     this.time = 0
     this.bannerTime = 0
     this.hintTime = 0
@@ -62,6 +64,9 @@ export class OverworldState {
       .filter(Boolean)
     // NPCs occupy their tile.
     this.npcs.forEach((npc) => map.setSolid(npc.tx, npc.ty, true))
+    // Ambient effects: chimneys and similar are given as world pixel anchors.
+    const anchors = (map.def.smokeSources || []).map((s) => ({ x: s.x * TILE + 8, y: s.y * TILE + 4 }))
+    this.particles.setType(map.def.ambient, anchors)
     this.showBanner()
   }
 
@@ -88,6 +93,7 @@ export class OverworldState {
     )
 
     game.camera.follow(game.player.px + TILE / 2, game.player.py + TILE / 2, dt)
+    this.particles.update(dt, game.camera.renderX, game.camera.renderY, VIEW_W, VIEW_H)
 
     if (input.justPressed('confirm')) this.interact()
     if (input.justPressed('menu')) game.openMenu()
@@ -99,6 +105,7 @@ export class OverworldState {
     this.time += dt
     this.waterFrame = Math.floor(this.time * 2)
     this.npcs.forEach((npc) => npc.update(dt))
+    this.particles.update(dt, this.game.camera.renderX, this.game.camera.renderY, VIEW_W, VIEW_H)
   }
 
   onTileEntered(tx, ty) {
@@ -161,6 +168,11 @@ export class OverworldState {
     }
 
     if (object.kind === 'investigate') {
+      // Some things cannot simply be stood in front of and stared at.
+      if (object.requires && !World.hasItem(game.state, object.requires)) {
+        game.showText(object.name, [object.requiresText || 'Not without the right thing in your hand.'])
+        return
+      }
       if (!World.hasItem(game.state, 'notebook')) {
         game.showText(object.name, [`${object.look}`, 'Worth writing down - if you had anything to write in.'])
         return
@@ -207,7 +219,6 @@ export class OverworldState {
 
     map.renderLayer(ctx, 'ground', camX, camY, VIEW_W, VIEW_H, this.waterFrame)
     map.renderLayer(ctx, 'over', camX, camY, VIEW_W, VIEW_H, this.waterFrame)
-    this.renderSignage(ctx, camX, camY)
 
     // entities, painter's order by their feet
     const drawables = [...this.npcs, game.player]
@@ -215,6 +226,10 @@ export class OverworldState {
     drawables.forEach((d) => d.render(ctx, camX, camY))
 
     map.renderLayer(ctx, 'top', camX, camY, VIEW_W, VIEW_H, this.waterFrame)
+    this.renderSignage(ctx, camX, camY)
+
+    this.particles.render(ctx, camX, camY)
+    applyTint(ctx, map.def.tint, VIEW_W, VIEW_H)
 
     this.renderHud(ctx)
   }

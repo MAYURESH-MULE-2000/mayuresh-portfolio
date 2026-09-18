@@ -42,6 +42,44 @@ export const QUESTS = {
     grants: { stat: { knowledge: 1, communication: 1 } },
     completionText: 'Four people, four different costs, one drain. That is a different complaint from "the road is bad".',
   },
+
+  'daily-commute': {
+    id: 'daily-commute',
+    name: 'The Daily Commute',
+    giver: 'farida',
+    summary:
+      'Farida sees the same faces at six in the morning and at nine at night. She wants the survey to carry what those two journeys actually cost, from the people making them rather than from her.',
+    steps: [
+      { id: 'ask-anil', text: 'Ask Anil what the journey costs him' },
+      { id: 'ask-ravi', text: 'Ask Ravi how long his day runs' },
+      { id: 'look-platform', text: 'Watch the platform properly' },
+      { id: 'compare', text: 'Hold the commute against another problem', compare: 'commute-time' },
+      { id: 'report', text: 'Take it back to Farida', gatedBy: 'evidence' },
+    ],
+    evidenceFlag: 'commute.evidence.ready',
+    grants: { stat: { observation: 1, communication: 1 } },
+    completionText:
+      'Three hours a day, twelve-hour shifts, and a deposit that decides who travels. Three separate arrangements that add up to one timetable.',
+  },
+
+  nallah: {
+    id: 'nallah',
+    name: 'What the Nallah Carries',
+    giver: 'kavita',
+    summary:
+      'Four households describe the same weeknight discolouration. Nobody has a sample, and without one it stays an argument. Find out what it would actually take to settle it.',
+    steps: [
+      { id: 'look', text: 'Look at the nallah yourself' },
+      { id: 'ask-kavita', text: 'Ask Kavita what the lane has noticed' },
+      { id: 'ask-sanjay', text: 'Hear the unit owner\u2019s side of it' },
+      { id: 'ask-meera', text: 'Ask Dr. Iyer what would settle it' },
+      { id: 'resolve', text: 'Decide what to do with it', gatedBy: 'evidence' },
+    ],
+    evidenceFlag: 'nallah.evidence.ready',
+    grants: { stat: { knowledge: 1, resilience: 1 } },
+    completionText:
+      'Everyone here is honest and nobody here is right, because the one thing that would decide it has never been collected.',
+  },
 }
 
 export const QUEST_LIST = Object.values(QUESTS)

@@ -9,10 +9,21 @@
 import { TileMap } from './TileMap.js'
 import { shivnagar } from '../../data/maps/shivnagar.js'
 import { home } from '../../data/maps/home.js'
+import { route01 } from '../../data/maps/route01.js'
+import { city } from '../../data/maps/city.js'
+import { campus } from '../../data/maps/campus.js'
+import { estate } from '../../data/maps/estate.js'
+import { coast } from '../../data/maps/coast.js'
 
+/** The world, in the order a player is likely to see it. */
 const DEFINITIONS = {
-  shivnagar,
   home,
+  shivnagar,
+  route01,
+  campus,
+  city,
+  estate,
+  coast,
 }
 
 export class MapManager {

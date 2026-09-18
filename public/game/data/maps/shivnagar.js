@@ -12,6 +12,7 @@ export const shivnagar = {
   width: 44,
   height: 36,
   music: 'town',
+  ambient: 'dust',
   blurb:
     'A town on a state highway. One main road, a ward school, a health centre, a row of shops, and lanes behind them that the road does not reach. Everyone here knows which house the water reaches last.',
 
@@ -29,9 +30,9 @@ export const shivnagar = {
     'hpppppppppppppppppppppppppppppppppppppppppph', // 9  north footpath
     'hpppppppppppppppccppppppppppppppppppppppppph', // 10
     'hkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkh', // 11 kerb
-    'hrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrh', // 12 main road
-    'hRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRh', // 13 centre line
-    'hrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrh', // 14
+    'hrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr', // 12 main road
+    'hRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR', // 13 centre line
+    'hrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr', // 14
     'hkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkh', // 15 kerb
     'hpppppppppppppppppppppppppppppppppppppppppph', // 16 south footpath
     'h............pppppppppppppppppppppppppppppph', // 17
@@ -101,12 +102,18 @@ export const shivnagar = {
   // Hand-painted names, drawn onto the signboards and wall bands.
   labels: [
     { x: 6, y: 6, text: 'SAWANT STORES', color: '#e8c04a', offset: 5 },
-    { x: 14.5, y: 5, text: 'HEALTH CENTRE', color: '#3b6ea5', offset: 4 },
-    { x: 29, y: 4, text: 'WARD 4 SCHOOL', color: '#f6efe4', offset: 5 },
+    { x: 14, y: 7, text: 'HEALTH CENTRE', color: '#f6efe4', offset: 5 },
+    { x: 29, y: 7, text: 'WARD 4 SCHOOL', color: '#f6efe4', offset: 5 },
     { x: 35.5, y: 9, text: 'CHAI', color: '#f6efe4', offset: 1 },
   ],
 
   props: [
+    { tile: 'sign_l', x: 13, y: 7, layer: 'ground', solid: true },
+    { tile: 'sign_m', x: 14, y: 7, layer: 'ground', solid: true },
+    { tile: 'sign_r', x: 15, y: 7, layer: 'ground', solid: true },
+    { tile: 'sign_l', x: 28, y: 7, layer: 'ground', solid: true },
+    { tile: 'sign_m', x: 29, y: 7, layer: 'ground', solid: true },
+    { tile: 'sign_r', x: 30, y: 7, layer: 'ground', solid: true },
     // shopfront clutter
     { tile: 'sacks', x: 4, y: 9 },
     { tile: 'crates', x: 8, y: 9 },
@@ -163,7 +170,12 @@ export const shivnagar = {
   // Doorways punched back open after the structure stamps marked them solid.
   walkable: [{ x: 30, y: 22 }],
 
-  exits: [{ x: 30, y: 22, to: 'home', spawn: 'door', transition: 'door' }],
+  exits: [
+    { x: 30, y: 22, to: 'home', spawn: 'door', transition: 'door' },
+    { x: 43, y: 12, to: 'route01', spawn: 'west' },
+    { x: 43, y: 13, to: 'route01', spawn: 'west' },
+    { x: 43, y: 14, to: 'route01', spawn: 'west' },
+  ],
 
   // Things the player can interact with that are not people.
   objects: [
@@ -222,14 +234,14 @@ export const shivnagar = {
       y: 16,
       kind: 'sign',
       name: 'Signpost',
-      look: 'MAIN ROAD\nMetro City 40 km →\nWard Office 2 km ←',
+      look: 'MAIN ROAD\nHighway 12, east past the school\nNayanagar 40 km →\nWard Office 2 km ←',
     },
     {
       x: 30,
       y: 10,
       kind: 'sign',
       name: 'Bus stop',
-      look: 'Route 12 - Shivnagar to Metro City.\nSomeone has written under the timings: "if it comes".',
+      look: 'Route 12 - Shivnagar to Nayanagar.\nSomeone has written under the timings: "if it comes".',
     },
     {
       x: 29,
@@ -264,5 +276,6 @@ export const shivnagar = {
   spawns: {
     default: { x: 30, y: 23, dir: 'down' },
     door: { x: 30, y: 23, dir: 'down' },
+    east: { x: 42, y: 13, dir: 'left' },
   },
 }
