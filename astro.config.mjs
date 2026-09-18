@@ -12,23 +12,12 @@ const site =
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : 'http://localhost:4321')
 
-// Route prefixes kept out of the sitemap - personal tooling / study material,
-// not pages meant to be surfaced in search.
-const EXCLUDED_PREFIXES = ['/gym', '/gym-list', '/learn', '/astralearn']
-
 export default defineConfig({
   site,
   integrations: [
     vue(),
     tailwind(),
-    sitemap({
-      filter: (page) => {
-        const { pathname } = new URL(page)
-        return !EXCLUDED_PREFIXES.some(
-          (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
-        )
-      },
-    }),
+    sitemap(),
   ],
   output: 'static',
   adapter: vercel(),
