@@ -12,6 +12,28 @@ const props = defineProps({
         type: Array,
         required: true,
     },
+    // The grid is reused for the "Product Writing" block lower down the page,
+    // which needs its own heading level and no filter tabs.
+    heading: {
+        type: String,
+        default: 'Resources',
+    },
+    headingTag: {
+        type: String,
+        default: 'h1',
+    },
+    headingClass: {
+        type: String,
+        default: 'text-4xl md:text-5xl font-bold mb-4 tracking-tight',
+    },
+    subheading: {
+        type: String,
+        default: 'A collection of my case studies, product writing, and deep dives into frontend engineering and product work.',
+    },
+    showFilters: {
+        type: Boolean,
+        default: true,
+    },
 })
 
 const activeFilter = ref('all')
@@ -86,14 +108,14 @@ const getCardTransform = (cardId) => cardTransforms.value[cardId] || 'perspectiv
         <div class="max-w-7xl mx-auto">
             <!-- Header -->
             <div class="mb-12">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight">Resources</h1>
-                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl leading-relaxed">
-                    A curated collection of my research, projects, and deep dives into UX engineering and product strategy.
+                <component :is="headingTag" :class="headingClass">{{ heading }}</component>
+                <p v-if="subheading" class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl leading-relaxed">
+                    {{ subheading }}
                 </p>
             </div>
 
             <!-- Filter Tabs -->
-            <div class="flex flex-wrap gap-3 md:gap-4 mb-16">
+            <div v-if="showFilters" class="flex flex-wrap gap-3 md:gap-4 mb-16">
                 <button v-for="filter in filters" :key="filter.id"
                     @click="setFilter(filter.id)"
                     class="group flex items-center gap-2.5 px-6 py-3 rounded-2xl transition-all duration-300 text-sm font-bold border"

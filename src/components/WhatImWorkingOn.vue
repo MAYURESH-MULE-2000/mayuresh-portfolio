@@ -36,7 +36,7 @@ const getGradient = (item) =>
 </script>
 
 <template>
-  <section id="what-im-working-on" class="py-16 md:py-24">
+  <section id="independent-products" class="py-16 md:py-24">
     <div class="max-w-7xl mx-auto">
       <!-- Section header -->
       <div class="mb-12 md:mb-16">
@@ -51,9 +51,9 @@ const getGradient = (item) =>
             In progress
           </span>
         </div>
-        <h2 class="text-3xl md:text-4xl font-bold">What I'm Working On</h2>
+        <h2 class="text-3xl md:text-4xl font-bold">Independent Products</h2>
         <p class="text-gray-600 dark:text-gray-400 text-lg mt-2 transition-colors duration-300 max-w-2xl">
-          The work I'm actively building and writing up right now - open one to read the full case study.
+          Products I designed, built, and shipped on my own - open one to read the full build.
         </p>
       </div>
 

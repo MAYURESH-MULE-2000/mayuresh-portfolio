@@ -1,55 +1,56 @@
 <script setup>
-import { Map, PenTool, Terminal, Users } from 'lucide-vue-next'
+import { Database, PenTool, Terminal, Users } from 'lucide-vue-next'
 
 const cards = [
-  {
-    title: 'Discovery & Strategy',
-    icon: Map,
-    bg: 'bg-purple-50 dark:bg-purple-900/20',
-    tags: [
-      'User Research',
-      'Journey Mapping',
-      'Problem Framing',
-      'Roadmapping',
-      'Hypothesis Testing',
-      'KPI Mapping',
-    ],
-  },
-  {
-    title: 'Design & Prototyping',
-    icon: PenTool,
-    bg: 'bg-teal-50 dark:bg-teal-900/20',
-    tags: [
-      'Figma',
-      'Wireframing (Lo–Hi)',
-      'Design Systems',
-      'Webflow',
-      'Accessible Practices',
-      'LottieFiles',
-    ],
-  },
   {
     title: 'Build & Ship',
     icon: Terminal,
     bg: 'bg-red-50 dark:bg-red-900/20',
     tags: [
       'Vue.js',
+      'Nuxt.js',
       'Quasar',
-      'Nuxt',
-      'REST APIs',
-      'SQL',
+      'React',
+      'JavaScript',
+      'HTML5',
+      'CSS3',
+      'Responsive Design',
       'Git',
       'Performance (Lighthouse)',
     ],
   },
   {
-    title: 'Collaborate & Align',
+    title: 'State & Data',
+    icon: Database,
+    bg: 'bg-purple-50 dark:bg-purple-900/20',
+    tags: [
+      'Pinia',
+      'Vuex',
+      'IndexedDB',
+      'localStorage',
+      'sessionStorage',
+      'REST APIs',
+      'Supabase',
+      'SQL',
+    ],
+  },
+  {
+    title: 'Design',
+    icon: PenTool,
+    bg: 'bg-teal-50 dark:bg-teal-900/20',
+    tags: [
+      'Figma',
+      'Webflow',
+      'Design Systems',
+      'Accessible Practices',
+      'Wireframing',
+    ],
+  },
+  {
+    title: 'Collaboration',
     icon: Users,
     bg: 'bg-blue-50 dark:bg-blue-900/20',
     tags: [
-      'Stakeholder Management',
-      'PRDs',
-      'User Stories',
       'Jira',
       'Confluence',
       'Developer Handoff',
@@ -71,7 +72,7 @@ const cards = [
 
       <!-- Subtitle -->
       <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-12 md:mb-16 max-w-4xl">
-        I work across the full product loop - from messy problem to shipped feature.
+        I work across the full build - from state and data to the interface people actually use.
       </p>
 
       <!-- 2×2 Grid -->
