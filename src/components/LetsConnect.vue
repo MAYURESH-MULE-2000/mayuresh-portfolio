@@ -50,7 +50,7 @@ const handleSubmit = async (event) => {
 
 const socialLinks = [
     { name: 'LinkedIn', href: 'https://www.linkedin.com/in/mayuresh-mule/', icon: 'linkedin', external: true },
-    { name: 'Resume', href: '/Mayuresh_Mule_26_7_26.pdf', icon: 'file-text', external: true },
+    { name: 'Resume', href: '/Mayuresh_Mule_Resume.pdf', icon: 'file-text', external: true },
     { name: 'Journal', href: '/journal', icon: 'book', external: false },
     { name: 'Instagram', href: 'https://www.instagram.com/mayuresh.mule/?igsh=MTJsdWptdzF3dWlvbg%3D%3D#', icon: 'instagram', external: true },
 ]
@@ -91,7 +91,7 @@ const socialLinks = [
             <div class="mb-10">
                 <h2 class="text-3xl md:text-4xl font-bold text-primary-black dark:text-primary-white transition-colors duration-300">Let's Connect</h2>
                 <p class="text-gray-600 dark:text-gray-400 text-lg mt-3 transition-colors duration-300">
-                    Open to discussions around product design, UX engineering, trust systems, and meaningful problem-solving.
+                    Open to Frontend and Software Engineering roles. If you're hiring, I'd like to talk.
                 </p>
             </div>
 

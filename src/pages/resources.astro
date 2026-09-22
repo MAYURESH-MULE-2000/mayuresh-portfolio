@@ -5,11 +5,13 @@ import SocialSidebar from "../components/SocialSidebar.vue";
 import EmailSidebar from "../components/EmailSidebar.vue";
 import LetsConnect from "../components/LetsConnect.vue";
 import ResourcesGrid from "../components/ResourcesGrid.vue";
-import { getCaseStudies, getProjects, getBlogs } from "../lib/content";
+import PM100Section from "../components/pm/PM100Section.vue";
+import { getCaseStudies, getProjects, getBlogs, getPMCases } from "../lib/content";
 
 const caseStudies = await getCaseStudies();
 const projects = await getProjects();
 const blogs = await getBlogs();
+const pmCases = await getPMCases();
 
 const resources = [
   ...caseStudies.map((item: any) => ({
@@ -52,6 +54,17 @@ const resources = [
     insights: item.insights,
   })),
 ].sort((a, b) => a.order - b.order);
+
+// Product writing lives in its own block further down the page, so it is kept
+// out of the main grid to avoid showing the same card twice.
+const PRODUCT_WRITING_SLUGS = ["whatsapp-discover"];
+
+const mainResources = resources.filter(
+  (item: any) => !PRODUCT_WRITING_SLUGS.includes(item.slug),
+);
+const productWriting = resources.filter((item: any) =>
+  PRODUCT_WRITING_SLUGS.includes(item.slug),
+);
 ---
 
 <Layout
@@ -64,7 +77,25 @@ const resources = [
 
   <main class="px-16 md:px-32 py-20 pt-16">
     <div class="max-w-7xl mx-auto">
-      <ResourcesGrid items={resources} client:visible />
+      <ResourcesGrid items={mainResources} client:visible />
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- PRODUCT WRITING                         -->
+      <!-- (moved off the home page)               -->
+      <!-- ═══════════════════════════════════════ -->
+      <section id="product-writing">
+        <ResourcesGrid
+          items={productWriting}
+          heading="Product Writing"
+          headingTag="h2"
+          headingClass="text-3xl md:text-4xl font-bold mb-4 tracking-tight"
+          subheading="Product sense and PM case studies - the thinking work, kept separate from what I build."
+          showFilters={false}
+          client:visible
+        />
+
+        <PM100Section cases={pmCases} client:visible />
+      </section>
 
       <LetsConnect client:visible />
     </div>

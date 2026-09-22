@@ -19,14 +19,21 @@ const SHOW_NEWSPAPER_MODE = false;
 <html lang="en" class="no-transition">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="description"
-      content="Mayuresh Mule - UX Engineer & Product Builder"
-    />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href="/images/avatars/avatar-1.png" />
     <title>{title}</title>
     <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Mayuresh Mule" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
 
     <!-- Plus Jakarta Sans Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -255,7 +262,7 @@ const SHOW_NEWSPAPER_MODE = false;
             '<div class="np-masthead-ad">UX &amp; UI Development<br>&amp; Product Design<br><strong>Portfolio</strong></div>' +
             '<div style="text-align:center;flex:1">' +
             '<h1 class="np-masthead-title">The Mule Chronicle</h1>' +
-            '<p class="np-masthead-subtitle">Largest Circulation in UX Engineering, Product Thinking &amp; Execution</p>' +
+            '<p class="np-masthead-subtitle">Largest Circulation in Frontend Engineering, Product Thinking &amp; Execution</p>' +
             "</div>" +
             '<div class="np-masthead-ad">Quality &amp;<br>Impact Since<br><strong>2021</strong></div>' +
             "</div>" +
@@ -500,7 +507,7 @@ const SHOW_NEWSPAPER_MODE = false;
             '<div class="np-classified">' +
             '<p class="np-classified-title">✉ General Enquiries</p>' +
             '<p class="np-classified-text">' +
-            "Open to discussions around product design, UX engineering, trust systems, and meaningful problem-solving.<br><br>" +
+            "Open to Frontend and Software Engineering roles. If you're hiring, I'd like to talk.<br><br>" +
             'E-mail: <a href="mailto:uxmayuresh@gmail.com">uxmayuresh@gmail.com</a>' +
             "</p>" +
             "</div>" +
@@ -510,7 +517,7 @@ const SHOW_NEWSPAPER_MODE = false;
             '<p class="np-classified-title">🔗 Professional</p>' +
             '<p class="np-classified-text">' +
             '<a href="https://www.linkedin.com/in/mayuresh-mule/" target="_blank" rel="noopener">LinkedIn Profile</a><br>' +
-            '<a href="/Mayuresh_Mule_26_7_26.pdf" target="_blank">Download Resume</a>' +
+            '<a href="/Mayuresh_Mule_Resume.pdf" target="_blank">Download Resume</a>' +
             "</p>" +
             "</div>" +
             "</div>" +
