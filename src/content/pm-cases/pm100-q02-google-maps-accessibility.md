@@ -2,10 +2,9 @@
 title: "Improve Google Maps for Visually Impaired Users"
 company: "Google"
 questionNumber: "Q02"
-series: "Product Sense"
+series: "PM Cases"
 type: "Product"
 difficulty: "entry-level"
-date: "29 March 2026"
 order: 2
 cardGradient: "from-blue-500 to-indigo-700"
 cardHoverGradient: "from-blue-600 to-indigo-800"

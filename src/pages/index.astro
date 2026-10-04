@@ -18,7 +18,7 @@ const caseStudies = await getCaseStudies();
 
 // Home page cards for the two independent products. The copy here is the
 // engineering-facing framing; the case-study pages keep their own meta copy.
-// WhatsApp Discover and the Product Sense cases live on /resources.
+// WhatsApp Discover and the PM cases live on /resources.
 const PRODUCT_CARDS: Record<
   string,
   { title: string; label: string; tags: string[]; description: string }
@@ -161,7 +161,7 @@ const independentProducts = PRODUCT_ORDER.flatMap((slug) => {
       <!-- ═══════════════════════════════════════ -->
       <WhatImWorkingOn items={independentProducts} client:visible />
 
-      {/* Product Sense + WhatsApp Discover now live on /resources. */}
+      {/* PM cases + WhatsApp Discover now live on /resources. */}
 
       <!-- ═══════════════════════════════════════ -->
       <!-- SECTION 8 - WHERE I'M WORKING           -->

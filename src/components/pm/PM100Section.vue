@@ -1,24 +1,24 @@
 <template>
-  <section class="py-16 md:py-24">
+  <section id="pm-cases" class="py-16 md:py-24 scroll-mt-24">
     <div class="max-w-7xl mx-auto">
 
       <!-- Section header -->
       <div class="mb-12 md:mb-16">
         <div class="flex items-center gap-3 mb-3">
           <span class="px-3 py-1 text-xs font-bold rounded-full bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 uppercase tracking-widest">
-            Product Sense
+            PM Cases
           </span>
         </div>
-        <h2 class="text-3xl md:text-4xl font-bold">Product Sense Cases</h2>
+        <h2 class="text-3xl md:text-4xl font-bold">PM Cases</h2>
         <p class="text-gray-600 dark:text-gray-400 text-lg mt-2 transition-colors duration-300">
-          Mini case studies on real product problems - each structured with goals, market sizing, user segments, pain prioritisation, and metrics.
+          Product teardowns and case studies - each structured with goals, market sizing, user segments, pain prioritisation, and metrics.
         </p>
       </div>
 
       <!-- Cards grid (3D tilt matching ImpactStories) -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-12">
         <div
-          v-for="(c, index) in featuredCases"
+          v-for="(c, index) in cases"
           :key="c.slug"
           class="relative"
           :class="hoveredCard === c.slug ? 'z-50' : 'z-0'"
@@ -98,22 +98,12 @@
           </a>
         </div>
       </div>
-
-      <!-- CTA -->
-      <div class="flex justify-center mt-12">
-        <a
-          href="/pm-cases"
-          class="px-8 py-3 bg-primary-black dark:bg-primary-white text-primary-white dark:text-primary-black rounded-md font-medium hover:opacity-80 transition-all duration-300"
-        >
-          View all product sense cases
-        </a>
-      </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { Target } from 'lucide-vue-next'
 
 const props = defineProps({
@@ -123,8 +113,6 @@ const props = defineProps({
     default: () => [],
   },
 })
-
-const featuredCases = computed(() => props.cases.slice(0, 3))
 
 const hoveredCard = ref(null)
 const cardTransforms = ref({})

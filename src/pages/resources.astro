@@ -53,12 +53,12 @@ const resources = [
     cardHoverGradient: item.cardHoverGradient,
     insights: item.insights,
   })),
-  // Product sense cases sit after the main case studies, in their own question order.
+  // PM cases sit after the main case studies, in their own question order.
   ...pmCases.map((item: any) => ({
     id: item.slug,
     type: "pm-case",
     title: item.title,
-    label: `${item.series} ${item.questionNumber} · ${item.company}`,
+    label: `PM Case · ${item.company}`,
     slug: item.slug,
     thumbnail: "",
     logo: "",
@@ -72,7 +72,7 @@ const resources = [
 
 <Layout
   title="Resources - Mayuresh Mule"
-  description="All case studies, product sense cases, projects, and blogs."
+  description="All case studies, PM cases, projects, and blogs."
 >
   <Header client:load />
   <SocialSidebar client:load />
@@ -82,7 +82,7 @@ const resources = [
     <div class="max-w-7xl mx-auto">
       <ResourcesGrid items={resources} client:visible />
 
-      <!-- Product sense series, with a link through to the full /pm-cases hub -->
+      <!-- Every PM case; case pages link back here (#pm-cases) -->
       <PM100Section cases={pmCases} client:visible />
 
       <LetsConnect client:visible />

@@ -327,21 +327,21 @@ const blogs = defineCollection({
   }),
 })
 
-/** PM CASES - Product Sense series */
+/** PM CASES */
 const pmCases = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
     company: z.string(),
     questionNumber: z.string(), // e.g. "Q01"
-    series: z.string().default('Product Sense'),
+    series: z.string().default('PM Cases'),
     type: z.string().optional(),
     difficulty: z.enum(['easy', 'mid', 'hard', 'entry-level', 'senior']).optional(),
-    date: z.string().optional(),
     order: z.number().optional(),
     cardGradient: z.string().optional(),
     cardHoverGradient: z.string().optional(),
     insights: z.array(z.string()).optional(),
+    approach: z.string().optional(), // "How I worked on this" note under the title
 
     goal: z.object({
       objective: z.string(),
@@ -379,6 +379,7 @@ const pmCases = defineCollection({
       items: z.array(z.object({
         name: z.string(),
         reach: z.number(),
+        reachLabel: z.string().optional(), // e.g. "~40%" - shown instead of the raw reach
         impact: z.number(),
         confidence: z.number(),
         effort: z.number(),
@@ -411,6 +412,7 @@ const pmCases = defineCollection({
       mitigation: z.string(),
     })),
 
+    openQuestions: z.array(z.string()).optional(), // "What I couldn't see"
     summary: z.string().optional(),
   }),
 })
