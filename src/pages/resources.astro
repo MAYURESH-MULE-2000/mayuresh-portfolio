@@ -5,7 +5,6 @@ import SocialSidebar from "../components/SocialSidebar.vue";
 import EmailSidebar from "../components/EmailSidebar.vue";
 import LetsConnect from "../components/LetsConnect.vue";
 import ResourcesGrid from "../components/ResourcesGrid.vue";
-import PM100Section from "../components/pm/PM100Section.vue";
 import { getCaseStudies, getProjects, getBlogs, getPMCases } from "../lib/content";
 
 const caseStudies = await getCaseStudies();
@@ -53,23 +52,26 @@ const resources = [
     cardHoverGradient: item.cardHoverGradient,
     insights: item.insights,
   })),
+  // PM 100 cases sit after the main case studies, in their own question order.
+  ...pmCases.map((item: any) => ({
+    id: item.slug,
+    type: "pm-case",
+    title: item.title,
+    label: `${item.series} ${item.questionNumber} · ${item.company}`,
+    slug: item.slug,
+    thumbnail: "",
+    logo: "",
+    order: 100 + item.order,
+    cardGradient: item.cardGradient,
+    cardHoverGradient: item.cardHoverGradient,
+    insights: item.insights,
+  })),
 ].sort((a, b) => a.order - b.order);
-
-// Product writing lives in its own block further down the page, so it is kept
-// out of the main grid to avoid showing the same card twice.
-const PRODUCT_WRITING_SLUGS = ["whatsapp-discover"];
-
-const mainResources = resources.filter(
-  (item: any) => !PRODUCT_WRITING_SLUGS.includes(item.slug),
-);
-const productWriting = resources.filter((item: any) =>
-  PRODUCT_WRITING_SLUGS.includes(item.slug),
-);
 ---
 
 <Layout
   title="Resources - Mayuresh Mule"
-  description="All case studies, projects, and blogs."
+  description="All case studies, PM cases, projects, and blogs."
 >
   <Header client:load />
   <SocialSidebar client:load />
@@ -77,25 +79,7 @@ const productWriting = resources.filter((item: any) =>
 
   <main class="px-16 md:px-32 py-20 pt-16">
     <div class="max-w-7xl mx-auto">
-      <ResourcesGrid items={mainResources} client:visible />
-
-      <!-- ═══════════════════════════════════════ -->
-      <!-- PRODUCT WRITING                         -->
-      <!-- (moved off the home page)               -->
-      <!-- ═══════════════════════════════════════ -->
-      <section id="product-writing">
-        <ResourcesGrid
-          items={productWriting}
-          heading="Product Writing"
-          headingTag="h2"
-          headingClass="text-3xl md:text-4xl font-bold mb-4 tracking-tight"
-          subheading="Product sense and PM case studies - the thinking work, kept separate from what I build."
-          showFilters={false}
-          client:visible
-        />
-
-        <PM100Section cases={pmCases} client:visible />
-      </section>
+      <ResourcesGrid items={resources} client:visible />
 
       <LetsConnect client:visible />
     </div>

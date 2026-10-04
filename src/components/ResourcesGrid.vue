@@ -4,7 +4,8 @@ import {
     LayoutGrid as LucideLayoutGrid, 
     Presentation as LucidePresentation, 
     Rocket as LucideRocket, 
-    PenTool as LucidePenTool 
+    PenTool as LucidePenTool,
+    Target as LucideTarget
 } from 'lucide-vue-next'
 
 const props = defineProps({
@@ -41,11 +42,13 @@ const activeFilter = ref('all')
 const filters = [
     { id: 'all', label: 'All', icon: LucideLayoutGrid },
     { id: 'case-study', label: 'Case Study', icon: LucidePresentation },
+    { id: 'pm-case', label: 'PM Cases', icon: LucideTarget },
     { id: 'project', label: 'Projects', icon: LucideRocket },
     { id: 'blog', label: 'Blogs', icon: LucidePenTool }
 ]
 
-const getRoutePath = (type, slug) => `/${type}/${slug}`
+// PM cases live under /pm-cases, everything else under its singular type.
+const getRoutePath = (type, slug) => type === 'pm-case' ? `/pm-cases/${slug}` : `/${type}/${slug}`
 
 const filteredResources = computed(() => {
     if (!props.items || props.items.length === 0) return []
@@ -73,6 +76,7 @@ const getCardGradient = (item, index, isHover) => {
         'case-study': ['from-teal-500 to-emerald-600', 'from-purple-500 to-pink-600', 'from-orange-500 to-amber-600', 'from-blue-500 to-indigo-600'],
         'project': ['from-red-500 to-rose-600', 'from-cyan-500 to-blue-600', 'from-violet-500 to-purple-600', 'from-amber-500 to-orange-600'],
         'blog': ['from-pink-500 to-rose-600', 'from-yellow-500 to-orange-600', 'from-green-500 to-teal-600', 'from-indigo-500 to-blue-600'],
+        'pm-case': ['from-violet-500 to-purple-700', 'from-blue-500 to-indigo-700', 'from-emerald-500 to-teal-700', 'from-rose-500 to-pink-700'],
     }
     const typeGradients = gradients[item.type] || gradients['case-study']
     return `bg-gradient-to-br ${typeGradients[index % typeGradients.length]}`
@@ -83,6 +87,7 @@ const getIcon = (type) => {
         'case-study': LucidePresentation,
         'project': LucideRocket,
         'blog': LucidePenTool,
+        'pm-case': LucideTarget,
     }
     return icons[type] || LucidePresentation
 }
@@ -227,7 +232,7 @@ const getCardTransform = (cardId) => cardTransforms.value[cardId] || 'perspectiv
             <!-- Empty State -->
             <div v-if="filteredResources.length === 0" class="text-center py-20">
                 <p class="text-lg text-gray-500 dark:text-gray-400">
-                    No {{ activeFilter === 'all' ? 'resources' : activeFilter.replace('-', ' ') }} found.
+                    No {{ activeFilter === 'all' ? 'resources' : filters.find((f) => f.id === activeFilter).label.toLowerCase() }} found.
                 </p>
             </div>
         </div>
