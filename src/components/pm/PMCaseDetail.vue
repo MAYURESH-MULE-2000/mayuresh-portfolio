@@ -3,8 +3,8 @@
 
     <!-- Header -->
     <div class="mb-10">
-      <a href="/pm-cases" class="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors mb-6">
-        ← Back to Product Sense
+      <a href="/resources#pm-cases" class="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors mb-6">
+        ← Back to Resources
       </a>
 
       <div class="flex flex-wrap items-center gap-3 mb-4">
@@ -19,7 +19,6 @@
         >
           {{ case_.type }}
         </span>
-        <span class="text-xs text-gray-400 dark:text-gray-500">{{ case_.date }}</span>
       </div>
 
       <h1 class="text-2xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">
@@ -28,6 +27,10 @@
       <p class="text-gray-500 dark:text-gray-400 text-base">
         Company: <span class="font-semibold text-gray-700 dark:text-gray-300">{{ case_.company }}</span>
       </p>
+      <div v-if="case_.approach" class="mt-6 max-w-3xl p-5 rounded-2xl bg-gray-50 dark:bg-white/[0.03] border border-gray-100 dark:border-white/5">
+        <p class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">How I worked on this</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{{ case_.approach }}</p>
+      </div>
     </div>
 
     <!-- Body: sidebar + scrollable content -->
@@ -218,7 +221,7 @@
                   <td class="px-4 py-3 font-medium text-gray-800 dark:text-gray-200">
                     <Star v-if="i === 0" class="inline w-3.5 h-3.5 text-violet-500 mr-1.5 -mt-0.5" />{{ f.name }}
                   </td>
-                  <td class="px-3 py-3 text-center text-gray-500 dark:text-gray-400">{{ f.reach }}</td>
+                  <td class="px-3 py-3 text-center text-gray-500 dark:text-gray-400">{{ f.reachLabel ?? f.reach }}</td>
                   <td class="px-3 py-3 text-center text-gray-500 dark:text-gray-400">{{ f.impact }}x</td>
                   <td class="px-3 py-3 text-center text-gray-500 dark:text-gray-400">{{ Math.round(f.confidence * 100) }}%</td>
                   <td class="px-3 py-3 text-center text-gray-500 dark:text-gray-400">{{ f.effort }}m</td>
@@ -316,6 +319,18 @@
             </div>
           </div>
         </section>
+
+        <!-- Open questions -->
+        <div v-if="case_.openQuestions && case_.openQuestions.length" class="pb-6">
+          <div class="p-6 rounded-2xl border border-gray-100 dark:border-white/5 bg-white dark:bg-white/[0.02]">
+            <p class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">What I couldn't see</p>
+            <ul class="space-y-2">
+              <li v-for="(q, i) in case_.openQuestions" :key="i" class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                <span class="text-violet-500 mt-0.5">•</span>{{ q }}
+              </li>
+            </ul>
+          </div>
+        </div>
 
         <!-- Summary -->
         <div v-if="case_.summary" class="pb-8">

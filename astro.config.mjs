@@ -19,6 +19,10 @@ export default defineConfig({
     tailwind(),
     sitemap(),
   ],
+  // The old PM cases hub now lives on the resources page.
+  redirects: {
+    '/pm-cases': '/resources#pm-cases',
+  },
   output: 'static',
   adapter: vercel(),
 })
