@@ -2,7 +2,7 @@
 title: "Design a ride-sharing app for elderly users"
 company: "Uber"
 questionNumber: "Q01"
-series: "PM 100"
+series: "Product Sense"
 type: "Product"
 difficulty: "entry-level"
 date: "28 March 2026"

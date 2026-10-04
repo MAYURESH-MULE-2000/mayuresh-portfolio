@@ -4,7 +4,7 @@
     <!-- Header -->
     <div class="mb-10">
       <a href="/pm-cases" class="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors mb-6">
-        ← Back to PM 100
+        ← Back to Product Sense
       </a>
 
       <div class="flex flex-wrap items-center gap-3 mb-4">
