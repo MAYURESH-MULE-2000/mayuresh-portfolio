@@ -327,14 +327,14 @@ const blogs = defineCollection({
   }),
 })
 
-/** PM CASES - PM 100 Product Sense Series */
+/** PM CASES - Product Sense series */
 const pmCases = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
     company: z.string(),
     questionNumber: z.string(), // e.g. "Q01"
-    series: z.string().default('PM 100'),
+    series: z.string().default('Product Sense'),
     type: z.string().optional(),
     difficulty: z.enum(['easy', 'mid', 'hard', 'entry-level', 'senior']).optional(),
     date: z.string().optional(),

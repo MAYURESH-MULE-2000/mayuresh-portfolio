@@ -6,12 +6,12 @@
       <div class="mb-12 md:mb-16">
         <div class="flex items-center gap-3 mb-3">
           <span class="px-3 py-1 text-xs font-bold rounded-full bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 uppercase tracking-widest">
-            PM 100
+            Product Sense
           </span>
         </div>
         <h2 class="text-3xl md:text-4xl font-bold">Product Sense Cases</h2>
         <p class="text-gray-600 dark:text-gray-400 text-lg mt-2 transition-colors duration-300">
-          100 mini case studies - each structured with goals, market sizing, user segments, pain prioritisation, and metrics.
+          Mini case studies on real product problems - each structured with goals, market sizing, user segments, pain prioritisation, and metrics.
         </p>
       </div>
 
@@ -105,7 +105,7 @@
           href="/pm-cases"
           class="px-8 py-3 bg-primary-black dark:bg-primary-white text-primary-white dark:text-primary-black rounded-md font-medium hover:opacity-80 transition-all duration-300"
         >
-          View all PM 100 cases
+          View all product sense cases
         </a>
       </div>
     </div>

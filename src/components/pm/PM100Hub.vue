@@ -8,9 +8,9 @@
 
       <div class="flex items-center gap-3 mb-3">
         <span class="px-3 py-1 text-xs font-bold rounded-full bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 uppercase tracking-widest">
-          PM 100
+          Product Sense
         </span>
-        <span class="text-xs text-gray-400">{{ cases.length }} / 100 published</span>
+        <span class="text-xs text-gray-400">{{ cases.length }} published</span>
       </div>
 
       <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-3">
@@ -18,7 +18,7 @@
         Product Sense Case Studies
       </h1>
       <p class="text-gray-500 dark:text-gray-400 text-base md:text-lg max-w-2xl">
-        100 mini case studies covering real product problems - from user segmentation and pain prioritisation
+        Mini case studies covering real product problems - from user segmentation and pain prioritisation
         to MVP scoping and metric definition. Each case is structured with a standard 8-section framework.
       </p>
     </div>

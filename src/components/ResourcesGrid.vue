@@ -42,7 +42,7 @@ const activeFilter = ref('all')
 const filters = [
     { id: 'all', label: 'All', icon: LucideLayoutGrid },
     { id: 'case-study', label: 'Case Study', icon: LucidePresentation },
-    { id: 'pm-case', label: 'PM Cases', icon: LucideTarget },
+    { id: 'pm-case', label: 'Product Sense', icon: LucideTarget },
     { id: 'project', label: 'Projects', icon: LucideRocket },
     { id: 'blog', label: 'Blogs', icon: LucidePenTool }
 ]

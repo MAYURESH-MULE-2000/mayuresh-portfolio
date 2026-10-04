@@ -5,6 +5,7 @@ import SocialSidebar from "../components/SocialSidebar.vue";
 import EmailSidebar from "../components/EmailSidebar.vue";
 import LetsConnect from "../components/LetsConnect.vue";
 import ResourcesGrid from "../components/ResourcesGrid.vue";
+import PM100Section from "../components/pm/PM100Section.vue";
 import { getCaseStudies, getProjects, getBlogs, getPMCases } from "../lib/content";
 
 const caseStudies = await getCaseStudies();
@@ -52,7 +53,7 @@ const resources = [
     cardHoverGradient: item.cardHoverGradient,
     insights: item.insights,
   })),
-  // PM 100 cases sit after the main case studies, in their own question order.
+  // Product sense cases sit after the main case studies, in their own question order.
   ...pmCases.map((item: any) => ({
     id: item.slug,
     type: "pm-case",
@@ -71,7 +72,7 @@ const resources = [
 
 <Layout
   title="Resources - Mayuresh Mule"
-  description="All case studies, PM cases, projects, and blogs."
+  description="All case studies, product sense cases, projects, and blogs."
 >
   <Header client:load />
   <SocialSidebar client:load />
@@ -80,6 +81,9 @@ const resources = [
   <main class="px-16 md:px-32 py-20 pt-16">
     <div class="max-w-7xl mx-auto">
       <ResourcesGrid items={resources} client:visible />
+
+      <!-- Product sense series, with a link through to the full /pm-cases hub -->
+      <PM100Section cases={pmCases} client:visible />
 
       <LetsConnect client:visible />
     </div>
